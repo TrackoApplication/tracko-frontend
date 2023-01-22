@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const pages = ['Project', 'Clients', 'Users'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function Navbar() {
+const Navbar = () => {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
