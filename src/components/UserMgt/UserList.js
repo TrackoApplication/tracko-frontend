@@ -1,15 +1,14 @@
 import React from 'react'
-import Navbar from '../Navbar'
+import NavBar from '../Navbar'
 import { useNavigate } from 'react-router-dom'
 
 
 const UserList = () => {
     const navigate = useNavigate();
 
-
   return (
     <div>
-        <Navbar/>
+        <NavBar/>
         <div className="container mx-auto my-8">
     <div className =" h-12">
         <button 

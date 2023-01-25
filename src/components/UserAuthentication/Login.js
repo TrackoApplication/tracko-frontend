@@ -44,7 +44,7 @@ const Login = () => {
             <div className="items-center  h-14 pt-4 ml-4 my-4 w-full space-x-5">
                 <button
                 onClick={successLogin}
-                className = "inline-block rounded text-white font-semibold bg-[#FF8484] py-2 px-3 mr-11 hover:bg-[#794141] shadow">
+                className = "inline-block rounded w-96 text-white font-semibold bg-[#FF8484] py-2 px-3 mr-11 hover:bg-[#794141] shadow">
                         Login
                 </button>
                 <p className= " inline-block py-2 ml-11  hover:text-[#FF8484]" onClick={() => navigate('/ResetPass')}>Forget Password!</p>

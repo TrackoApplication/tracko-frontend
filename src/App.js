@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import UserList from "./components/UserMgt/UserList";
 import ResetPass from "./components/UserAuthentication/ResetPass";
 import ProjectList from "./components/ProjectList";
+import ClientList from "./components/ClientMgt/ClientList";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/UserList" element ={<UserList/>}></Route>
         <Route path="/ResetPass" element ={<ResetPass/>}></Route>
         <Route path="/ProjectList" element ={<ProjectList/>}></Route>
+        <Route path="/ClientList" element ={<ClientList/>}></Route>
       </Routes>
     </BrowserRouter>
     </>
