@@ -9,6 +9,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './navStyle.css'
 
+
 const NavBar = () => {
   const navigate = useNavigate();
   
@@ -24,7 +25,7 @@ const NavBar = () => {
               height="30"
               className="d-inline-block align-top mx-2 mr-4 my-0 "
             />
-              Tracko</Navbar.Brand>
+              <h2 className='inline-block text-white mt-1'>Tracko</h2></Navbar.Brand>
             <Navbar.Toggle/>
             <Navbar.Offcanvas  
               placement="end"
@@ -49,13 +50,18 @@ const NavBar = () => {
                     
                 </Nav>
                 <Form className="d-flex">
+                <button 
+                className='search-btn'>
+                  <i class="bi bi-search color-white"></i>
+                </button>
                   <Form.Control
                     type="search"
                     placeholder="Search"
                     className="me-2"
                     aria-label="Search"
                   />
-                  <Button variant="outline-success " className=' text-white  outline-slate-100 '>Search</Button>
+                
+                  {/* <Button variant="outline-success " className='text-white  outline-slate-100 bg-[rgb(194, 194, 194)]'>Search</Button> */}
                 </Form>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

@@ -76,7 +76,10 @@ const UserList = () => {
           </td>
           <td>
             <MDBBadge color='primary' pill>
-              Onboarding
+              Scrum Master
+            </MDBBadge>
+            <MDBBadge color='warning' pill>
+              Product Owner
             </MDBBadge>
           </td>
           <td>
@@ -105,7 +108,7 @@ const UserList = () => {
           </td>
           <td>
             <MDBBadge color='warning' pill>
-              Awaiting
+              Product Owner
             </MDBBadge>
           </td>
           <td>
