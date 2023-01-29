@@ -19,7 +19,7 @@ const NavBar = () => {
             <Navbar.Brand href="#" className=''  >
             <img
               alt=""
-              src={require('./images/Tp.png')}
+              src={require('../images/Tp.png')}
               width="30"
               height="30"
               className="d-inline-block align-top mx-2 mr-4 my-0 "
