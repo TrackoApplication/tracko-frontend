@@ -25,8 +25,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* pages without sidebar & nav bar */}
-        <Route path="/" element ={<Register/>}></Route>
-        <Route index element ={<Register/>}></Route>
+        <Route path="/" element ={<Login/>}></Route>
+        <Route index element ={<Login/>}></Route>
         <Route path="/Register" element ={<Register/>}></Route>
         <Route path="/Login" element ={<Login/>}></Route>
         <Route path="/ResetPass" element ={<ResetPass/>}></Route>

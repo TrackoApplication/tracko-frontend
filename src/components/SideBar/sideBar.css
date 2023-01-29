@@ -180,11 +180,11 @@
   .side-menu-footer .user-info{
     display: inline-block;
     
-    color: #666;
+    color: rgb(58, 57, 57);
 
     position: absolute;
     opacity: 1;
-    transition: opacity .2s ease-in;
+    transition: opacity .2s ease-in-out;
   
   }
   .side-menu.inactive .side-menu-footer .user-info{
@@ -196,14 +196,15 @@
   }
   
   .side-menu-footer .user-info h5{
-    font-size: 15px;
+    padding-top: 10px;
+    font-size: 18px;
 
   }
   
-  .side-menu-footer .user-info h6{
+  /* .side-menu-footer .user-info h6{
     font-size: 14px;
   
-  }
+  } */
   
   .divider{
     width: 100%;

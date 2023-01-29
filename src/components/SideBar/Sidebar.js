@@ -4,6 +4,7 @@ import { useState,useEffect } from 'react';
 import MenuItem from './MenuItem';
 import './sideBar.css'
 import Avatar from 'react-avatar';
+import { NavLink } from 'react-router-dom';
 
 export const menuItems = [
   {name: 'Backlog', to: '/Backlog', exact: true, iconClassName:'bi bi-x-diamond-fill'},
@@ -129,14 +130,14 @@ const Sidebar = (props) => {
           </div>
 
           <div className='side-menu-footer'>
-            <div className='avatar'>
-              <Avatar name='Seefa Banu' size='40' round={true} />
-            </div>
-            <div className='user-info'>
-              <h5>Seefa Banu</h5>
-              <p>seefabanu@gmail.com</p>
-            </div>
-
+            <NavLink to='/'>
+              <div className='avatar'>
+                <i class="bi bi-power "></i>
+              </div>
+              <div className='user-info inline-block'>
+                <h5>Logout</h5>
+              </div>
+            </NavLink>
           </div>
 
       </div>

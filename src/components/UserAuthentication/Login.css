@@ -1,0 +1,9 @@
+.cascading-left {
+    margin-left: -50px;
+  }
+  
+  @media (max) {
+    .cascading-right {
+      margin-right: 0;
+    }
+  }

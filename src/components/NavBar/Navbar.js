@@ -37,7 +37,7 @@ const NavBar = () => {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-start flex-grow-1 ps-5">
-                  <Nav.Link onClick={() => navigate('/ProjectList')} href="#action1" className='mx-2 text-white transition duration-00 hover:scale-125 ease-in-out' >
+                  <Nav.Link onClick={() => navigate('/ProjectList')} href="#action1" className='mx-2 text-white transition duration-700 hover:scale-125 ease-in-out' >
                     Project
                   </Nav.Link>
                   <Nav.Link href="#action1" onClick={() => navigate('/ClientList')} className='mx-2  text-white transition duration-700 hover:scale-125 ease-in-out'>
