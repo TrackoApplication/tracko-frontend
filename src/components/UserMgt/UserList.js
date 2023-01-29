@@ -1,22 +1,30 @@
 import React from 'react'
+import { useState } from 'react'
 import NavBar from '../NavBar/Navbar'
 import { useNavigate } from 'react-router-dom'
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import AddUser from './AddUser';
 
 
 
 const UserList = () => {
     const navigate = useNavigate();
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
   return (
     <>
         <NavBar/>
     
     <div className =" h-12 m-4 ">
-        <button 
-        onClick = {() => navigate("/addUser")}
-        className="rounded bg-[#231651] text-white px-6 py-2 font-semibold transition duration-700 hover:scale-105 ease-in-out">Add User</button>
+        {/* <button 
+         onClick={<AddUser handleClose/>}
+        // onClick = {() => navigate("/addUser")}
+        className="rounded bg-[#231651] text-white px-6 py-2 font-semibold transition duration-700 hover:scale-105 ease-in-out">Add User</button> */}
+    <AddUser/>
     </div>
+    
     <MDBTable align='middle '>
       <MDBTableHead>
         <tr>

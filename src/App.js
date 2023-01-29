@@ -15,6 +15,7 @@ import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
 import Report from "./components/ReportMgt/Report";
 import Sidebar, { menuItems } from "./components/SideBar/Sidebar";
+import AddUser from "./components/UserMgt/AddUser";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/Register" element ={<Register/>}></Route>
         <Route path="/Login" element ={<Login/>}></Route>
         <Route path="/ResetPass" element ={<ResetPass/>}></Route>
+        <Route path="/AddUser" element ={<AddUser/>}></Route>
 
         {/* pages without sidebar */}
         <Route path="/UserList" element ={<UserList/>}></Route>
