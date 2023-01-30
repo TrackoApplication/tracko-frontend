@@ -106,11 +106,9 @@ const Login = () => {
 
             <div className="text-center">
 
-              <NavLink to='/Register'>
-              <p>Create a new Account</p>
-              </NavLink>
-              
+              <p onClick={() => navigate('/Register')}>Create a new Account</p>               
 
+                <p onClick={() => navigate('/ResetPass')}>Forgot Password?</p>
             </div>
 
           </MDBCardBody>

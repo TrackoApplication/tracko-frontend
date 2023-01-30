@@ -118,9 +118,10 @@ const Register = () => {
             className='w-100 mb-3' size='md'>sign up</MDBBtn>
 
             <div className="text-center">
-            <NavLink to="/Login" className="text-decoration-none text-dark">
-              <p>Already have an account</p>
-            </NavLink>
+              <p
+              onClick={() => navigate('/Login')}
+              >Already have an account</p>
+
             </div>
 
           </MDBCardBody>
