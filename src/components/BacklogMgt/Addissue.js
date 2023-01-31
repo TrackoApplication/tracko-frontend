@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Sidebar from '../SideBar/Sidebar';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { MDBCol,MDBRow } from 'mdb-react-ui-kit';
+import { MDBCol } from 'mdb-react-ui-kit';
 
-const Backlog = () => {
+const AddIssue = () => {
   const [inactive, setInactive] = React.useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -53,7 +52,7 @@ const Backlog = () => {
                         <Form.Control
                             type="issuetype"
                             // placeholder="Dee"
-                            autoFocus
+                            // autoFocus
                         />
                         </Form.Group>
                 
@@ -62,7 +61,7 @@ const Backlog = () => {
                         <Form.Control
                         type="summary"
                         // placeholder="JhonDee999"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
 
@@ -71,7 +70,7 @@ const Backlog = () => {
                         <Form.Control
                         type="description"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
 
@@ -80,7 +79,7 @@ const Backlog = () => {
                         <Form.Control
                         type="assignee"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
                     
@@ -89,7 +88,7 @@ const Backlog = () => {
                         <Form.Control
                         type="sprint"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
                     
@@ -98,7 +97,7 @@ const Backlog = () => {
                         <Form.Control
                         type="epic"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
 
@@ -107,7 +106,7 @@ const Backlog = () => {
                         <Form.Control
                         type="epic"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
 
@@ -116,7 +115,7 @@ const Backlog = () => {
                         <Form.Control
                         type="reqoftesting"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
 
@@ -125,7 +124,7 @@ const Backlog = () => {
                         <Form.Control
                         type="devstorypoint"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
 
@@ -134,7 +133,7 @@ const Backlog = () => {
                         <Form.Control
                         type="qastorypoint"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
 
@@ -143,7 +142,7 @@ const Backlog = () => {
                         <Form.Control
                         type="totalstorypoint"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
 
@@ -152,7 +151,7 @@ const Backlog = () => {
                         <Form.Control
                         type="qastorypoint"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
 
@@ -161,7 +160,7 @@ const Backlog = () => {
                         <Form.Control
                         type="priority"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
                         
@@ -170,7 +169,7 @@ const Backlog = () => {
                         <Form.Control
                         type="reporter"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
                            
@@ -197,4 +196,4 @@ const Backlog = () => {
   );
 }
 
-export default Backlog;
+export default AddIssue;
