@@ -14,17 +14,13 @@ const SprintCreation = () => {
     <div>
 
         <div className={`container ${inactive ? "inactive" : ""}`}>
-            
-            {/* <h1>Backlog</h1>
-            <br></br>
-            <button> + Create issue</button> */}
 
-            <Button 
+          <Button 
             variant="primary" 
             className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out" 
             onClick={handleShow}>
             Create Sprint
-            </Button>
+          </Button>
 
           <Modal show={show} onHide={handleClose}>
 
@@ -40,8 +36,8 @@ const SprintCreation = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Sprint name</Form.Label>
                         <Form.Control
-                            type="sprintname"
-                            // placeholder="Jhon"
+                            type="text"
+                            placeholder="Sprint Name"
                             autoFocus
                             // required
                         />
@@ -50,17 +46,19 @@ const SprintCreation = () => {
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Duration</Form.Label>
-                        <Form.Control
-                            type="duration"
-                            // placeholder="Dee"
-                            // autoFocus
-                        />
+                        <Form.Select>
+                          <option value="">--Duration--</option>
+                          <option value="">Custom</option>
+                          <option value="">1 week</option>
+                          <option value="">2 weeks</option>
+                          <option value="">4 weeks</option>
+                        </Form.Select>
                         </Form.Group>
                 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Start date</Form.Label>
                         <Form.Control
-                        type="s-date"
+                        type="datetime-local"
                         // placeholder="JhonDee999"
                         // autoFocus
                         />
@@ -69,7 +67,7 @@ const SprintCreation = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>End date</Form.Label>
                         <Form.Control
-                        type="e-date"
+                        type="datetime-local"
                         // placeholder="name@example.com"
                         // autoFocus
                         />
@@ -78,8 +76,8 @@ const SprintCreation = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Sprint Goal</Form.Label>
                         <Form.Control
-                        type="goal"
-                        // placeholder="name@example.com"
+                        type="text"
+                        placeholder="Goal"
                         // autoFocus
                         />
                         </Form.Group>

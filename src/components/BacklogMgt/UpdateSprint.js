@@ -14,23 +14,19 @@ const SprintUpdation = () => {
     <div>
 
         <div className={`container ${inactive ? "inactive" : ""}`}>
-            
-            {/* <h1>Backlog</h1>
-            <br></br>
-            <button> + Create issue</button> */}
 
-            <Button 
+          <Button 
             variant="primary" 
             className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out" 
             onClick={handleShow}>
             Update Sprint
-            </Button>
+          </Button>
 
           <Modal show={show} onHide={handleClose}>
 
             {/* header section */}
             <Modal.Header closeButton>
-              <Modal.Title>Start Sprint</Modal.Title>
+              <Modal.Title>Update Sprint</Modal.Title>
             </Modal.Header>
 
             {/* body section */}
@@ -40,8 +36,8 @@ const SprintUpdation = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Sprint name</Form.Label>
                         <Form.Control
-                            type="sprintname"
-                            // placeholder="Jhon"
+                            type="text"
+                            placeholder="Update sprint name"
                             autoFocus
                             // required
                         />
@@ -50,17 +46,19 @@ const SprintUpdation = () => {
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Duration</Form.Label>
-                        <Form.Control
-                            type="duration"
-                            // placeholder="Dee"
-                            // autoFocus
-                        />
+                        <Form.Select>
+                          <option value="">--Update duration--</option>
+                          <option value="">Custom</option>
+                          <option value="">1 week</option>
+                          <option value="">2 weeks</option>
+                          <option value="">4 weeks</option>
+                        </Form.Select>
                         </Form.Group>
                 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Start date</Form.Label>
                         <Form.Control
-                        type="s-date"
+                        type="datetime-local"
                         // placeholder="JhonDee999"
                         // autoFocus
                         />
@@ -69,7 +67,7 @@ const SprintUpdation = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>End date</Form.Label>
                         <Form.Control
-                        type="e-date"
+                        type="datetime-local"
                         // placeholder="name@example.com"
                         // autoFocus
                         />
@@ -79,7 +77,7 @@ const SprintUpdation = () => {
                         <Form.Label>Sprint Goal</Form.Label>
                         <Form.Control
                         type="goal"
-                        // placeholder="name@example.com"
+                        placeholder="Update sprint goal"
                         // autoFocus
                         />
                         </Form.Group>
