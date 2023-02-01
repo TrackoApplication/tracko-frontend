@@ -76,7 +76,7 @@ const SprintCreation = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Sprint Goal</Form.Label>
                         <Form.Control
-                        type="text"
+                        as="textarea" rows={5}
                         placeholder="Goal"
                         // autoFocus
                         />

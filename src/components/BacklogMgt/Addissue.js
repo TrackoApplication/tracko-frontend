@@ -69,7 +69,7 @@ const AddIssue = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Description</Form.Label>
                         <Form.Control
-                        type="textarea"
+                        as="textarea" rows={5}
                         placeholder="Description"
                         // autoFocus
                         />

@@ -76,7 +76,7 @@ const SprintUpdation = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Sprint Goal</Form.Label>
                         <Form.Control
-                        type="goal"
+                        as="textarea" rows={5}
                         placeholder="Update sprint goal"
                         // autoFocus
                         />
