@@ -7,6 +7,8 @@ import { MDBCol,MDBRow } from 'mdb-react-ui-kit';
 import Addissue from './Addissue';
 import SprintCreation from './Sprintcreation';
 import SprintUpdation from './UpdateSprint';
+import Sprintdeletion from './DeleteSprint';
+import SprintCompletion from './CompleteSprint';
 
 const Backlog = () => {
   const [inactive, setInactive] = React.useState(false);
@@ -30,7 +32,13 @@ const Backlog = () => {
         <SprintCreation /><br /><br /><br />
 
         {/* update sprint page will appear here */}
-        <SprintUpdation />
+        <SprintUpdation /><br /><br /><br />
+
+        {/* delete sprint page will appear here */}
+        <Sprintdeletion /><br /><br /><br />
+
+        {/* complete sprint page will appear here */}
+        <SprintCompletion />
 
     </div>
   );

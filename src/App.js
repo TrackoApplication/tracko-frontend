@@ -40,12 +40,12 @@ function App() {
         
         {/* pages with sidebar */}
      
-          <Route path="/Team" element ={<Team/>}></Route>
-          <Route path="/Backlog" element ={<Backlog/>}></Route>
-          <Route path="/ActiveSprint" element ={<ActiveSprint/>}></Route>
-          <Route path="/People" element ={<People/>}></Route>
-          <Route path="/Forum" element ={<Forum/>}></Route>
-          <Route path="/Report" element ={<Report/>}></Route>
+        <Route path="/Team" element ={<Team/>}></Route>
+        <Route path="/Backlog" element ={<Backlog/>}></Route>
+        <Route path="/ActiveSprint" element ={<ActiveSprint/>}></Route>
+        <Route path="/People" element ={<People/>}></Route>
+        <Route path="/Forum" element ={<Forum/>}></Route>
+        <Route path="/Report" element ={<Report/>}></Route>
        
       
       </Routes>
