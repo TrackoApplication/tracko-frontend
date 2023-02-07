@@ -34,7 +34,7 @@ const SprintDeletion = () => {
             Cancel
             </Button>
 
-            <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] ' onClick={handleClose}>
+            <Button variant="primary" className='rounded bg-[#ff0000] text-white border-none  font-semibold hover:bg-[#ff0000] ' onClick={handleClose}>
             Delete
             </Button>
 
