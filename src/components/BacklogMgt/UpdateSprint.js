@@ -17,7 +17,7 @@ const SprintUpdation = () => {
 
           <Button 
             variant="primary" 
-            className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out" 
+            className="rounded bg-[#C0CCC3] text-white border-none px-3 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#C0CCC3] ease-in-out" 
             onClick={handleShow}>
             Update Sprint
           </Button>
@@ -88,13 +88,12 @@ const SprintUpdation = () => {
 
             {/* button section */}
             <Modal.Footer>
+              <Button variant="primary" className='rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] ' onClick={handleClose}>
+                Update
+              </Button>
 
               <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
                 Cancel
-              </Button>
-
-              <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] ' onClick={handleClose}>
-                Create
               </Button>
 
             </Modal.Footer>

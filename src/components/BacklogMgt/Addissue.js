@@ -14,14 +14,10 @@ const AddIssue = () => {
     <div>
 
         <div className={`container ${inactive ? "inactive" : ""}`}>
-            
-            {/* <h1>Backlog</h1>
-            <br></br>
-            <button> + Create issue</button> */}
 
             <Button 
-            variant="primary" 
-            className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out" 
+            variant="link" 
+            className="text-black border-none font-semibold text-decoration-none" 
             onClick={handleShow}>
             + Create Issue
             </Button>
@@ -171,7 +167,7 @@ const AddIssue = () => {
                 Cancel
               </Button>
 
-              <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] ' onClick={handleClose}>
+              <Button variant="primary" className='rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] ' onClick={handleClose}>
                 Create
               </Button>
 

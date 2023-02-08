@@ -25,6 +25,12 @@ const Backlog = () => {
         }}
         />
 
+        <div className={`container ${inactive ? "inactive" : ""}`}>
+            <h1>Backlog</h1>
+        </div>
+
+        <br /><br />
+
         {/* create issue page will appear here */}
         <Addissue /><br /><br /><br />
 
