@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Sidebar from '../SideBar/Sidebar';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
-import { MDBCol,MDBRow } from 'mdb-react-ui-kit';
 import Addissue from './Addissue';
-import SprintCreation from './Sprintcreation';
+import SprintCreation from './Createsprint';
 import SprintUpdation from './UpdateSprint';
 import Sprintdeletion from './DeleteSprint';
 import SprintCompletion from './CompleteSprint';
+import SprintStart from './Sprintstart';
+import Backlogtable from './Issuetable';
+
 
 const Backlog = () => {
   const [inactive, setInactive] = React.useState(false);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
  
   return (
     <div>
 
-        <Sidebar
-        onCollapse={(inactive) => {
-            setInactive(inactive);
+        <div>
+          <Sidebar
+          onCollapse={(inactive) => {
+              setInactive(inactive);
         }}
-        />
+          />
+        </div>
+
 
         <div className={`container ${inactive ? "inactive" : ""}`}>
             <h1>Backlog</h1>
@@ -31,20 +33,36 @@ const Backlog = () => {
 
         <br /><br />
 
-        {/* create issue page will appear here */}
-        <Addissue /><br /><br /><br />
+        <div>
+          {/* sprint creation will be happen here */}
+          <SprintCreation /><br /><br /><br />
 
-        {/* create sprint page will appear here */}
-        <SprintCreation /><br /><br /><br />
+        </div>
 
-        {/* update sprint page will appear here */}
-        <SprintUpdation /><br /><br /><br />
+        <br /><br />
 
-        {/* delete sprint page will appear here */}
-        <Sprintdeletion /><br /><br /><br />
+        <div>
+          {/* sprint creation will be happen here */}
+          <Backlogtable />
 
-        {/* complete sprint page will appear here */}
-        <SprintCompletion />
+          {/* issue creation will be happen here */}
+          <Addissue /><br /><br /><br />
+        </div>
+
+        <div>
+
+            {/* sprint start page will appear here */}
+            <SprintStart /><br /><br /><br />
+
+            {/* update sprint page will appear here */}
+            <SprintUpdation /><br /><br /><br />
+
+            {/* delete sprint page will appear here */}
+            <Sprintdeletion /><br /><br /><br />
+
+            {/* complete sprint page will appear here */}
+            <SprintCompletion />
+        </div>
 
     </div>
   );

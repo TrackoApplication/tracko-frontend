@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { MDBCol } from 'mdb-react-ui-kit';
 
-const SprintCreation = () => {
+const SprintStart = () => {
   const [inactive, setInactive] = React.useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -104,4 +104,4 @@ const SprintCreation = () => {
   );
 }
 
-export default SprintCreation;
+export default SprintStart;
