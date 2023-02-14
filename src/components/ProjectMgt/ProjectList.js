@@ -3,8 +3,7 @@ import Sidebar from '../SideBar/Sidebar'
 
 const ProjectList = () => {
   return (
-    <div>
-        
+    <div>  
         <Sidebar/>
     </div>
   )

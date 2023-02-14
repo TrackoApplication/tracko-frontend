@@ -80,7 +80,7 @@ const Login = () => {
 
     // </div>
 
-    <MDBContainer fluid className='m                                                                                                               first-letter:first-line:                                   m        -2'>
+    <MDBContainer fluid className='m  first-letter:first-line: m-2'>
 
     <MDBRow className='g-0 align-items-center'>
       
@@ -102,7 +102,9 @@ const Login = () => {
 
             <MDBBtn 
             onClick={() => navigate('/userlist')}
-            className='w-100 mb-3' size='md'>sign in</MDBBtn>
+            className='w-100 mb-3' size='md'>
+              sign in
+            </MDBBtn>
 
             <div className="text-center">
 
