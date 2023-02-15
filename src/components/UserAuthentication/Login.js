@@ -102,15 +102,19 @@ const Login = () => {
 
             <MDBBtn 
             onClick={() => navigate('/userlist')}
-            className='w-100 mb-3' size='md'>
+            className='w-100 mb-3 bg-[#FF8484] hover:bg-[#fa7676] cursor-pointer' size='md'>
               sign in
             </MDBBtn>
 
             <div className="text-center">
 
-              <p onClick={() => navigate('/Register')}>Create a new Account</p>               
+              <p onClick={() => navigate('/Register')}
+              className="cursor-pointer my-2" >
+              Create a new Account</p>               
 
-                <p onClick={() => navigate('/ResetPass')}>Forgot Password?</p>
+                <p
+                className="cursor-pointer my-2" 
+                onClick={() => navigate('/ResetPass')}>Forgot Password?</p>
             </div>
 
           </MDBCardBody>
