@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { MDBCol } from 'mdb-react-ui-kit';
+import { MDBBadge} from 'mdb-react-ui-kit';
 
 const SprintDeletion = () => {
   const [inactive, setInactive] = React.useState(false);
@@ -22,14 +21,18 @@ const SprintDeletion = () => {
             Delete Sprint
           </Button>
 
-        <Modal show={show} onHide={handleClose} animation={false}>
+          <MDBBadge color='secondary' rounded-circle>2</MDBBadge>
+          <MDBBadge color='primary' rounded-circle>0</MDBBadge>
+          <MDBBadge color='success' rounded-circle>0</MDBBadge>
+
+          <Modal show={show} onHide={handleClose} animation={false}>
             <Modal.Header deleteButton>
                 <Modal.Title>Delete Sprint</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>Are you sure you want to delete Project 1 Sprint 1?</Modal.Body>
 
-        <Modal.Footer>
+          <Modal.Footer>
             <Button variant="primary" className='rounded bg-[#ff0000] text-white border-none  font-semibold hover:bg-[#ff0000] ' onClick={handleClose}>
             Delete
             </Button>

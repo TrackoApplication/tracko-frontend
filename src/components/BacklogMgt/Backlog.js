@@ -7,6 +7,9 @@ import Sprintdeletion from './DeleteSprint';
 import SprintCompletion from './CompleteSprint';
 import SprintStart from './Sprintstart';
 import Backlogtable from './Issuetable';
+import Sprinttable from './sprinttable';
+import CompleteSprinttable from './Completesprint.table';
+import './Backlog.css';
 
 
 const Backlog = () => {
@@ -17,52 +20,63 @@ const Backlog = () => {
  
   return (
     <div>
+      
+      <div>
+          <Sidebar onCollapse={(inactive) => {setInactive(inactive);}}/>
+      </div>
 
-        <div>
-          <Sidebar
-          onCollapse={(inactive) => {
-              setInactive(inactive);
-        }}
-          />
-        </div>
+      <div className={`container ${inactive ? "inactive" : ""}`}>
+          <h1>Backlog</h1>
+      </div>
 
-
-        <div className={`container ${inactive ? "inactive" : ""}`}>
-            <h1>Backlog</h1>
-        </div>
-
-        <br /><br />
-
-        <div>
+      <br /><br />
+      
+      <div>
           {/* sprint creation will be happen here */}
-          <SprintCreation /><br /><br /><br />
+          <SprintCreation /><br />
+      </div>
+      
+      <br /><br />
 
-        </div>
-
-        <br /><br />
-
-        <div>
+      <div className={`container ${inactive ? "inactive" : ""}`}>
           {/* sprint creation will be happen here */}
           <Backlogtable />
+          {/* <BoxComponent/> */}
+      </div>
 
+      <br /><br /><br />
+
+      <div>
           {/* issue creation will be happen here */}
+          <br /><br />
           <Addissue /><br /><br /><br />
-        </div>
 
-        <div>
+          {/* sprint start page will appear here */}
+          <SprintStart />
 
-            {/* sprint start page will appear here */}
-            <SprintStart /><br /><br /><br />
+          {/* update sprint page will appear here */}
+          <SprintUpdation />
 
-            {/* update sprint page will appear here */}
-            <SprintUpdation /><br /><br /><br />
+          {/* delete sprint page will appear here */}
+          <Sprintdeletion /><br /><br /><br />
 
-            {/* delete sprint page will appear here */}
-            <Sprintdeletion /><br /><br /><br />
+          <div className={`container ${inactive ? "inactive" : ""}`}>
+            <Sprinttable/>
+          </div>
 
-            {/* complete sprint page will appear here */}
-            <SprintCompletion />
-        </div>
+          <br /><br /><br /><br /><br />
+
+          {/* complete sprint page will appear here */}
+          <SprintCompletion />
+
+          <br /><br /><br />
+
+          <div className={`container ${inactive ? "inactive" : ""}`}>
+            <CompleteSprinttable/>
+          </div>
+
+          
+      </div>
 
     </div>
   );

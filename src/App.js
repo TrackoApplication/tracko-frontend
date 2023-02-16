@@ -14,7 +14,7 @@ import ActiveSprint from "./components/ActiveSprintMgt/ActiveSprint";
 import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
 import Report from "./components/ReportMgt/Report";
-import Sidebar, { menuItems } from "./components/SideBar/Sidebar";
+// import Sidebar, { menuItems } from "./components/SideBar/Sidebar";
 import AddUser from "./components/UserMgt/AddUser";
 
 

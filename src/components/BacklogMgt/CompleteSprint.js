@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { MDBCol } from 'mdb-react-ui-kit';
+import { MDBBadge} from 'mdb-react-ui-kit';
 
 const SprintCompletion = () => {
   const [inactive, setInactive] = React.useState(false);
@@ -22,7 +22,11 @@ const SprintCompletion = () => {
             Complete Sprint
           </Button>
 
-        <Modal show={show} onHide={handleClose} animation={false}>
+          <MDBBadge color='secondary' rounded-circle>0</MDBBadge>
+          <MDBBadge color='primary' rounded-circle>0</MDBBadge>
+          <MDBBadge color='success' rounded-circle>2</MDBBadge>
+
+          <Modal show={show} onHide={handleClose} animation={false}>
             <Modal.Header deleteButton>
                 <Modal.Title>Complete Sprint</Modal.Title>
             </Modal.Header>

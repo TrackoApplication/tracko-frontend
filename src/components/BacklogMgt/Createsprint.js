@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
-import { MDBCol } from 'mdb-react-ui-kit';
+import { MDBBadge} from 'mdb-react-ui-kit';
+import './createsprint.css';
 
 const SprintCreation = () => {
   const [inactive, setInactive] = React.useState(false);
@@ -21,7 +20,11 @@ const SprintCreation = () => {
             onClick={handleShow}>
             Create Sprint
           </Button>
-            
+
+          <MDBBadge color='secondary' rounded-circle>3</MDBBadge>
+          <MDBBadge color='primary' rounded-circle>0</MDBBadge>
+          <MDBBadge color='success' rounded-circle>0</MDBBadge>
+           
         </div>
     </div>
   );
