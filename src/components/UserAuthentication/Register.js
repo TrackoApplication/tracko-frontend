@@ -115,10 +115,11 @@ const Register = () => {
 
             <MDBBtn 
             onClick={() => navigate('/Login')}
-            className='w-100 mb-3' size='md'>sign up</MDBBtn>
+            className='w-100 mb-3  bg-[#FF8484] hover:bg-[#fe7676]' size='md'>sign up</MDBBtn>
 
             <div className="text-center">
               <p
+              className="cursor-pointer "
               onClick={() => navigate('/Login')}
               >Already have an account</p>
 

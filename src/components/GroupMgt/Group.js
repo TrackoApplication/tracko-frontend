@@ -1,27 +1,24 @@
 import React from 'react'
 import Sidebar from '../SideBar/Sidebar'
+import { GroupList } from './GroupList';
 
-const ActiveSprint = () => {
+const Group = () => {
   const [inactive, setInactive] = React.useState(false);
  
   return (
-    <div>
 
+    <div className='App'>
+    <div className='AppGlass'>
         <Sidebar
-
         onCollapse={(inactive) => {
             setInactive(inactive);
         }}
-        
         />
-
-        <div className={`container ${inactive ? "inactive" : ""}`}>
-            
-            <h1>ActiveSprint</h1>
-            
-        </div>
+        <GroupList/>
+    
+      </div>
     </div>
   )
 }
 
-export default ActiveSprint
+export default Group
