@@ -16,7 +16,8 @@ import Forum from "./components/ForumMgt/Forum";
 import Report from "./components/ReportMgt/Report";
 import Sidebar, { menuItems } from "./components/SideBar/Sidebar";
 import AddUser from "./components/UserMgt/AddUser";
-
+import Dashboard from "./components/Dashboard/Dashboard";
+import Group from "./components/GroupMgt/Group";
 
 function App() {
   const [inactive, setInactive] = useState(false);
@@ -39,6 +40,8 @@ function App() {
         <Route path="/ClientList" element ={<ClientList/>}></Route>
         
         {/* pages with sidebar */}
+        
+       
      
           <Route path="/Team" element ={<Team/>}></Route>
           <Route path="/Backlog" element ={<Backlog/>}></Route>
@@ -46,7 +49,9 @@ function App() {
           <Route path="/People" element ={<People/>}></Route>
           <Route path="/Forum" element ={<Forum/>}></Route>
           <Route path="/Report" element ={<Report/>}></Route>
-       
+          <Route path="/Dashboard" element ={<Dashboard/>}></Route>
+          <Route path="/Group" element ={<Group/>}></Route>
+
       
       </Routes>
     </BrowserRouter>

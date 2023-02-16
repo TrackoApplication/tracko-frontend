@@ -14,7 +14,6 @@ const Backlog = () => {
  
   return (
     <div>
-
         <Sidebar
         onCollapse={(inactive) => {
             setInactive(inactive);
