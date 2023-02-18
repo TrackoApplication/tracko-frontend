@@ -16,7 +16,7 @@
   }
   .side-menu .main-menu .menu-item.active{
     background: #2a1280;
-    border-radius: 5px;
+    border-radius: 5px;     
     color: rgb(255, 255, 255);
 }
   
@@ -192,29 +192,7 @@
     margin: 10px 0;
   }
   
-/* width
-::-webkit-scrollbar {
-    width: 3px;
-  }
-  
-  
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
-    border-radius: 10px;
-    display: none;
-  }
-   
 
-  ::-webkit-scrollbar-thumb {
-    background: #333; 
-    border-radius: 10px;
-    display: none;
-  }
-  
- 
-  ::-webkit-scrollbar-thumb:hover {
-    background: #333; 
-  } */
 
   .container{
     position: fixed;
