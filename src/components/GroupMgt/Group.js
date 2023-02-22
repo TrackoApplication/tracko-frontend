@@ -6,18 +6,7 @@ const Group = () => {
   const [inactive, setInactive] = React.useState(false);
  
   return (
-
-    <div className='App'>
-    <div className='AppGlass'>
-        <Sidebar
-        onCollapse={(inactive) => {
-            setInactive(inactive);
-        }}
-        />
         <GroupList/>
-    
-      </div>
-    </div>
   )
 }
 

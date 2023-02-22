@@ -18,6 +18,8 @@ import Sidebar, { menuItems } from "./components/SideBar/Sidebar";
 import AddUser from "./components/UserMgt/AddUser";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
+import NavLayout from "./components/Layout/NavLayout";
+import { SideLayout } from "./components/Layout/SideLayout";
 
 function App() {
   const [inactive, setInactive] = useState(false);
@@ -33,27 +35,37 @@ function App() {
         <Route path="/Login" element ={<Login/>}></Route>
         <Route path="/ResetPass" element ={<ResetPass/>}></Route>
         <Route path="/AddUser" element ={<AddUser/>}></Route>
-
-        {/* pages without sidebar */}
-        <Route path="/UserList" element ={<UserList/>}></Route>
-        <Route path="/ProjectList" element ={<ProjectList/>}></Route>
-        <Route path="/ClientList" element ={<ClientList/>}></Route>
         
         {/* pages with sidebar */}
-        
-       
-     
           <Route path="/Team" element ={<Team/>}></Route>
           <Route path="/Backlog" element ={<Backlog/>}></Route>
           <Route path="/ActiveSprint" element ={<ActiveSprint/>}></Route>
           <Route path="/People" element ={<People/>}></Route>
           <Route path="/Forum" element ={<Forum/>}></Route>
           <Route path="/Report" element ={<Report/>}></Route>
-          <Route path="/Dashboard" element ={<Dashboard/>}></Route>
-          <Route path="/Group" element ={<Group/>}></Route>
 
-      
+        </Routes>
+
+     <SideLayout> 
+     <Routes>
+          <Route path="/Dashboard" element ={<Dashboard/>}></Route>
+          <Route path="/Group" element ={<Group/>}></Route> 
       </Routes>
+      </SideLayout>  
+      </BrowserRouter>
+
+
+     {/* pages with navbar */}
+     <BrowserRouter>
+      <NavLayout>
+        <Routes>
+      
+            <Route path="/UserList" element ={<UserList/>}></Route>
+            <Route path="/ProjectList" element ={<ProjectList/>}></Route>
+            <Route path="/ClientList" element ={<ClientList/>}></Route>
+            
+        </Routes>
+      </NavLayout>
     </BrowserRouter>
     </>
   );

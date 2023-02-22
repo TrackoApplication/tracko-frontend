@@ -2,24 +2,14 @@ import React from 'react';
 import './Dashboard.css'
 import MainDash from './components/MainDash/MainDash';
 import RightSide from './components/RigtSide/RightSide';
-import Sidebar from '../SideBar/Sidebar';
 
 function Dashboard() {
-  const [inactive, setInactive] = React.useState(false);
 
   return (
-    <div className="App">
-      <div className="DashGlass">
-       
-      <Sidebar
-        onCollapse={(inactive) => {
-            setInactive(inactive);
-        }}
-        />
+      <div className="DashGlass">      
         <MainDash/>
         <RightSide/>
       </div>
-    </div>
   );
 }
 
