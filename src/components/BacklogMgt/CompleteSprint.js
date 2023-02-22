@@ -22,9 +22,9 @@ const SprintCompletion = () => {
             Complete Sprint
           </Button>
 
-          <MDBBadge color='secondary' rounded-circle>0</MDBBadge>
+          {/* <MDBBadge color='secondary' rounded-circle>0</MDBBadge>
           <MDBBadge color='primary' rounded-circle>0</MDBBadge>
-          <MDBBadge color='success' rounded-circle>2</MDBBadge>
+          <MDBBadge color='success' rounded-circle>2</MDBBadge> */}
 
           <Modal show={show} onHide={handleClose} animation={false}>
             <Modal.Header deleteButton>

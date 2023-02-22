@@ -6,7 +6,7 @@
     z-index: 9;
     flex-direction: column; 
     background: #231651;
-    width: 200px;
+    width: 215px;
     height: 100%;
     box-sizing: border-box;
     padding: 30px 10px;
@@ -216,7 +216,7 @@
     background: #333; 
   } */
 
-  .container{
+  /* .container{
     position: fixed;
     margin-left: 250px;
     font-size: 20px ; 
@@ -229,7 +229,7 @@
     position: static;
     width: 80%;
     margin-left: 60px;
-  }
+  } */
   
   .side-menu .main-menu .sub-menu a{
     display: block;

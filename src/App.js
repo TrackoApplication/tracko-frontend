@@ -18,6 +18,8 @@ import Report from "./components/ReportMgt/Report";
 import AddUser from "./components/UserMgt/AddUser";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
+import BacklogView from "./components/BacklogMgt/BacklogView";
+
 
 function App() {
   const [inactive, setInactive] = useState(false);
@@ -51,6 +53,7 @@ function App() {
           <Route path="/Report" element ={<Report/>}></Route>
           <Route path="/Dashboard" element ={<Dashboard/>}></Route>
           <Route path="/Group" element ={<Group/>}></Route>
+          <Route path="/BacklogView" element ={<BacklogView/>}></Route>
 
       
       </Routes>
