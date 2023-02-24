@@ -15,16 +15,17 @@ const UserList = () => {
 
   return (
     <>
+    <NavBar/>
     
     <div className =" h-12 m-4 ">
         {/* <button 
          onClick={<AddUser handleClose/>}
         // onClick = {() => navigate("/addUser")}
         className="rounded bg-[#231651] text-white px-6 py-2 font-semibold transition duration-700 hover:scale-105 ease-in-out">Add User</button> */}
-        <AddUser/>
+    <AddUser/>
     </div>
     
-    <MDBTable align='right' max-width={{}}>
+    <MDBTable align='middle '>
       <MDBTableHead>
         <tr>
           <th scope='col'>Name</th>

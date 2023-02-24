@@ -22,50 +22,39 @@ import NavLayout from "./components/Layout/NavLayout";
 import { SideLayout } from "./components/Layout/SideLayout";
 
 function App() {
-  const [inactive, setInactive] = useState(false);
 
   return (
     <>
     <BrowserRouter>
       <Routes>
+      
         {/* pages without sidebar & nav bar */}
-        <Route path="/" element ={<Login/>}></Route>
-        <Route index element ={<Login/>}></Route>
-        <Route path="/Register" element ={<Register/>}></Route>
+        <Route path="/" element ={<Login/>}/>
+        <Route index element ={<Login/>}/>
+        <Route path="/Register" element ={<Register/>}/>
         <Route path="/Login" element ={<Login/>}></Route>
-        <Route path="/ResetPass" element ={<ResetPass/>}></Route>
-        <Route path="/AddUser" element ={<AddUser/>}></Route>
-        
+        <Route path="/ResetPass" element ={<ResetPass/>}/>
+        <Route path="/AddUser" element ={<AddUser/>}/>
+
         {/* pages with sidebar */}
-          <Route path="/Team" element ={<Team/>}></Route>
-          <Route path="/Backlog" element ={<Backlog/>}></Route>
-          <Route path="/ActiveSprint" element ={<ActiveSprint/>}></Route>
-          <Route path="/People" element ={<People/>}></Route>
-          <Route path="/Forum" element ={<Forum/>}></Route>
-          <Route path="/Report" element ={<Report/>}></Route>
+          <Route path="/Team" element ={<Team/>}/>
+          <Route path="/Backlog" element ={<Backlog/>}/>
+          <Route path="/ActiveSprint" element ={<ActiveSprint/>}/>
+          <Route path="/People" element ={<People/>}/>
+          <Route path="/Forum" element ={<Forum/>}/>
+          <Route path="/Report" element ={<Report/>}/>
 
-        </Routes>
-
-     <SideLayout> 
-     <Routes>
-          <Route path="/Dashboard" element ={<Dashboard/>}></Route>
-          <Route path="/Group" element ={<Group/>}></Route> 
-      </Routes>
-      </SideLayout>  
-      </BrowserRouter>
+            <Route path="/Dashboard" element ={<Dashboard/>}/>
+            <Route path="/Group" element ={<Group/>}/>
 
 
      {/* pages with navbar */}
-     <BrowserRouter>
-      <NavLayout>
-        <Routes>
-      
-            <Route path="/UserList" element ={<UserList/>}></Route>
-            <Route path="/ProjectList" element ={<ProjectList/>}></Route>
-            <Route path="/ClientList" element ={<ClientList/>}></Route>
-            
-        </Routes>
-      </NavLayout>
+                  <Route path="/UserList" element ={<UserList/>}/>
+                  <Route path="/ProjectList" element ={<ProjectList/>}/>
+                  <Route path="/ClientList" element ={<ClientList/>}/>
+    
+    </Routes>
+
     </BrowserRouter>
     </>
   );

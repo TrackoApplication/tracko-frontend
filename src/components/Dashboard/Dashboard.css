@@ -4,7 +4,7 @@
     width: 100%;
     background: var(--glass);
     gap: 16px;
-    grid-template-columns: auto 20rem;
+    grid-template-columns:12rem auto 20rem;
     
   }
 
@@ -18,7 +18,7 @@
   
   @media screen and (max-width: 1200px) {
     .DashGlass{
-      grid-template-columns: 50% auto;
+      grid-template-columns:10% 50% auto;
       overflow-y: scroll;
     } 
     

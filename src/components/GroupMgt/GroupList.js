@@ -41,7 +41,7 @@ export const GroupList = () => {
                   </td>
                   <td>
                     <MDBBadge color='success' pill>
-                      Active
+                      7
                     </MDBBadge>
                   </td>
                   <td>
@@ -54,7 +54,7 @@ export const GroupList = () => {
                   <td>
                     <div className='d-flex align-items-center'>
                       <div >
-                        <p className='mb-1'>Alex Ray</p>
+                        <p className='mb-1'>Team member</p>
                       </div>
                     </div>
                   </td>
