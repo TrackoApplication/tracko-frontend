@@ -22,10 +22,10 @@ const UserList = () => {
          onClick={<AddUser handleClose/>}
         // onClick = {() => navigate("/addUser")}
         className="rounded bg-[#231651] text-white px-6 py-2 font-semibold transition duration-700 hover:scale-105 ease-in-out">Add User</button> */}
-    <AddUser/>
+        <AddUser/>
     </div>
     
-    <MDBTable align='middle '>
+    <MDBTable align='right' max-width={{}}>
       <MDBTableHead>
         <tr>
           <th scope='col'>Name</th>

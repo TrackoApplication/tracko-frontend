@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Sidebar from '../SideBar/Sidebar';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { MDBCol,MDBRow } from 'mdb-react-ui-kit';
+import { MDBCol } from 'mdb-react-ui-kit';
 
-const Backlog = () => {
+const AddIssue = () => {
   const [inactive, setInactive] = React.useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -15,14 +14,10 @@ const Backlog = () => {
     <div>
 
         <div className={`container ${inactive ? "inactive" : ""}`}>
-            
-            {/* <h1>Backlog</h1>
-            <br></br>
-            <button> + Create issue</button> */}
 
             <Button 
-            variant="primary" 
-            className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out" 
+            variant="link" 
+            className="text-black border-none font-semibold text-decoration-none" 
             onClick={handleShow}>
             + Create Issue
             </Button>
@@ -36,142 +31,129 @@ const Backlog = () => {
 
             {/* body section */}
             <Modal.Body>
-              <Form>
+              <Form style={{overflowY:"scroll", height:"350px"}}>
                 <MDBCol>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Project</Form.Label>
-                        <Form.Control
-                            type="Projectname"
-                            // placeholder="Jhon"
-                            autoFocus
-                            // required
-                        />
+                        <Form.Select>
+                          <option value="">Select the project</option>
+                          <option value="">Project 1</option>
+                          <option value="">Project 2</option>
+                          <option value="">Project 3</option>
+                        </Form.Select>
                         </Form.Group>
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Issue type</Form.Label>
-                        <Form.Control
-                            type="issuetype"
-                            // placeholder="Dee"
-                            autoFocus
-                        />
+                        <Form.Select placeholder="Enter Issue type">
+                          <option value="">Select the issue type</option>
+                          <option value="">Issue</option>
+                          <option value="">Bug</option>
+                          <option value="">QA</option>
+                        </Form.Select>
                         </Form.Group>
                 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Summary</Form.Label>
                         <Form.Control
-                        type="summary"
-                        // placeholder="JhonDee999"
-                        autoFocus
+                        type="text"
+                        placeholder="Summary"
+                        // autoFocus
                         />
                         </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Description</Form.Label>
                         <Form.Control
-                        type="description"
-                        // placeholder="name@example.com"
-                        autoFocus
+                        as="textarea" rows={5}
+                        placeholder="Description"
+                        // autoFocus
                         />
                         </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Assignee</Form.Label>
-                        <Form.Control
-                        type="assignee"
-                        // placeholder="name@example.com"
-                        autoFocus
-                        />
+                        <Form.Select>
+                          <option value="">Assignee</option>
+                          <option value="">Ravindu Karunaweera</option>
+                          <option value="">Yasiru Basura</option>
+                          <option value="">Seefa Banu</option>
+                        </Form.Select>
                         </Form.Group>
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Sprint</Form.Label>
-                        <Form.Control
-                        type="sprint"
-                        // placeholder="name@example.com"
-                        autoFocus
-                        />
+                        <Form.Select>
+                          <option value="">Select the sprint</option>
+                          <option value="">Sprint 1</option>
+                          <option value="">Sprint 2</option>
+                          <option value="">Sprint 3</option>
+                        </Form.Select>
                         </Form.Group>
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Epic</Form.Label>
                         <Form.Control
-                        type="epic"
-                        // placeholder="name@example.com"
-                        autoFocus
-                        />
-                        </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label></Form.Label>
-                        <Form.Control
-                        type="epic"
-                        // placeholder="name@example.com"
-                        autoFocus
+                        type="text"
+                        placeholder="Epic name"
+                        // autoFocus
                         />
                         </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Requirement of testing</Form.Label>
-                        <Form.Control
-                        type="reqoftesting"
-                        // placeholder="name@example.com"
-                        autoFocus
-                        />
+                        <Form.Select>
+                          <option value="">Select requirement of testing</option>
+                          <option value="">Yes</option>
+                          <option value="">No</option>
+                        </Form.Select>
                         </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Story point estimate for developing</Form.Label>
                         <Form.Control
-                        type="devstorypoint"
+                        type="number"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Story point estimate for testing</Form.Label>
                         <Form.Control
-                        type="qastorypoint"
+                        type="number"
                         // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Total estimated story point</Form.Label>
                         <Form.Control
-                        type="totalstorypoint"
+                        type="number"
                         // placeholder="name@example.com"
-                        autoFocus
-                        />
-                        </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Story point estimate for testing</Form.Label>
-                        <Form.Control
-                        type="qastorypoint"
-                        // placeholder="name@example.com"
-                        autoFocus
+                        // autoFocus
                         />
                         </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Priority</Form.Label>
-                        <Form.Control
-                        type="priority"
-                        // placeholder="name@example.com"
-                        autoFocus
-                        />
+                        <Form.Select>
+                          <option value="">Select the priority</option>
+                          <option value="">High</option>
+                          <option value="">Medium</option>
+                          <option value="">Low</option>
+                        </Form.Select>
                         </Form.Group>
                         
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Reporter</Form.Label>
-                        <Form.Control
-                        type="reporter"
-                        // placeholder="name@example.com"
-                        autoFocus
-                        />
+                        <Form.Select>
+                          <option value="">Reporter</option>
+                          <option value="">Reporter 1</option>
+                          <option value="">Reporter 2</option>
+                          <option value="">Reporter 3</option>
+                        </Form.Select>
                         </Form.Group>
                            
                 </MDBCol>
@@ -185,7 +167,7 @@ const Backlog = () => {
                 Cancel
               </Button>
 
-              <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] ' onClick={handleClose}>
+              <Button variant="primary" className='rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] ' onClick={handleClose}>
                 Create
               </Button>
 
@@ -197,4 +179,4 @@ const Backlog = () => {
   );
 }
 
-export default Backlog;
+export default AddIssue;
