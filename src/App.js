@@ -19,7 +19,7 @@ import AddUser from "./components/UserMgt/AddUser";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
 import BacklogView from "./components/BacklogMgt/BacklogView";
-import ForumList from "./components/ForumMgt/ForumList";
+import { ForumList } from "./components/ForumMgt/ForumList";
 
 
 function App() {
