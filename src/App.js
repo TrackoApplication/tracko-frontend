@@ -19,6 +19,7 @@ import AddUser from "./components/UserMgt/AddUser";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
 import BacklogView from "./components/BacklogMgt/BacklogView";
+import ForumList from "./components/ForumMgt/ForumList";
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
           <Route path="/Dashboard" element ={<Dashboard/>}></Route>
           <Route path="/Group" element ={<Group/>}></Route>
           <Route path="/BacklogView" element ={<BacklogView/>}></Route>
+          <Route path="/ForumList" element ={<ForumList/>}></Route>
 
       
       </Routes>
