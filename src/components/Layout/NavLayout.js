@@ -1,12 +1,12 @@
 import React from 'react'
 import Navbar from '../NavBar/Navbar'
 
-const NavLayout = ({children}) => {
+const NavLayout = ({ children }) => {
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div>
-      {children}
+        {children}
 
       </div>
     </div>

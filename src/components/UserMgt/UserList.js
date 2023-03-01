@@ -1,70 +1,124 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import NavBar from '../NavBar/Navbar'
 import { useNavigate } from 'react-router-dom'
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import AddUser from './AddUser';
+import SystemUserService from '../../Services/SystemUserService';
+import { UpdateUser } from './UpdateUser';
 
 
 
 const UserList = () => {
-    const navigate = useNavigate();
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [loading, setLoading] = useState(false);
+  const [systemUser, setSystemUser] = useState([]);
+
+useEffect(() => {
+
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await SystemUserService.getSystemUser();
+        setSystemUser(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  const deleteSystemUser = (e, id) => {
+    e.preventDefault();
+    SystemUserService.deleteSystemUser(id).then((res) => {
+      if (systemUser) {
+        setSystemUser((prevElement) => {
+          return prevElement.filter((systemUser) => systemUser.id !== id);
+        });
+      }
+    });
+
+  };
+
+  const editSystemUser = (e, id) => {
+    e.preventDefault();
+  
+  };
+
 
   return (
+
     <>
-    <NavBar/>
-    
-    <div className =" h-12 m-4 ">
+      <NavBar />
+
+      <div className=" h-12 m-4 ">
         {/* <button 
          onClick={<AddUser handleClose/>}
         // onClick = {() => navigate("/addUser")}
         className="rounded bg-[#231651] text-white px-6 py-2 font-semibold transition duration-700 hover:scale-105 ease-in-out">Add User</button> */}
-    <AddUser/>
-    </div>
-    
-    <MDBTable align='middle '>
-      <MDBTableHead>
-        <tr>
-          <th scope='col'>Name</th>
-          <th scope='col'>Role</th>
-          <th scope='col'>Group</th>
-          <th scope='col'>Actions</th>
-        </tr>
-      </MDBTableHead>
-      <MDBTableBody>
-        <tr>
-          <td>
-            <div className='d-flex align-items-center'>
-              <img
+        <AddUser />
+      </div>
+
+      <MDBTable align='middle '>
+        <MDBTableHead>
+          <tr>
+            <th scope='col'>Name</th>
+            <th scope='col'>Role</th>
+            <th scope='col'>Group</th>
+            <th scope='col'>Actions</th>
+          </tr>
+        </MDBTableHead>
+
+        {!loading && (
+
+          <MDBTableBody>
+            {systemUser.map((systemUser) => (
+
+              <tr key={systemUser.id}>
+                <td>
+                  <div className='d-flex align-items-center'>
+                    {/* <img
                 src='https://mdbootstrap.com/img/new/avatars/8.jpg'
                 alt=''
                 style={{ width: '45px', height: '45px' }}
                 className='rounded-circle'
-              />
-              <div className='ms-3'>
-                <p className='fw-bold mb-1'>John Doe</p>
-                <p className='text-muted mb-0'>john.doe@gmail.com</p>
-              </div>
-            </div>
-          </td>
-          <td>
-            <p className='fw-normal mb-1'>System Admin</p>
-          </td>
-          <td>
-            <MDBBadge color='success' pill>
-              Active
-            </MDBBadge>
-          </td>
-          <td>
-            <MDBBtn color='link' rounded size='sm'>
-              Edit
-            </MDBBtn>
-          </td>
-        </tr>
-        <tr>
+              /> */}
+                    <b-avatar variant="secondary"></b-avatar>
+                    <div className='ms-3'>
+                      <p className='fw-bold mb-1'>{systemUser.firstName}</p>
+                      <p className='text-muted mb-0'>{systemUser.emailId}</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p className='fw-normal mb-1'>System Admin</p>
+                </td>
+                <td>
+                  <MDBBadge color='success' pill>
+                    Active 
+                  </MDBBadge>
+                </td>
+                <td>
+                  <MDBBtn 
+                  onClick={(e,id) => editSystemUser(e ,systemUser.id)}
+                  color='link' rounded size='sm' cursor-pointer>
+                    Edit
+                  </MDBBtn>
+                  <a
+                    onClick={(e, id) => deleteSystemUser(e, systemUser.id)}
+                    color='link' rounded size='sm'>
+                    Delete
+                  </a>
+                </td>
+              </tr>
+
+            ))}
+
+            {/* <tr>
           <td>
             <div className='d-flex align-items-center'>
               <img
@@ -124,9 +178,13 @@ const UserList = () => {
               Edit
             </MDBBtn>
           </td>
-        </tr>
-      </MDBTableBody>
-    </MDBTable>
+        </tr> */}
+
+          </MDBTableBody>
+
+        )}
+
+      </MDBTable>
 
 
     </>

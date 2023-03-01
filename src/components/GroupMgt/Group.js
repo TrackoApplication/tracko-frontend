@@ -7,15 +7,16 @@ const Group = () => {
  
   return (
     <div className='App'>
-  <div className='DashGlass'>
-      <Sidebar
-      onCollapse={(inactive) => {
-          setInactive(inactive);
-      }}
-      />
-              <GroupList/> 
-        </div>
-        </div>
+      <div className='AppGlass'>
+          <Sidebar
+          onCollapse={(inactive) => {
+              setInactive(inactive);
+          }}
+          />
+              
+          <GroupList/> 
+      </div>
+    </div>
 
      
   );
