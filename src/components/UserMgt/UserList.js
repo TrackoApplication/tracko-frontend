@@ -63,7 +63,8 @@ useEffect(() => {
         <AddUser />
       </div>
 
-      <MDBTable align='middle '>
+      <div className='mx-4 justify-content-md-center'>
+      <MDBTable align=' middle' className='w-[100%]'>
         <MDBTableHead>
           <tr>
             <th scope='col'>Name</th>
@@ -78,8 +79,8 @@ useEffect(() => {
           <MDBTableBody>
             {systemUser.map((systemUser) => (
 
-              <tr key={systemUser.id}>
-                <td>
+              <tr key={systemUser.id} >
+                <td className='w-[400px]'>
                   <div className='d-flex align-items-center'>
                     {/* <img
                 src='https://mdbootstrap.com/img/new/avatars/8.jpg'
@@ -94,20 +95,21 @@ useEffect(() => {
                     </div>
                   </div>
                 </td>
-                <td>
-                  <p className='fw-normal mb-1'>System Admin</p>
+                <td className='w-[300px]'>
+                  <p className='fw-normal mb-1 '>System Admin</p>
                 </td>
-                <td>
+                <td className='w-[400px]'>
                   <MDBBadge color='success' pill>
                     Active 
                   </MDBBadge>
                 </td>
-                <td>
+                <td className='w-[200px]'>
                   <MDBBtn 
                   onClick={(e,id) => editSystemUser(e ,systemUser.id)}
                   color='link' rounded size='sm' cursor-pointer>
                     Edit
                   </MDBBtn>
+                  
                   <a
                     onClick={(e, id) => deleteSystemUser(e, systemUser.id)}
                     color='link' rounded size='sm'>
@@ -185,7 +187,7 @@ useEffect(() => {
         )}
 
       </MDBTable>
-
+      </div>
 
     </>
   )

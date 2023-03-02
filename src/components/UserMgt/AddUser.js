@@ -16,6 +16,10 @@ const AddUser = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [loading, setLoading] = useState(false);
+    const [form,setForm] = useState({});
+    const [error,setError]=useState({});
+    const [validated, setValidated] = useState(false);
+
 
 
   const [systemUser, setsystemUser] = React.useState({
@@ -33,6 +37,18 @@ const AddUser = () => {
           ...systemUser,
           [e.target.name]: e.target.value
       });
+      if(value === ''){
+        setError({
+          ...error,
+          [e.target.name]: 'This field is required'
+        })
+      }else{
+        setError({
+          ...error,
+          [e.target.name]: ''
+        })
+      }
+
     }
 
   const saveSystemUser = (e) => {
@@ -47,6 +63,15 @@ const AddUser = () => {
     setLoading(true);
   }
     
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(true);
+  };
+
       return (
         <>
           <Button 
@@ -61,7 +86,8 @@ const AddUser = () => {
               <Modal.Title>Add user</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form>
+
+              <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <MDBRow>
                     <MDBCol>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -73,8 +99,9 @@ const AddUser = () => {
                                 autoFocus
                                 value={systemUser.firstName} 
                                 onChange={(e)=>handleChange(e)}
+                                required
                             />
-                            </Form.Group>
+                          </Form.Group>
                     </MDBCol>
                     <MDBCol>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -88,7 +115,7 @@ const AddUser = () => {
                                 value={systemUser.lastName} 
                                 onChange={(e)=>handleChange(e)}
                             />
-                            </Form.Group>
+                          </Form.Group>
                     </MDBCol>
                 </MDBRow>
 
@@ -131,7 +158,7 @@ const AddUser = () => {
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Email address</Form.Label>
                   <Form.Control
                     name='emailId'
@@ -142,19 +169,25 @@ const AddUser = () => {
                     value={systemUser.emailId} 
                     onChange={(e)=>handleChange(e)}
                   />
+                   <Form.Control.Feedback type="invalid">
+                   Please provide a valid email address.
+                  </Form.Control.Feedback>
                 </Form.Group>
 
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
-                Close
-              </Button>
+              <Form.Group controlId="">
+                <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
+                  Close
+                </Button>
+              </Form.Group>
+
               <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] ' 
+              type='submit'
               onClick={saveSystemUser}>
                 Save Changes
               </Button>
-            </Modal.Footer>
+              </Form>
+            </Modal.Body>
+            
           </Modal>
         </>
    
