@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import { MDBCol,MDBRow } from 'mdb-react-ui-kit';
 import SystemUserService from '../../Services/SystemUserService';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
     
 
@@ -17,44 +18,41 @@ const AddUser = () => {
     const handleShow = () => setShow(true);
     const [loading, setLoading] = useState(false);
     const [form,setForm] = useState({});
-    const [error,setError]=useState({});
+    const [errors,setErrors]=useState({});
     const [validated, setValidated] = useState(false);
+    const [emailExists, setEmailExists] = useState(false);
 
 
 
   const [systemUser, setsystemUser] = React.useState({
       firstName: '',
       lastName: '',
-      userName: '',
+      // userName: '',
       password: '',
-      emailId: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      emailId: ''
     });
 
-  const handleChange = (e) => {
-    const value = e.target.value;
+  const handleChange = (field, value) => {
+
       setsystemUser({
           ...systemUser,
-          [e.target.name]: e.target.value
+          [field]: value
       });
-      if(value === ''){
-        setError({
-          ...error,
-          [e.target.name]: 'This field is required'
-        })
-      }else{
-        setError({
-          ...error,
-          [e.target.name]: ''
-        })
-      }
+      if(!!errors[field]) setErrors({
+        ...errors,
+        [field]: null
+      })
 
     }
 
+    
+
+
   const saveSystemUser = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     SystemUserService.saveSystemUser(systemUser).then(res => {
-      console.log(res);
+    console.log(res);
     })
     .catch(error => {
       console.log(error);
@@ -63,14 +61,85 @@ const AddUser = () => {
     setLoading(true);
   }
     
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+  const handleSubmit = async (e) => {
+    const emailId  = systemUser.emailId;
+    const name = systemUser.firstName;
+    e.preventDefault()
+    const formErrors = validateForm() 
+    if(Object.keys(formErrors).length === 0){
+      // try {
+      //   await axios.post("/api/register", { name, emailId });
+       
+      //   // Send email
+      //   try {
+      //     await axios.post("/api/send-email", { name, emailId, type: "verification" });
+      //     console.log(`Verification email sent to ${emailId}`);
+      //   } catch (error) {
+      //     console.error(error);
+      //   }
+      // } catch (error) {
+      //   console.error(error);
+      // }
+      saveSystemUser(e);
+      alert ('User added successfully');
+
+     
+    }else{
+      setErrors(formErrors);
     }
-    setValidated(true);
+    
+    
   };
+ 
+  const validateForm = () => {
+    const {firstName,lastName,password,confirmPassword,emailId} = systemUser;
+    const regexPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const checkEmailExists = async () => {
+      try {
+        const response = await fetch(`https://fake-api.com/check-email?email=${emailId}`);
+        const data = await response.json();
+        if (data.exists) {
+          console.log("Email exists");
+        } else {
+          console.log("Email does not exist");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const errors = {};
+    if(!firstName || firstName === ''){
+      errors.firstName = 'First Name is required';
+    }
+    if(!lastName || lastName === '' ) {
+      errors.lastName = 'Last Name is required';
+    }
+    if(!password  || password === ''){
+      errors.password = 'Password is required';
+    }else if(!regexPass.test(password)){
+        errors.password = 'Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character';
+      }
+    if(!confirmPassword || confirmPassword === ''){
+      errors.confirmPassword = 'Confirm Password is required';
+    }else if(password !== confirmPassword){
+        errors.confirmPassword = 'Password and confirm password must be same';
+      }
+    
+    if(!emailId || emailId === ''){
+      errors.emailId = 'Email Id is required';
+    }else if(!regexEmail.test(emailId)){
+        errors.emailId = 'Email Id is not valid';
+    }
+    // }else if(checkEmailExists){
+    //   errors.emailId = 'Email Id already not exists';
+    // }
+
+    return errors;
+  }
+
+   
 
       return (
         <>
@@ -87,7 +156,7 @@ const AddUser = () => {
             </Modal.Header>
             <Modal.Body>
 
-              <Form noValidate validated={validated} onSubmit={handleSubmit}>
+              <Form noValidate validated={validated} >
                 <MDBRow>
                     <MDBCol>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -98,9 +167,14 @@ const AddUser = () => {
                                 placeholder="Jhon"
                                 autoFocus
                                 value={systemUser.firstName} 
-                                onChange={(e)=>handleChange(e)}
+                                // onChange={(e)=>handleChange(e)}
+                                onChange = {(e) => handleChange('firstName', e.target.value) }
                                 required
+                                isInvalid={!!errors.firstName}
                             />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.firstName}
+                            </Form.Control.Feedback>
                           </Form.Group>
                     </MDBCol>
                     <MDBCol>
@@ -113,13 +187,18 @@ const AddUser = () => {
                                 autoFocus
                                 required
                                 value={systemUser.lastName} 
-                                onChange={(e)=>handleChange(e)}
+                                onChange = {(e) => handleChange('lastName', e.target.value)}
+                                isInvalid={!!errors.lastName}
                             />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.lastName}
+                            </Form.Control.Feedback>
+
                           </Form.Group>
                     </MDBCol>
                 </MDBRow>
 
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>User Name</Form.Label>
                   <Form.Control
                     name="userName"
@@ -128,10 +207,14 @@ const AddUser = () => {
                     autoFocus
                     required
                     value={systemUser.userName} 
-                    onChange={(e)=>handleChange(e)}
-                    
+                    onChange = {(e) => handleChange('userName', e.target.value)}
+                    isInvalid={!!errors.userName}
                   />
-                  </Form.Group>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.userName}
+                  </Form.Control.Feedback>
+
+                  </Form.Group> */}
 
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Password</Form.Label>
@@ -142,8 +225,13 @@ const AddUser = () => {
                     required
                     value={systemUser.password} 
                     name="password"
-                    onChange={(e)=>handleChange(e)}
+                    onChange = {(e) => handleChange('password', e.target.value)}
+                    isInvalid={!!errors.password}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.password}
+                  </Form.Control.Feedback>
+
                 </Form.Group>
 
 
@@ -154,8 +242,14 @@ const AddUser = () => {
                     type="password"
                     placeholder="********"
                     autoFocus
+                    value={systemUser.confirmPassword}
                     required
+                    onChange = {(e) => handleChange('confirmPassword', e.target.value)}
+                    isInvalid={!!errors.password}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.confirmPassword}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -167,10 +261,12 @@ const AddUser = () => {
                     autoFocus
                     required
                     value={systemUser.emailId} 
-                    onChange={(e)=>handleChange(e)}
-                  />
+                    onChange = {(e) => handleChange('emailId', e.target.value)}
+                    isInvalid={!!errors.emailId}
+
+                    />
                    <Form.Control.Feedback type="invalid">
-                   Please provide a valid email address.
+                    {errors.emailId} 
                   </Form.Control.Feedback>
                 </Form.Group>
 
@@ -182,7 +278,9 @@ const AddUser = () => {
 
               <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] ' 
               type='submit'
-              onClick={saveSystemUser}>
+              // onClick={saveSystemUser}>
+              onClick={(e)=>{handleSubmit(e)}}
+              >
                 Save Changes
               </Button>
               </Form>

@@ -26,10 +26,10 @@ const Register = () => {
     const [systemUser, setsystemUser] = React.useState({
         firstName: '',
         lastName: '',
-        userName: '',
+        // userName: '',
         password: '',
-        emailId: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        emailId: ''
     });
 
     const handleChange = (e) => {
@@ -91,12 +91,12 @@ const Register = () => {
                   </MDBCol>
                 </MDBRow>
 
-                  <MDBInput wrapperClass='mb-3' 
+                  {/* <MDBInput wrapperClass='mb-3' 
                   label='User Name' 
                   name='userName' 
                   value={systemUser.userName}
                   onChange={(e)=>handleChange(e)}
-                  type='text'/>
+                  type='text'/> */}
                   
                   <MDBInput wrapperClass='mb-3' 
                   label='Password' 

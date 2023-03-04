@@ -6,6 +6,10 @@ import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-reac
 import AddUser from './AddUser';
 import SystemUserService from '../../Services/SystemUserService';
 import { UpdateUser } from './UpdateUser';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
+import { MDBCol, MDBRow } from 'mdb-react-ui-kit';
 
 
 
@@ -17,7 +21,8 @@ const UserList = () => {
   const [loading, setLoading] = useState(false);
   const [systemUser, setSystemUser] = useState([]);
 
-useEffect(() => {
+
+  useEffect(() => {
 
     const fetchData = async () => {
       setLoading(true);
@@ -46,7 +51,7 @@ useEffect(() => {
 
   const editSystemUser = (e, id) => {
     e.preventDefault();
-  
+
   };
 
 
@@ -64,129 +69,134 @@ useEffect(() => {
       </div>
 
       <div className='mx-4 justify-content-md-center'>
-      <MDBTable align=' middle' className='w-[100%]'>
-        <MDBTableHead>
-          <tr>
-            <th scope='col'>Name</th>
-            <th scope='col'>Role</th>
-            <th scope='col'>Group</th>
-            <th scope='col'>Actions</th>
-          </tr>
-        </MDBTableHead>
+        <MDBTable align=' middle' className='w-[100%]'>
+          <MDBTableHead>
+            <tr>
+              <th scope='col'>Name</th>
+              <th scope='col'>Role</th>
+              <th scope='col'>Group</th>
+              <th scope='col'>Actions</th>
+            </tr>
+          </MDBTableHead>
 
-        {!loading && (
+          {!loading && (
 
-          <MDBTableBody>
-            {systemUser.map((systemUser) => (
+            <MDBTableBody>
+              {systemUser.map((systemUser) => (
 
-              <tr key={systemUser.id} >
-                <td className='w-[400px]'>
-                  <div className='d-flex align-items-center'>
-                    {/* <img
+                <tr key={systemUser.id} >
+                  <td className='w-[400px]'>
+                    <div className='d-flex align-items-center'>
+                      {/* <img
                 src='https://mdbootstrap.com/img/new/avatars/8.jpg'
                 alt=''
                 style={{ width: '45px', height: '45px' }}
                 className='rounded-circle'
               /> */}
-                    <b-avatar variant="secondary"></b-avatar>
-                    <div className='ms-3'>
-                      <p className='fw-bold mb-1'>{systemUser.firstName}</p>
-                      <p className='text-muted mb-0'>{systemUser.emailId}</p>
+                      <b-avatar variant="secondary"></b-avatar>
+                      <div className='ms-3'>
+                        <p className='fw-bold mb-1'>{systemUser.firstName}</p>
+                        <p className='text-muted mb-0'>{systemUser.emailId}</p>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td className='w-[300px]'>
-                  <p className='fw-normal mb-1 '>System Admin</p>
-                </td>
-                <td className='w-[400px]'>
-                  <MDBBadge color='success' pill>
-                    Active 
-                  </MDBBadge>
-                </td>
-                <td className='w-[200px]'>
-                  <MDBBtn 
-                  onClick={(e,id) => editSystemUser(e ,systemUser.id)}
-                  color='link' rounded size='sm' cursor-pointer>
-                    Edit
-                  </MDBBtn>
-                  
-                  <a
-                    onClick={(e, id) => deleteSystemUser(e, systemUser.id)}
-                    color='link' rounded size='sm'>
-                    Delete
-                  </a>
-                </td>
-              </tr>
+                  </td>
+                  <td className='w-[300px]'>
+                    <p className='fw-normal mb-1 '>System Admin</p>
+                  </td>
+                  <td className='w-[400px]'>
+                    <MDBBadge color='success' pill>
+                      Active
+                    </MDBBadge>
+                  </td>
+                  <td className='w-[200px]'>
+                    <MDBBtn
+                      // onClick={(e,id) => {editSystemUser(e ,systemUser.id)} ; handleShow()}
+                      onClick={handleShow}
+                      color='link' rounded size='sm' cursor-pointer>
+                      Edit
+                    </MDBBtn>
 
-            ))}
+                    <a
+                      onClick={(e, id) => deleteSystemUser(e, systemUser.id)}
+                      color='link' rounded size='sm'>
+                      Delete
+                    </a>
+                  </td>
+                </tr>
 
-            {/* <tr>
-          <td>
-            <div className='d-flex align-items-center'>
-              <img
-                src='https://mdbootstrap.com/img/new/avatars/6.jpg'
-                alt=''
-                style={{ width: '45px', height: '45px' }}
-                className='rounded-circle'
-              />
-              <div className='ms-3'>
-                <p className='fw-bold mb-1'>Alex Ray</p>
-                <p className='text-muted mb-0'>alex.ray@gmail.com</p>
-              </div>
-            </div>
-          </td>
-          <td>
-            <p className='fw-normal mb-1'>User</p>
-          </td>
-          <td>
-            <MDBBadge color='primary' pill>
-              Scrum Master
-            </MDBBadge>
-            <MDBBadge color='warning' pill>
-              Product Owner
-            </MDBBadge>
-          </td>
-          <td>
-            <MDBBtn color='link' rounded size='sm'>
-              Edit
-            </MDBBtn>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div className='d-flex align-items-center'>
-              <img
-                src='https://mdbootstrap.com/img/new/avatars/7.jpg'
-                alt=''
-                style={{ width: '45px', height: '45px' }}
-                className='rounded-circle'
-              />
-              <div className='ms-3'>
-                <p className='fw-bold mb-1'>Kate Hunington</p>
-                <p className='text-muted mb-0'>kate.hunington@gmail.com</p>
-              </div>
-            </div>
-          </td>
-          <td>
-            <p className='fw-normal mb-1'>System Admin</p>
-          </td>
-          <td>
-            <MDBBadge color='warning' pill>
-              Product Owner
-            </MDBBadge>
-          </td>
-          <td>
-            <MDBBtn color='link' rounded size='sm'>
-              Edit
-            </MDBBtn>
-          </td>
-        </tr> */}
+              ))}
 
-          </MDBTableBody>
 
-        )}
+            </MDBTableBody>
 
-      </MDBTable>
+          )}
+                    
+
+        </MDBTable>
+
+        {systemUser.map((systemUser) => (
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit user</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <MDBRow>
+                <MDBCol>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                      type="Name"
+                      placeholder={systemUser.firstName}
+                      autoFocus
+                    />
+                  </Form.Group>
+                </MDBCol>
+                <MDBCol>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control
+                      type="Name"
+                      placeholder={systemUser.lastName}
+                      autoFocus
+                    />
+                  </Form.Group>
+                </MDBCol>
+              </MDBRow>
+
+
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder={systemUser.emailId}
+                  autoFocus
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Group</Form.Label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>Product Owner</option>
+                  <option>Scrum master</option>
+                  <option>Team member</option>
+                </select>
+                
+              </Form.Group>
+
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] '>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+    ))}
       </div>
 
     </>
