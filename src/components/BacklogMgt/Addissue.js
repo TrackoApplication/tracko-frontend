@@ -3,8 +3,42 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { MDBCol } from 'mdb-react-ui-kit';
+import IssueService from '../../services/IssueService';
 
 const AddIssue = () => {
+
+  const [issue, setIssue] = useState({
+    issueId:"",
+    projectName:"",
+    issueType:"",
+    summary:"",
+    description:"",
+    assignee:"",
+    sprintName:"",
+    epicName:"",
+    reqOfTesting:"",
+    spdeveloping:"",
+    sptesting:"",
+    totalSP:"",
+    priority:"",
+    reporter:"",
+  });
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setIssue({...issue,[e.target.name]: value});
+  };
+
+  const saveIssue = (e) => {
+    e.preventDefault();
+    IssueService.saveIssue(issue).then((response) => {
+      console.log(response);
+    }).catch((error) => {
+      console.log(error);
+    });
+    handleClose();
+  };
+
   const [inactive, setInactive] = React.useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -35,21 +69,21 @@ const AddIssue = () => {
                 <MDBCol>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Project</Form.Label>
-                        <Form.Select>
-                          <option value="">Select the project</option>
-                          <option value="">Project 1</option>
-                          <option value="">Project 2</option>
-                          <option value="">Project 3</option>
+                        <Form.Select name="projectName" value={issue.projectName} onChange={(e) => handleChange(e)}>
+                          <option>Select the project</option>
+                          <option>Project 1</option>
+                          <option>Project 2</option>
+                          <option>Project 3</option>
                         </Form.Select>
                         </Form.Group>
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Issue type</Form.Label>
-                        <Form.Select placeholder="Enter Issue type">
-                          <option value="">Select the issue type</option>
-                          <option value="">Issue</option>
-                          <option value="">Bug</option>
-                          <option value="">QA</option>
+                        <Form.Select name="issueType" value={issue.issueType} onChange={(e) => handleChange(e)}>
+                          <option>Select the issue type</option>
+                          <option>Issue</option>
+                          <option>Bug</option>
+                          <option>QA</option>
                         </Form.Select>
                         </Form.Group>
                 
@@ -58,6 +92,9 @@ const AddIssue = () => {
                         <Form.Control
                         type="text"
                         placeholder="Summary"
+                        name="summary"
+                        value={issue.summary}
+                        onChange={(e) => handleChange(e)}
                         // autoFocus
                         />
                         </Form.Group>
@@ -67,45 +104,49 @@ const AddIssue = () => {
                         <Form.Control
                         as="textarea" rows={5}
                         placeholder="Description"
+                        name="description"
+                        value={issue.description}
+                        onChange={(e) => handleChange(e)}
                         // autoFocus
                         />
                         </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Assignee</Form.Label>
-                        <Form.Select>
-                          <option value="">Assignee</option>
-                          <option value="">Ravindu Karunaweera</option>
-                          <option value="">Yasiru Basura</option>
-                          <option value="">Seefa Banu</option>
+                        <Form.Select name="assignee" value={issue.assignee} onChange={(e) => handleChange(e)}>
+                          <option>Assignee</option>
+                          <option>Ravindu Karunaweera</option>
+                          <option>Yasiru Basura</option>
+                          <option>Seefa Banu</option>
                         </Form.Select>
                         </Form.Group>
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Sprint</Form.Label>
-                        <Form.Select>
-                          <option value="">Select the sprint</option>
-                          <option value="">Sprint 1</option>
-                          <option value="">Sprint 2</option>
-                          <option value="">Sprint 3</option>
+                        <Form.Select name="sprintName" value={issue.sprintName} onChange={(e) => handleChange(e)}>
+                          <option>Select the sprint</option>
+                          <option>Sprint 1</option>
+                          <option>Sprint 2</option>
+                          <option>Sprint 3</option>
                         </Form.Select>
                         </Form.Group>
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Epic</Form.Label>
-                        <Form.Control
-                        type="text"
-                        placeholder="Epic name"
-                        // autoFocus
-                        />
+                        <Form.Select name="epicName" value={issue.epicName} onChange={(e) => handleChange(e)}>
+                          <option>Select the epic</option>
+                          <option>Epic 1</option>
+                          <option>Epic 2</option>
+                          <option>Epic 3</option>
+                        </Form.Select>
                         </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Group className="mb-3">
                         <Form.Label>Requirement of testing</Form.Label>
-                        <Form.Select>
-                          <option value="">Select requirement of testing</option>
-                          <option value="">Yes</option>
-                          <option value="">No</option>
+                        <Form.Select name="reqofTesting" value={issue.reqOfTesting} onChange={(e) => handleChange(e)}>
+                          <option>Select requirement of testing</option>
+                          <option>Yes</option>
+                          <option>No</option>
                         </Form.Select>
                         </Form.Group>
 
@@ -113,6 +154,9 @@ const AddIssue = () => {
                         <Form.Label>Story point estimate for developing</Form.Label>
                         <Form.Control
                         type="number"
+                        name="spdeveloping"
+                        value={issue.spdeveloping}
+                        onChange={(e) => handleChange(e)}
                         // placeholder="name@example.com"
                         // autoFocus
                         />
@@ -122,15 +166,21 @@ const AddIssue = () => {
                         <Form.Label>Story point estimate for testing</Form.Label>
                         <Form.Control
                         type="number"
+                        name="sptesting"
+                        value={issue.sptesting}
+                        onChange={(e) => handleChange(e)}
                         // placeholder="name@example.com"
                         // autoFocus
                         />
                         </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Group className="mb-3">
                         <Form.Label>Total estimated story point</Form.Label>
                         <Form.Control
                         type="number"
+                        name="totalsp"
+                        value={issue.totalSP}
+                        onChange={(e) => handleChange(e)}
                         // placeholder="name@example.com"
                         // autoFocus
                         />
@@ -138,21 +188,21 @@ const AddIssue = () => {
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Priority</Form.Label>
-                        <Form.Select>
-                          <option value="">Select the priority</option>
-                          <option value="">High</option>
-                          <option value="">Medium</option>
-                          <option value="">Low</option>
+                        <Form.Select name="priority" value={issue.priority} onChange={(e) => handleChange(e)}>
+                          <option>Select the priority</option>
+                          <option>High</option>
+                          <option>Medium</option>
+                          <option>Low</option>
                         </Form.Select>
                         </Form.Group>
                         
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Reporter</Form.Label>
-                        <Form.Select>
-                          <option value="">Reporter</option>
-                          <option value="">Reporter 1</option>
-                          <option value="">Reporter 2</option>
-                          <option value="">Reporter 3</option>
+                        <Form.Select name="reporter" value={issue.reporter} onChange={(e) => handleChange(e)}>
+                          <option>Reporter</option>
+                          <option>Reporter 1</option>
+                          <option>Reporter 2</option>
+                          <option>Reporter 3</option>
                         </Form.Select>
                         </Form.Group>
                            
@@ -167,7 +217,7 @@ const AddIssue = () => {
                 Cancel
               </Button>
 
-              <Button variant="primary" className='rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] ' onClick={handleClose}>
+              <Button variant="primary" className='rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] ' onClick={saveIssue}>
                 Create
               </Button>
 
