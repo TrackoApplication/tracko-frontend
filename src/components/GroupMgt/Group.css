@@ -4,7 +4,7 @@
     width: 100%;
     background: var(--glass);
     gap: 16px;
-    grid-template-columns: 12rem auto;
+    grid-template-columns:12rem auto;
     overflow: scroll;
   }
 
@@ -16,7 +16,7 @@
 } */
 .mainGroup{
     padding: 10px;
-    margin: 2px;
+    margin: 10px;
     width: 100%;
     height: 100%;
     /* background-color: #ffffff;
@@ -40,11 +40,49 @@
 
 @media screen and (max-width: 768px) {
     .mainGroup{
-        width: 80%;
+        width: 85%;
         margin-left: 55px;
     }
     .AppGlass{
         grid-template-columns: 1fr;
+       
       } 
+
+    .container-box .group-table{
+        margin-left: 20px;
+        max-width: 95%;
+        padding: 20px;
+    }
+
+
+   
+}
+
+.group-table{
+    margin-left: 20px;
+    margin-right: 20px;
+    max-width: 95%;
+    padding: 20px;
+}
+
+.group-details-table{
+    margin-left: 20px;
+    margin-right: 20px;
+    max-width: 95%;
+    padding: 20px;  
+}
+
+.container-box{
+    max-width: 95%;
+    display: flex;
+     
+}
+
+.member{
+    width: 50%;
+}
+
+.access{
+    width: 50%;
 }
 

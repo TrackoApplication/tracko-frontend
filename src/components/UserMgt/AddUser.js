@@ -3,73 +3,77 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { MDBCol,MDBRow } from 'mdb-react-ui-kit';
+import { MDBCol, MDBRow } from 'mdb-react-ui-kit';
 import SystemUserService from '../../Services/SystemUserService';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-    
+
 
 const AddUser = () => {
 
   const navigate = useNavigate();
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const [loading, setLoading] = useState(false);
-    const [form,setForm] = useState({});
-    const [errors,setErrors]=useState({});
-    const [validated, setValidated] = useState(false);
-    const [emailExists, setEmailExists] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({});
+  const [errors, setErrors] = useState({});
+  const [validated, setValidated] = useState(false);
+  const [emailExists, setEmailExists] = useState(false);
 
+  const [password, setPasswordShown] = useState(false);
+  // Password toggle handler
+  const togglePassword = () => {
+    // When the handler is invoked
+    // inverse the boolean state of passwordShown
+    setPasswordShown(!password);
+  };
 
 
   const [systemUser, setsystemUser] = React.useState({
-      firstName: '',
-      lastName: '',
-      // userName: '',
-      password: '',
-      confirmPassword: '',
-      emailId: ''
-    });
+    firstName: '',
+    lastName: '',
+    // userName: '',
+    password: '',
+    confirmPassword: '',
+    emailId: ''
+  });
 
   const handleChange = (field, value) => {
 
-      setsystemUser({
-          ...systemUser,
-          [field]: value
-      });
-      if(!!errors[field]) setErrors({
-        ...errors,
-        [field]: null
-      })
+    setsystemUser({
+      ...systemUser,
+      [field]: value
+    });
+    if (!!errors[field]) setErrors({
+      ...errors,
+      [field]: null
+    })
 
-    }
-
-    
-
+  }
 
   const saveSystemUser = (e) => {
     e.preventDefault()
     SystemUserService.saveSystemUser(systemUser).then(res => {
-    console.log(res);
+      console.log(res);
     })
-    .catch(error => {
-      console.log(error);
-    });
+      .catch(error => {
+        console.log(error);
+      });
     handleClose();
     setLoading(true);
   }
-    
+
   const handleSubmit = async (e) => {
-    const emailId  = systemUser.emailId;
+    const emailId = systemUser.emailId;
     const name = systemUser.firstName;
     e.preventDefault()
-    const formErrors = validateForm() 
-    if(Object.keys(formErrors).length === 0){
+    const formErrors = validateForm()
+    if (Object.keys(formErrors).length === 0) {
       // try {
       //   await axios.post("/api/register", { name, emailId });
-       
+
       //   // Send email
       //   try {
       //     await axios.post("/api/send-email", { name, emailId, type: "verification" });
@@ -81,18 +85,18 @@ const AddUser = () => {
       //   console.error(error);
       // }
       saveSystemUser(e);
-      alert ('User added successfully');
+      alert('User added successfully');
 
-     
-    }else{
+
+    } else {
       setErrors(formErrors);
     }
-    
-    
+
+
   };
- 
+
   const validateForm = () => {
-    const {firstName,lastName,password,confirmPassword,emailId} = systemUser;
+    const { firstName, lastName, password, confirmPassword, emailId } = systemUser;
     const regexPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const checkEmailExists = async () => {
@@ -110,27 +114,27 @@ const AddUser = () => {
     };
 
     const errors = {};
-    if(!firstName || firstName === ''){
+    if (!firstName || firstName === '') {
       errors.firstName = 'First Name is required';
     }
-    if(!lastName || lastName === '' ) {
+    if (!lastName || lastName === '') {
       errors.lastName = 'Last Name is required';
     }
-    if(!password  || password === ''){
+    if (!password || password === '') {
       errors.password = 'Password is required';
-    }else if(!regexPass.test(password)){
-        errors.password = 'Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character';
-      }
-    if(!confirmPassword || confirmPassword === ''){
+    } else if (!regexPass.test(password)) {
+      errors.password = 'Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character';
+    }
+    if (!confirmPassword || confirmPassword === '') {
       errors.confirmPassword = 'Confirm Password is required';
-    }else if(password !== confirmPassword){
-        errors.confirmPassword = 'Password and confirm password must be same';
-      }
-    
-    if(!emailId || emailId === ''){
+    } else if (password !== confirmPassword) {
+      errors.confirmPassword = 'Password and confirm password must be same';
+    }
+
+    if (!emailId || emailId === '') {
       errors.emailId = 'Email Id is required';
-    }else if(!regexEmail.test(emailId)){
-        errors.emailId = 'Email Id is not valid';
+    } else if (!regexEmail.test(emailId)) {
+      errors.emailId = 'Email Id is not valid';
     }
     // }else if(checkEmailExists){
     //   errors.emailId = 'Email Id already not exists';
@@ -139,66 +143,69 @@ const AddUser = () => {
     return errors;
   }
 
-   
 
-      return (
-        <>
-          <Button 
-          variant="primary" 
-          className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out" 
-          onClick={handleShow}>
-            Add User
-          </Button>
-    
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Add user</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
 
-              <Form noValidate validated={validated} >
-                <MDBRow>
-                    <MDBCol>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>First Name</Form.Label>
-                            <Form.Control
-                                name='firstName'
-                                type="Name"
-                                placeholder="Jhon"
-                                autoFocus
-                                value={systemUser.firstName} 
-                                // onChange={(e)=>handleChange(e)}
-                                onChange = {(e) => handleChange('firstName', e.target.value) }
-                                required
-                                isInvalid={!!errors.firstName}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                              {errors.firstName}
-                            </Form.Control.Feedback>
-                          </Form.Group>
-                    </MDBCol>
-                    <MDBCol>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Last Name</Form.Label>
-                            <Form.Control
-                                name='lastName'
-                                type="Name"
-                                placeholder="Dee"
-                                autoFocus
-                                required
-                                value={systemUser.lastName} 
-                                onChange = {(e) => handleChange('lastName', e.target.value)}
-                                isInvalid={!!errors.lastName}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                              {errors.lastName}
-                            </Form.Control.Feedback>
 
-                          </Form.Group>
-                    </MDBCol>
-                </MDBRow>
 
-                {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+
+  return (
+    <>
+      <Button
+        variant="primary"
+        className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out"
+        onClick={handleShow}>
+        Add User
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add user</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+
+          <Form noValidate validated={validated} >
+            <MDBRow>
+              <MDBCol>
+                <Form.Group className="mb-3" >
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control
+                    name='firstName'
+                    type="Name"
+                    placeholder="Jhon"
+                    autoFocus
+                    value={systemUser.firstName}
+                    // onChange={(e)=>handleChange(e)}
+                    onChange={(e) => handleChange('firstName', e.target.value)}
+                    required
+                    isInvalid={!!errors.firstName}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.firstName}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </MDBCol>
+              <MDBCol>
+                <Form.Group className="mb-3" >
+                  <Form.Label>Last Name</Form.Label>
+                  <Form.Control
+                    name='lastName'
+                    type="Name"
+                    placeholder="Dee"
+                    autoFocus
+                    required
+                    value={systemUser.lastName}
+                    onChange={(e) => handleChange('lastName', e.target.value)}
+                    isInvalid={!!errors.lastName}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.lastName}
+                  </Form.Control.Feedback>
+
+                </Form.Group>
+              </MDBCol>
+            </MDBRow>
+
+            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>User Name</Form.Label>
                   <Form.Control
                     name="userName"
@@ -216,79 +223,82 @@ const AddUser = () => {
 
                   </Form.Group> */}
 
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="********"
-                    autoFocus
-                    required
-                    value={systemUser.password} 
-                    name="password"
-                    onChange = {(e) => handleChange('password', e.target.value)}
-                    isInvalid={!!errors.password}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.password}
-                  </Form.Control.Feedback>
+            <Form.Group className="mb-3" >
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                id='password'
+                placeholder="********"
+                autoFocus
+                required
+                value={systemUser.password}
+                name="password"
+                onChange={(e) => handleChange('password', e.target.value)}
+                isInvalid={!!errors.password}
+                
+              />
 
-                </Form.Group>
+              <Form.Control.Feedback type="invalid">
+                {errors.password}
+              </Form.Control.Feedback>
+
+            </Form.Group>
 
 
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label>Confirm Password</Form.Label>
-                  <Form.Control
-                    name="confirmPassword"
-                    type="password"
-                    placeholder="********"
-                    autoFocus
-                    value={systemUser.confirmPassword}
-                    required
-                    onChange = {(e) => handleChange('confirmPassword', e.target.value)}
-                    isInvalid={!!errors.password}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.confirmPassword}
-                  </Form.Control.Feedback>
-                </Form.Group>
+            <Form.Group className="mb-3" c>
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                name="confirmPassword"
+                type="password"
+                placeholder="********"
+                autoFocus
+                value={systemUser.confirmPassword}
+                required
+                onChange={(e) => handleChange('confirmPassword', e.target.value)}
+                isInvalid={!!errors.password}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.confirmPassword}
+              </Form.Control.Feedback>
+            </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control
-                    name='emailId'
-                    type="email"
-                    placeholder="name@example.com"
-                    autoFocus
-                    required
-                    value={systemUser.emailId} 
-                    onChange = {(e) => handleChange('emailId', e.target.value)}
-                    isInvalid={!!errors.emailId}
+            <Form.Group className="mb-3" >
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                name='emailId'
+                type="email"
+                placeholder="name@example.com"
+                autoFocus
+                required
+                value={systemUser.emailId}
+                onChange={(e) => handleChange('emailId', e.target.value)}
+                isInvalid={!!errors.emailId}
 
-                    />
-                   <Form.Control.Feedback type="invalid">
-                    {errors.emailId} 
-                  </Form.Control.Feedback>
-                </Form.Group>
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.emailId}
+              </Form.Control.Feedback>
+            </Form.Group>
 
-              <Form.Group controlId="">
-                <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
-                  Close
-                </Button>
-              </Form.Group>
+            <Form.Group controlId="">
+              <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
+                Close
+              </Button>
+            </Form.Group>
 
-              <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] ' 
+            <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] '
               type='submit'
               // onClick={saveSystemUser}>
-              onClick={(e)=>{handleSubmit(e)}}
-              >
-                Save Changes
-              </Button>
-              </Form>
-            </Modal.Body>
-            
-          </Modal>
-        </>
-   
+              onClick={(e) => { handleSubmit(e) }}
+            >
+              Save Changes
+            </Button>
+          </Form>
+        </Modal.Body>
+
+      </Modal>
+    </>
+
   )
 }
 

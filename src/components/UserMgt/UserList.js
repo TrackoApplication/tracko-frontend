@@ -10,7 +10,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { MDBCol, MDBRow } from 'mdb-react-ui-kit';
-
+import './userList.css'
+import Avatar from 'react-avatar';
 
 
 const UserList = () => {
@@ -55,6 +56,7 @@ const UserList = () => {
   };
 
 
+
   return (
 
     <>
@@ -68,8 +70,8 @@ const UserList = () => {
         <AddUser />
       </div>
 
-      <div className='mx-4 justify-content-md-center'>
-        <MDBTable align=' middle' className='w-[100%]'>
+      <div className='mx-4'>
+        <MDBTable className='user-table '>
           <MDBTableHead>
             <tr>
               <th scope='col'>Name</th>
@@ -93,34 +95,32 @@ const UserList = () => {
                 style={{ width: '45px', height: '45px' }}
                 className='rounded-circle'
               /> */}
-                      <b-avatar variant="secondary"></b-avatar>
+                      <Avatar name={systemUser.firstName} size="40" round={true} />
+
                       <div className='ms-3'>
                         <p className='fw-bold mb-1'>{systemUser.firstName}</p>
                         <p className='text-muted mb-0'>{systemUser.emailId}</p>
                       </div>
                     </div>
                   </td>
+
                   <td className='w-[300px]'>
                     <p className='fw-normal mb-1 '>System Admin</p>
                   </td>
                   <td className='w-[400px]'>
                     <MDBBadge color='success' pill>
-                      Active
+                      Not Assigned
                     </MDBBadge>
                   </td>
                   <td className='w-[200px]'>
-                    <MDBBtn
-                      // onClick={(e,id) => {editSystemUser(e ,systemUser.id)} ; handleShow()}
-                      onClick={handleShow}
-                      color='link' rounded size='sm' cursor-pointer>
-                      Edit
-                    </MDBBtn>
 
-                    <a
+                    <UpdateUser id={systemUser.id} />
+
+                    <MDBBtn
                       onClick={(e, id) => deleteSystemUser(e, systemUser.id)}
                       color='link' rounded size='sm'>
                       Delete
-                    </a>
+                    </MDBBtn>
                   </td>
                 </tr>
 
@@ -130,73 +130,11 @@ const UserList = () => {
             </MDBTableBody>
 
           )}
-                    
+
 
         </MDBTable>
 
-        {systemUser.map((systemUser) => (
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit user</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <MDBRow>
-                <MDBCol>
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control
-                      type="Name"
-                      placeholder={systemUser.firstName}
-                      autoFocus
-                    />
-                  </Form.Group>
-                </MDBCol>
-                <MDBCol>
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control
-                      type="Name"
-                      placeholder={systemUser.lastName}
-                      autoFocus
-                    />
-                  </Form.Group>
-                </MDBCol>
-              </MDBRow>
 
-
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder={systemUser.emailId}
-                  autoFocus
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Group</Form.Label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option>Product Owner</option>
-                  <option>Scrum master</option>
-                  <option>Team member</option>
-                </select>
-                
-              </Form.Group>
-
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] '>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
-    ))}
       </div>
 
     </>
