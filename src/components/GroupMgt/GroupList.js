@@ -17,18 +17,20 @@ export const GroupList = () => {
             <AddGroup/>
         </div>
 
-          <div className='mx-4 shadow rounded'>
-            <MDBTable >
+            <MDBTable className='center'>
               <MDBTableHead className='bg-gray-100 rounded '>
                 <tr >
                   <th scope='col'>Group</th>
                   <th scope='col'>Members</th>
-                  <th scope='col'>Access to</th>
+                  <th scope='col'>Number of Access</th>
                   <th scope='col'>Actions</th>
+
                 </tr>
               </MDBTableHead>
+
               <MDBTableBody>
                 <tr>
+
                   <td>
                     <div className='d-flex align-items-center'>
                       <div >
@@ -36,25 +38,30 @@ export const GroupList = () => {
                       </div>
                     </div>
                   </td>
+
                   <td>
                     <p className='fw-normal mb-1'>1</p>
                   </td>
+
                   <td>
                     <MDBBadge color='success' pill>
-                      Active
+                      7
                     </MDBBadge>
                   </td>
+
                   <td>
                     <MDBBtn color='link' rounded size='sm'>
                       Show Details
                     </MDBBtn>
                   </td>
+
                 </tr>
+
                 <tr>
                   <td>
                     <div className='d-flex align-items-center'>
                       <div >
-                        <p className='mb-1'>Alex Ray</p>
+                        <p className='mb-1'>Team member</p>
                       </div>
                     </div>
                   </td>
@@ -65,7 +72,6 @@ export const GroupList = () => {
                     <MDBBadge color='primary' pill>
                      6
                     </MDBBadge>
-                    
                   </td>
                   <td>
                     <MDBBtn color='link' rounded size='sm'>
@@ -73,6 +79,7 @@ export const GroupList = () => {
                     </MDBBtn>
                   </td>
                 </tr>
+
                 <tr>
                   <td>
                     <div className='d-flex align-items-center'>
@@ -95,11 +102,12 @@ export const GroupList = () => {
                     </MDBBtn>
                   </td>
                 </tr>
+
               </MDBTableBody>
             </MDBTable>
           </div>
 
-        </div>
+        
 
 
   )
