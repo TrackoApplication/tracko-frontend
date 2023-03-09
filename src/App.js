@@ -20,6 +20,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
 import NavLayout from "./components/Layout/NavLayout";
 import { SideLayout } from "./components/Layout/SideLayout";
+import BacklogView from "./components/BacklogMgt/BacklogView";
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
         {/* pages with sidebar */}
           <Route path="/Team" element ={<Team/>}/>
           <Route path="/Backlog" element ={<Backlog/>}/>
+          <Route path="/BacklogView" element ={<BacklogView/>}/>
           <Route path="/ActiveSprint" element ={<ActiveSprint/>}/>
           <Route path="/People" element ={<People/>}/>
           <Route path="/Forum" element ={<Forum/>}/>

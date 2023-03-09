@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { MDBCol } from 'mdb-react-ui-kit';
-import SprintService from '../../services/SprintService';
+import SprintService from '../../Services/SprintService';
 
 const SprintStart = () => {
 
@@ -13,6 +13,7 @@ const SprintStart = () => {
     startDate:"",
     endDate:"",
     sprintGoal:"",
+    duration:"",
   });
 
   const handleChange = (e) => {
@@ -74,7 +75,7 @@ const SprintStart = () => {
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Duration</Form.Label>
-                        <Form.Select>
+                        <Form.Select name="duration" value={sprint.duration} onChange={(e) => handleChange(e)}>
                           <option value="">--Duration--</option>
                           <option value="">Custom</option>
                           <option value="">1 week</option>
