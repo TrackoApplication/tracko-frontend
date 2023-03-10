@@ -59,7 +59,7 @@ const AddIssue = () => {
           <Modal show={show} onHide={handleClose}>
 
             {/* header section */}
-            <Modal.Header closeButton>
+            <Modal.Header>
               <Modal.Title>Create Issue</Modal.Title>
             </Modal.Header>
 

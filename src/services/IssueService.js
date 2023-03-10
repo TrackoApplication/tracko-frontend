@@ -7,6 +7,10 @@ class IssueService {
     saveIssue(issue) {
         return axios.post(ISSUE_API_BASE_URL, issue);
     }
+
+    getIssues() {
+        return axios.get(ISSUE_API_BASE_URL)
+    }
 }
 
 export default new IssueService();
