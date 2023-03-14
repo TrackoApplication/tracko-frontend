@@ -1,5 +1,3 @@
-/*
-
 
 *{
     margin: 0;
@@ -13,7 +11,7 @@
     color: #111;
   
   }
-  .container{
+  .ProListcontainer{
     max-width: 1300px;
     width: 100%;
     margin-top: auto;
@@ -29,14 +27,14 @@
     align-items: center;
   }
   
-  h1{
+  h1.ProListH1{
     font-size: 30px;
     line-height: 60px;
     text-align: left;
     margin-bottom: 80px;
   }
   
-  .cards{
+  .PLcards{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -44,7 +42,7 @@
   }
   
   
-  .card{
+  .PLcard{
   flex: 0 0 calc(33.33% - 20px);
   max-width: calc(33.33% - 20px) ;
   width: 100%;
@@ -57,13 +55,13 @@
   
   }
   
-  .card:hover{
+  .PLcard:hover{
     border-color: #1d39c4;
   
   }
   
   
-  .btn{
+  .ProListbtn{
     border: none;
     outline: none;
     background: #1d39c4;
@@ -82,7 +80,7 @@
   }
   
   
-  .btn:hover{
+  .ProListbtn:hover{
     background: transparent;
     color: #1d39c4;
   
@@ -98,7 +96,7 @@
       text-align: left;
   
     }
-    .card{
+    .PLcard{
     flex:  0 0 calc(50% - 20px);
     max-width: calc(50% - 20px);
     
@@ -115,4 +113,4 @@
   }
 
 
-  /
+ 

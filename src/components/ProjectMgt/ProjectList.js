@@ -48,20 +48,23 @@ const [cards] = useState([
 
   return (
     <>
-    <NavBar></NavBar>
-    <h1><b>Projects</b></h1> 
+    
+     
 
     <div>
-      <section>
-        <div className='container'>
+    <NavBar/>
+    <section>
+    <div className='ProListcontainer'>
+    <h1><b>Projects</b></h1>
+        
           
-          <div className='cards'>
+          <div className='PLcards'>
             {
               cards.map((card,i) => ( 
-              <div key={i} className='card'>
+              <div key={i} className='PLcard'>
               <h3>{card.title}</h3>
               <p>{card.Text}</p>
-              <button className='btn'>Options</button>
+              <button className='ProListbtn'>Options</button>
                 </div>
               ))
             }
