@@ -9,10 +9,11 @@ import './userList.css'
 import Avatar from 'react-avatar';
 import User from './User';
 import ConfirmPopup from './ConfirmPopup';
+import SuccessfulAction from './SuccessfulAction';
 
 
 const UserList = () => {
-  const [showConfirm, setShowConfirm] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -40,10 +41,11 @@ const UserList = () => {
  
 
   const deleteSystemUser = (id) => {
+  
       SystemUserService.deleteSystemUser(id).then((res) => {
         if (systemUsers) {
-          setSystemUsers((prevElement) => {
-            alert("User Deleted Successfully");
+            setSystemUsers((prevElement) => {
+            setShowSuccess(true);
             return prevElement.filter((systemUser) => systemUser.id !== id);
           });
         }
@@ -99,6 +101,12 @@ const UserList = () => {
         </MDBTable>
 
       </div>
+
+      <SuccessfulAction
+        onHide={() => setShowSuccess(false)}
+        show={showSuccess}
+        message="User Deleted Successfully"
+      />
 
       
 

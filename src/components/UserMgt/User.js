@@ -46,6 +46,7 @@ const User = ({systemUser,deleteSystemUser,key}) => {
         </tr>
 
         <ConfirmPopup
+    
       show={showConfirm}
       deleteSystemUser={deleteSystemUser}
       onHide={() => setShowConfirm(false)}

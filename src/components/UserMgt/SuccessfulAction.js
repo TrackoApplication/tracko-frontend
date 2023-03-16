@@ -1,0 +1,48 @@
+import { delay } from 'framer-motion';
+import React, { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import UserList from './UserList';
+import './userList.css'
+
+const SuccessfulAction = (props) => {
+    const multicCall=() =>{
+        props.onHide();
+        window.location.reload(false);
+    }
+
+  return (
+    <div>
+    <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        className='justify-center'
+      >
+        <div closeButton className='bg-green-400 align-center rounded p-2 shadow '>
+          <div className='flex mx-auto'>
+            <div className='iconSuccess mx-auto  '>
+                <i class="bi bi-check-circle" ></i>
+            </div>
+            </div>
+        </div>
+        <div className='flex p-5 mx-auto text-xl'>
+            {props.message}
+        </div>
+        <div className='p-3 mx-auto'>
+          <btn 
+          className="btn btn-blue w-20" 
+            onClick={()=>multicCall()}
+          >
+            ok
+          </btn>
+          
+        </div>
+    </Modal>
+     
+      
+    </div>
+  );
+}
+
+export default SuccessfulAction;

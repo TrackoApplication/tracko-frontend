@@ -1,9 +1,16 @@
+import { delay } from 'framer-motion';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import UserList from './UserList';
 
 const ConfirmPopup = (props) => {
+
+    const multicCall=() =>{
+        props.deleteSystemUser(props.systemUserId);
+        props.onHide();
+
+    }
 
   return (
     <div>
@@ -27,11 +34,11 @@ const ConfirmPopup = (props) => {
           </btn>
           <btn 
           className="btn btn-red" 
-          onClick={()=> props.deleteSystemUser(props.systemUserId)}>
+          onClick={()=>multicCall()}>
             Delete
         </btn>
         </Modal.Footer>
-      </Modal>
+    </Modal>
      
       
     </div>
