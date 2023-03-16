@@ -55,7 +55,7 @@ const Register = () => {
 
   return (
 
-    <MDBContainer fluid className='my-2'>
+    <MDBContainer fluid className='mdbcontainer'>
 
       <MDBRow className='g-0 align-items-center'>
         <MDBCol col='6 '>

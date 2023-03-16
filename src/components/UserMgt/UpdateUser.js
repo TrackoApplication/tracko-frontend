@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 // import NavBar from '../NavBar/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -10,7 +10,7 @@ import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-reac
 
 
 
-export const UpdateUser = ({id}) => {
+export const UpdateUser = ({ id }) => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -33,7 +33,7 @@ export const UpdateUser = ({id}) => {
 
 
   const [systemUser, setsystemUser] = React.useState({
-    id: id,
+    id: '',
     firstName: '',
     lastName: ''
     // userName: '',
@@ -57,31 +57,30 @@ export const UpdateUser = ({id}) => {
   const editSystemUser = (e, id) => {
     e.preventDefault();
     handleShow();
-  }; 
+  };
 
   const updateSystemUser = (e) => {
     e.preventDefault();
-    SystemUserService.updateSystemUser(id,systemUser).then((res) => {
+    SystemUserService.updateSystemUser(id, systemUser).then((res) => {
       navigate('/UserList');
     }
     ).catch((error) => {
       console.log(error);
     }
-    ); 
+    );
 
-    
+
   }
 
   return (
     <>
-      <MDBBtn
-        onClick={(e,id) => {editSystemUser(e ,systemUser.id)} }
-        >
-        Edit
-      </MDBBtn>
+      <i class="bi bi-pen"
+        onClick={(e, id) => { editSystemUser(e, systemUser.id) }}
+      >
+      </i>
 
 
-        {/* <Modal show={show} onHide={handleClose}>
+      {/* <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Edit user</Modal.Title>
           </Modal.Header>
@@ -144,9 +143,9 @@ export const UpdateUser = ({id}) => {
           </Modal.Footer>
         </Modal> */}
 
-        <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit user</Modal.Title>
+          <Modal.Title>Edit User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
 
@@ -266,35 +265,39 @@ export const UpdateUser = ({id}) => {
                 {errors.emailId}
               </Form.Control.Feedback>
             </Form.Group> */}
+
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Group</Form.Label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option>Product Owner</option>
-                  <option>Scrum master</option>
-                  <option>Team member</option>
-                </select>
+              <Form.Label>Group</Form.Label>
+              <select class="form-control" id="exampleFormControlSelect1">
+                <option>Product Owner</option>
+                <option>Scrum master</option>
+                <option>Team member</option>
+              </select>
 
-              </Form.Group>
-
-            <Form.Group controlId="">
-              <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
-                Close
-              </Button>
             </Form.Group>
+            
+              <btn
+                className="btn btn-blue btn-sm"
+                onClick={handleClose}>
+                Close
+              </btn>
 
-            <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] '
-              type='submit'
-              // onClick={saveSystemUser}>
-              onClick={updateSystemUser}
-            >
-              Update Changes
-            </Button>
+              <btn
+                className="btn btn-green btn-sm"
+                type='submit'
+                // onClick={saveSystemUser}>
+                onClick={updateSystemUser}
+              >
+                Update Changes
+              </btn>
+
+           
           </Form>
         </Modal.Body>
 
       </Modal>
 
-  
+
 
     </>
   )

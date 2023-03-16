@@ -23,6 +23,8 @@ import GroupDetail from "./components/GroupMgt/GroupDetail";
 
 function App() {
 
+  const UserListWithNavbar = withNavbar(UserList);
+  
   return (
     <>
       <BrowserRouter>
@@ -49,7 +51,7 @@ function App() {
 
 
           {/* pages with navbar */}
-          <Route path="/UserList" element={<UserList />} />
+          <Route path="/UserList" element={<UserListWithNavbar/>} />
           <Route path="/ProjectList" element={<ProjectList />} />
           <Route path="/ClientList" element={<ClientList />} />
 
@@ -61,4 +63,17 @@ function App() {
 }
 
 export default App;
+
+function withNavbar(Component) {
+  return function WrappedComponent(props) {
+    return (
+      <>
+        <Navbar />
+        <div className="page-body">
+        <Component {...props} />
+        </div>
+      </>
+    );
+  }
+}
 

@@ -26,9 +26,9 @@ const Login = () => {
 
     
   return (
-    <div className='mx-auto my-auto'>
+    <div className=''>
 
-    <MDBContainer fluid className='m first-letter:first-line: m-2 '>
+    <MDBContainer fluid className='mdbcontainer first-letter:first-line:'>
 
     <MDBRow className='g-0 align-items-center'>
       

@@ -6,7 +6,6 @@ import Modal from 'react-bootstrap/Modal';
 import { MDBCol, MDBRow } from 'mdb-react-ui-kit';
 import SystemUserService from '../../Services/SystemUserService';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 
 
@@ -31,19 +30,21 @@ const AddUser = () => {
   };
 
 
-  const [systemUser, setsystemUser] = React.useState({
+  const [systemUsers, setsystemUsers] = React.useState({
+    SystemUserId: '',
     firstName: '',
     lastName: '',
     // userName: '',
     password: '',
     confirmPassword: '',
     emailId: ''
+    
   });
 
   const handleChange = (field, value) => {
 
-    setsystemUser({
-      ...systemUser,
+    setsystemUsers({
+      ...systemUsers,
       [field]: value
     });
     if (!!errors[field]) setErrors({
@@ -55,7 +56,7 @@ const AddUser = () => {
 
   const saveSystemUser = (e) => {
     e.preventDefault()
-    SystemUserService.saveSystemUser(systemUser).then(res => {
+    SystemUserService.saveSystemUser(systemUsers).then(res => {
       console.log(res);
     })
       .catch(error => {
@@ -66,8 +67,8 @@ const AddUser = () => {
   }
 
   const handleSubmit = async (e) => {
-    const emailId = systemUser.emailId;
-    const name = systemUser.firstName;
+    const emailId = systemUsers.emailId;
+    const name = systemUsers.firstName;
     e.preventDefault()
     const formErrors = validateForm()
     if (Object.keys(formErrors).length === 0) {
@@ -96,7 +97,7 @@ const AddUser = () => {
   };
 
   const validateForm = () => {
-    const { firstName, lastName, password, confirmPassword, emailId } = systemUser;
+    const { firstName, lastName, password, confirmPassword, emailId } = systemUsers;
     const regexPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const checkEmailExists = async () => {
@@ -173,7 +174,7 @@ const AddUser = () => {
                     type="Name"
                     placeholder="Jhon"
                     autoFocus
-                    value={systemUser.firstName}
+                    value={systemUsers.firstName}
                     // onChange={(e)=>handleChange(e)}
                     onChange={(e) => handleChange('firstName', e.target.value)}
                     required
@@ -193,7 +194,7 @@ const AddUser = () => {
                     placeholder="Dee"
                     autoFocus
                     required
-                    value={systemUser.lastName}
+                    value={systemUsers.lastName}
                     onChange={(e) => handleChange('lastName', e.target.value)}
                     isInvalid={!!errors.lastName}
                   />
@@ -223,20 +224,24 @@ const AddUser = () => {
 
                   </Form.Group> */}
 
+
             <Form.Group className="mb-3" >
               <Form.Label>Password</Form.Label>
               <Form.Control
+                data-toggle="tooltip" 
+                data-placement="right" 
+                title="Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character"
                 type="password"
                 id='password'
                 placeholder="********"
                 autoFocus
                 required
-                value={systemUser.password}
+                value={systemUsers.password}
                 name="password"
                 onChange={(e) => handleChange('password', e.target.value)}
                 isInvalid={!!errors.password}
-                
               />
+             
 
               <Form.Control.Feedback type="invalid">
                 {errors.password}
@@ -252,7 +257,7 @@ const AddUser = () => {
                 type="password"
                 placeholder="********"
                 autoFocus
-                value={systemUser.confirmPassword}
+                value={systemUsers.confirmPassword}
                 required
                 onChange={(e) => handleChange('confirmPassword', e.target.value)}
                 isInvalid={!!errors.password}
@@ -270,7 +275,7 @@ const AddUser = () => {
                 placeholder="name@example.com"
                 autoFocus
                 required
-                value={systemUser.emailId}
+                value={systemUsers.emailId}
                 onChange={(e) => handleChange('emailId', e.target.value)}
                 isInvalid={!!errors.emailId}
 
