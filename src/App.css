@@ -11,9 +11,15 @@ ul{
 li{
   list-style: none;
 }
+
 body{
   background-color: #eee;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.page-body {
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 /* .side-menu{
@@ -205,13 +211,16 @@ body{
   --yellow: linear-gradient(180deg, #F8D49A -146.42%, #FAD79D -46.42%);
   --orange: #fca61f;
   --black: #242d49;
-  --gray: #788097;
+  --blue: #3968f6;
+  --gray: #428db5;
   --purple: linear-gradient(180deg, #BB67FF 0%, #C484F3 100%);
   --pink: #FF919D;
   --glass: rgba(255, 255, 255, 0.54);
   --boxShadow: 0px 19px 60px rgb(0 0 0 / 8%);
   --smboxShadow: -79px 51px 60px rgba(0, 0, 0, 0.08);
   --activeItem: #f799a354;
+  --font-family: 'Roboto', sans-serif;
+
 }
 
 .App{
@@ -222,8 +231,10 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+
 }
+
 
 .AppGlass {
   display: grid;
@@ -254,3 +265,39 @@ body{
     grid-template-columns: 1fr;
   } 
 }
+
+
+.btn {
+  @apply font-bold py-2 px-4 rounded shadow mx-2 my-2;
+}
+.btn-blue {
+  @apply bg-blue-500 text-white ;
+}
+.btn-blue:hover {
+  @apply bg-blue-700;
+}
+.btn-red {
+  @apply bg-red-500 text-white;
+}
+.btn-red:hover {
+  @apply bg-red-700;
+}
+.btn-green {
+  @apply bg-green-500 text-white;
+}
+.btn-green:hover {
+  @apply bg-green-700;
+}
+
+i{
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+i:hover{
+  color: var(--blue);
+  transform: scale(2);
+}
+

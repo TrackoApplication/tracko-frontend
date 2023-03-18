@@ -5,25 +5,31 @@ import { useNavigate } from 'react-router-dom'
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import AddUser from './AddUser';
 import SystemUserService from '../../Services/SystemUserService';
-import { UpdateUser } from './UpdateUser';
-
+import './userList.css'
+import Avatar from 'react-avatar';
+import User from './User';
+import ConfirmPopup from './ConfirmPopup';
+import SuccessfulAction from '../CommonComponents/SuccessfulAction';
 
 
 const UserList = () => {
+  const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [loading, setLoading] = useState(false);
-  const [systemUser, setSystemUser] = useState([]);
+  const [systemUsers, setSystemUsers] = useState([]);
+  const [newchange, setNewchange] = useState(false);
 
-useEffect(() => {
 
+  useEffect(() => {
+    
     const fetchData = async () => {
       setLoading(true);
       try {
         const response = await SystemUserService.getSystemUser();
-        setSystemUser(response.data);
+        setSystemUsers(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -32,165 +38,80 @@ useEffect(() => {
     fetchData();
   }, []);
 
-  const deleteSystemUser = (e, id) => {
-    e.preventDefault();
-    SystemUserService.deleteSystemUser(id).then((res) => {
-      if (systemUser) {
-        setSystemUser((prevElement) => {
-          return prevElement.filter((systemUser) => systemUser.id !== id);
-        });
-      }
-    });
+ 
 
-  };
-
-  const editSystemUser = (e, id) => {
-    e.preventDefault();
+  const deleteSystemUser = (id) => {
   
+      SystemUserService.deleteSystemUser(id).then((res) => {
+        if (systemUsers) {
+            setSystemUsers((prevElement) => {
+            setShowSuccess(true);
+            return prevElement.filter((systemUser) => systemUser.id !== id);
+          });
+        }
+
+      });
+      
   };
 
+  
+
+  
+
+  
+
+  
 
   return (
 
     <>
-      <NavBar />
 
       <div className=" h-12 m-4 ">
-        {/* <button 
-         onClick={<AddUser handleClose/>}
-        // onClick = {() => navigate("/addUser")}
-        className="rounded bg-[#231651] text-white px-6 py-2 font-semibold transition duration-700 hover:scale-105 ease-in-out">Add User</button> */}
         <AddUser />
       </div>
 
-      <div className='mx-4 justify-content-md-center'>
-      <MDBTable align=' middle' className='w-[100%]'>
-        <MDBTableHead>
-          <tr>
-            <th scope='col'>Name</th>
-            <th scope='col'>Role</th>
-            <th scope='col'>Group</th>
-            <th scope='col'>Actions</th>
-          </tr>
-        </MDBTableHead>
+      <div className='mx-4'>
+        <MDBTable className='user-table '>
+          <MDBTableHead>
+            <tr>
+              <th scope='col'>Name</th>
+              <th scope='col'>Role</th>
+              <th scope='col'>Group</th>
+              <th scope='col'>Actions</th>
+            </tr>
+          </MDBTableHead>
 
-        {!loading && (
+          {!loading && (
 
-          <MDBTableBody>
-            {systemUser.map((systemUser) => (
+            <MDBTableBody>
+              {systemUsers.map((systemUser) => (
+                  <User
+                  systemUser={systemUser}
+                  deleteSystemUser={deleteSystemUser}
+                  key={systemUser.SystemUserId}
+                  >
+                  </User>
+                
+              ))}
 
-              <tr key={systemUser.id} >
-                <td className='w-[400px]'>
-                  <div className='d-flex align-items-center'>
-                    {/* <img
-                src='https://mdbootstrap.com/img/new/avatars/8.jpg'
-                alt=''
-                style={{ width: '45px', height: '45px' }}
-                className='rounded-circle'
-              /> */}
-                    <b-avatar variant="secondary"></b-avatar>
-                    <div className='ms-3'>
-                      <p className='fw-bold mb-1'>{systemUser.firstName}</p>
-                      <p className='text-muted mb-0'>{systemUser.emailId}</p>
-                    </div>
-                  </div>
-                </td>
-                <td className='w-[300px]'>
-                  <p className='fw-normal mb-1 '>System Admin</p>
-                </td>
-                <td className='w-[400px]'>
-                  <MDBBadge color='success' pill>
-                    Active 
-                  </MDBBadge>
-                </td>
-                <td className='w-[200px]'>
-                  <MDBBtn 
-                  onClick={(e,id) => editSystemUser(e ,systemUser.id)}
-                  color='link' rounded size='sm' cursor-pointer>
-                    Edit
-                  </MDBBtn>
-                  
-                  <a
-                    onClick={(e, id) => deleteSystemUser(e, systemUser.id)}
-                    color='link' rounded size='sm'>
-                    Delete
-                  </a>
-                </td>
-              </tr>
+            </MDBTableBody>
 
-            ))}
+          )}
 
-            {/* <tr>
-          <td>
-            <div className='d-flex align-items-center'>
-              <img
-                src='https://mdbootstrap.com/img/new/avatars/6.jpg'
-                alt=''
-                style={{ width: '45px', height: '45px' }}
-                className='rounded-circle'
-              />
-              <div className='ms-3'>
-                <p className='fw-bold mb-1'>Alex Ray</p>
-                <p className='text-muted mb-0'>alex.ray@gmail.com</p>
-              </div>
-            </div>
-          </td>
-          <td>
-            <p className='fw-normal mb-1'>User</p>
-          </td>
-          <td>
-            <MDBBadge color='primary' pill>
-              Scrum Master
-            </MDBBadge>
-            <MDBBadge color='warning' pill>
-              Product Owner
-            </MDBBadge>
-          </td>
-          <td>
-            <MDBBtn color='link' rounded size='sm'>
-              Edit
-            </MDBBtn>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div className='d-flex align-items-center'>
-              <img
-                src='https://mdbootstrap.com/img/new/avatars/7.jpg'
-                alt=''
-                style={{ width: '45px', height: '45px' }}
-                className='rounded-circle'
-              />
-              <div className='ms-3'>
-                <p className='fw-bold mb-1'>Kate Hunington</p>
-                <p className='text-muted mb-0'>kate.hunington@gmail.com</p>
-              </div>
-            </div>
-          </td>
-          <td>
-            <p className='fw-normal mb-1'>System Admin</p>
-          </td>
-          <td>
-            <MDBBadge color='warning' pill>
-              Product Owner
-            </MDBBadge>
-          </td>
-          <td>
-            <MDBBtn color='link' rounded size='sm'>
-              Edit
-            </MDBBtn>
-          </td>
-        </tr> */}
+        </MDBTable>
 
-          </MDBTableBody>
-
-        )}
-
-      </MDBTable>
       </div>
+
+      <SuccessfulAction
+        onHide={() => setShowSuccess(false)}
+        show={showSuccess}
+        message="User Deleted Successfully"
+      />
+
+      
 
     </>
   )
-}
+};
 
 export default UserList
