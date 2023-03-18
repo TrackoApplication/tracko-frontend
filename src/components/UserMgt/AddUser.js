@@ -6,11 +6,11 @@ import Modal from 'react-bootstrap/Modal';
 import { MDBCol, MDBRow } from 'mdb-react-ui-kit';
 import SystemUserService from '../../Services/SystemUserService';
 import { useNavigate } from 'react-router-dom';
-
+import SuccessfulAction from '../CommonComponents/SuccessfulAction';
 
 
 const AddUser = () => {
-
+  const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -20,15 +20,17 @@ const AddUser = () => {
   const [errors, setErrors] = useState({});
   const [validated, setValidated] = useState(false);
   const [emailExists, setEmailExists] = useState(false);
+  const [passwordType, setPasswordType] = useState("password");
 
-  const [password, setPasswordShown] = useState(false);
-  // Password toggle handler
-  const togglePassword = () => {
-    // When the handler is invoked
-    // inverse the boolean state of passwordShown
-    setPasswordShown(!password);
-  };
-
+  const togglePassword =(e)=>{
+    e.preventDefault();
+    if(passwordType==="password")
+    {
+     setPasswordType("text")
+     return;
+    }
+    setPasswordType("password")
+  }
 
   const [systemUsers, setsystemUsers] = React.useState({
     SystemUserId: '',
@@ -38,7 +40,7 @@ const AddUser = () => {
     password: '',
     confirmPassword: '',
     emailId: ''
-    
+
   });
 
   const handleChange = (field, value) => {
@@ -86,8 +88,7 @@ const AddUser = () => {
       //   console.error(error);
       // }
       saveSystemUser(e);
-      alert('User added successfully');
-
+      setShowSuccess(true); 
 
     } else {
       setErrors(formErrors);
@@ -227,11 +228,12 @@ const AddUser = () => {
 
             <Form.Group className="mb-3" >
               <Form.Label>Password</Form.Label>
+              <div className='input-group'>
               <Form.Control
-                data-toggle="tooltip" 
-                data-placement="right" 
+                data-toggle="tooltip"
+                data-placement="right"
                 title="Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character"
-                type="password"
+                type={passwordType}
                 id='password'
                 placeholder="********"
                 autoFocus
@@ -240,8 +242,14 @@ const AddUser = () => {
                 name="password"
                 onChange={(e) => handleChange('password', e.target.value)}
                 isInvalid={!!errors.password}
-              />
-             
+                />
+              <button onClick={(e)=>togglePassword(e)}>
+                     { passwordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
+              </button> 
+              
+              </div>
+              
+
 
               <Form.Control.Feedback type="invalid">
                 {errors.password}
@@ -252,9 +260,10 @@ const AddUser = () => {
 
             <Form.Group className="mb-3" c>
               <Form.Label>Confirm Password</Form.Label>
+              <div className='input-group'>
               <Form.Control
                 name="confirmPassword"
-                type="password"
+                type={passwordType}
                 placeholder="********"
                 autoFocus
                 value={systemUsers.confirmPassword}
@@ -262,6 +271,10 @@ const AddUser = () => {
                 onChange={(e) => handleChange('confirmPassword', e.target.value)}
                 isInvalid={!!errors.password}
               />
+              <button onClick={(e)=>togglePassword(e)}>
+                     { passwordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
+              </button> 
+              </div>
               <Form.Control.Feedback type="invalid">
                 {errors.confirmPassword}
               </Form.Control.Feedback>
@@ -302,6 +315,13 @@ const AddUser = () => {
         </Modal.Body>
 
       </Modal>
+
+      <SuccessfulAction
+        onHide={() => setShowSuccess(false)}
+        show={showSuccess}
+        message="New User Added Successfully"
+      />
+
     </>
 
   )

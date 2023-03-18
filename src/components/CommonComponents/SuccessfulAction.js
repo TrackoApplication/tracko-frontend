@@ -1,12 +1,11 @@
 import { delay } from 'framer-motion';
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import UserList from './UserList';
-import './userList.css'
+import UserList from '../UserMgt/UserList';
+import '../UserMgt/userList.css'
 
 const SuccessfulAction = (props) => {
     const multicCall=() =>{
-        props.onHide();
         window.location.reload(false);
     }
 
@@ -19,7 +18,7 @@ const SuccessfulAction = (props) => {
         centered
         className='justify-center'
       >
-        <div closeButton className='bg-green-400 align-center rounded p-2 shadow '>
+        <div closeButton className='bg-green-500 align-center rounded p-2 shadow '>
           <div className='flex mx-auto'>
             <div className='iconSuccess mx-auto  '>
                 <i class="bi bi-check-circle" ></i>
@@ -29,9 +28,9 @@ const SuccessfulAction = (props) => {
         <div className='flex p-5 mx-auto text-xl'>
             {props.message}
         </div>
-        <div className='p-3 mx-auto'>
+        <div className='p-2 mx-auto'>
           <btn 
-          className="btn btn-blue w-20" 
+          className="btn btn-green w-20" 
             onClick={()=>multicCall()}
           >
             ok

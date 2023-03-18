@@ -9,7 +9,7 @@ import './userList.css'
 import Avatar from 'react-avatar';
 import User from './User';
 import ConfirmPopup from './ConfirmPopup';
-import SuccessfulAction from './SuccessfulAction';
+import SuccessfulAction from '../CommonComponents/SuccessfulAction';
 
 
 const UserList = () => {

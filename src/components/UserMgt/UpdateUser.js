@@ -7,10 +7,11 @@ import { MDBCol, MDBRow } from 'mdb-react-ui-kit';
 import SystemUserService from '../../Services/SystemUserService';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import SuccessfulAction from '../CommonComponents/SuccessfulAction';
 
 
-
-export const UpdateUser = ({ id }) => {
+export const UpdateUser = (props) => {
+  const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -21,19 +22,20 @@ export const UpdateUser = ({ id }) => {
   const [validated, setValidated] = useState(false);
   const [emailExists, setEmailExists] = useState(false);
 
+  const id = props.systemUserId;
+
 
   const handleChange = (field, value) => {
 
-    setsystemUser({
-      ...systemUser,
+    setsystemUsers({
+      ...systemUsers,
       [field]: value
     });
 
   }
 
-
-  const [systemUser, setsystemUser] = React.useState({
-    id: '',
+  const [systemUsers, setsystemUsers] = React.useState({
+    systemUserId: id,
     firstName: '',
     lastName: ''
     // userName: '',
@@ -43,8 +45,8 @@ export const UpdateUser = ({ id }) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await SystemUserService.getSystemUserById(id);
-        setsystemUser(response.data);
+        const response = await SystemUserService.getSystemUserById(systemUsers.systemUserId);
+        setsystemUsers(response.data);
       } catch (error) {
         console.log(error);
 
@@ -54,96 +56,27 @@ export const UpdateUser = ({ id }) => {
     fetchData();
   }, []);
 
-  const editSystemUser = (e, id) => {
-    e.preventDefault();
-    handleShow();
-  };
+   
 
   const updateSystemUser = (e) => {
     e.preventDefault();
-    SystemUserService.updateSystemUser(id, systemUser).then((res) => {
-      navigate('/UserList');
+    SystemUserService.updateSystemUser(id,systemUsers).then((res) => {
+      props.onHide();
+      // window.location.reload(false);
+      setShowSuccess(true);    
+
     }
     ).catch((error) => {
       console.log(error);
     }
     );
 
-
   }
 
   return (
     <>
-      <i class="bi bi-pen"
-        onClick={(e, id) => { editSystemUser(e, systemUser.id) }}
-      >
-      </i>
-
-
-      {/* <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit user</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <MDBRow>
-                <MDBCol>
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control
-                      type="Name"
-                      placeholder={systemUser.firstName}
-                      autoFocus
-                    />
-                  </Form.Group>
-                </MDBCol>
-                <MDBCol>
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control
-                      type="Name"
-                      placeholder={systemUser.lastName}
-                      autoFocus
-                    />
-                  </Form.Group>
-                </MDBCol>
-              </MDBRow>
-
-
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder={systemUser.emailId}
-                  autoFocus
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Group</Form.Label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option>Product Owner</option>
-                  <option>Scrum master</option>
-                  <option>Team member</option>
-                </select>
-
-              </Form.Group>
-
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
-              Close
-            </Button>
-            <Button
-              onClick={updateSystemUser}
-              variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] '>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal> */}
-
-      <Modal show={show} onHide={handleClose}>
+    
+      <Modal  {...props} >
         <Modal.Header closeButton>
           <Modal.Title>Edit User</Modal.Title>
         </Modal.Header>
@@ -157,9 +90,9 @@ export const UpdateUser = ({ id }) => {
                   <Form.Control
                     name='firstName'
                     type="Name"
-                    placeholder="Jhon"
+                    placeholder={systemUsers.firstName}
                     autoFocus
-                    value={systemUser.firstName}
+                    value={systemUsers.firstName}
                     // onChange={(e)=>handleChange(e)}
                     onChange={(e) => handleChange('firstName', e.target.value)}
                     required
@@ -176,10 +109,10 @@ export const UpdateUser = ({ id }) => {
                   <Form.Control
                     name='lastName'
                     type="Name"
-                    placeholder="Dee"
+                    placeholder={systemUsers.lastName}
                     autoFocus
                     required
-                    value={systemUser.lastName}
+                    value={systemUsers.lastName}
                     onChange={(e) => handleChange('lastName', e.target.value)}
                     isInvalid={!!errors.lastName}
                   />
@@ -191,80 +124,6 @@ export const UpdateUser = ({ id }) => {
               </MDBCol>
             </MDBRow>
 
-            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label>User Name</Form.Label>
-                  <Form.Control
-                    name="userName"
-                    type="Name"
-                    placeholder="JhonDee999"
-                    autoFocus
-                    required
-                    value={systemUser.userName} 
-                    onChange = {(e) => handleChange('userName', e.target.value)}
-                    isInvalid={!!errors.userName}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.userName}
-                  </Form.Control.Feedback>
-
-                  </Form.Group> */}
-
-            {/* <Form.Group className="mb-3" >
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                id='password'
-                placeholder="********"
-                autoFocus
-                required
-                value={systemUser.password}
-                name="password"
-                onChange={(e) => handleChange('password', e.target.value)}
-                isInvalid={!!errors.password}
-
-              />
-
-              <Form.Control.Feedback type="invalid">
-                {errors.password}
-              </Form.Control.Feedback>
-
-            </Form.Group>
-
-
-            <Form.Group className="mb-3" c>
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control
-                name="confirmPassword"
-                type="password"
-                placeholder="********"
-                autoFocus
-                value={systemUser.confirmPassword}
-                required
-                onChange={(e) => handleChange('confirmPassword', e.target.value)}
-                isInvalid={!!errors.password}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.confirmPassword}
-              </Form.Control.Feedback>
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                name='emailId'
-                type="email"
-                placeholder="name@example.com"
-                autoFocus
-                required
-                value={systemUser.emailId}
-                onChange={(e) => handleChange('emailId', e.target.value)}
-                isInvalid={!!errors.emailId}
-
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.emailId}
-              </Form.Control.Feedback>
-            </Form.Group> */}
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Group</Form.Label>
@@ -278,25 +137,28 @@ export const UpdateUser = ({ id }) => {
             
               <btn
                 className="btn btn-blue btn-sm"
-                onClick={handleClose}>
+                onClick={props.onHide}>
                 Close
               </btn>
 
               <btn
                 className="btn btn-green btn-sm"
                 type='submit'
-                // onClick={saveSystemUser}>
                 onClick={updateSystemUser}
               >
                 Update Changes
               </btn>
-
            
           </Form>
         </Modal.Body>
 
       </Modal>
 
+      <SuccessfulAction
+        onHide={() => setShowSuccess(false)}
+        show={showSuccess}
+        message="User Details Updated Successfully"
+      />
 
 
     </>
