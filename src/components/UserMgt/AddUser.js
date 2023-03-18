@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 const AddUser = () => {
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

@@ -46,14 +46,14 @@ function App() {
           <Route path="/Forum" element ={<Forum/>}/>
           <Route path="/Report" element ={<Report/>}/>
 
-            <Route path="/Dashboard" element ={<Dashboard/>}/>
-            <Route path="/Group" element ={<Group/>}/>
+          <Route path="/Dashboard" element ={<Dashboard/>}/>
+          <Route path="/Group" element ={<Group/>}/>
 
 
      {/* pages with navbar */}
-                  <Route path="/UserList" element ={<UserList/>}/>
-                  <Route path="/ProjectList" element ={<ProjectList/>}/>
-                  <Route path="/ClientList" element ={<ClientList/>}/>
+          <Route path="/UserList" element ={<UserList/>}/>
+          <Route path="/ProjectList" element ={<ProjectList/>}/>
+          <Route path="/ClientList" element ={<ClientList/>}/>
     
     </Routes>
 

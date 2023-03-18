@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { MDBCol } from 'mdb-react-ui-kit';
 import IssueService from '../../Services/IssueService';
+import { useNavigate } from 'react-router-dom';
 
 const AddIssue = () => {
 
@@ -16,13 +17,17 @@ const AddIssue = () => {
     assignee:"",
     sprintName:"",
     epicName:"",
-    reqOfTesting:"",
-    spdeveloping:"",
-    sptesting:"",
-    totalSP:"",
+    reqOfTesting: false,
+    spdeveloping:0,
+    sptesting: 0,
+    totalSP: 0,
     priority:"",
     reporter:"",
   });
+
+  const Value = issue.spdeveloping + issue.sptesting;
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -33,6 +38,7 @@ const AddIssue = () => {
     e.preventDefault();
     IssueService.saveIssue(issue).then((response) => {
       console.log(response);
+      navigate("/BacklogView");
     }).catch((error) => {
       console.log(error);
     });
@@ -68,27 +74,27 @@ const AddIssue = () => {
               <Form style={{overflowY:"scroll", height:"350px"}}>
                 <MDBCol>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Project</Form.Label>
+                      <Form.Label>Project</Form.Label>
                         <Form.Select name="projectName" value={issue.projectName} onChange={(e) => handleChange(e)}>
                           <option>Select the project</option>
                           <option>Project 1</option>
                           <option>Project 2</option>
                           <option>Project 3</option>
                         </Form.Select>
-                        </Form.Group>
+                    </Form.Group>
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Issue type</Form.Label>
+                      <Form.Label>Issue type</Form.Label>
                         <Form.Select name="issueType" value={issue.issueType} onChange={(e) => handleChange(e)}>
                           <option>Select the issue type</option>
                           <option>Issue</option>
                           <option>Bug</option>
                           <option>QA</option>
                         </Form.Select>
-                        </Form.Group>
+                    </Form.Group>
                 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Summary</Form.Label>
+                      <Form.Label>Summary</Form.Label>
                         <Form.Control
                         type="text"
                         placeholder="Summary"
@@ -97,10 +103,10 @@ const AddIssue = () => {
                         onChange={(e) => handleChange(e)}
                         // autoFocus
                         />
-                        </Form.Group>
+                    </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Description</Form.Label>
+                      <Form.Label>Description</Form.Label>
                         <Form.Control
                         as="textarea" rows={5}
                         placeholder="Description"
@@ -109,49 +115,48 @@ const AddIssue = () => {
                         onChange={(e) => handleChange(e)}
                         // autoFocus
                         />
-                        </Form.Group>
+                    </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Assignee</Form.Label>
+                      <Form.Label>Assignee</Form.Label>
                         <Form.Select name="assignee" value={issue.assignee} onChange={(e) => handleChange(e)}>
                           <option>Assignee</option>
                           <option>Ravindu Karunaweera</option>
                           <option>Yasiru Basura</option>
                           <option>Seefa Banu</option>
                         </Form.Select>
-                        </Form.Group>
+                      </Form.Group>
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Sprint</Form.Label>
+                      <Form.Label>Sprint</Form.Label>
                         <Form.Select name="sprintName" value={issue.sprintName} onChange={(e) => handleChange(e)}>
                           <option>Select the sprint</option>
                           <option>Sprint 1</option>
                           <option>Sprint 2</option>
                           <option>Sprint 3</option>
                         </Form.Select>
-                        </Form.Group>
+                    </Form.Group>
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Epic</Form.Label>
+                      <Form.Label>Epic</Form.Label>
                         <Form.Select name="epicName" value={issue.epicName} onChange={(e) => handleChange(e)}>
                           <option>Select the epic</option>
                           <option>Epic 1</option>
                           <option>Epic 2</option>
                           <option>Epic 3</option>
                         </Form.Select>
-                        </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Requirement of testing</Form.Label>
-                        <Form.Select name="reqofTesting" value={issue.reqOfTesting} onChange={(e) => handleChange(e)}>
-                          <option>Select requirement of testing</option>
-                          <option>Yes</option>
-                          <option>No</option>
-                        </Form.Select>
-                        </Form.Group>
+                    </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Story point estimate for developing</Form.Label>
+                      <Form.Label>Requirement of Testing</Form.Label>
+                        <Form.Select name="reqOfTesting" value={issue.reqOfTesting} onChange={(e) => handleChange(e)}>
+                          <option value="true">Yes</option>
+                          <option defaultValue="false" value="false">No</option>
+                        </Form.Select>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                      <Form.Label>Story point estimate for developing</Form.Label>
                         <Form.Control
                         type="number"
                         name="spdeveloping"
@@ -160,10 +165,10 @@ const AddIssue = () => {
                         // placeholder="name@example.com"
                         // autoFocus
                         />
-                        </Form.Group>
+                    </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Story point estimate for testing</Form.Label>
+                      <Form.Label>Story point estimate for testing</Form.Label>
                         <Form.Control
                         type="number"
                         name="sptesting"
@@ -172,39 +177,39 @@ const AddIssue = () => {
                         // placeholder="name@example.com"
                         // autoFocus
                         />
-                        </Form.Group>
+                    </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Total estimated story point</Form.Label>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                      <Form.Label>Total estimated story point</Form.Label>
                         <Form.Control
                         type="number"
-                        name="totalsp"
-                        value={issue.totalSP}
+                        name="totalSP"
+                        value={Value}
                         onChange={(e) => handleChange(e)}
                         // placeholder="name@example.com"
                         // autoFocus
                         />
-                        </Form.Group>
+                    </Form.Group>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Priority</Form.Label>
+                      <Form.Label>Priority</Form.Label>
                         <Form.Select name="priority" value={issue.priority} onChange={(e) => handleChange(e)}>
                           <option>Select the priority</option>
                           <option>High</option>
                           <option>Medium</option>
                           <option>Low</option>
                         </Form.Select>
-                        </Form.Group>
+                      </Form.Group>
                         
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Reporter</Form.Label>
+                      <Form.Label>Reporter</Form.Label>
                         <Form.Select name="reporter" value={issue.reporter} onChange={(e) => handleChange(e)}>
                           <option>Reporter</option>
                           <option>Reporter 1</option>
                           <option>Reporter 2</option>
                           <option>Reporter 3</option>
-                        </Form.Select>
-                        </Form.Group>
+                      </Form.Select>
+                    </Form.Group>
                            
                 </MDBCol>
               </Form>
