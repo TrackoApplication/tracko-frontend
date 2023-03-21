@@ -66,9 +66,9 @@ function App() {
           <Route path="/UserList" element={<UserListWithNavbar/>} />
           <Route path="/ProjectList" element={<ProjectList />} />
           <Route path="/ClientList" element={<ClientList />} />
+        
 
-        </Routes>
-     {/* pages with navbar */}
+          {/* pages with navbar */}
           <Route path="/UserList" element ={<UserList/>}/>
           <Route path="/ProjectList" element ={<ProjectList/>}/>
           <Route path="/ClientList" element ={<ClientList/>}/>
