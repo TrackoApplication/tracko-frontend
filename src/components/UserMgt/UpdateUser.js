@@ -127,10 +127,22 @@ export const UpdateUser = (props) => {
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Group</Form.Label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>Product Owner</option>
-                <option>Scrum master</option>
-                <option>Team member</option>
+              <select 
+              class="form-control" 
+              id="exampleFormControlSelect1"
+              name='accessGroup'
+              type="Name"
+              placeholder={systemUsers.accessGroup}
+              autoFocus
+              required
+              value={systemUsers.accessGroup}
+              onChange={(e) => handleChange('accessGroup', e.target.value)}
+
+              >
+                <option value="Not Assigned<">Not Assigned</option>
+                <option value="Product Owner">Product Owner</option>
+                <option value=" Scrum master"> Scrum master</option>
+                <option value="Team member">Team member</option>
               </select>
 
             </Form.Group>

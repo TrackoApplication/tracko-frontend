@@ -38,6 +38,7 @@ const AddUser = () => {
     lastName: '',
     // userName: '',
     password: '',
+    accessGroup: '',
     confirmPassword: '',
     emailId: ''
 
@@ -62,7 +63,7 @@ const AddUser = () => {
       console.log(res);
     })
       .catch(error => {
-        console.log(error);
+        alert(error.response.data.message);
       });
     handleClose();
     setLoading(true);
@@ -145,16 +146,11 @@ const AddUser = () => {
     return errors;
   }
 
-
-
-
-
-
   return (
     <>
       <Button
         variant="primary"
-        className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out"
+        className="rounded bg-[#231651] text-white border-none font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out"
         onClick={handleShow}>
         Add User
       </Button>
@@ -206,24 +202,6 @@ const AddUser = () => {
                 </Form.Group>
               </MDBCol>
             </MDBRow>
-
-            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label>User Name</Form.Label>
-                  <Form.Control
-                    name="userName"
-                    type="Name"
-                    placeholder="JhonDee999"
-                    autoFocus
-                    required
-                    value={systemUser.userName} 
-                    onChange = {(e) => handleChange('userName', e.target.value)}
-                    isInvalid={!!errors.userName}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.userName}
-                  </Form.Control.Feedback>
-
-                  </Form.Group> */}
 
 
             <Form.Group className="mb-3" >
