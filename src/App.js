@@ -20,6 +20,7 @@ import Group from "./components/GroupMgt/Group";
 import NavLayout from "./components/Layout/NavLayout";
 import { SideLayout } from "./components/Layout/SideLayout";
 import GroupDetail from "./components/GroupMgt/GroupDetail";
+import BacklogView from "./components/BacklogMgt/BacklogView";
 
 function App() {
 
@@ -48,14 +49,31 @@ function App() {
           <Route path="/GroupDetail" element={<GroupDetail />} />
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Group" element={<Group />} />
+        {/* pages with sidebar */}
+          <Route path="/Team" element ={<Team/>}/>
+          <Route path="/Backlog" element ={<Backlog/>}/>
+          <Route path="/BacklogView" element ={<BacklogView/>}/>
+          <Route path="/ActiveSprint" element ={<ActiveSprint/>}/>
+          <Route path="/People" element ={<People/>}/>
+          <Route path="/Forum" element ={<Forum/>}/>
+          <Route path="/Report" element ={<Report/>}/>
+
+          <Route path="/Dashboard" element ={<Dashboard/>}/>
+          <Route path="/Group" element ={<Group/>}/>
 
 
           {/* pages with navbar */}
           <Route path="/UserList" element={<UserListWithNavbar/>} />
           <Route path="/ProjectList" element={<ProjectList />} />
           <Route path="/ClientList" element={<ClientList />} />
+        
 
-        </Routes>
+          {/* pages with navbar */}
+          <Route path="/UserList" element ={<UserList/>}/>
+          <Route path="/ProjectList" element ={<ProjectList/>}/>
+          <Route path="/ClientList" element ={<ClientList/>}/>
+    
+    </Routes>
 
       </BrowserRouter>
     </>

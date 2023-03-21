@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Sidebar from '../SideBar/Sidebar';
 import Addissue from './Addissue';
 import SprintCreation from './Createsprint';
 import SprintUpdation from './UpdateSprint';
@@ -9,8 +8,11 @@ import SprintStart from './Sprintstart';
 import Backlogtable from './Issuetable';
 import Sprinttable from './sprinttable';
 import CompleteSprinttable from './Completesprint.table';
+import Emptybacklog from './Emptybacklog';
 import './Backlog.css';
-
+import { MDBBadge} from 'mdb-react-ui-kit';
+import Emptysprintbacklog from './Emptysprintbacklog';
+import Emptysprinttable from './Emptysprinttable';
 
 const Backlog = () => {
   const [inactive, setInactive] = React.useState(false);
@@ -19,65 +21,90 @@ const Backlog = () => {
   // const handleShow = () => setShow(true);
  
   return (
-    <div>
-            <div>
-          <Sidebar onCollapse={(inactive) => {setInactive(inactive);}}/>
+
+    <div className='BacklogMain'>
+
+      <div className={`container ${inactive ? "inactive" : ""}`}>
+        <h1>Backlog</h1>
+      </div>
+
+      <div className="button-container">
+        <MDBBadge color='secondary' rounded-circle>3</MDBBadge>
+        <MDBBadge color='primary' rounded-circle>0</MDBBadge>
+        <MDBBadge color='success' rounded-circle>0</MDBBadge>
+        <SprintCreation /><br />
       </div>
 
       <div className={`container ${inactive ? "inactive" : ""}`}>
-          <h1>Backlog</h1>
+        <Emptybacklog/>
       </div>
 
-      <br /><br />
-      
-      <div>
-          {/* sprint creation will be happen here */}
-          <SprintCreation /><br />
+      <Addissue />
+
+      <div class="button-container">
+        <MDBBadge color='secondary' rounded-circle>2</MDBBadge>
+        <MDBBadge color='primary' rounded-circle>0</MDBBadge>
+        <MDBBadge color='success' rounded-circle>0</MDBBadge>
+        <SprintStart />
+        <SprintUpdation />
+        <Sprintdeletion />
       </div>
-      
-      <br /><br />
 
       <div className={`container ${inactive ? "inactive" : ""}`}>
-          {/* sprint creation will be happen here */}
-          <Backlogtable />
-          {/* <BoxComponent/> */}
+        <Emptysprintbacklog/>
       </div>
 
-      <br /><br /><br />
-
-      <div>
-          {/* issue creation will be happen here */}
-          <br /><br />
-          <Addissue /><br /><br /><br />
-
-          {/* sprint start page will appear here */}
-          <SprintStart />
-
-          {/* update sprint page will appear here */}
-          <SprintUpdation />
-
-          {/* delete sprint page will appear here */}
-          <Sprintdeletion /><br /><br /><br />
-
-          <div className={`container ${inactive ? "inactive" : ""}`}>
-            <Sprinttable/>
-          </div>
-
-          <br /><br /><br /><br /><br />
-
-          {/* complete sprint page will appear here */}
-          <SprintCompletion />
-
-          <br /><br /><br />
-
-          <div className={`container ${inactive ? "inactive" : ""}`}>
-            <CompleteSprinttable/>
-          </div>
-
-          
+      <div class="button-container">
+        <MDBBadge color='secondary' rounded-circle>0</MDBBadge>
+        <MDBBadge color='primary' rounded-circle>0</MDBBadge>
+        <MDBBadge color='success' rounded-circle>2</MDBBadge>
+        <SprintCompletion />
       </div>
 
-    </div>
+      <div className={`container ${inactive ? "inactive" : ""}`}>
+        <Emptysprinttable />
+      </div>
+
+      {/* <div className="button-container">
+        <MDBBadge color='secondary' rounded-circle>3</MDBBadge>
+        <MDBBadge color='primary' rounded-circle>0</MDBBadge>
+        <MDBBadge color='success' rounded-circle>0</MDBBadge>
+        <SprintCreation />
+      </div>
+
+      <div className={`container ${inactive ? "inactive" : ""}`}>
+        <Backlogtable />
+      </div>
+
+      <Addissue />
+      
+      <div class="button-container">
+        <MDBBadge color='secondary' rounded-circle>2</MDBBadge>
+        <MDBBadge color='primary' rounded-circle>0</MDBBadge>
+        <MDBBadge color='success' rounded-circle>0</MDBBadge>
+        <SprintStart />
+        <SprintUpdation />
+        <Sprintdeletion />
+      </div>
+
+      <div className={`container ${inactive ? "inactive" : ""}`}>
+        <Sprinttable/>
+      </div>
+
+      <div class="button-container">
+        <MDBBadge color='secondary' rounded-circle>0</MDBBadge>
+        <MDBBadge color='primary' rounded-circle>0</MDBBadge>
+        <MDBBadge color='success' rounded-circle>2</MDBBadge>
+        <SprintCompletion />
+      </div>
+
+      <div className={`container ${inactive ? "inactive" : ""}`}>
+        <CompleteSprinttable />
+      </div> */}
+
+
+
+  </div>
   );
 }
 

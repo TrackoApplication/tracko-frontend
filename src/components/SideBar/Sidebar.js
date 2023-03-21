@@ -10,7 +10,7 @@ import { color } from '@mui/system';
 
 export const menuItems = [
   {name: 'Dashboard',to: '/Dashboard', exact: true, iconClassName:'bi bi-house'},
-  {name: 'Backlog', to: '/Backlog', exact: true, iconClassName:'bi bi-x-diamond-fill'},
+  {name: 'Backlog', to: '/BacklogView', exact: true, iconClassName:'bi bi-x-diamond-fill'},
   {name: 'Active Sprint' , to: '/ActiveSprint', exact: true , iconClassName:'bi bi-amd'},
   {name: 'Report',to: '/Report', exact: true , iconClassName:'bi bi-body-text'},
   {name: 'Forum',to: '/Forum', exact: true , iconClassName:'bi bi-chat-right-dots'},

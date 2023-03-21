@@ -21,9 +21,9 @@ const SprintCreation = () => {
             Create Sprint
           </Button>
 
-          <MDBBadge color='secondary' rounded-circle>3</MDBBadge>
+          {/* <MDBBadge color='secondary' rounded-circle>3</MDBBadge>
           <MDBBadge color='primary' rounded-circle>0</MDBBadge>
-          <MDBBadge color='success' rounded-circle>0</MDBBadge>
+          <MDBBadge color='success' rounded-circle>0</MDBBadge> */}
            
         </div>
     </div>
