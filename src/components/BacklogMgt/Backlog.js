@@ -9,6 +9,7 @@ import SprintCreation from './Sprintcreation';
 import SprintUpdation from './UpdateSprint';
 import Sprintdeletion from './DeleteSprint';
 import SprintCompletion from './CompleteSprint';
+import AddEpic from './AddEpic';
 
 const Backlog = () => {
   const [inactive, setInactive] = React.useState(false);
@@ -38,7 +39,10 @@ const Backlog = () => {
         <Sprintdeletion /><br /><br /><br />
 
         {/* complete sprint page will appear here */}
-        <SprintCompletion />
+        <SprintCompletion /><br /><br /><br />
+
+         {/* create epic page will appear here */}
+         <AddEpic /><br /><br /><br />
 
     </div>
   );
