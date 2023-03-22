@@ -49,7 +49,8 @@ function App() {
           <Route path="/GroupDetail" element={<GroupDetail />} />
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Group" element={<Group />} />
-        {/* pages with sidebar */}
+
+          {/* pages with sidebar */}
           <Route path="/Team" element ={<Team/>}/>
           <Route path="/Backlog" element ={<Backlog/>}/>
           <Route path="/BacklogView" element ={<BacklogView/>}/>
@@ -57,7 +58,6 @@ function App() {
           <Route path="/People" element ={<People/>}/>
           <Route path="/Forum" element ={<Forum/>}/>
           <Route path="/Report" element ={<Report/>}/>
-
           <Route path="/Dashboard" element ={<Dashboard/>}/>
           <Route path="/Group" element ={<Group/>}/>
 

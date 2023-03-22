@@ -29,9 +29,9 @@ const Backlog = () => {
       </div>
 
       <div className="button-container">
-        <MDBBadge color='secondary' rounded-circle>3</MDBBadge>
-        <MDBBadge color='primary' rounded-circle>0</MDBBadge>
-        <MDBBadge color='success' rounded-circle>0</MDBBadge>
+        <MDBBadge color='secondary' pill style={{height:"20px",width:"24px", fontSize:"12px"}}>0</MDBBadge>
+        <MDBBadge color='primary' pill style={{height:"20px",width:"24px", fontSize:"12px"}}>0</MDBBadge>
+        <MDBBadge color='success' pill style={{height:"20px",width:"24px", fontSize:"12px"}}>0</MDBBadge>
         <SprintCreation /><br />
       </div>
 
@@ -42,9 +42,9 @@ const Backlog = () => {
       <Addissue />
 
       <div class="button-container">
-        <MDBBadge color='secondary' rounded-circle>2</MDBBadge>
-        <MDBBadge color='primary' rounded-circle>0</MDBBadge>
-        <MDBBadge color='success' rounded-circle>0</MDBBadge>
+        <MDBBadge color='secondary' pill style={{height:"20px",width:"24px", fontSize:"12px"}}>0</MDBBadge>
+        <MDBBadge color='primary' pill style={{height:"20px",width:"24px", fontSize:"12px"}}>0</MDBBadge>
+        <MDBBadge color='success' pill style={{height:"20px",width:"24px", fontSize:"12px"}}>0</MDBBadge>
         <SprintStart />
         <SprintUpdation />
         <Sprintdeletion />
@@ -55,9 +55,9 @@ const Backlog = () => {
       </div>
 
       <div class="button-container">
-        <MDBBadge color='secondary' rounded-circle>0</MDBBadge>
-        <MDBBadge color='primary' rounded-circle>0</MDBBadge>
-        <MDBBadge color='success' rounded-circle>2</MDBBadge>
+        <MDBBadge color='secondary' pill style={{height:"20px",width:"24px", fontSize:"12px"}}>0</MDBBadge>
+        <MDBBadge color='primary' pill style={{height:"20px",width:"24px", fontSize:"12px"}}>0</MDBBadge>
+        <MDBBadge color='success' pill style={{height:"20px",width:"24px", fontSize:"12px"}}>0</MDBBadge>
         <SprintCompletion />
       </div>
 

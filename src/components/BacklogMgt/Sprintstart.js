@@ -76,11 +76,11 @@ const SprintStart = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Duration</Form.Label>
                         <Form.Select name="duration" value={sprint.duration} onChange={(e) => handleChange(e)}>
-                          <option value="">--Duration--</option>
-                          <option value="">Custom</option>
-                          <option value="">1 week</option>
-                          <option value="">2 weeks</option>
-                          <option value="">4 weeks</option>
+                          <option>--Duration--</option>
+                          <option>Custom</option>
+                          <option>1 week</option>
+                          <option>2 weeks</option>
+                          <option>4 weeks</option>
                         </Form.Select>
                         </Form.Group>
                 

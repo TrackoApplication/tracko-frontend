@@ -4,7 +4,6 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { MDBCol } from 'mdb-react-ui-kit';
 import IssueService from '../../Services/IssueService';
-import { useNavigate } from 'react-router-dom';
 
 const AddIssue = () => {
 
@@ -25,9 +24,9 @@ const AddIssue = () => {
     reporter:"",
   });
 
-  const Value = issue.spdeveloping + issue.sptesting;
+  // const Value = (issue.spdeveloping) + (issue.sptesting);
 
-  const navigate = useNavigate();
+
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -38,7 +37,6 @@ const AddIssue = () => {
     e.preventDefault();
     IssueService.saveIssue(issue).then((response) => {
       console.log(response);
-      navigate("/BacklogView");
     }).catch((error) => {
       console.log(error);
     });
@@ -62,7 +60,7 @@ const AddIssue = () => {
             + Create Issue
             </Button>
 
-          <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose}>
 
             {/* header section */}
             <Modal.Header>
@@ -75,7 +73,7 @@ const AddIssue = () => {
                 <MDBCol>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                       <Form.Label>Project</Form.Label>
-                        <Form.Select name="projectName" value={issue.projectName} onChange={(e) => handleChange(e)}>
+                        <Form.Select name="projectName" value={issue.projectName} onChange={(e) => handleChange(e)} required>
                           <option>Select the project</option>
                           <option>Project 1</option>
                           <option>Project 2</option>
@@ -85,7 +83,7 @@ const AddIssue = () => {
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                       <Form.Label>Issue type</Form.Label>
-                        <Form.Select name="issueType" value={issue.issueType} onChange={(e) => handleChange(e)}>
+                        <Form.Select name="issueType" value={issue.issueType} onChange={(e) => handleChange(e)} required>
                           <option>Select the issue type</option>
                           <option>Issue</option>
                           <option>Bug</option>
@@ -101,6 +99,7 @@ const AddIssue = () => {
                         name="summary"
                         value={issue.summary}
                         onChange={(e) => handleChange(e)}
+                        required
                         // autoFocus
                         />
                     </Form.Group>
@@ -113,6 +112,7 @@ const AddIssue = () => {
                         name="description"
                         value={issue.description}
                         onChange={(e) => handleChange(e)}
+                        required
                         // autoFocus
                         />
                     </Form.Group>
@@ -149,7 +149,7 @@ const AddIssue = () => {
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                       <Form.Label>Requirement of Testing</Form.Label>
-                        <Form.Select name="reqOfTesting" value={issue.reqOfTesting} onChange={(e) => handleChange(e)}>
+                        <Form.Select name="reqOfTesting" value={issue.reqOfTesting} onChange={(e) => handleChange(e)} required>
                           <option value="true">Yes</option>
                           <option defaultValue="false" value="false">No</option>
                         </Form.Select>
@@ -162,6 +162,7 @@ const AddIssue = () => {
                         name="spdeveloping"
                         value={issue.spdeveloping}
                         onChange={(e) => handleChange(e)}
+                        required
                         // placeholder="name@example.com"
                         // autoFocus
                         />
@@ -174,6 +175,7 @@ const AddIssue = () => {
                         name="sptesting"
                         value={issue.sptesting}
                         onChange={(e) => handleChange(e)}
+                        required
                         // placeholder="name@example.com"
                         // autoFocus
                         />
@@ -184,7 +186,7 @@ const AddIssue = () => {
                         <Form.Control
                         type="number"
                         name="totalSP"
-                        value={Value}
+                        value={issue.totalSP}
                         onChange={(e) => handleChange(e)}
                         // placeholder="name@example.com"
                         // autoFocus
@@ -193,7 +195,7 @@ const AddIssue = () => {
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                       <Form.Label>Priority</Form.Label>
-                        <Form.Select name="priority" value={issue.priority} onChange={(e) => handleChange(e)}>
+                        <Form.Select name="priority" value={issue.priority} onChange={(e) => handleChange(e)} required>
                           <option>Select the priority</option>
                           <option>High</option>
                           <option>Medium</option>
@@ -234,4 +236,4 @@ const AddIssue = () => {
   );
 }
 
-export default AddIssue;
+export default AddIssue

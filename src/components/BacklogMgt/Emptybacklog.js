@@ -1,8 +1,10 @@
 import React, { useState,useEffect } from "react";
 import Table from 'react-bootstrap/Table';
-import { MDBBadge} from 'mdb-react-ui-kit';
 import './Issuetable.css';
 import IssueService from "../../Services/IssueService";
+import { MDBBadge} from 'mdb-react-ui-kit';
+import Button from 'react-bootstrap/Button';
+import { textAlign } from "@mui/system";
 
 function Emptybacklog() {
   const [loading, setloading] = useState(true)
@@ -21,6 +23,10 @@ function Emptybacklog() {
     };
     fetchData();
   }, [])
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   
 
   return (
@@ -51,7 +57,9 @@ function Emptybacklog() {
               </MDBBadge>      
             </td>
             <td>{issues.assignee}</td>
-            <td>#</td>
+            <td>
+              #
+            </td>
           </tr>
           ))}
       </tbody>
