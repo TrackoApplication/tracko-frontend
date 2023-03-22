@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import NavBar from '../NavBar/Navbar';
+import AddProject from './AddProject';
 // link.rel = 'ProjectList';
 import './ProjectList.css'
 
@@ -10,8 +11,8 @@ const ProjectList = () => {
   
 const navigate = useNavigate();
 const [show , setShow]= useState(false);
-const handleClose = () => setShow(false);
-const handleShow = () => setShow(true);
+//const handleClose = () => setShow(false);
+//const handleShow = () => setShow(true);
 
 const [cards] = useState([
   {
@@ -49,15 +50,16 @@ const [cards] = useState([
   return (
     <>
     
-     
-
     <div>
     <NavBar/>
+    <div className='px-5 py-3 text-left text-2xl'>
+        <b>Projects</b>
+      </div>
+    <AddProject/>
     <section>
     <div className='ProListcontainer'>
-    <h1><b>Projects</b></h1>
-        
-          
+    
+               
           <div className='PLcards'>
             {
               cards.map((card,i) => ( 
@@ -75,7 +77,7 @@ const [cards] = useState([
       </section>
     </div>
   
-    </>
+  </>
    
   );
 }

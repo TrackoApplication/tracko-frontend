@@ -38,6 +38,7 @@ function App() {
         <Route path="/ProjectList" element ={<ProjectList/>}></Route>
         <Route path="/ClientList" element ={<ClientList/>}></Route>
         
+        
         {/* pages with sidebar */}
      
         <Route path="/Team" element ={<Team/>}></Route>
