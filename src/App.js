@@ -21,6 +21,8 @@ import NavLayout from "./components/Layout/NavLayout";
 import { SideLayout } from "./components/Layout/SideLayout";
 import GroupDetail from "./components/GroupMgt/GroupDetail";
 import BacklogView from "./components/BacklogMgt/BacklogView";
+import SuccesfulAction from "./components/CommonComponents/SuccessfulAction";
+import DashLayout from "./components/NewDashboard/DashLayout";
 
 function App() {
 
@@ -38,6 +40,7 @@ function App() {
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/ResetPass" element={<ResetPass />} />
           <Route path="/AddUser" element={<AddUser />} />
+          <Route path="/SuccesfulAction" element={<SuccesfulAction />} />
 
           {/* pages with sidebar */}
           <Route path="/Team" element={<Team />} />
@@ -60,6 +63,7 @@ function App() {
 
           <Route path="/Dashboard" element ={<Dashboard/>}/>
           <Route path="/Group" element ={<Group/>}/>
+          <Route path="/newdashboard" element ={<DashLayout/>}/>
 
 
           {/* pages with navbar */}

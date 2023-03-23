@@ -3,8 +3,7 @@ import React from 'react'
 export const PageHeader = () => {
   return (
     <>
-    <div>Dashboard</div>
-    <div>Search button</div>
+      <h1 className='text-color'>Dashboard</h1>
     </>
   )
 }

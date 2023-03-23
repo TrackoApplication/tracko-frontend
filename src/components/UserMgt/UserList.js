@@ -1,17 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import NavBar from "../NavBar/Navbar";
 import { useNavigate } from "react-router-dom";
 import {
-  MDBBadge,
-  MDBBtn,
   MDBTable,
   MDBTableHead,
   MDBTableBody,
 } from "mdb-react-ui-kit";
 import AddUser from "./AddUser";
 import SystemUserService from "../../Services/SystemUserService";
-import "./userList.css";
+import "./userMgt.css";
 import Avatar from "react-avatar";
 import User from "./User";
 import ConfirmPopup from "./ConfirmPopup";
@@ -87,8 +84,8 @@ const UserList = () => {
       
 
       <div className="mx-4">
-        <MDBTable className="user-table ">
-          <MDBTableHead>
+        <MDBTable className="common-table rounded shadow ">
+          <MDBTableHead className="common-table-head rounded ">
             <tr>
               <th scope="col">Name</th>
               <th scope="col">Role</th>

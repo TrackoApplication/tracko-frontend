@@ -1,8 +1,7 @@
 import React from 'react'
-import React from 'react'
 import Dashboard from './Dashboard';
 import Sidebar from '../SideBar/Sidebar'
-import { GroupList } from './GroupList';
+import '../../App.css'
 
 const DashLayout = () => {
   const [inactive, setInactive] = React.useState(false);
@@ -15,7 +14,6 @@ const DashLayout = () => {
               setInactive(inactive);
           }}
           />
-              
           <Dashboard/> 
       </div>
     </div>
