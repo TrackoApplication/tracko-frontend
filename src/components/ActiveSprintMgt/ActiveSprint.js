@@ -1,12 +1,14 @@
 import React from 'react'
 import Sidebar from '../SideBar/Sidebar'
+import './ActiveSprint.css'
+
 
 const ActiveSprint = () => {
   const [inactive, setInactive] = React.useState(false);
  
   return (
-    <div>
-
+    <div className='App'>
+      <div className='AppGlass'>
         <Sidebar
 
         onCollapse={(inactive) => {
@@ -15,13 +17,14 @@ const ActiveSprint = () => {
         
         />
 
-        <div className={`container ${inactive ? "inactive" : ""}`}>
-            
-            <h1>ActiveSprint</h1>
-            
+        <div>
+          <div className="activeSprint">
+            <h2>Active Sprint</h2>
+          </div>
         </div>
+      </div>
     </div>
   )
 }
 
-export default ActiveSprint
+export default ActiveSprint;

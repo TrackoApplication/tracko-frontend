@@ -1,0 +1,120 @@
+/* .repGen {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 7px;
+    gap: 10px;
+
+    position: absolute;
+    width: 167px;
+    height: 31px;
+    left: 1183px;
+    top: 170px;
+
+    background: #BD3A51;
+    border-radius: 4px;
+}
+
+.topic {
+    position: absolute;
+    width: 408px;
+    height: 60px;
+    left: 420px;
+    top: 90px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 45px;
+    display: flex;
+    align-items: center;
+
+    color: #595959;
+}
+
+.topic2 {
+    position: absolute;
+    width: 720px;
+    height: 50px;
+    left: 420px;
+    top: 169px;
+
+    background: #E6E4E4;
+    border-radius: 10px;
+}
+
+.h3Topic {
+    
+    position: absolute;
+    size: 18px;
+    text-align: center;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    
+
+    color: #000000;
+} */
+
+.mainReport {
+    padding: 40px;
+    font-family: 'Poppins';
+}
+
+.frmReportGen {
+    display: grid;
+    grid-template-columns: 0.8fr 0.2fr;
+    column-gap: 20px;
+    margin-top: 20px;
+}
+
+.subTopicArea {
+    background-color: #E6E4E4;
+    padding: 5px 20px;
+    display: grid;
+    grid-template-columns: 45px auto auto;
+    align-items: center;
+    border-radius: 16px;
+}
+
+.boxIcon {
+    font-size: 2em;
+}
+
+.projectName {
+    margin-bottom: 0;
+}
+
+.selectBoxes {
+    justify-self: end;
+}
+
+.selectBoxes select {
+    margin-left: 10px;
+}
+
+.btnGenerate {
+    padding: 4px;
+    background: #BD3A51;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.path{
+    font-weight: 600;
+    font-size: 30px;
+    color: #595959;
+}
+
+.Chart {
+    font-family: sans-serif;
+    text-align: center;
+}
+

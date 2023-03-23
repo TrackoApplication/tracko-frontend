@@ -18,6 +18,12 @@ import Sidebar, { menuItems } from "./components/SideBar/Sidebar";
 import AddUser from "./components/UserMgt/AddUser";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+import '@fortawesome/fontawesome-free/css/all.min.css';  
+import 'bootstrap-css-only/css/bootstrap.min.css';  
+import 'mdbreact/dist/css/mdb.css';
+import Childissue from "./components/ActiveSprintMgt/childissue";
 
 function App() {
   const [inactive, setInactive] = useState(false);
@@ -38,6 +44,7 @@ function App() {
         <Route path="/UserList" element ={<UserList/>}></Route>
         <Route path="/ProjectList" element ={<ProjectList/>}></Route>
         <Route path="/ClientList" element ={<ClientList/>}></Route>
+        <Route path="/Childissue" element ={<Childissue/>}></Route>
         
         {/* pages with sidebar */}
         
