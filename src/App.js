@@ -21,6 +21,7 @@ import NavLayout from "./components/Layout/NavLayout";
 import { SideLayout } from "./components/Layout/SideLayout";
 import GroupDetail from "./components/GroupMgt/GroupDetail";
 import BacklogView from "./components/BacklogMgt/BacklogView";
+import Emptybacklog from "./components/BacklogMgt/Emptybacklog";
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/ResetPass" element={<ResetPass />} />
           <Route path="/AddUser" element={<AddUser />} />
+          {/* <Route path="/Emptybacklog" element={<Emptybacklog />} /> */}
 
           {/* pages with sidebar */}
           <Route path="/Team" element={<Team />} />

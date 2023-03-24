@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { MDBCol } from 'mdb-react-ui-kit';
 import IssueService from '../../Services/IssueService';
+import { useNavigate } from 'react-router-dom';
 
 const AddIssue = () => {
 
@@ -26,7 +27,7 @@ const AddIssue = () => {
 
   // const Value = (issue.spdeveloping) + (issue.sptesting);
 
-
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -37,6 +38,7 @@ const AddIssue = () => {
     e.preventDefault();
     IssueService.saveIssue(issue).then((response) => {
       console.log(response);
+      navigate("/BacklogView")
     }).catch((error) => {
       console.log(error);
     });
