@@ -62,6 +62,7 @@ function App() {
           <Route path="/Report" element ={<Report/>}/>
           <Route path="/Dashboard" element ={<Dashboard/>}/>
           <Route path="/Group" element ={<Group/>}/>
+          {/* <Route path="/newdashboard" element ={<DashLayout/>}/> */}
 
 
           {/* pages with navbar */}

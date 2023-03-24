@@ -17,10 +17,10 @@ function Dashboard() {
           setInactive(inactive);
       }}
       />
-        <MainDash/>
-        <RightSide/> 
-        </div>
-        </div>
+      <MainDash/>
+      <RightSide/> 
+      </div>
+      </div>
 
      
   );

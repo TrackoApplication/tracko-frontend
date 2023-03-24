@@ -1,8 +1,7 @@
-import { delay } from 'framer-motion';
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import UserList from '../UserMgt/UserList';
-import '../UserMgt/userList.css'
+import '../UserMgt/userMgt.css'
+import './SuccesfulAction.css'
 
 const SuccessfulAction = (props) => {
     const multicCall=() =>{
@@ -13,12 +12,12 @@ const SuccessfulAction = (props) => {
     <div>
     <Modal
         {...props}
-        size="lg"
+        size="m"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        className='justify-center'
+        className='justify-center '
       >
-        <div closeButton className='bg-green-500 align-center rounded p-2 shadow '>
+        <div closeButton className='check-right align-center rounded p-2'>
           <div className='flex mx-auto'>
             <div className='iconSuccess mx-auto  '>
                 <i class="bi bi-check-circle" ></i>
