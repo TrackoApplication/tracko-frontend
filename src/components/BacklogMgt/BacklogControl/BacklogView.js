@@ -1,5 +1,5 @@
 import React from 'react'
-import Sidebar from '../SideBar/Sidebar'
+import Sidebar from '../../SideBar/Sidebar'
 import './Backlog.css';
 import Backlog from './Backlog';
 

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { MDBCol } from 'mdb-react-ui-kit';
-import IssueService from '../../Services/IssueService';
+import IssueService from '../../../Services/IssueService';
 import { useNavigate } from 'react-router-dom';
 
 const AddIssue = () => {
@@ -38,9 +38,30 @@ const AddIssue = () => {
     e.preventDefault();
     IssueService.saveIssue(issue).then((response) => {
       console.log(response);
-      navigate("/BacklogView")
+      // navigate("/Emptybacklog")
     }).catch((error) => {
       console.log(error);
+    });
+    handleClose();
+  };
+
+  const reset = (e) => {
+    e.preventDefault();
+    setIssue({
+      issueId:"",
+      projectName:"",
+      issueType:"",
+      summary:"",
+      description:"",
+      assignee:"",
+      sprintName:"",
+      epicName:"",
+      reqOfTesting: false,
+      spdeveloping:0,
+      sptesting: 0,
+      totalSP: 0,
+      priority:"",
+      reporter:"",
     });
     handleClose();
   };
@@ -222,7 +243,7 @@ const AddIssue = () => {
             {/* button section */}
             <Modal.Footer>
 
-              <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
+              <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={reset}>
                 Cancel
               </Button>
 

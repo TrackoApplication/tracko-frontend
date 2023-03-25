@@ -1,12 +1,10 @@
 import React, { useState,useEffect } from "react";
 import Table from 'react-bootstrap/Table';
-import './Issuetable.css';
-import IssueService from "../../Services/IssueService";
+import './IssueList.css';
+import IssueService from "../../../Services/IssueService";
 import { MDBBadge} from 'mdb-react-ui-kit';
-import Button from 'react-bootstrap/Button';
-import { textAlign } from "@mui/system";
 
-function Emptybacklog() {
+function IssueList() {
   const [loading, setloading] = useState(true)
   const [issues, setissues] = useState(null);
 
@@ -58,7 +56,15 @@ function Emptybacklog() {
             </td>
             <td>{issues.assignee}</td>
             <td>
-              #
+              <i class="bi bi-pen"
+                // onClick={(e, id) => editSystemUser(e, systemUser.systemUserId)}
+              >
+              </i>
+              <i class="bi bi-trash-fill"
+                // onClick={() => deleteSystemUser(systemUser.systemUserId)}
+                // onClick={() => setShowConfirm(true)}
+              >
+              </i>
             </td>
           </tr>
           ))}
@@ -68,4 +74,4 @@ function Emptybacklog() {
   );
 }
 
-export default Emptybacklog;
+export default IssueList;

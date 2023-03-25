@@ -1,7 +1,7 @@
 import Table from 'react-bootstrap/Table';
 import { MDBBadge} from 'mdb-react-ui-kit';
 
-function Emptycompletesprinttable() {
+function SprintIssueList() {
   return (
     <Table striped borderless hover size="sm">
       <thead>
@@ -15,7 +15,7 @@ function Emptycompletesprinttable() {
       </thead>
       <tbody>
         <tr>
-            <td style={{textAlign:"center"}}>Drag issues to your sprint backlog</td>
+          <td style={{textAlign:"center"}}>Drag your issues here</td>
           {/* <td>1</td>
           <td>Create wire frames</td>
           <td>
@@ -27,12 +27,21 @@ function Emptycompletesprinttable() {
                 </select>
             </MDBBadge>
           </td>
-          <td>assignee icon</td> */}
+          <td>
+            assignee icon
+          </td> */}
         </tr>
         {/* <tr>
         <td>#</td>
           <td>2</td>
           <td>Create interim report</td>
+          <td>dropdownlist</td>
+          <td>assignee icon</td>
+        </tr> */}
+        {/* <tr>
+        <td>#</td>
+          <td>3</td>
+          <td>Create presentation</td>
           <td>
             <MDBBadge color='info' pill>
                 <select name="question" id="question" style={{color:"black"}}>
@@ -43,17 +52,10 @@ function Emptycompletesprinttable() {
             </MDBBadge>
           </td>
           <td>assignee icon</td>
-        </tr>
-        <tr>
-        <td>#</td>
-          <td>3</td>
-          <td>Create presentation</td>
-          <td>dropdownlist</td>
-          <td>assignee icon</td>
         </tr> */}
       </tbody>
     </Table>
   );
 }
 
-export default Emptycompletesprinttable;
+export default SprintIssueList;

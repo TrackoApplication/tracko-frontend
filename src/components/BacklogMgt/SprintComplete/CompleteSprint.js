@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { MDBBadge} from 'mdb-react-ui-kit';
 
 const SprintCompletion = () => {
   const [inactive, setInactive] = React.useState(false);
