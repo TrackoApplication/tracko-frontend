@@ -7,6 +7,10 @@ class SprintService {
     saveSprint(sprint) {
         return axios.post(SPRINT_API_BASE_URL, sprint);
     }
+
+    getSprints() {
+        return axios.get(SPRINT_API_BASE_URL)
+    }
 }
 
 export default new SprintService();

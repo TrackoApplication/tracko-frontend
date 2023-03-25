@@ -9,7 +9,7 @@ import ResetPass from "./components/UserAuthentication/ResetPass";
 import ProjectList from "./components/ProjectMgt/ProjectList";
 import ClientList from "./components/ClientMgt/ClientList";
 import Team from "./components/TeamMgt/Team";
-import Backlog from "./components/BacklogMgt/BacklogControl/Backlog";
+// import Backlog from "./components/BacklogMgt/BacklogControl/Backlog";
 import ActiveSprint from "./components/ActiveSprintMgt/ActiveSprint";
 import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
@@ -19,8 +19,8 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
 import GroupDetail from "./components/GroupMgt/GroupDetail";
 import BacklogView from "./components/BacklogMgt/BacklogControl/BacklogView";
-import Emptybacklog from "./components/BacklogMgt/Issue/IssueList";
-import IssueList from "./components/BacklogMgt/Issue/IssueList";
+import SprintList from "./components/BacklogMgt/Sprint/SprintList";
+// import IssueList from "./components/BacklogMgt/Issue/IssueList";
 
 
 function App() {
@@ -39,11 +39,12 @@ function App() {
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/ResetPass" element={<ResetPass />} />
           <Route path="/AddUser" element={<AddUser />} />
+          <Route path="/SprintList" element={<SprintList />} />
           {/* <Route path="/IssueList" element={<IssueList />} /> */}
 
           {/* pages with sidebar */}
           <Route path="/Team" element={<Team />} />
-          <Route path="/Backlog" element={<Backlog />} />
+          {/* <Route path="/Backlog" element={<Backlog />} /> */}
           <Route path="/ActiveSprint" element={<ActiveSprint />} />
           <Route path="/People" element={<People />} />
           <Route path="/Forum" element={<Forum />} />
@@ -54,7 +55,7 @@ function App() {
 
           {/* pages with sidebar */}
           <Route path="/Team" element ={<Team/>}/>
-          <Route path="/Backlog" element ={<Backlog/>}/>
+          {/* <Route path="/Backlog" element ={<Backlog/>}/> */}
           <Route path="/BacklogView" element ={<BacklogView/>}/>
           <Route path="/ActiveSprint" element ={<ActiveSprint/>}/>
           <Route path="/People" element ={<People/>}/>

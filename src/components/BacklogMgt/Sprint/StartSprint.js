@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { MDBCol } from 'mdb-react-ui-kit';
 import SprintService from '../../../Services/SprintService';
+import { useNavigate } from 'react-router-dom';
 
 const SprintStart = () => {
 
@@ -16,6 +17,8 @@ const SprintStart = () => {
     duration:"",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const value = e.target.value;
     setSprint({...sprint,[e.target.name]: value});
@@ -25,8 +28,22 @@ const SprintStart = () => {
     e.preventDefault();
     SprintService.saveSprint(sprint).then((response) => {
       console.log(response);
+      navigate("/SprintList")
     }).catch((error) => {
       console.log(error);
+    });
+    handleClose();
+  };
+
+  const reset = (e) => {
+    e.preventDefault();
+    setSprint({
+      sprintId:"",
+      sprintName:"",
+      startDate:"",
+      endDate:"",
+      sprintGoal:"",
+      duration:"",
     });
     handleClose();
   };
@@ -130,7 +147,7 @@ const SprintStart = () => {
                 Start
               </Button>
 
-              <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
+              <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={reset}>
                 Cancel
               </Button>
 
