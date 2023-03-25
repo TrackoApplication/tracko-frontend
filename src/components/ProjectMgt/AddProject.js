@@ -26,7 +26,8 @@ const AddProject = () => {
             <Modal.Body>
               <Form>
                 <MDBRow>
-                    <MDBCol>
+                  <MDBCol>
+                    
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Project Name</Form.Label>
                             <Form.Control
@@ -37,8 +38,8 @@ const AddProject = () => {
                             </Form.Group>
                     </MDBCol>
                     
-                </MDBRow>
-
+                
+                <MDBCol>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Key</Form.Label>
                   <Form.Control
@@ -48,16 +49,20 @@ const AddProject = () => {
                   />
                   </Form.Group>
 
+                  </MDBCol>
+
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Description</Form.Label>
                   <Form.Control
                     type="Text"
                     placeholder="..........."
                     autoFocus
-                  />
-                
-                
+                  />             
                 </Form.Group>
+
+                </MDBRow>
+                
+
                 <Form.Label>Client</Form.Label>
                   <Form.Control
                     type="Name"

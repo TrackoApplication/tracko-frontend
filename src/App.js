@@ -16,6 +16,7 @@ import Forum from "./components/ForumMgt/Forum";
 import Report from "./components/ReportMgt/Report";
 import Sidebar, { menuItems } from "./components/SideBar/Sidebar";
 import AddUser from "./components/UserMgt/AddUser";
+import Dummy from "./components/ProjectMgt/Dummy";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path="/Login" element ={<Login/>}></Route>
         <Route path="/ResetPass" element ={<ResetPass/>}></Route>
         <Route path="/AddUser" element ={<AddUser/>}></Route>
+        <Route path="/Dummy" element = {<Dummy/>}></Route>
 
         {/* pages without sidebar */}
         <Route path="/UserList" element ={<UserList/>}></Route>
