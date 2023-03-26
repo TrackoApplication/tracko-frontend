@@ -20,7 +20,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
 import BacklogView from "./components/BacklogMgt/BacklogView";
 import { ForumList } from "./components/ForumMgt/ForumList";
-
+import AddClient from "./components/ClientMgt/AddClient";
 
 function App() {
   const [inactive, setInactive] = useState(false);
@@ -36,12 +36,13 @@ function App() {
         <Route path="/Login" element ={<Login/>}></Route>
         <Route path="/ResetPass" element ={<ResetPass/>}></Route>
         <Route path="/AddUser" element ={<AddUser/>}></Route>
-
+        <Route path="/AddClient" element ={<AddClient/>}></Route>
         {/* pages without sidebar */}
         <Route path="/UserList" element ={<UserList/>}></Route>
         <Route path="/ProjectList" element ={<ProjectList/>}></Route>
         <Route path="/ClientList" element ={<ClientList/>}></Route>
         
+
         {/* pages with sidebar */}
         
        
@@ -56,6 +57,8 @@ function App() {
           <Route path="/Group" element ={<Group/>}></Route>
           <Route path="/BacklogView" element ={<BacklogView/>}></Route>
           <Route path="/ForumList" element ={<ForumList/>}></Route>
+          
+
 
       
       </Routes>

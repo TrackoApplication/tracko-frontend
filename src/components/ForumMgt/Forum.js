@@ -1,33 +1,24 @@
 import React from 'react'
 import Sidebar from '../SideBar/Sidebar'
-import AddForum from './AddForum';
-import ForumList from './ForumList';
-import ReplyForum from './ReplyForum';
+import { ForumList } from './ForumList';
 
 const Forum = () => {
-    const [inactive, setInactive] = React.useState(false);
-    return (
-      <div>
-          <Sidebar
-          onCollapse={(inactive) => {
-              setInactive(inactive);
-          }}
-          />
-          <div className={`container ${inactive ? "inactive" : ""}`}>
-              <h1>Forum</h1>
-          </div>
+  const [inactive, setInactive] = React.useState(false);
+ 
+  return (
 
-          <div>
-            <AddForum/>
-
-            {/* <ForumList/> */}
-          </div>
-
-          {/* <div>
-            <ReplyForum/>
-          </div> */}
+    <div className='App'>
+    <div className='AppGlass'>
+        <Sidebar
+        onCollapse={(inactive) => {
+            setInactive(inactive);
+        }}
+        />
+        <ForumList/>
+    
       </div>
-    )
+    </div>
+  )
 }
 
 export default Forum

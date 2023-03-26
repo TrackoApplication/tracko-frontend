@@ -30,12 +30,7 @@ const ReplyForum = () => {
                 <MDBRow>
                     <MDBCol>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                                type="Name"
-                                placeholder="   "
-                                autoFocus
-                            />
+                            
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Type your comments</Form.Label>

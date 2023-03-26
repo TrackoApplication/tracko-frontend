@@ -76,4 +76,4 @@ const AddForum = () => {
   )
 }
 
-export default AddForum
+export default AddForum;

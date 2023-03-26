@@ -1,85 +1,66 @@
-import React, { useState } from 'react';
-import NavBar from '../NavBar/Navbar';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
-import { MDBCol,MDBRow } from 'mdb-react-ui-kit';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+
+
+
+const AddClient=() =>{
+  
+return (
+    <div className="flex max-w-2xl mx-auto shadow border-b">
+      <div className="px-8 py-8">
+        <div className="font-thin text-2xl tracking-wider">
+            <h1>Add New Client</h1>
+        </div>
+        <div className="items-center justify-center h-14 w-full"></div>
+        <label className='block text-gray-600 text-sm font-normal'>
+            clientName
+            </label>
+        <input 
+        type="text" 
+       className='h-10 w-96 border mt-2 px-2 '></input>
+        
+        <div className="items-center justify-center h-14 w-full"></div>
+        <label className='block text-gray-600 text-sm font-normal'>
+            contactPerson
+            </label>
+        <input type="text" 
+        
+        className='h-10 w-96 border mt-2 px-2 '></input>
+        
+        <div className="items-center justify-center h-14 w-full"></div>
+        <label className='block text-gray-600 text-sm font-normal'>
+            emailId
+        </label>
+        <input type="text" 
+        
+        className='h-10 w-96 border mt-2 px-2 '></input>
+
+       <div className="items-center justify-center h-14 w-full"></div>
+        <label className='block text-gray-600 text-sm font-normal'>
+           description
+        </label>
+        <input type="text" 
+        
+        className='h-10 w-96 border mt-2 px-2 '></input>
+
+        <div className="items-center justify-center h-14 w-full my-4 space-x-4 pt-4">
+            <button  
+            className="rounded text-white font-semibold bg-green-400 hover:bg-green-700 py-2 px-6">
+              Save
+            </button>
+            <button 
+            
+            className="rounded text-white font-semibold bg-red-400 hover:bg-red-700 py-2 px-6">
+              Clear
+              </button>
+        </div>
+        
+        
+        </div>
+       
+</div>
     
+  );
+};
 
-const AddClient = () => {
-
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    
-      return (
-        <>
-          <Button 
-          variant="primary" 
-          className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out" 
-          onClick={handleShow}>
-            Add Client
-          </Button>
-    
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Add client</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <MDBRow>
-                    <MDBCol>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Client Name</Form.Label>
-                            <Form.Control
-                                type="Name"
-                                placeholder="Creative Software"
-                                autoFocus
-                            />
-                            </Form.Group>
-                    </MDBCol>
-                    
-                </MDBRow>
-
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label>Contact Person</Form.Label>
-                  <Form.Control
-                    type="Name"
-                    placeholder="JhonDee999"
-                    autoFocus
-                  />
-                  </Form.Group>
-
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="name@example.com"
-                    autoFocus
-                  />
-                
-                
-                </Form.Group>
-                <Form.Label>Description</Form.Label>
-                  <Form.Control
-                    type="Name"
-                    placeholder="Employee management system"
-                    autoFocus
-                  />
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
-                Close
-              </Button>
-              <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] ' onClick={handleClose}>
-                Save Changes
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </>
-   
-  )
-}
-
-export default AddClient
+export default AddClient;
