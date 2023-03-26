@@ -1,38 +1,54 @@
-import React from 'react'
-//import './Dummy.css'
 
+import { useState } from "react";
 
+const Dummy = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
 
+  // This function will be triggered when the file field change
+  const imageChange = (e) => {
+    setSelectedImage(e.target.files[0]); //files should be passed as an array
+  };
 
-function Dummy() {
+  return (
+    <>
+      <div className="container">
+        <label>
+          Choose File to Upload:
+          <input
+            type="file"
+            style={styles.input}
+            className="form-control"
+            onChange={imageChange} //onchange event occurs when a value of a HTML element is changed
+            accept="image/png , image/jpeg , image/webp"
+          />
+          <br />
+        </label>
 
-         const onSelectFile = (event) => {
-         const selectedFile = event.target.file;
-         console.log(selectedFile);
+        {selectedImage && (
+          <div style={styles.preview}>
+            <img
+              src={URL.createObjectURL(selectedImage)} //this static method creates a string containing a URl representing the object given in the parameter(selectedImage)
+              style={styles.image}
+              alt="Thumb"
+            />
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
 
-         const userimage=selectedFile.map((file))
-     };
-    
-    
+export default Dummy;
 
-    return (
+// Just some styles
+const styles = {
+  preview: {
+    marginTop: 50,
+  },
 
-        <section>
-            <label  className=" mt-5 align-middle
-             border- outline-dotted cursor-default  text-md">
-                + Add images
-                <br />
-                <input 
-                    type="file"
-                    name="images"
-                    //onChange={onSelectFile} 
-                    
-                    
-                    accept="image/png , image/jpeg , image/webp"
-                    />
-            </label>
-        </section>
-    );
-}
+  image: { maxWidth: "100%", maxHeight: 320 },
 
-export default Dummy
+  input: {
+    display: "none", //hides the irrelavent details in the "input" tag
+  },
+};
