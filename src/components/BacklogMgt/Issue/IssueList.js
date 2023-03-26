@@ -1,31 +1,30 @@
-import React, { useState,useEffect } from "react";
-import Table from 'react-bootstrap/Table';
-import './IssueList.css';
+import React, { useState, useEffect } from "react";
+import Table from "react-bootstrap/Table";
+import "./IssueList.css";
 import IssueService from "../../../Services/IssueService";
-import { MDBBadge} from 'mdb-react-ui-kit';
+import { MDBBadge } from "mdb-react-ui-kit";
 
 function IssueList() {
-  const [loading, setloading] = useState(true)
+  const [loading, setloading] = useState(true);
   const [issues, setissues] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       setloading(true);
-      try{
+      try {
         const response = await IssueService.getIssues();
-        setissues(response.data)
-      } catch(error) {
+        setissues(response.data);
+      } catch (error) {
         console.log(error);
       }
       setloading(false);
     };
     fetchData();
-  }, [])
+  }, []);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
 
   return (
     <Table striped borderless hover size="sm">
@@ -42,33 +41,43 @@ function IssueList() {
         <tbody>
           {issues.map((issues) => (
             <tr>
-            <td>{issues.issueId}</td>
-            <td>{issues.summary}</td>
-            <td>{issues.epicName}</td>
-            <td>
-              <MDBBadge color='info' pill>
-                  <select name="question" id="question" style={{color:"black"}}>
-                      <option value="ip" style={{color:"blue"}}>IN-PROGRESS</option>
-                      <option value="td" style={{color:"grey"}}>TODO</option>
-                      <option value="done" style={{color:"green"}}>DONE</option>
+              <td>{issues.issueId}</td>
+              <td>{issues.summary}</td>
+              <td>{issues.epicName}</td>
+              <td>
+                <MDBBadge color="info" pill>
+                  <select
+                    name="question"
+                    id="question"
+                    style={{ color: "black" }}
+                  >
+                    <option value="ip" style={{ color: "blue" }}>
+                      IN-PROGRESS
+                    </option>
+                    <option value="td" style={{ color: "grey" }}>
+                      TODO
+                    </option>
+                    <option value="done" style={{ color: "green" }}>
+                      DONE
+                    </option>
                   </select>
-              </MDBBadge>      
-            </td>
-            <td>{issues.assignee}</td>
-            <td>
-              <i class="bi bi-pen"
-                // onClick={(e, id) => editSystemUser(e, systemUser.systemUserId)}
-              >
-              </i>
-              <i class="bi bi-trash-fill"
-                // onClick={() => deleteSystemUser(systemUser.systemUserId)}
-                // onClick={() => setShowConfirm(true)}
-              >
-              </i>
-            </td>
-          </tr>
+                </MDBBadge>
+              </td>
+              <td>{issues.assignee}</td>
+              <td>
+                <i
+                  class="bi bi-pen"
+                  // onClick={(e, id) => editSystemUser(e, systemUser.systemUserId)}
+                ></i>
+                <i
+                  class="bi bi-trash-fill"
+                  // onClick={() => deleteSystemUser(systemUser.systemUserId)}
+                  // onClick={() => setShowConfirm(true)}
+                ></i>
+              </td>
+            </tr>
           ))}
-      </tbody>
+        </tbody>
       )}
     </Table>
   );

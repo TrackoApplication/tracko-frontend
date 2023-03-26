@@ -1,5 +1,5 @@
-import Table from 'react-bootstrap/Table';
-import { MDBBadge} from 'mdb-react-ui-kit';
+import Table from "react-bootstrap/Table";
+import { MDBBadge } from "mdb-react-ui-kit";
 
 function SprintIssueList() {
   return (
@@ -15,7 +15,7 @@ function SprintIssueList() {
       </thead>
       <tbody>
         <tr>
-          <td style={{textAlign:"center"}}>Drag your issues here</td>
+          <td style={{ textAlign: "center" }}>Drag your issues here</td>
           {/* <td>1</td>
           <td>Create wire frames</td>
           <td>

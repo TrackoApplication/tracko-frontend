@@ -20,6 +20,7 @@ Table{
     border: 3px dashed;
     border-color: black;
     margin-top: 30px;
+    text-align: center;
 }
 
 .button-container {
@@ -97,7 +98,5 @@ Table{
     } 
   }
 
-  MDBBtn {
-  }
 
 
