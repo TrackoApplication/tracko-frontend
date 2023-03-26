@@ -11,7 +11,7 @@ const AddProject = () => {
   //image preview
   const [imagePreview, setImagePreview] = useState(null);
   const [defaultImage, setDefaultImage] = useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
   );
 
   const handleImageUpload = (event) => {
