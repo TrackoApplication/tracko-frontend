@@ -8,7 +8,6 @@ const AddProject = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [selectedImage, setSelectedImage] = useState(null);
   //image preview
   const [imagePreview, setImagePreview] = useState(null);
   const [defaultImage, setDefaultImage] = useState(
@@ -84,15 +83,12 @@ const AddProject = () => {
               >
                 <Form.Label>Avatar</Form.Label>
                 <div>
-                <div style={styles.preview && styles.image}>
+                  <div style={styles.preview && styles.image}>
                     {imagePreview ? ( //this is a conditional redering statement and checks whether the "imagePreview" is true or false.
-                   
-                      <img src={imagePreview} alt="Preview"  />
+                      <img src={imagePreview} alt="Preview" />
                     ) : (
                       <img src={defaultImage} alt="Default" />
-                    ) 
-                    }
-                    
+                    )}
                   </div>
                   <label className="text-left font-sans font-semibold text-xs text-blue-600 hover:text-blue-900">
                     Select image
@@ -102,7 +98,6 @@ const AddProject = () => {
                       onChange={handleImageUpload}
                     />
                   </label>
-                  
                 </div>
               </Form.Group>
 
