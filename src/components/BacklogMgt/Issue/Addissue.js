@@ -77,7 +77,7 @@ const AddIssue = () => {
       <div className={`container ${inactive ? "inactive" : ""}`}>
         <Button
           variant="link"
-          className="text-black border-none font-semibold text-decoration-none"
+          className="text-black border-none font-semibold text-decoration-none shadow-none"
           onClick={handleShow}
         >
           + Create Issue
@@ -103,6 +103,7 @@ const AddIssue = () => {
                     value={issue.projectName}
                     onChange={(e) => handleChange(e)}
                     required
+                    autoFocus
                   >
                     <option>Select the project</option>
                     <option>Project 1</option>

@@ -31,7 +31,7 @@ const Backlog = () => {
         <MDBBadge
           color="primary"
           pill
-          style={{ height: "20px", width: "24px", fontSize: "12px" }}
+          style={{ height: "20px", width: "24px", fontSize: "12px"}}
         >
           0
         </MDBBadge>

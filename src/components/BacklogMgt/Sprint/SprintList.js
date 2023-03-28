@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import SprintService from "../../../Services/SprintService";
+import Sprint from "./Sprint";
 
 function SprintList() {
   const [loading, setloading] = useState(true);
   const [sprints, setsprints] = useState(null);
+  // const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +21,18 @@ function SprintList() {
     };
     fetchData();
   }, []);
+
+  const deleteSprint = (sprintId) => {
+    // SprintService.deleteSprint(sprintId).then((res) => {
+    //   if (sprints) {
+    //     setsprints((prevElement) => {
+    //       // setShowSuccess(true);
+    //       return prevElement.filter((Sprint) => Sprint.sprintId !== sprintId);
+    //     });
+    //   }
+    // });
+    console.log(sprintId);
+  };
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -39,25 +53,11 @@ function SprintList() {
       {!loading && (
         <tbody>
           {sprints.map((sprints) => (
-            <tr>
-              <td>{sprints.sprintId}</td>
-              <td>{sprints.sprintName}</td>
-              <td>{sprints.duration}</td>
-              <td>{sprints.startDate}</td>
-              <td>{sprints.endDate}</td>
-              <td>{sprints.sprintGoal}</td>
-              <td>
-                <i
-                  class="bi bi-pen"
-                  // onClick={(e, id) => editSystemUser(e, systemUser.systemUserId)}
-                ></i>
-                <i
-                  class="bi bi-trash-fill"
-                  // onClick={() => deleteSystemUser(systemUser.systemUserId)}
-                  // onClick={() => setShowConfirm(true)}
-                ></i>
-              </td>
-            </tr>
+            <Sprint
+              Sprint={sprints}
+              deleteSprint={deleteSprint}
+              key={sprints.sprintId}
+            ></Sprint>
           ))}
         </tbody>
       )}

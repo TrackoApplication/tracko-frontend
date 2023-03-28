@@ -11,6 +11,11 @@ class SprintService {
     getSprints() {
         return axios.get(SPRINT_API_BASE_URL)
     }
+
+    deleteSprint(sprintId){
+        return axios.delete(SPRINT_API_BASE_URL + "/" + sprintId)
+        
+    }   
 }
 
 export default new SprintService();

@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import "./IssueList.css";
 import IssueService from "../../../Services/IssueService";
 import { MDBBadge } from "mdb-react-ui-kit";
+import { textAlign } from "@mui/system";
 
 function IssueList() {
   const [loading, setloading] = useState(true);
@@ -45,23 +46,21 @@ function IssueList() {
               <td>{issues.summary}</td>
               <td>{issues.epicName}</td>
               <td>
-                <MDBBadge color="info" pill>
-                  <select
-                    name="question"
-                    id="question"
-                    style={{ color: "black" }}
-                  >
-                    <option value="ip" style={{ color: "blue" }}>
-                      IN-PROGRESS
-                    </option>
-                    <option value="td" style={{ color: "grey" }}>
-                      TODO
-                    </option>
-                    <option value="done" style={{ color: "green" }}>
-                      DONE
-                    </option>
-                  </select>
-                </MDBBadge>
+                <select
+                  name="question"
+                  id="question"
+                  style={{ color: "black", fontSize: "10px"}}
+                >
+                  <option value="ip" style={{ color: "blue" }}>
+                    IN-PROGRESS
+                  </option>
+                  <option value="td" style={{ color: "grey" }}>
+                    TODO
+                  </option>
+                  <option value="done" style={{ color: "green" }}>
+                    DONE
+                  </option>
+                </select>
               </td>
               <td>{issues.assignee}</td>
               <td>
