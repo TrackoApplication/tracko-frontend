@@ -13,6 +13,7 @@ class SprintService {
     }
 
     deleteSprint(sprintId){
+        debugger;
         return axios.delete(SPRINT_API_BASE_URL + "/" + sprintId)
         
     }   

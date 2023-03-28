@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import SprintService from "../../../Services/SprintService";
 import Sprint from "./Sprint";
+import SuccessfulDeletion from "./SuccessfulDeletion.js";
+
 
 function SprintList() {
   const [loading, setloading] = useState(true);
   const [sprints, setsprints] = useState(null);
-  // const [showSuccess, setShowSuccess] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,11 +24,13 @@ function SprintList() {
     fetchData();
   }, []);
 
-  const deleteSprint = (e,sprintId) => {
+  const deleteSprint = (sprintId) => {
+    debugger;
     SprintService.deleteSprint(sprintId).then((res) => {
+      debugger;
       if (sprints) {
         setsprints((prevElement) => {
-          // setShowSuccess(true);
+          setShowSuccess(true);
           return prevElement.filter((Sprint) => Sprint.sprintId !== sprintId);
         });
       }
@@ -38,6 +42,8 @@ function SprintList() {
   const handleShow = () => setShow(true);
 
   return (
+    <>
+
     <Table striped borderless hover size="sm">
       <thead>
         <th>Sprint ID</th>
@@ -61,6 +67,15 @@ function SprintList() {
         </tbody>
       )}
     </Table>
+
+    <SuccessfulDeletion
+    onHide={() => setShowSuccess(false)}
+    show={showSuccess}
+    message="Sprint Deleted Successfully"
+    />
+
+  </>
+
   );
 }
 

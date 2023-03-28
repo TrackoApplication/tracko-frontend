@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
-// import { UpdateUser } from './UpdateUser';
-import { MDBBadge, MDBBtn } from 'mdb-react-ui-kit';
-// import Avatar from 'react-avatar';
-// import ConfirmPopup from './ConfirmPopup';
+import DeleteConfirmation from './DeleteConfirmation';
 
-const Sprint = ({ Sprint, deleteSprint, key }) => {
+    const Sprint = ({ Sprint, deleteSprint, key }) => {
     const [showConfirm, setShowConfirm] = useState(false);
     const [show, setShow] = useState(false);
 
@@ -29,18 +26,19 @@ const Sprint = ({ Sprint, deleteSprint, key }) => {
                 ></i>
                 <i
                   class="bi bi-trash-fill"
-                  onClick={(e,sprintId) => deleteSprint(e, Sprint.sprintId)}
-                    // onClick={() => setShowConfirm(true)}
+                  // onClick={(e,sprintId) => deleteSprint(e, Sprint.sprintId)}
+                  onClick={() => setShowConfirm(true)}
                 ></i>
               </td>
             </tr>
 
-            {/* <ConfirmPopup
+            <DeleteConfirmation
                 show={showConfirm}
-                deleteSystemUser={deleteSystemUser}
+                deleteSprint={deleteSprint}
                 onHide={() => setShowConfirm(false)}
-                systemUserId={systemUser.systemUserId}
-            /> */}
+                sprintId={Sprint.sprintId}
+            />
+
             {/* <UpdateUser
                 show={show}
                 onHide={() => setShow(false)}
