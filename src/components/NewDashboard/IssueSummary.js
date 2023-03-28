@@ -1,8 +1,28 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import "./Dashboard.css";
 import { PieChart } from "react-minimal-pie-chart";
+import DashBoardService from "../../Services/DashBoardService";
 
 const IssueSummary = () => {
+  const [loading, setLoading] = useState(false);
+  const [issue, setIssue] = useState([1]);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await DashBoardService.getIssueCount();
+        setIssue(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
   const percentage = 66;
 
   return (
@@ -12,7 +32,7 @@ const IssueSummary = () => {
         <div className="col">
           <div className="issue-cards bg-[#003f5c]">
             <p>Total Issues</p>
-            <i><p className="text-2xl">500</p></i>
+            <i><p className="text-2xl">{issue}</p></i>
           </div>
           <div className="issue-cards bg-[#58508d]">
             <p>completed Issues</p>

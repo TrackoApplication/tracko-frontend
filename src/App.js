@@ -23,6 +23,7 @@ import GroupDetail from "./components/GroupMgt/GroupDetail";
 import BacklogView from "./components/BacklogMgt/BacklogView";
 import SuccesfulAction from "./components/CommonComponents/SuccessfulAction";
 import DashLayout from "./components/NewDashboard/DashLayout";
+import Popup from "./Popup";
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
           <Route path="/GroupDetail" element={<GroupDetail />} />
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Group" element={<Group />} />
+
         {/* pages with sidebar */}
           <Route path="/Team" element ={<Team/>}/>
           <Route path="/Backlog" element ={<Backlog/>}/>
@@ -70,12 +72,7 @@ function App() {
           <Route path="/UserList" element={<UserListWithNavbar/>} />
           <Route path="/ProjectList" element={<ProjectList />} />
           <Route path="/ClientList" element={<ClientList />} />
-        
-
-          {/* pages with navbar */}
-          <Route path="/UserList" element ={<UserList/>}/>
-          <Route path="/ProjectList" element ={<ProjectList/>}/>
-          <Route path="/ClientList" element ={<ClientList/>}/>
+          <Route path="/Popup" element={<Popup />} />
     
     </Routes>
 
