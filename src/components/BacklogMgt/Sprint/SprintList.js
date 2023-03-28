@@ -22,16 +22,16 @@ function SprintList() {
     fetchData();
   }, []);
 
-  const deleteSprint = (sprintId) => {
-    // SprintService.deleteSprint(sprintId).then((res) => {
-    //   if (sprints) {
-    //     setsprints((prevElement) => {
-    //       // setShowSuccess(true);
-    //       return prevElement.filter((Sprint) => Sprint.sprintId !== sprintId);
-    //     });
-    //   }
-    // });
-    console.log(sprintId);
+  const deleteSprint = (e,sprintId) => {
+    SprintService.deleteSprint(sprintId).then((res) => {
+      if (sprints) {
+        setsprints((prevElement) => {
+          // setShowSuccess(true);
+          return prevElement.filter((Sprint) => Sprint.sprintId !== sprintId);
+        });
+      }
+    });
+
   };
 
   const [show, setShow] = useState(false);
