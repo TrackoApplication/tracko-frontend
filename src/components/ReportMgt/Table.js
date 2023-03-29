@@ -14,9 +14,13 @@ export default function Home() {
     setGet_rep(result.data);
   };
 
+  // const Add_rep = async (data) => {
+  //   const result = await axios.post("http://localhost:8080/report/add_rep", data);
+  //   setGet_rep(...get_rep, result.data);
+  // };
 
   return (
-    <div className="">
+    <div className="cont">
       <div className="py-4">
         <table className="table table-bordered shadow">
           <thead>
@@ -45,6 +49,17 @@ export default function Home() {
           </tbody>
         </table>
       </div>
+      {/* <button onClick={() => Add_rep({
+        "date":"2024/06/08",
+        "issue":"Bug",
+        "event":"Sprint End",
+        "eventDetails":"Not Completed",
+        "addedStoryPoints":"20",
+        "completedStoryPoints":"20",
+        "remainingStoryPoints":"5"
+      })}>
+        Click Me
+      </button> */}
     </div>
   );
 }
