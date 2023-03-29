@@ -5,10 +5,12 @@ import MenuItem from './MenuItem';
 import './sideBar.css'
 import Avatar from 'react-avatar';
 import { NavLink } from 'react-router-dom';
+import {BsFillFileSpreadsheetFill} from "react-icons/bs";
+import { color } from '@mui/system';
 
 export const menuItems = [
   {name: 'Dashboard',to: '/Dashboard', exact: true, iconClassName:'bi bi-house'},
-  {name: 'Backlog', to: '/Backlog', exact: true, iconClassName:'bi bi-x-diamond-fill'},
+  {name: 'Backlog', to: '/BacklogView', exact: true, iconClassName:'bi bi-x-diamond-fill'},
   {name: 'Active Sprint' , to: '/ActiveSprint', exact: true , iconClassName:'bi bi-amd'},
   {name: 'Report',to: '/Report', exact: true , iconClassName:'bi bi-body-text'},
   {name: 'Forum',to: '/Forum', exact: true , iconClassName:'bi bi-chat-right-dots'},
@@ -18,7 +20,6 @@ export const menuItems = [
   {name: 'Home',to: '/Userlist', exact: true, iconClassName:'bi bi-house'},
 
 ];
-
 
 const Sidebar = (props) => {
 
@@ -48,6 +49,17 @@ const Sidebar = (props) => {
             </button>
               
               <input type='text' placeholder='Search' />
+          </div>
+
+          <div className='project-wrapper'>
+          <div className='project-icon'><BsFillFileSpreadsheetFill style={{ fontSize: '3em' , color:'rgb(1, 255, 239)' }} />
+          </div>
+          <div>
+          <p style={{fontSize:"20px", color:"white" }}>Return0</p>
+          <p style={{fontSize:"10px", color:"white" }}>PID_20</p>
+
+          </div>
+          
           </div>
 
           {/* <div className='divider'></div> */}
