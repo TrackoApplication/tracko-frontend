@@ -51,8 +51,10 @@ function App() {
           <Route path="/Forum" element={<Forum />} />
           <Route path="/Report" element={<Report />} />
           <Route path="/GroupDetail" element={<GroupDetail />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
+          {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
           <Route path="/Group" element={<Group />} />
+          <Route path="/Dashboard" element ={<DashLayout/>}/>
+
 
         {/* pages with sidebar */}
           <Route path="/Team" element ={<Team/>}/>
@@ -63,9 +65,9 @@ function App() {
           <Route path="/Forum" element ={<Forum/>}/>
           <Route path="/Report" element ={<Report/>}/>
 
-          <Route path="/Dashboard" element ={<Dashboard/>}/>
+          {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
           <Route path="/Group" element ={<Group/>}/>
-          <Route path="/newdashboard" element ={<DashLayout/>}/>
+          <Route path="/Dashboard" element ={<DashLayout/>}/>
 
 
           {/* pages with navbar */}
