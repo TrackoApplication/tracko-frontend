@@ -96,15 +96,17 @@ const Backlog = () => {
         <MDBBadge color='secondary' rounded-circle>0</MDBBadge>
         <MDBBadge color='primary' rounded-circle>0</MDBBadge>
         <MDBBadge color='success' rounded-circle>2</MDBBadge>
-        <SprintCompletion /><br /><br /><br />
-
-         {/* create epic page will appear here */}
+        <SprintCompletion /><br /><br /><br /> */}
+{/* 
+         create epic page will appear here */}
+         <div>
          <AddEpic /><br /><br /><br />
-      </div>
+         </div>
+      {/* </div> */}
 
       <div className={`container ${inactive ? "inactive" : ""}`}>
         <CompleteSprinttable />
-      </div> */}
+      </div> 
 
 
 
