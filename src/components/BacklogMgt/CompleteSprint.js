@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { MDBCol } from 'mdb-react-ui-kit';
+import { MDBBadge} from 'mdb-react-ui-kit';
 
 const SprintCompletion = () => {
   const [inactive, setInactive] = React.useState(false);
@@ -16,13 +16,17 @@ const SprintCompletion = () => {
         <div className={`container ${inactive ? "inactive" : ""}`}>
 
           <Button 
-            variant="primary" 
-            className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out" 
+            variant="Success" 
+            className="rounded bg-[#1e90ff] text-white border-none px-3 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#1e90ff] ease-in-out" 
             onClick={handleShow}>
             Complete Sprint
           </Button>
 
-        <Modal show={show} onHide={handleClose} animation={false}>
+          {/* <MDBBadge color='secondary' rounded-circle>0</MDBBadge>
+          <MDBBadge color='primary' rounded-circle>0</MDBBadge>
+          <MDBBadge color='success' rounded-circle>2</MDBBadge> */}
+
+          <Modal show={show} onHide={handleClose} animation={false}>
             <Modal.Header deleteButton>
                 <Modal.Title>Complete Sprint</Modal.Title>
             </Modal.Header>
@@ -47,12 +51,12 @@ const SprintCompletion = () => {
             </Modal.Body>
 
         <Modal.Footer>
-            <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
-            Cancel
+            <Button variant="primary" className='rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] ' onClick={handleClose}>
+            Complete Sprint
             </Button>
 
-            <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] ' onClick={handleClose}>
-            Complete
+            <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-[#C0CCC3] ' onClick={handleClose}>
+            Cancel
             </Button>
 
         </Modal.Footer>

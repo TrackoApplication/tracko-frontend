@@ -3,8 +3,34 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { MDBCol } from 'mdb-react-ui-kit';
+import SprintService from '../../Services/SprintService';
 
-const SprintCreation = () => {
+const SprintStart = () => {
+
+  const [sprint, setSprint] = useState({
+    sprintId:"",
+    sprintName:"",
+    startDate:"",
+    endDate:"",
+    sprintGoal:"",
+    duration:"",
+  });
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSprint({...sprint,[e.target.name]: value});
+  };
+
+  const saveSprint = (e) => {
+    e.preventDefault();
+    SprintService.saveSprint(sprint).then((response) => {
+      console.log(response);
+    }).catch((error) => {
+      console.log(error);
+    });
+    handleClose();
+  };
+
   const [inactive, setInactive] = React.useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -17,9 +43,9 @@ const SprintCreation = () => {
 
           <Button 
             variant="primary" 
-            className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out" 
+            className="rounded bg-[#1e90ff] text-white border-none px-3 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#1e90ff] ease-in-out" 
             onClick={handleShow}>
-            Create Sprint
+            Start Sprint
           </Button>
 
           <Modal show={show} onHide={handleClose}>
@@ -39,6 +65,9 @@ const SprintCreation = () => {
                             type="text"
                             placeholder="Sprint Name"
                             autoFocus
+                            name="sprintName" 
+                            value={sprint.sprintName} 
+                            onChange={(e) => handleChange(e)}
                             // required
                         />
 
@@ -46,7 +75,7 @@ const SprintCreation = () => {
                     
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Duration</Form.Label>
-                        <Form.Select>
+                        <Form.Select name="duration" value={sprint.duration} onChange={(e) => handleChange(e)}>
                           <option value="">--Duration--</option>
                           <option value="">Custom</option>
                           <option value="">1 week</option>
@@ -58,7 +87,10 @@ const SprintCreation = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Start date</Form.Label>
                         <Form.Control
-                        type="datetime-local"
+                          type="datetime-local"
+                          name="startDate" 
+                          value={sprint.startDate} 
+                          onChange={(e) => handleChange(e)}
                         // placeholder="JhonDee999"
                         // autoFocus
                         />
@@ -67,7 +99,10 @@ const SprintCreation = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>End date</Form.Label>
                         <Form.Control
-                        type="datetime-local"
+                          type="datetime-local"
+                          name="endDate" 
+                          value={sprint.endDate} 
+                          onChange={(e) => handleChange(e)}
                         // placeholder="name@example.com"
                         // autoFocus
                         />
@@ -76,8 +111,11 @@ const SprintCreation = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Sprint Goal</Form.Label>
                         <Form.Control
-                        as="textarea" rows={5}
-                        placeholder="Goal"
+                          as="textarea" rows={5}
+                          placeholder="Goal"
+                          name="sprintGoal" 
+                          value={sprint.sprintGoal} 
+                          onChange={(e) => handleChange(e)}
                         // autoFocus
                         />
                         </Form.Group>
@@ -88,13 +126,12 @@ const SprintCreation = () => {
 
             {/* button section */}
             <Modal.Footer>
+              <Button variant="primary" className='rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] ' onClick={saveSprint}>
+                Start
+              </Button>
 
               <Button variant="secondary" className='rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white ' onClick={handleClose}>
                 Cancel
-              </Button>
-
-              <Button variant="primary" className='rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] ' onClick={handleClose}>
-                Create
               </Button>
 
             </Modal.Footer>
@@ -105,4 +142,4 @@ const SprintCreation = () => {
   );
 }
 
-export default SprintCreation;
+export default SprintStart;

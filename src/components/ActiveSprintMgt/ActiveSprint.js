@@ -8,10 +8,11 @@ const ActiveSprint = () => {
     <div>
 
         <Sidebar
+
         onCollapse={(inactive) => {
-        
             setInactive(inactive);
         }}
+        
         />
 
         <div className={`container ${inactive ? "inactive" : ""}`}>

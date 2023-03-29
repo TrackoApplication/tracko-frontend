@@ -1,13 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const ResetPass = () => {
+    const navigate = useNavigate();
   return (
     <div>
         <div className="bg-[#231651] shadow h-12 p-2">
             <p className='text-center text-white text-2xl font-bold'>TRACKO</p>
         </div>
         <div className="flex justify-center items-center h-screen">
-            <div className="flex flex-col  h-120 w-96  shadow-xl border-b bg-[#c8c8ca] rounded-2xl p-2">
+            <div className="flex flex-col  h-120 w-96  shadow-xl border-b bg-[#f5f5f5] rounded-2xl p-2">
 
                 <div className='px-4 py-2'>
                     <p className="text-xl font-bold text-gray pb-2 " >Reset Password</p>
@@ -25,7 +27,7 @@ const ResetPass = () => {
 
                 <div className="items-center  mx-4 w-full ">
                     <button
-                    className = "rounded text-white font-semibold bg-[#FF8484] w-80 hover:bg-[#794141] shadow px-4 py-2">
+                    className = "rounded text-white font-semibold bg-[#FF8484] w-80 hover:bg-[#fa7676] shadow my-4 px-4 py-2 cursor-pointer ">
                             Send Email
                     </button>
 
@@ -36,7 +38,8 @@ const ResetPass = () => {
                     </svg>
                     </div>
                     <p
-                    className = " text-gray-800 text-sm font-semibold w-80  px-2 py-2">
+                    onClick={() => navigate("/login")}
+                    className = " cursor-pointer text-gray-800 text-sm font-semibold w-80  px-2 py-2">
                             Back to login
                     </p>
                     </div>

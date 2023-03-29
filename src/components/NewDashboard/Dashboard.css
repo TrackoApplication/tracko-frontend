@@ -1,0 +1,105 @@
+
+.cards{
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 3px;
+ 
+}
+
+.cards p{
+    display: block;
+
+}
+.card-main{
+    margin: auto;
+    justify-content: space-around;
+}
+
+.issue-cards{
+    
+    display: flex;
+    flex-direction: coloumn;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 9px;
+    color: #ffffff;
+
+}
+
+
+.progress-cards{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+
+
+}
+
+
+/* Team summary */
+
+.table-container{
+    height: 250px;
+    overflow: auto;
+}
+.table-container .table{
+    border: none;
+   background-color: #ffffff;
+
+}
+.table-container table{
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ff6361;
+    border-radius: 10px;
+    
+}
+
+.table-container th, td{
+    text-align: left;
+    border-color: #999999;
+}
+
+
+thead.header{
+    position: sticky;
+    top: 0;
+    background-color: #ffa600;
+    border-radius: 10px;
+    
+}
+
+
+.table-container td{
+    color: #494949;
+}
+
+
+/* risk summary */
+
+.cards-risk{
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 35px;
+    border-radius: 100px;
+
+}
+
+.cards-risk p{
+    margin-bottom: 10px;
+}
