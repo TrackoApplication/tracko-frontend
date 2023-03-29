@@ -5,10 +5,10 @@ import DeleteConfirmation from './DeleteConfirmation';
     const [showConfirm, setShowConfirm] = useState(false);
     const [show, setShow] = useState(false);
 
-    // const editSystemUser = (e, id) => {
-    //     e.preventDefault();
-    //     setShow(true);
-    // };
+    const editSprint = (e, sprintId) => {
+        e.preventDefault();
+        // setShow(true);
+    };
 
     return (
         <>
@@ -22,7 +22,7 @@ import DeleteConfirmation from './DeleteConfirmation';
               <td>
                 <i
                   class="bi bi-pen"
-                  // onClick={(e, id) => editSystemUser(e, systemUser.systemUserId)}
+                  onClick={(e, sprintId) => editSprint(e, sprintId)}
                 ></i>
                 <i
                   class="bi bi-trash-fill"

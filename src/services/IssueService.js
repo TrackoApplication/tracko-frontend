@@ -11,6 +11,12 @@ class IssueService {
     getIssues() {
         return axios.get(ISSUE_API_BASE_URL)
     }
+
+    deleteIssue(issueId){
+        debugger;
+        return axios.delete(ISSUE_API_BASE_URL + "/" + issueId)
+        
+    } 
 }
 
 export default new IssueService();

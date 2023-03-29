@@ -16,7 +16,15 @@ class SprintService {
         debugger;
         return axios.delete(SPRINT_API_BASE_URL + "/" + sprintId)
         
-    }   
+    }
+
+    getSprintById(sprintId){
+        return axios.get(SPRINT_API_BASE_URL + "/" + sprintId);
+    }
+
+    updateSprint(sprint, sprintId){
+        return axios.put(SPRINT_API_BASE_URL + "/" + sprintId, sprint);
+    }
 }
 
 export default new SprintService();
