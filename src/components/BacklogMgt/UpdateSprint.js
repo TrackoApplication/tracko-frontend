@@ -19,14 +19,14 @@ const SprintUpdation = () => {
             variant="primary" 
             className="rounded bg-[#C0CCC3] text-white border-none px-3 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#C0CCC3] ease-in-out" 
             onClick={handleShow}>
-            Update Sprint
+            Edit Sprint
           </Button>
 
           <Modal show={show} onHide={handleClose}>
 
             {/* header section */}
             <Modal.Header closeButton>
-              <Modal.Title>Update Sprint</Modal.Title>
+              <Modal.Title>Edit Sprint</Modal.Title>
             </Modal.Header>
 
             {/* body section */}
@@ -37,7 +37,7 @@ const SprintUpdation = () => {
                         <Form.Label>Sprint name</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Update sprint name"
+                            placeholder="Edit sprint name"
                             autoFocus
                             // required
                         />
@@ -47,7 +47,7 @@ const SprintUpdation = () => {
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Duration</Form.Label>
                         <Form.Select>
-                          <option value="">--Update duration--</option>
+                          <option value="">--Edit duration--</option>
                           <option value="">Custom</option>
                           <option value="">1 week</option>
                           <option value="">2 weeks</option>
@@ -77,7 +77,7 @@ const SprintUpdation = () => {
                         <Form.Label>Sprint Goal</Form.Label>
                         <Form.Control
                         as="textarea" rows={5}
-                        placeholder="Update sprint goal"
+                        placeholder="Edit sprint goal"
                         // autoFocus
                         />
                         </Form.Group>
