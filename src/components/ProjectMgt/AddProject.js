@@ -9,32 +9,32 @@ const AddProject = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //image preview
-  const [imagePreview, setImagePreview] = useState(null);
-  const [defaultImage, setDefaultImage] = useState(
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-  );
+  // const [imagePreview, setImagePreview] = useState(null);
+  // const [defaultImage, setDefaultImage] = useState(
+  //   "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+  // );
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0]; //gets the selected image from the 'input' element's 'onchange event' to "files array" as 0th element
-    const reader = new FileReader();
+  // const handleImageUpload = (event) => {
+  //   const file = event.target.files[0]; //gets the selected image from the 'input' element's 'onchange event' to "files array" as 0th element
+  //   const reader = new FileReader();
 
-    if (!file) {
-      setImagePreview(null);
-      return;
-    }
+  //   if (!file) {
+  //     setImagePreview(null);
+  //     return;
+  //   }
 
-    reader.onloadend = () => {
-      //onloadend is an event handler of Filereader object
-      setImagePreview(reader.result);
-    };
+  //   reader.onloadend = () => {
+  //     //onloadend is an event handler of Filereader object
+  //     setImagePreview(reader.result);
+  //   };
 
-    reader.readAsDataURL(file);
-  };
-  useEffect(() => {
-    setDefaultImage(
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-    );
-  }, []);
+  //   reader.readAsDataURL(file);
+  // };
+  // useEffect(() => {
+  //   setDefaultImage(
+  //     "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+  //   );
+  // }, []);
 
   return (
     <>
@@ -66,8 +66,19 @@ const AddProject = () => {
                   />
                 </Form.Group>
               </MDBCol>
+              <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Image URL</Form.Label>
+                  <Form.Control
+                    type="Name"
+                    placeholder="Enter Project image URL"
+                    autoFocus
+                  />
+                </Form.Group>
 
-              <MDBCol>
+              {/* <MDBCol>
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
@@ -75,9 +86,9 @@ const AddProject = () => {
                   <Form.Label>Key</Form.Label>
                   <Form.Control type="Number" placeholder="3329" autoFocus />
                 </Form.Group>
-              </MDBCol>
+              </MDBCol> */}
 
-              <Form.Group
+              {/* <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
@@ -99,7 +110,7 @@ const AddProject = () => {
                     />
                   </label>
                 </div>
-              </Form.Group>
+              </Form.Group> */}
 
               <Form.Group
                 className="mb-3"
@@ -127,6 +138,8 @@ const AddProject = () => {
                   <option value="">Ravindu Karunaweera</option>
                   <option value="">Yasiru Basura</option>
                   <option value="">Seefa Banu</option>
+                  <option value="">Jithmi Kumarasingha</option>
+                  <option value="">Dulani Lamahewage</option>
                 </Form.Select>
               </Form.Group>
             </MDBRow>
