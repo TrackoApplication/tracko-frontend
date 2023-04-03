@@ -9,7 +9,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import SuccessfulAction from '../CommonComponents/SuccessfulAction';
 
-
 export const UpdateUser = (props) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
@@ -156,7 +155,7 @@ export const UpdateUser = (props) => {
               <btn
                 className="btn btn-green btn-sm"
                 type='submit'
-                onClick={updateSystemUser}
+                onClick={UpdateUser}
               >
                 Update Changes
               </btn>

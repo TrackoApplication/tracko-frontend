@@ -24,8 +24,6 @@ const AddIssue = () => {
     reporter: "",
   });
 
-  // const Value = (issue.spdeveloping) + (issue.sptesting);
-
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -38,6 +36,7 @@ const AddIssue = () => {
     IssueService.saveIssue(issue)
       .then((response) => {
         console.log(response);
+        window.location.reload(false);
         // navigate("/Emptybacklog")
       })
       .catch((error) => {
@@ -272,7 +271,9 @@ const AddIssue = () => {
                   <Form.Control
                     type="number"
                     name="totalSP"
-                    value={issue.totalSP}
+                    value={
+                      parseInt(issue.spdeveloping) + parseInt(issue.sptesting)
+                    }
                     onChange={(e) => handleChange(e)}
                     // placeholder="name@example.com"
                     // autoFocus

@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { MDBCol } from "mdb-react-ui-kit";
-// import { useParams } from "react-router-dom"
+import SprintService from "../../../Services/SprintService";
+import SuccessfulUpdation from "./SuccessfulUpdation";
 
-const SprintUpdation = () => {
-  const [inactive, setInactive] = React.useState(false);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+function UpdateSprint(props) {
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSprint({ ...sprint, [e.target.name]: value });
+  };
 
-//   const [sprintId] = useParams();
   const [sprint, setSprint] = useState({
-    sprintId: "",
+    sprintId: props.sprintId,
     sprintName: "",
     startDate: "",
     endDate: "",
@@ -21,41 +21,52 @@ const SprintUpdation = () => {
     duration: "",
   });
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setSprint({ ...sprint, [e.target.name]: value });
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await SprintService.getSprintById(sprint.sprintId);
+        setSprint(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
 
-
-  const UpdateSprint = (e) => {
+  const updateSprint = (e) => {
     e.preventDefault();
+    SprintService.updateSprint(props.sprintId, sprint)
+      .then((res) => {
+        props.onHide();
+        // window.location.reload(false);
+        setShowSuccess(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-//   const reset = (e) => {
-//     e.preventDefault();
-//     setSprint({
-//       sprintId: "",
-//       sprintName: "",
-//       startDate: "",
-//       endDate: "",
-//       sprintGoal: "",
-//       duration: "",
-//     });
-//     handleClose();
-//   };
+  const [inactive, setInactive] = React.useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   return (
     <div>
       <div className={`container ${inactive ? "inactive" : ""}`}>
-      <Button
+        {/* <Button
           variant="primary"
           className="rounded bg-[#1e90ff] text-white border-none px-3 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#1e90ff] ease-in-out"
           onClick={handleShow}
         >
           Edit Sprint
-        </Button>
+        </Button> */}
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal {...props}>
           {/* header section */}
           <Modal.Header closeButton>
             <Modal.Title>Edit Sprint</Modal.Title>
@@ -92,10 +103,10 @@ const SprintUpdation = () => {
                     onChange={(e) => handleChange(e)}
                   >
                     <option>--Duration--</option>
-                    <option>Custom</option>
-                    <option>1 week</option>
-                    <option>2 weeks</option>
-                    <option>4 weeks</option>
+                    <option value="custom">Custom</option>
+                    <option value="1 week">1 week</option>
+                    <option value="2 weeks">2 weeks</option>
+                    <option value="4 weeks">4 weeks</option>
                   </Form.Select>
                 </Form.Group>
 
@@ -153,23 +164,29 @@ const SprintUpdation = () => {
             <Button
               variant="primary"
               className="rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] "
-              onClick={UpdateSprint}
+              onClick={updateSprint}
             >
-              Start
+              Update
             </Button>
 
             <Button
               variant="secondary"
               className="rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white "
-              onClick={UpdateSprint}
+              onClick={props.onHide}
             >
               Cancel
             </Button>
           </Modal.Footer>
         </Modal>
       </div>
+
+      <SuccessfulUpdation
+        onHide={() => setShowSuccess(false)}
+        show={showSuccess}
+        message="Sprint Details Updated Successfully"
+      />
     </div>
   );
-};
+}
 
-export default SprintUpdation;
+export default UpdateSprint;

@@ -102,10 +102,10 @@ const SprintStart = () => {
                     onChange={(e) => handleChange(e)}
                   >
                     <option>--Duration--</option>
-                    <option>Custom</option>
-                    <option>1 week</option>
-                    <option>2 weeks</option>
-                    <option>4 weeks</option>
+                    <option value="custom">Custom</option>
+                    <option value="1 week">1 week</option>
+                    <option value="2 weeks">2 weeks</option>
+                    <option value="4 weeks">4 weeks</option>
                   </Form.Select>
                 </Form.Group>
 

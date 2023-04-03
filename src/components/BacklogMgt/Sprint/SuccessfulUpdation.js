@@ -2,8 +2,8 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import "./SuccesfulDeletion.css";
 
-const SuccessfulDeletion = (props) => {
-  const CallDelete = () => {
+const SuccessfulUpdation = (props) => {
+  const CallUpdate = () => {
     window.location.reload(false);
   };
 
@@ -25,7 +25,7 @@ const SuccessfulDeletion = (props) => {
         </div>
         <div className="flex p-5 mx-auto text-xl">{props.message}</div>
         <div className="p-2 mx-auto">
-          <btn className="btn btn-green w-20" onClick={() => CallDelete()}>
+          <btn className="btn btn-green w-20" onClick={() => CallUpdate()}>
             Ok
           </btn>
         </div>
@@ -34,4 +34,4 @@ const SuccessfulDeletion = (props) => {
   );
 };
 
-export default SuccessfulDeletion;
+export default SuccessfulUpdation;

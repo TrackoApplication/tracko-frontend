@@ -19,8 +19,7 @@ const SprintDeletion = () => {
           Delete Sprint
         </Button>
 
-        <DeleteConfirmation
-        />
+        <DeleteConfirmation />
 
         {/* <Modal show={show} onHide={handleClose} animation={false}></Modal> */}
       </div>

@@ -18,8 +18,7 @@ const DeleteIssue = () => {
           Delete Issue
         </Button>
 
-        <IssueDeleteConfirmation
-        />
+        <IssueDeleteConfirmation />
 
         {/* <Modal show={show} onHide={handleClose} animation={false}></Modal> */}
       </div>

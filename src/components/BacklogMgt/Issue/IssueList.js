@@ -43,35 +43,35 @@ function IssueList() {
 
   return (
     <>
-    <Table striped borderless hover size="sm">
-      <thead>
-        <th>Issue Id</th>
-        <th>Summary</th>
-        <th>Epic Name</th>
-        <th>Status</th>
-        <th>Assignee</th>
-        <th>Actions</th>
-      </thead>
+      <Table striped borderless hover size="sm">
+        <thead>
+          <th>Issue Id</th>
+          <th>Summary</th>
+          <th>Epic Name</th>
+          <th>Status</th>
+          <th>Assignee</th>
+          <th>Actions</th>
+        </thead>
 
-      {!loading && (
-        <tbody>
-          {issues.map((issues) => (
-            <Issue
-            Issue={issues}
-            deleteIssue={deleteIssue}
-            key={issues.issueId}
-          ></Issue>
-          ))}
-        </tbody>
-      )}
-    </Table>
+        {!loading && (
+          <tbody>
+            {issues.map((issues) => (
+              <Issue
+                Issue={issues}
+                deleteIssue={deleteIssue}
+                key={issues.issueId}
+              ></Issue>
+            ))}
+          </tbody>
+        )}
+      </Table>
 
-    <SuccessfulIssueDeletion
-    onHide={() => setShowSuccess(false)}
-    show={showSuccess}
-    message="Issue Deleted Successfully"
-    />
-  </>
+      <SuccessfulIssueDeletion
+        onHide={() => setShowSuccess(false)}
+        show={showSuccess}
+        message="Issue Deleted Successfully"
+      />
+    </>
   );
 }
 

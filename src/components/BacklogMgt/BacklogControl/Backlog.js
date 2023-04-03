@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import Addissue from "../Issue/Addissue";
 import SprintCreation from "../Sprint/CreateSprint";
-import SprintUpdation from "../Sprint/UpdateSprint";
 import Sprintdeletion from "../Sprint/DeleteSprint";
 import SprintCompletion from "../SprintComplete/CompleteSprint";
 import SprintStart from "../Sprint/StartSprint";
-// import CompleteSprinttable from '../SprintComplete/Completesprint.table';
 import IssueList from "../Issue/IssueList";
 import "./Backlog.css";
 import { MDBBadge } from "mdb-react-ui-kit";
 import SprintIssueList from "../Sprint/SprintIssueList";
+import UpdateSprint from "../Sprint/UpdateSprint";
 
 const Backlog = () => {
   const [inactive, setInactive] = React.useState(false);
@@ -31,7 +30,7 @@ const Backlog = () => {
         <MDBBadge
           color="primary"
           pill
-          style={{ height: "20px", width: "24px", fontSize: "12px"}}
+          style={{ height: "20px", width: "24px", fontSize: "12px" }}
         >
           0
         </MDBBadge>
@@ -75,7 +74,7 @@ const Backlog = () => {
           0
         </MDBBadge>
         <SprintStart />
-        <SprintUpdation />
+        <UpdateSprint />
         <Sprintdeletion />
       </div>
 
