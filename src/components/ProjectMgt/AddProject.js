@@ -3,11 +3,41 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { MDBCol, MDBRow } from "mdb-react-ui-kit";
+import { FormControl } from "react-bootstrap";
+import ProjectService from "../../Services/ProjectService";
 
 const AddProject = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [project, setproject] = useState({
+    id: "",
+    projectName: "",
+    imageURL: "",
+    description: "",
+    client: "",
+    projectLead: "",
+  });
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setproject({ ...project, [e.target.name]: value });
+  };
+
+  const saveproject = (e) => {
+    //  e.preventDefault();
+    ProjectService.saveproject(project)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((Error) => {});
+  };
+
+  const handlebuttonclick = (e) => {
+    saveproject();
+    handleClose();
+  };
+
   //image preview
   // const [imagePreview, setImagePreview] = useState(null);
   // const [defaultImage, setDefaultImage] = useState(
@@ -61,22 +91,28 @@ const AddProject = () => {
                   <Form.Label>Project Name</Form.Label>
                   <Form.Control
                     type="Name"
+                    name="projectName"
+                    value={project.projectName}
+                    onChange={(e) => handleChange(e)}
                     placeholder="Return 0 Software Project"
                     autoFocus
                   />
                 </Form.Group>
               </MDBCol>
               <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Image URL</Form.Label>
-                  <Form.Control
-                    type="Name"
-                    placeholder="Enter Project image URL"
-                    autoFocus
-                  />
-                </Form.Group>
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Image URL</Form.Label>
+                <Form.Control
+                  type="Name"
+                  name="imageURL"
+                  value={project.imageURL}
+                  onChange={(e) => handleChange(e)}
+                  placeholder="Enter Project image URL"
+                  autoFocus
+                />
+              </Form.Group>
 
               {/* <MDBCol>
                 <Form.Group
@@ -117,30 +153,50 @@ const AddProject = () => {
                 controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>Description</Form.Label>
-                <Form.Control type="Text" placeholder="..........." autoFocus />
+                <Form.Control
+                  type="Text"
+                  placeholder="..........."
+                  name="description"
+                  value={project.description}
+                  onChange={(e) => handleChange(e)}
+                  autoFocus
+                />
               </Form.Group>
-
-              <Form.Label className="mb-3">
-                Client
+              <Form.Group className="mb-3">
+                <Form.Label>Client </Form.Label>
                 <Form.Control
                   type="Name"
+                  name="client"
+                  value={project.client}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Creative Software"
                   autoFocus
                 />
-              </Form.Label>
+              </Form.Group>
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label>Project Lead</Form.Label>
-                <Form.Select>
+                <Form.Label>Project Lead </Form.Label>
+                {/* <FormControl name="projectLead"> */}
+                <Form.Select
+                  name="projectLead"
+                  value={project.projectLead}
+                  onChange={(e) => handleChange(e)}
+                >
                   <option value="">Assignee</option>
-                  <option value="">Ravindu Karunaweera</option>
-                  <option value="">Yasiru Basura</option>
-                  <option value="">Seefa Banu</option>
-                  <option value="">Jithmi Kumarasingha</option>
-                  <option value="">Dulani Lamahewage</option>
+                  <option value="Ravindu Karunawwera">
+                    Ravindu Karunaweera
+                  </option>
+                  <option value="Yasiru Basura">Yasiru Basura</option>
+                  <option value="Seefa Baanu">Seefa Banu</option>
+                  <option value="Jithmi Kumarasingha">
+                    Jithmi Kumarasingha
+                  </option>
+                  <option value="Dulani Lamahewage">Dulani Lamahewage</option>
+                  
                 </Form.Select>
+               
               </Form.Group>
             </MDBRow>
           </Form>
@@ -156,7 +212,7 @@ const AddProject = () => {
           <Button
             variant="primary"
             className="rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] "
-            onClick={handleClose}
+            onClick={handlebuttonclick}
           >
             Create Project
           </Button>
