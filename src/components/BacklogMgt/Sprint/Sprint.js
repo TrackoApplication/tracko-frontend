@@ -22,11 +22,13 @@ const Sprint = ({ Sprint, deleteSprint, key }) => {
         <td>{Sprint.endDate}</td>
         <td>{Sprint.sprintGoal}</td>
         <td>
+          {/* redirecting to the Sprint deletion confirmation */}
           <i
             class="bi bi-pen"
             // onClick={(e, sprintId) => editSprint(e, sprintId)}
             onClick={() => setShow(true)}
           ></i>
+          {/* Sprint updation popup will appear */}
           <i
             class="bi bi-trash-fill"
             // onClick={(e,sprintId) => deleteSprint(e, Sprint.sprintId)}
@@ -35,6 +37,7 @@ const Sprint = ({ Sprint, deleteSprint, key }) => {
         </td>
       </tr>
 
+      {/* posting a confirmation of deletion */}
       <DeleteConfirmation
         show={showConfirm}
         deleteSprint={deleteSprint}
@@ -42,6 +45,7 @@ const Sprint = ({ Sprint, deleteSprint, key }) => {
         sprintId={Sprint.sprintId}
       />
 
+      {/* sprint updation */}
       <UpdateSprint
         show={show}
         onHide={() => setShow(false)}

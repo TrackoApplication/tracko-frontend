@@ -9,6 +9,7 @@ const SprintCreation = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // sprint creation button
   return (
     <div>
       <div className={`container ${inactive ? "inactive" : ""}`}>

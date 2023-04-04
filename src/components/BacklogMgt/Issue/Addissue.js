@@ -74,7 +74,7 @@ const AddIssue = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [form , setForm] = useState({});
+  const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
   // setting states for Issue form fields on change
@@ -122,9 +122,10 @@ const AddIssue = () => {
                     onChange={(e) => handleChange(e)}
                     autoFocus
                     defaultValue="Select the Project"
-
                   >
-                    <option value="" disabled selected>Select the Project</option>
+                    <option value="" disabled selected>
+                      Select the Project
+                    </option>
                     <option value="project1">Project 1</option>
                     <option value="project2">Project 2</option>
                     <option value="project3">Project 3</option>
@@ -144,7 +145,9 @@ const AddIssue = () => {
                     // isInvalid={!!errors.issueType}
                     defaultValue="Select the Issue Type"
                   >
-                    <option value="" disabled selected>Select the Issue Type</option>
+                    <option value="" disabled selected>
+                      Select the Issue Type
+                    </option>
                     <option>Issue</option>
                     <option>Bug</option>
                     <option>QA</option>
@@ -165,7 +168,7 @@ const AddIssue = () => {
                     name="summary"
                     value={issue.summary}
                     onChange={(e) => handleChange(e)}
-                    required = {true}
+                    required={true}
                     // autoFocus
                   />
                 </Form.Group>
@@ -198,7 +201,9 @@ const AddIssue = () => {
                     onChange={(e) => handleChange(e)}
                     defaultValue="Select the Assignee"
                   >
-                    <option value="" disabled selected>Select the Assignee</option>
+                    <option value="" disabled selected>
+                      Select the Assignee
+                    </option>
                     <option>Ravindu Karunaweera</option>
                     <option>Yasiru Basura</option>
                     <option>Seefa Banu</option>
@@ -216,7 +221,9 @@ const AddIssue = () => {
                     onChange={(e) => handleChange(e)}
                     defaultValue="Select the Sprint"
                   >
-                    <option value="" disabled selected>Select the Sprint</option>
+                    <option value="" disabled selected>
+                      Select the Sprint
+                    </option>
                     <option>Sprint 1</option>
                     <option>Sprint 2</option>
                     <option>Sprint 3</option>
@@ -234,7 +241,9 @@ const AddIssue = () => {
                     onChange={(e) => handleChange(e)}
                     defaultValue="Select the Epic"
                   >
-                    <option value="" disabled selected>Select the Epic</option>
+                    <option value="" disabled selected>
+                      Select the Epic
+                    </option>
                     <option>Epic 1</option>
                     <option>Epic 2</option>
                     <option>Epic 3</option>
@@ -252,7 +261,9 @@ const AddIssue = () => {
                     onChange={(e) => handleChange(e)}
                     required
                   >
-                    <option value="" disabled selected>Select the Requirement of Testing</option>
+                    <option value="" disabled selected>
+                      Select the Requirement of Testing
+                    </option>
                     <option value="true">Yes</option>
                     <option value="false">No</option>
                   </Form.Select>
@@ -320,7 +331,9 @@ const AddIssue = () => {
                     required
                     defaultValue="Select the priority"
                   >
-                    <option value="" disabled selected>Select the priority</option>
+                    <option value="" disabled selected>
+                      Select the priority
+                    </option>
                     <option>High</option>
                     <option>Medium</option>
                     <option>Low</option>
@@ -337,7 +350,9 @@ const AddIssue = () => {
                     value={issue.reporter}
                     onChange={(e) => handleChange(e)}
                   >
-                    <option value="" disabled selected>Select the Reporter</option>
+                    <option value="" disabled selected>
+                      Select the Reporter
+                    </option>
                     <option>Reporter 1</option>
                     <option>Reporter 2</option>
                     <option>Reporter 3</option>

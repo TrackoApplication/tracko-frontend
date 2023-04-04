@@ -9,6 +9,7 @@ function SprintList() {
   const [sprints, setsprints] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  // fetching the data from the backend
   useEffect(() => {
     const fetchData = async () => {
       setloading(true);
@@ -23,6 +24,7 @@ function SprintList() {
     fetchData();
   }, []);
 
+  // deleting the sprints based on sprintId
   const deleteSprint = (sprintId) => {
     debugger;
     SprintService.deleteSprint(sprintId).then((res) => {
@@ -53,6 +55,7 @@ function SprintList() {
           <td>Actions</td>
         </thead>
 
+        {/* mapping sprints into the sprint table */}
         {!loading && (
           <tbody>
             {sprints.map((sprints) => (
@@ -66,6 +69,7 @@ function SprintList() {
         )}
       </Table>
 
+      {/* displaying the success message of deleting */}
       <SuccessfulDeletion
         onHide={() => setShowSuccess(false)}
         show={showSuccess}

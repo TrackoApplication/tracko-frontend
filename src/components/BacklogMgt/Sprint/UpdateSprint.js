@@ -6,12 +6,14 @@ import { MDBCol } from "mdb-react-ui-kit";
 import SprintService from "../../../Services/SprintService";
 import SuccessfulUpdation from "./SuccessfulUpdation";
 
+// setting states for Update Sprint form fields on change when updating
 function UpdateSprint(props) {
   const handleChange = (e) => {
     const value = e.target.value;
     setSprint({ ...sprint, [e.target.name]: value });
   };
 
+  //setting states for Sprint update form fields
   const [sprint, setSprint] = useState({
     sprintId: props.sprintId,
     sprintName: "",
@@ -21,6 +23,7 @@ function UpdateSprint(props) {
     duration: "",
   });
 
+  // fetching the data from the backend
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -35,6 +38,7 @@ function UpdateSprint(props) {
     fetchData();
   }, []);
 
+  // updating the sprints based on sprintId
   const updateSprint = (e) => {
     e.preventDefault();
     SprintService.updateSprint(props.sprintId, sprint)

@@ -6,6 +6,7 @@ import { MDBCol } from "mdb-react-ui-kit";
 import SprintService from "../../../Services/SprintService";
 import { useNavigate } from "react-router-dom";
 
+//setting states for Sprint start form fields
 const SprintStart = () => {
   const [sprint, setSprint] = useState({
     sprintId: "",
@@ -18,11 +19,13 @@ const SprintStart = () => {
 
   const navigate = useNavigate();
 
+  // setting states for Sprint form fields on change
   const handleChange = (e) => {
     const value = e.target.value;
     setSprint({ ...sprint, [e.target.name]: value });
   };
 
+  // save sprints to the database using sprintservice post API
   const saveSprint = (e) => {
     e.preventDefault();
     SprintService.saveSprint(sprint)
@@ -36,6 +39,7 @@ const SprintStart = () => {
     handleClose();
   };
 
+  // resetting the sprint form fields when closing the modal
   const reset = (e) => {
     e.preventDefault();
     setSprint({
@@ -53,44 +57,44 @@ const SprintStart = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [form , setForm] = useState({});
+  const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
-  const setField = (field, value) => {
-    setSprint({
-      ...sprint,
-      [field]: value
-    })
+  // const setField = (field, value) => {
+  //   setSprint({
+  //     ...sprint,
+  //     [field]: value
+  //   })
 
-    if(!!errors[field]) setErrors({
-      ...errors,
-      [field]: null
-    })
-  }
+  //   if(!!errors[field]) setErrors({
+  //     ...errors,
+  //     [field]: null
+  //   })
+  // }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
 
-    const formErrors = validate();
-    if(Object.keys(formErrors).length === 0) {
-      saveSprint(e);
-    }else{
-      setErrors(formErrors)
-    }
-  }
+  //   const formErrors = validate();
+  //   if(Object.keys(formErrors).length === 0) {
+  //     saveSprint(e);
+  //   }else{
+  //     setErrors(formErrors)
+  //   }
+  // }
 
-  const validate = () => {
-    const[sprintName, duration, startDate, endDate, sprintGoal] = sprint;
-    const newErrors = {};
+  // const validate = () => {
+  //   const[sprintName, duration, startDate, endDate, sprintGoal] = sprint;
+  //   const newErrors = {};
 
-    if(!sprintName || sprintName === '') newErrors.sprintName = "Sprint name cannot be blank";
-    if(!duration || duration === '--Duration--') newErrors.duration = "Duration cannot be blank";
-    if(!startDate || startDate === '') newErrors.startDate = "Start date cannot be blank";
-    if(!endDate || endDate === '') newErrors.endDate = "End date cannot be blank";
-    if(!sprintGoal) newErrors.sprintGoal = "Sprint goal cannot be blank";
+  //   if(!sprintName || sprintName === '') {newErrors.sprintName = "Sprint name cannot be blank"};
+  //   if(!duration || duration === '--Duration--') {newErrors.duration = "Duration cannot be blank"};
+  //   if(!startDate || startDate === '') {newErrors.startDate = "Start date cannot be blank"};
+  //   if(!endDate || endDate === '') {newErrors.endDate = "End date cannot be blank"};
+  //   if(!sprintGoal) {newErrors.sprintGoal = "Sprint goal cannot be blank"};
 
-    return newErrors
-  }
+  //   return newErrors;
+  // }
 
   return (
     <div>
@@ -125,13 +129,13 @@ const SprintStart = () => {
                     name="sprintName"
                     value={sprint.sprintName}
                     required
-                    onChange={(e) => setField("sprintName", e.target.value)}
-                    isInvalid={!!errors.sprintName}
-                    // required
+                    onChange={(e) => handleChange(e)}
+                    // onChange={(e) => setField("sprintName", e.target.value)}
+                    // isInvalid={!!errors.sprintName}
                   />
-                  <Form.Control.Feedback type="invalid">
+                  {/* <Form.Control.Feedback type="invalid">
                     {errors.sprintName}
-                  </Form.Control.Feedback>
+                  </Form.Control.Feedback> */}
                 </Form.Group>
 
                 <Form.Group
@@ -143,18 +147,21 @@ const SprintStart = () => {
                     name="duration"
                     value={sprint.duration}
                     required
-                    onChange={(e) => setField("duration", e.target.value)}
-                    isInvalid={!!errors.duration}
+                    onChange={(e) => handleChange(e)}
+                    // onChange={(e) => setField("duration", e.target.value)}
+                    // isInvalid={!!errors.duration}
                   >
-                    <option value="" disabled selected>--Duration--</option>
+                    <option value="" disabled selected>
+                      --Duration--
+                    </option>
                     <option value="custom">Custom</option>
                     <option value="1 week">1 week</option>
                     <option value="2 weeks">2 weeks</option>
                     <option value="4 weeks">4 weeks</option>
                   </Form.Select>
-                  <Form.Control.Feedback type="invalid">
+                  {/* <Form.Control.Feedback type="invalid">
                     {errors.duration}
-                  </Form.Control.Feedback>
+                  </Form.Control.Feedback> */}
                 </Form.Group>
 
                 <Form.Group
@@ -167,13 +174,14 @@ const SprintStart = () => {
                     name="startDate"
                     value={sprint.startDate}
                     required
-                    onChange={(e) => setField("startDate", e.target.value)}
-                    isInvalid={!!errors.startDate}
+                    // onChange={(e) => setField("startDate", e.target.value)}
+                    // isInvalid={!!errors.startDate}
+                    onChange={(e) => handleChange(e)}
                     // autoFocus
                   />
-                  <Form.Control.Feedback type="invalid">
+                  {/* <Form.Control.Feedback type="invalid">
                     {errors.startDate}
-                  </Form.Control.Feedback>
+                  </Form.Control.Feedback> */}
                 </Form.Group>
 
                 <Form.Group
@@ -186,14 +194,15 @@ const SprintStart = () => {
                     name="endDate"
                     value={sprint.endDate}
                     required
-                    onChange={(e) => setField("endDate", e.target.value)}
-                    isInvalid={!!errors.endDate}
+                    // onChange={(e) => setField("endDate", e.target.value)}
+                    // isInvalid={!!errors.endDate}
+                    onChange={(e) => handleChange(e)}
                     // placeholder="name@example.com"
                     // autoFocus
                   />
-                  <Form.Control.Feedback type="invalid">
+                  {/* <Form.Control.Feedback type="invalid">
                     {errors.endDate}
-                  </Form.Control.Feedback>
+                  </Form.Control.Feedback> */}
                 </Form.Group>
 
                 <Form.Group
@@ -208,13 +217,14 @@ const SprintStart = () => {
                     name="sprintGoal"
                     value={sprint.sprintGoal}
                     required
-                    onChange={(e) => setField("sprintGoal", e.target.value)}
-                    isInvalid={!!errors.sprintGoal}
+                    // onChange={(e) => setField("sprintGoal", e.target.value)}
+                    // isInvalid={!!errors.sprintGoal}
+                    onChange={(e) => handleChange(e)}
                     // autoFocus
                   />
-                  <Form.Control.Feedback type="invalid">
+                  {/* <Form.Control.Feedback type="invalid">
                     {errors.sprintGoal}
-                  </Form.Control.Feedback>
+                  </Form.Control.Feedback> */}
                 </Form.Group>
               </MDBCol>
             </Form>
@@ -223,11 +233,10 @@ const SprintStart = () => {
           {/* button section */}
           <Modal.Footer>
             <Button
+              type="submit"
               variant="primary"
               className="rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] "
-              onClick={(e) => {
-                handleSubmit(e);
-              }}
+              onClick={saveSprint}
             >
               Start
             </Button>
