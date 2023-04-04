@@ -13,17 +13,14 @@ const SprintCompletion = () => {
     <div>
       <div className={`container ${inactive ? "inactive" : ""}`}>
         <Button
-          variant="Success"
-          className="rounded bg-[#1e90ff] text-white border-none px-3 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#1e90ff] ease-in-out"
+          variant="secondary"
+          className="rounded bg-[#228b22] text-white border-none px-3 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#228b22] ease-in-out"
           onClick={handleShow}
         >
           Complete Sprint
         </Button>
 
-        {/* <MDBBadge color='secondary' rounded-circle>0</MDBBadge>
-          <MDBBadge color='primary' rounded-circle>0</MDBBadge>
-          <MDBBadge color='success' rounded-circle>2</MDBBadge> */}
-
+        {/* sprint completion modal */}
         <Modal show={show} onHide={handleClose} animation={false}>
           <Modal.Header deleteButton>
             <Modal.Title>Complete Sprint</Modal.Title>
@@ -34,6 +31,7 @@ const SprintCompletion = () => {
             <br />
             <br />
             <Form.Label>This sprint contains</Form.Label>
+            {/* add the options to move issues when completing a sprint */}
             <ul>
               <li>0 completed values</li>
               <li>0 open issues</li>
@@ -41,6 +39,7 @@ const SprintCompletion = () => {
             <br />
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Move open issues to</Form.Label>
+              {/* example options: Next sprint, Backlog */}
               <Form.Select>
                 <option value="">--Select option--</option>
                 <option value="">Next sprint</option>

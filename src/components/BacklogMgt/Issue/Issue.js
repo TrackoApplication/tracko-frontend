@@ -5,11 +5,6 @@ const Issue = ({ Issue, deleteIssue, key }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [show, setShow] = useState(false);
 
-  // const editSystemUser = (e, id) => {
-  //     e.preventDefault();
-  //     setShow(true);
-  // };
-
   return (
     <>
       <tr>
@@ -35,6 +30,7 @@ const Issue = ({ Issue, deleteIssue, key }) => {
         </td>
         <td>{Issue.assignee}</td>
         <td>
+          {/* redirecting to the Issue deletion confirmation */}
           <i
             class="bi bi-trash-fill"
             // onClick={(e,issueId) => deleteIssue(e, Issue.issueId)}
@@ -43,18 +39,13 @@ const Issue = ({ Issue, deleteIssue, key }) => {
         </td>
       </tr>
 
+      {/* posting a confirmation of deletion */}
       <IssueDeleteConfirmation
         show={showConfirm}
         deleteIssue={deleteIssue}
         onHide={() => setShowConfirm(false)}
         issueId={Issue.issueId}
       />
-
-      {/* <UpdateUser
-                show={show}
-                onHide={() => setShow(false)}
-                systemUserId={systemUser.systemUserId}
-            /> */}
     </>
   );
 };

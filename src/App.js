@@ -52,7 +52,7 @@ function App() {
           <Route path="/GroupDetail" element={<GroupDetail />} />
           {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
           <Route path="/Group" element={<Group />} />
-          <Route path="/Dashboard" element ={<DashLayout/>}/>
+          {/* <Route path="/Dashboard" element ={<DashLayout/>}/> */}
 
 
         {/* pages with sidebar */}
@@ -66,14 +66,14 @@ function App() {
 
           {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
           <Route path="/Group" element ={<Group/>}/>
-          <Route path="/Dashboard" element ={<DashLayout/>}/>
+          {/* <Route path="/Dashboard" element ={<DashLayout/>}/> */}
 
 
           {/* pages with navbar */}
           <Route path="/UserList" element={<UserListWithNavbar/>} />
           <Route path="/ProjectList" element={<ProjectList />} />
           <Route path="/ClientList" element={<ClientList />} />
-          <Route path="/Popup" element={<Popup />} />
+          {/* <Route path="/Popup" element={<Popup />} /> */}
     
         </Routes>
 

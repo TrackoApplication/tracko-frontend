@@ -13,6 +13,7 @@ const IssueDeleteConfirmation = (props) => {
 
   return (
     <div>
+      {/* delete confirmation modal */}
       <Modal
         {...props}
         size="lg"
@@ -23,9 +24,11 @@ const IssueDeleteConfirmation = (props) => {
           <Modal.Title>Delete Issue</Modal.Title>
         </Modal.Header>
 
+        {/* warning message */}
         <Modal.Body>Are you sure you want to delete the Issue?</Modal.Body>
 
         <Modal.Footer>
+          {/* deleting the issue */}
           <Button
             variant="primary"
             className="rounded bg-[#ff0000] text-white border-none  font-semibold hover:bg-[#ff0000] "
@@ -34,6 +37,7 @@ const IssueDeleteConfirmation = (props) => {
             Delete
           </Button>
 
+          {/* canceling the deletion */}
           <Button
             variant="secondary"
             className="rounded bg-none text-black border-none font-semibold hover:underline hover:[#C0CCC3] "

@@ -1,18 +1,11 @@
 import Table from "react-bootstrap/Table";
 import { MDBBadge } from "mdb-react-ui-kit";
 
+// this table used for testing purposes
 function CompleteSprinttable() {
   return (
     <Table striped borderless hover size="sm">
-      <thead>
-        {/* <tr>
-          <th>icon</th>
-          <th>id</th>
-          <th>description</th>
-          <th>status</th>
-          <th>assignee</th>
-        </tr> */}
-      </thead>
+      <thead></thead>
       <tbody>
         <tr>
           <td>#</td>

@@ -8,7 +8,7 @@ import IssueList from "../Issue/IssueList";
 import "./Backlog.css";
 import { MDBBadge } from "mdb-react-ui-kit";
 import SprintIssueList from "../Sprint/SprintIssueList";
-import UpdateSprint from "../Sprint/UpdateSprint";
+// import UpdateSprint from "../Sprint/UpdateSprint";
 
 const Backlog = () => {
   const [inactive, setInactive] = React.useState(false);
@@ -19,6 +19,8 @@ const Backlog = () => {
         <h1>Backlog</h1>
       </div>
 
+      {/* Backlog */}
+      {/* sprint creation section */}
       <div className="button-container">
         <MDBBadge
           color="secondary"
@@ -45,12 +47,16 @@ const Backlog = () => {
         <br />
       </div>
 
+      {/* Issue list */}
       <div className={`container ${inactive ? "inactive" : ""}`}>
         <IssueList />
       </div>
 
+      {/* Issue creation button */}
       <Addissue />
 
+      {/* Sprint Backlog */}
+      {/* Sprint start,update,delete section */}
       <div class="button-container">
         <MDBBadge
           color="secondary"
@@ -74,14 +80,16 @@ const Backlog = () => {
           0
         </MDBBadge>
         <SprintStart />
-        <UpdateSprint />
+        {/* <UpdateSprint /> */}
         <Sprintdeletion />
       </div>
 
+      {/* Sprint Issue list */}
       <div className={`container ${inactive ? "inactive" : ""}`}>
         <SprintIssueList />
       </div>
 
+      {/* Sprint completion section */}
       <div class="button-container">
         <MDBBadge
           color="secondary"
@@ -104,9 +112,11 @@ const Backlog = () => {
         >
           0
         </MDBBadge>
+        {/* sprint completion button */}
         <SprintCompletion />
       </div>
 
+      {/* Sprint Issue list */}
       <div className={`container ${inactive ? "inactive" : ""}`}>
         <SprintIssueList />
       </div>

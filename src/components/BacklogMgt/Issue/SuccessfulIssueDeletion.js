@@ -9,6 +9,7 @@ const SuccessfulIssueDeletion = (props) => {
 
   return (
     <div>
+      {/* popup successful message successful deletion */}
       <Modal
         {...props}
         size="m"

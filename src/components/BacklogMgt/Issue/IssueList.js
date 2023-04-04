@@ -10,6 +10,7 @@ function IssueList() {
   const [issues, setissues] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  // fetching the data from the backend
   useEffect(() => {
     const fetchData = async () => {
       setloading(true);
@@ -24,6 +25,7 @@ function IssueList() {
     fetchData();
   }, []);
 
+  // deleting the issues based on issueId
   const deleteIssue = (issueId) => {
     debugger;
     IssueService.deleteIssue(issueId).then((res) => {
@@ -53,6 +55,7 @@ function IssueList() {
           <th>Actions</th>
         </thead>
 
+        {/* mapping issues into the backlog table */}
         {!loading && (
           <tbody>
             {issues.map((issues) => (
@@ -66,6 +69,7 @@ function IssueList() {
         )}
       </Table>
 
+      {/* displaying the success message of deleting */}
       <SuccessfulIssueDeletion
         onHide={() => setShowSuccess(false)}
         show={showSuccess}

@@ -6,6 +6,7 @@ import { MDBCol } from "mdb-react-ui-kit";
 import IssueService from "../../../Services/IssueService";
 import { useNavigate } from "react-router-dom";
 
+//setting states for Issue form fields
 const AddIssue = () => {
   const [issue, setIssue] = useState({
     issueId: "",
@@ -26,11 +27,13 @@ const AddIssue = () => {
 
   const navigate = useNavigate();
 
+  // setting states for Issue form fields on change
   const handleChange = (e) => {
     const value = e.target.value;
     setIssue({ ...issue, [e.target.name]: value });
   };
 
+  // save issue to the database using issueservice post API
   const saveIssue = (e) => {
     e.preventDefault();
     IssueService.saveIssue(issue)
@@ -45,6 +48,7 @@ const AddIssue = () => {
     handleClose();
   };
 
+  // resetting the issue form fields when closing the modal
   const reset = (e) => {
     e.preventDefault();
     setIssue({
@@ -73,17 +77,18 @@ const AddIssue = () => {
   const [form , setForm] = useState({});
   const [errors, setErrors] = useState({});
 
-  const setField = (field, value) => {
-    setIssue({
-      ...issue,
-      [field]: value
-    })
+  // setting states for Issue form fields on change
+  // const setField = (field, value) => {
+  //   setIssue({
+  //     ...issue,
+  //     [field]: value
+  //   })
 
-    if(!!errors[field]) setErrors({
-      ...errors,
-      [field]: null
-    })
-  }
+  //   if(!!errors[field]) setErrors({
+  //     ...errors,
+  //     [field]: null
+  //   })
+  // }
 
   return (
     <div>
@@ -134,9 +139,9 @@ const AddIssue = () => {
                   <Form.Select
                     name="issueType"
                     value={issue.issueType}
-                    // onChange={(e) => handleChange(e)}
-                    onChange={(e) => setField("issueType", e.target.value)}
-                    isInvalid={!!errors.issueType}
+                    onChange={(e) => handleChange(e)}
+                    // onChange={(e) => setField("issueType", e.target.value)}
+                    // isInvalid={!!errors.issueType}
                     defaultValue="Select the Issue Type"
                   >
                     <option value="" disabled selected>Select the Issue Type</option>
@@ -144,9 +149,9 @@ const AddIssue = () => {
                     <option>Bug</option>
                     <option>QA</option>
                   </Form.Select>
-                  <Form.Control.Feedback type="invalid">
+                  {/* <Form.Control.Feedback type="invalid">
                     {errors.issueType}
-                  </Form.Control.Feedback>
+                  </Form.Control.Feedback> */}
                 </Form.Group>
 
                 <Form.Group

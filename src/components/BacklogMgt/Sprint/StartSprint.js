@@ -68,16 +68,14 @@ const SprintStart = () => {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formErrors = validate();
-    if(Object.keys(formErrors).length > 0) {
-      setErrors(formErrors)
+    if(Object.keys(formErrors).length === 0) {
+      saveSprint(e);
     }else{
-      // saveSprint();
-      console.log("form is valid")
-      console.log(sprint)
+      setErrors(formErrors)
     }
   }
 
@@ -227,7 +225,9 @@ const SprintStart = () => {
             <Button
               variant="primary"
               className="rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] "
-              onClick={handleSubmit}
+              onClick={(e) => {
+                handleSubmit(e);
+              }}
             >
               Start
             </Button>
