@@ -80,7 +80,7 @@ function UpdateSprint(props) {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Edit Sprint name</Form.Label>
+                  <Form.Label>Edit Sprint Name</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Sprint Name"
@@ -102,7 +102,7 @@ function UpdateSprint(props) {
                     value={sprint.duration}
                     onChange={(e) => handleChange(e)}
                   >
-                    <option>--Duration--</option>
+                    <option value="default">--Duration--</option>
                     <option value="custom">Custom</option>
                     <option value="1 week">1 week</option>
                     <option value="2 weeks">2 weeks</option>
@@ -135,7 +135,7 @@ function UpdateSprint(props) {
                     name="endDate"
                     value={sprint.endDate}
                     onChange={(e) => handleChange(e)}
-                    // placeholder="name@example.com"
+                    // placeholder="Start Date"
                     // autoFocus
                   />
                 </Form.Group>

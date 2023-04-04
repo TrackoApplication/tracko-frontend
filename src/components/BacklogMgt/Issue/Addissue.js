@@ -70,6 +70,20 @@ const AddIssue = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [form , setForm] = useState({});
+  const [errors, setErrors] = useState({});
+
+  const setField = (field, value) => {
+    setIssue({
+      ...issue,
+      [field]: value
+    })
+
+    if(!!errors[field]) setErrors({
+      ...errors,
+      [field]: null
+    })
+  }
 
   return (
     <div>
@@ -101,13 +115,14 @@ const AddIssue = () => {
                     name="projectName"
                     value={issue.projectName}
                     onChange={(e) => handleChange(e)}
-                    required
                     autoFocus
+                    defaultValue="Select the Project"
+
                   >
-                    <option>Select the project</option>
-                    <option>Project 1</option>
-                    <option>Project 2</option>
-                    <option>Project 3</option>
+                    <option value="" disabled selected>Select the Project</option>
+                    <option value="project1">Project 1</option>
+                    <option value="project2">Project 2</option>
+                    <option value="project3">Project 3</option>
                   </Form.Select>
                 </Form.Group>
 
@@ -119,14 +134,19 @@ const AddIssue = () => {
                   <Form.Select
                     name="issueType"
                     value={issue.issueType}
-                    onChange={(e) => handleChange(e)}
-                    required
+                    // onChange={(e) => handleChange(e)}
+                    onChange={(e) => setField("issueType", e.target.value)}
+                    isInvalid={!!errors.issueType}
+                    defaultValue="Select the Issue Type"
                   >
-                    <option>Select the issue type</option>
+                    <option value="" disabled selected>Select the Issue Type</option>
                     <option>Issue</option>
                     <option>Bug</option>
                     <option>QA</option>
                   </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.issueType}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
@@ -140,7 +160,7 @@ const AddIssue = () => {
                     name="summary"
                     value={issue.summary}
                     onChange={(e) => handleChange(e)}
-                    required
+                    required = {true}
                     // autoFocus
                   />
                 </Form.Group>
@@ -171,8 +191,9 @@ const AddIssue = () => {
                     name="assignee"
                     value={issue.assignee}
                     onChange={(e) => handleChange(e)}
+                    defaultValue="Select the Assignee"
                   >
-                    <option>Assignee</option>
+                    <option value="" disabled selected>Select the Assignee</option>
                     <option>Ravindu Karunaweera</option>
                     <option>Yasiru Basura</option>
                     <option>Seefa Banu</option>
@@ -188,8 +209,9 @@ const AddIssue = () => {
                     name="sprintName"
                     value={issue.sprintName}
                     onChange={(e) => handleChange(e)}
+                    defaultValue="Select the Sprint"
                   >
-                    <option>Select the sprint</option>
+                    <option value="" disabled selected>Select the Sprint</option>
                     <option>Sprint 1</option>
                     <option>Sprint 2</option>
                     <option>Sprint 3</option>
@@ -205,8 +227,9 @@ const AddIssue = () => {
                     name="epicName"
                     value={issue.epicName}
                     onChange={(e) => handleChange(e)}
+                    defaultValue="Select the Epic"
                   >
-                    <option>Select the epic</option>
+                    <option value="" disabled selected>Select the Epic</option>
                     <option>Epic 1</option>
                     <option>Epic 2</option>
                     <option>Epic 3</option>
@@ -224,10 +247,9 @@ const AddIssue = () => {
                     onChange={(e) => handleChange(e)}
                     required
                   >
+                    <option value="" disabled selected>Select the Requirement of Testing</option>
                     <option value="true">Yes</option>
-                    <option defaultValue="false" value="false">
-                      No
-                    </option>
+                    <option value="false">No</option>
                   </Form.Select>
                 </Form.Group>
 
@@ -275,6 +297,7 @@ const AddIssue = () => {
                       parseInt(issue.spdeveloping) + parseInt(issue.sptesting)
                     }
                     onChange={(e) => handleChange(e)}
+                    readOnly
                     // placeholder="name@example.com"
                     // autoFocus
                   />
@@ -290,8 +313,9 @@ const AddIssue = () => {
                     value={issue.priority}
                     onChange={(e) => handleChange(e)}
                     required
+                    defaultValue="Select the priority"
                   >
-                    <option>Select the priority</option>
+                    <option value="" disabled selected>Select the priority</option>
                     <option>High</option>
                     <option>Medium</option>
                     <option>Low</option>
@@ -308,7 +332,7 @@ const AddIssue = () => {
                     value={issue.reporter}
                     onChange={(e) => handleChange(e)}
                   >
-                    <option>Reporter</option>
+                    <option value="" disabled selected>Select the Reporter</option>
                     <option>Reporter 1</option>
                     <option>Reporter 2</option>
                     <option>Reporter 3</option>

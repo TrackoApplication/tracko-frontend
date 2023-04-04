@@ -53,6 +53,46 @@ const SprintStart = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [form , setForm] = useState({});
+  const [errors, setErrors] = useState({});
+
+  const setField = (field, value) => {
+    setSprint({
+      ...sprint,
+      [field]: value
+    })
+
+    if(!!errors[field]) setErrors({
+      ...errors,
+      [field]: null
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formErrors = validate();
+    if(Object.keys(formErrors).length > 0) {
+      setErrors(formErrors)
+    }else{
+      // saveSprint();
+      console.log("form is valid")
+      console.log(sprint)
+    }
+  }
+
+  const validate = () => {
+    const[sprintName, duration, startDate, endDate, sprintGoal] = sprint;
+    const newErrors = {};
+
+    if(!sprintName || sprintName === '') newErrors.sprintName = "Sprint name cannot be blank";
+    if(!duration || duration === '--Duration--') newErrors.duration = "Duration cannot be blank";
+    if(!startDate || startDate === '') newErrors.startDate = "Start date cannot be blank";
+    if(!endDate || endDate === '') newErrors.endDate = "End date cannot be blank";
+    if(!sprintGoal) newErrors.sprintGoal = "Sprint goal cannot be blank";
+
+    return newErrors
+  }
 
   return (
     <div>
@@ -86,9 +126,14 @@ const SprintStart = () => {
                     autoFocus
                     name="sprintName"
                     value={sprint.sprintName}
-                    onChange={(e) => handleChange(e)}
+                    required
+                    onChange={(e) => setField("sprintName", e.target.value)}
+                    isInvalid={!!errors.sprintName}
                     // required
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.sprintName}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
@@ -99,14 +144,19 @@ const SprintStart = () => {
                   <Form.Select
                     name="duration"
                     value={sprint.duration}
-                    onChange={(e) => handleChange(e)}
+                    required
+                    onChange={(e) => setField("duration", e.target.value)}
+                    isInvalid={!!errors.duration}
                   >
-                    <option>--Duration--</option>
+                    <option value="" disabled selected>--Duration--</option>
                     <option value="custom">Custom</option>
                     <option value="1 week">1 week</option>
                     <option value="2 weeks">2 weeks</option>
                     <option value="4 weeks">4 weeks</option>
                   </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.duration}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
@@ -118,10 +168,14 @@ const SprintStart = () => {
                     type="datetime-local"
                     name="startDate"
                     value={sprint.startDate}
-                    onChange={(e) => handleChange(e)}
-                    // placeholder="JhonDee999"
+                    required
+                    onChange={(e) => setField("startDate", e.target.value)}
+                    isInvalid={!!errors.startDate}
                     // autoFocus
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.startDate}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
@@ -133,10 +187,15 @@ const SprintStart = () => {
                     type="datetime-local"
                     name="endDate"
                     value={sprint.endDate}
-                    onChange={(e) => handleChange(e)}
+                    required
+                    onChange={(e) => setField("endDate", e.target.value)}
+                    isInvalid={!!errors.endDate}
                     // placeholder="name@example.com"
                     // autoFocus
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.endDate}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
@@ -150,9 +209,14 @@ const SprintStart = () => {
                     placeholder="Goal"
                     name="sprintGoal"
                     value={sprint.sprintGoal}
-                    onChange={(e) => handleChange(e)}
+                    required
+                    onChange={(e) => setField("sprintGoal", e.target.value)}
+                    isInvalid={!!errors.sprintGoal}
                     // autoFocus
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.sprintGoal}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </MDBCol>
             </Form>
@@ -163,7 +227,7 @@ const SprintStart = () => {
             <Button
               variant="primary"
               className="rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] "
-              onClick={saveSprint}
+              onClick={handleSubmit}
             >
               Start
             </Button>
