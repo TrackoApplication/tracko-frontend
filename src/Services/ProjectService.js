@@ -10,6 +10,14 @@ class ProjectService{
     
     }
 
+    getProjects(){
+        return axios.get(PROJECT_API_BASE_URL);
+    }
+
+    deleteProject(id){
+        return axios.delete(PROJECT_API_BASE_URL+"/"+id);
+    }
+
     
 }
 
