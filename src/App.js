@@ -50,10 +50,12 @@ function App() {
           <Route path="/Forum" element={<Forum />} />
           <Route path="/Report" element={<Report />} />
           <Route path="/GroupDetail" element={<GroupDetail />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
+          {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
           <Route path="/Group" element={<Group />} />
+          <Route path="/Dashboard" element ={<DashLayout/>}/>
 
-          {/* pages with sidebar */}
+
+        {/* pages with sidebar */}
           <Route path="/Team" element ={<Team/>}/>
           {/* <Route path="/Backlog" element ={<Backlog/>}/> */}
           <Route path="/BacklogView" element ={<BacklogView/>}/>
@@ -61,21 +63,17 @@ function App() {
           <Route path="/People" element ={<People/>}/>
           <Route path="/Forum" element ={<Forum/>}/>
           <Route path="/Report" element ={<Report/>}/>
-          <Route path="/Dashboard" element ={<Dashboard/>}/>
+
+          {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
           <Route path="/Group" element ={<Group/>}/>
-          {/* <Route path="/newdashboard" element ={<DashLayout/>}/> */}
+          <Route path="/Dashboard" element ={<DashLayout/>}/>
 
 
           {/* pages with navbar */}
           <Route path="/UserList" element={<UserListWithNavbar/>} />
           <Route path="/ProjectList" element={<ProjectList />} />
           <Route path="/ClientList" element={<ClientList />} />
-        
-
-          {/* pages with navbar */}
-          <Route path="/UserList" element ={<UserList/>}/>
-          <Route path="/ProjectList" element ={<ProjectList/>}/>
-          <Route path="/ClientList" element ={<ClientList/>}/>
+          <Route path="/Popup" element={<Popup />} />
     
         </Routes>
 
