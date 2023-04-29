@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../NavBar/Navbar";
 import AddProject from "./AddProject";
-// link.rel = 'ProjectList';
 import "./ProjectList.css";
 import ProjectService from "../../Services/ProjectService";
 import { useEffect } from "react";
+
+import ConfirmPopup from "../UserMgt/ConfirmPopup";
 
 const ProjectList = () => {
   const navigate = useNavigate();
@@ -13,6 +14,9 @@ const ProjectList = () => {
 
   const [loading, setloading] = useState(true); //to check the data is loaded or not
   const [projects, setprojects] = useState(null);
+
+  const [showConfirm, setShowConfirm] = useState(false);
+
   useEffect(() => {
     const fetchdata = async () => {
       setloading(true); //set loading to true as at this moment we are loading the data
@@ -32,19 +36,19 @@ const ProjectList = () => {
     fetchdata(); //calling of the function
   }, []);
 
-
-  const deleteProject=(e,id)=>{
-    e.preventDefault();
-    ProjectService.deleteProject(id).then((res) =>{  //deleting the data from the database by calling deleteEmployee and "then" once we get the response back
-        if(projects){
-          setprojects((prevElement)=>{           //we are setting the state again
-                return prevElement.filter((project)=>project.id !=id);
-            });
-        }
+  const deleteProject = (id) => {
+    // e.preventDefault();
+    
+    ProjectService.deleteProject(id).then((res) => {
+      //deleting the data from the database by calling deleteEmployee and "then" once we get the response back
+      if (projects) {
+        setprojects((prevElement) => {
+          //we are setting the state again
+          return prevElement.filter((project) => project.id != id);
+        });
+      }
     });
-
-}
-
+  };
 
   return (
     <>
@@ -70,9 +74,19 @@ const ProjectList = () => {
                       <button className=" font-semibold mt-3 mb-1 text-indigo-600 hover:text-indigo-800 hover:cursor-pointer px-2">
                         Update
                       </button>
-                      <button  onClick={(e,id)=>deleteProject(e,project.id)} className=" font-semibold mt-3 mb-1 text-indigo-600 hover:text-indigo-800 hover:cursor-pointer">
+                      <button
+                        onClick={() => setShowConfirm(true)}
+                        className=" font-semibold mt-3 mb-1 text-indigo-600 hover:text-indigo-800 hover:cursor-pointer"
+                      >
                         Delete
                       </button>
+
+                      <ConfirmPopup
+                        show={showConfirm}
+                        deleteSystemUser={deleteProject}
+                        onHide={() => setShowConfirm(false)}
+                        systemUserId={project.id}
+                      />
                     </div>
                   </div>
                 ))}
