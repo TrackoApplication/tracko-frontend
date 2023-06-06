@@ -1,60 +1,81 @@
+import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
-import { MDBBadge } from "mdb-react-ui-kit";
+import "./SprintIssueList.css";
+import IssueService from "../../../Services/IssueService";
+import Issue from "../Issue/Issue";
+import SuccessfulIssueDeletion from "../Issue/SuccessfulIssueDeletion.js";
 
 function SprintIssueList() {
+  const [loading, setloading] = useState(true);
+  const [issues, setissues] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  // fetching the data from the backend
+  useEffect(() => {
+    const fetchData = async () => {
+      setloading(true);
+      try {
+        const response = await IssueService.getIssues();
+        setissues(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setloading(false);
+    };
+    fetchData();
+  }, []);
+
+  // deleting the issues based on issueId
+  const deleteIssue = (issueId) => {
+    debugger;
+    IssueService.deleteIssue(issueId).then((res) => {
+      debugger;
+      if (issues) {
+        setissues((prevElement) => {
+          setShowSuccess(true);
+          return prevElement.filter((Issue) => Issue.issueId !== issueId);
+        });
+      }
+    });
+  };
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
-    <Table striped borderless hover size="sm">
-      <thead>
-        {/* <tr>
-          <th>icon</th>
-          <th>id</th>
-          <th>description</th>
-          <th>status</th>
-          <th>assignee</th>
-        </tr> */}
-      </thead>
-      <tbody>
-        <tr>
-          <td style={{ textAlign: "center" }}>Drag your issues here</td>
-          {/* <td>1</td>
-          <td>Create wire frames</td>
-          <td>
-            <MDBBadge color='info' pill>
-                <select name="question" id="question" style={{color:"black"}}>
-                    <option value="ip" style={{color:"blue"}}>IN-PROGRESS</option>
-                    <option value="td" style={{color:"grey"}}>TODO</option>
-                    <option value="done" style={{color:"green"}}>DONE</option>
-                </select>
-            </MDBBadge>
-          </td>
-          <td>
-            assignee icon
-          </td> */}
-        </tr>
-        {/* <tr>
-        <td>#</td>
-          <td>2</td>
-          <td>Create interim report</td>
-          <td>dropdownlist</td>
-          <td>assignee icon</td>
-        </tr> */}
-        {/* <tr>
-        <td>#</td>
-          <td>3</td>
-          <td>Create presentation</td>
-          <td>
-            <MDBBadge color='info' pill>
-                <select name="question" id="question" style={{color:"black"}}>
-                    <option value="ip" style={{color:"blue"}}>IN-PROGRESS</option>
-                    <option value="td" style={{color:"grey"}}>TODO</option>
-                    <option value="done" style={{color:"green"}}>DONE</option>
-                </select>
-            </MDBBadge>
-          </td>
-          <td>assignee icon</td>
-        </tr> */}
-      </tbody>
+       <>
+      <Table striped borderless hover size="sm">
+        <thead>
+          <th>Issue Id</th>
+          <th>Summary</th>
+          <th>Epic Name</th>
+          <th>Status</th>
+          <th>Assignee</th>
+          <th>Actions</th>
+        </thead>
+
+        {/* mapping issues into the backlog table */}
+        {!loading && (
+          <tbody>
+            {issues.map((issues) => (
+              <Issue
+                Issue={issues}
+                deleteIssue={deleteIssue}
+                key={issues.issueId}
+              ></Issue>
+            ))}
+          </tbody>
+        )}
     </Table>
+
+    {/* displaying the success message of deleting */}
+    <SuccessfulIssueDeletion
+        onHide={() => setShowSuccess(false)}
+        show={showSuccess}
+        message="Issue Deleted Successfully"
+      />
+    </>
   );
 }
 

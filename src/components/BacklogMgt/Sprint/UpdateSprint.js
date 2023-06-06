@@ -6,29 +6,64 @@ import { MDBCol } from "mdb-react-ui-kit";
 import SprintService from "../../../Services/SprintService";
 import SuccessfulUpdation from "./SuccessfulUpdation";
 
-// setting states for Update Sprint form fields on change when updating
 function UpdateSprint(props) {
   const handleChange = (e) => {
-    const value = e.target.value;
-    setSprint({ ...sprint, [e.target.name]: value });
-  };
+    const { name, value } = e.target;
+  
+    if (name === "duration") {
+      if (value === "custom") {
+        setSprint((prevState) => ({
+          ...prevState,
+          duration: value,
+        }));
+      } else {
+        const startDate = new Date(sprint.startDate);
+        let endDate = new Date(startDate);
+  
+        if (value === "1 week") {
+          endDate.setDate(startDate.getDate() + 7);
+        } else if (value === "2 weeks") {
+          endDate.setDate(startDate.getDate() + 14);
+        } else if (value === "3 weeks") {
+          endDate.setDate(startDate.getDate() + 21);
+        } else if (value === "4 weeks") {
+          endDate.setDate(startDate.getDate() + 28);
+        }
+  
+        setSprint((prevState) => ({
+          ...prevState,
+          duration: value,
+          endDate: endDate.toISOString().substr(0, 10),
+        }));
+      }
+    } else if (name === "startDate" || name === "endDate") {
+      const dateValue = new Date(value).toISOString();
+      setSprint((prevState) => ({
+        ...prevState,
+        [name]: dateValue,
+      }));
+    } else {
+      setSprint((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+  };  
 
-  //setting states for Sprint update form fields
   const [sprint, setSprint] = useState({
     sprintId: props.sprintId,
     sprintName: "",
     startDate: "",
     endDate: "",
     sprintGoal: "",
-    duration: "",
+    duration: "default",
   });
-
-  // fetching the data from the backend
+  
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await SprintService.getSprintById(sprint.sprintId);
+        const response = await SprintService.getSprintById(props.sprintId);
         setSprint(response.data);
       } catch (error) {
         console.log(error);
@@ -36,54 +71,68 @@ function UpdateSprint(props) {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [props.sprintId, props]); // Add props to the dependency array
+  
+  
 
-  // updating the sprints based on sprintId
   const updateSprint = (e) => {
     e.preventDefault();
-    SprintService.updateSprint(props.sprintId, sprint)
-      .then((res) => {
-        props.onHide();
-        // window.location.reload(false);
-        setShowSuccess(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const formErrors = validate();
+    if (Object.keys(formErrors).length === 0) {
+      SprintService.updateSprint(props.sprintId, sprint)
+        .then((res) => {
+          props.onHide();
+          setShowSuccess(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      setErrors(formErrors);
+    }
   };
 
-  const [inactive, setInactive] = React.useState(false);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const { sprintName, duration, startDate, endDate } = sprint;
+    const newErrors = {};
+
+    if (!sprintName || sprintName === "") {
+      newErrors.sprintName = "Sprint name cannot be blank";
+    }
+
+    if (!duration || duration === "default") {
+      newErrors.duration = "Duration cannot be blank";
+    }
+
+    if (!startDate || startDate === "") {
+      newErrors.startDate = "Start date cannot be blank";
+    }
+
+    if (!endDate || endDate === "") {
+      newErrors.endDate = "End date cannot be blank";
+    }
+
+    return newErrors;
+  };
+
+  const [inactive] = React.useState(false);
   const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
   return (
     <div>
       <div className={`container ${inactive ? "inactive" : ""}`}>
-        {/* <Button
-          variant="primary"
-          className="rounded bg-[#1e90ff] text-white border-none px-3 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#1e90ff] ease-in-out"
-          onClick={handleShow}
-        >
-          Edit Sprint
-        </Button> */}
-
         <Modal {...props}>
-          {/* header section */}
           <Modal.Header closeButton>
             <Modal.Title>Edit Sprint</Modal.Title>
           </Modal.Header>
 
-          {/* body section */}
           <Modal.Body>
             <Form>
               <MDBCol>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3">
                   <Form.Label>Edit Sprint Name</Form.Label>
                   <Form.Control
                     type="text"
@@ -91,63 +140,63 @@ function UpdateSprint(props) {
                     autoFocus
                     name="sprintName"
                     value={sprint.sprintName}
-                    onChange={(e) => handleChange(e)}
-                    // required
+                    onChange={handleChange}
+                    isInvalid={!!errors.sprintName}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.sprintName}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3">
                   <Form.Label>Edit Duration</Form.Label>
                   <Form.Select
                     name="duration"
                     value={sprint.duration}
-                    onChange={(e) => handleChange(e)}
+                    onChange={handleChange}
+                    isInvalid={!!errors.duration}
                   >
                     <option value="default">--Duration--</option>
                     <option value="custom">Custom</option>
                     <option value="1 week">1 week</option>
                     <option value="2 weeks">2 weeks</option>
+                    <option value="3 weeks">3 weeks</option>
                     <option value="4 weeks">4 weeks</option>
                   </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.duration}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3">
                   <Form.Label>Edit Start date</Form.Label>
                   <Form.Control
-                    type="datetime-local"
+                    type="date"
                     name="startDate"
                     value={sprint.startDate}
-                    onChange={(e) => handleChange(e)}
-                    // placeholder="JhonDee999"
-                    // autoFocus
+                    onChange={handleChange}
+                    isInvalid={!!errors.startDate}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.startDate}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3">
                   <Form.Label>Edit End date</Form.Label>
                   <Form.Control
-                    type="datetime-local"
+                    type="date"
                     name="endDate"
                     value={sprint.endDate}
-                    onChange={(e) => handleChange(e)}
-                    // placeholder="Start Date"
-                    // autoFocus
+                    onChange={handleChange}
+                    isInvalid={!!errors.endDate}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.endDate}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3">
                   <Form.Label>Edit Sprint Goal</Form.Label>
                   <Form.Control
                     as="textarea"
@@ -155,15 +204,13 @@ function UpdateSprint(props) {
                     placeholder="Goal"
                     name="sprintGoal"
                     value={sprint.sprintGoal}
-                    onChange={(e) => handleChange(e)}
-                    // autoFocus
+                    onChange={handleChange}
                   />
                 </Form.Group>
               </MDBCol>
             </Form>
           </Modal.Body>
 
-          {/* button section */}
           <Modal.Footer>
             <Button
               variant="primary"
@@ -194,3 +241,5 @@ function UpdateSprint(props) {
 }
 
 export default UpdateSprint;
+
+

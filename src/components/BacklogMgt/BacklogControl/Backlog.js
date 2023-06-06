@@ -89,6 +89,9 @@ const Backlog = () => {
         <SprintIssueList />
       </div>
 
+      {/* Issue creation button */}
+      <Addissue />
+
       {/* Sprint completion section */}
       <div class="button-container">
         <MDBBadge
@@ -120,6 +123,9 @@ const Backlog = () => {
       <div className={`container ${inactive ? "inactive" : ""}`}>
         <SprintIssueList />
       </div>
+
+      {/* Issue creation button */}
+      <Addissue />
     </div>
   );
 };
