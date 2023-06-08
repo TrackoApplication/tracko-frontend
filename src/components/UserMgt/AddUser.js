@@ -21,8 +21,7 @@ const AddUser = () => {
   const [emailExists, setEmailExists] = useState(false);
   const [passwordType, setPasswordType] = useState("password");
 
-
-// password show& hide function
+  // password show& hide function
   const togglePassword = (e) => {
     e.preventDefault();
     if (passwordType === "password") {
@@ -32,10 +31,8 @@ const AddUser = () => {
     setPasswordType("password");
   };
 
-
   // setting state for form fields
   const [systemUsers, setsystemUsers] = React.useState({
-    SystemUserId: "",
     firstName: "",
     lastName: "",
     // userName: '',
@@ -52,8 +49,7 @@ const AddUser = () => {
     });
   };
 
-
-// save system user to the data base usign the service post api
+  // save system user to the data base usign the service post api
   const saveSystemUser = (e) => {
     e.preventDefault();
     SystemUserService.saveSystemUser(systemUsers)
@@ -66,7 +62,6 @@ const AddUser = () => {
     handleClose();
     setLoading(true);
   };
-
 
   //Handlng form submit. Validating the form and if valid then saving the data to the database
   const handleSubmit = async (e) => {
@@ -95,8 +90,7 @@ const AddUser = () => {
     }
   };
 
-
-// validating the form fields
+  // validating the form fields
   const validateForm = () => {
     const { firstName, lastName, password, confirmPassword, emailId } =
       systemUsers;
@@ -119,8 +113,7 @@ const AddUser = () => {
       }
     };
 
-
-//defining the errors object
+    //defining the errors object
     const errors = {};
     if (!firstName || firstName === "") {
       errors.firstName = "First Name is required";
@@ -309,7 +302,7 @@ const AddUser = () => {
         </Modal.Body>
       </Modal>
 
-{/* On Successfully saving the data, I want to show a success message. created a seperate compoment for that. and send the props. */}
+      {/* On Successfully saving the data, I want to show a success message. created a seperate compoment for that. and send the props. */}
 
       <SuccessfulAction
         onHide={() => setShowSuccess(false)}

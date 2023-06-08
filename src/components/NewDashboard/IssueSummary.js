@@ -12,8 +12,8 @@ const IssueSummary = () => {
   const [todoIssueCount, setTodoIssueCount] = useState([0]);
 
   const todoPercentage = (todoIssueCount/issueCount) * 100;
-  const inProgressPercentage = inProgressIssueCount/issueCount * 100;
-  const completedPercentage = completedIssueCount/issueCount * 100;
+  const inProgressPercentage= (inProgressIssueCount/issueCount) * 100;
+  const completedPercentage = (completedIssueCount/issueCount) * 100;
   
 
 

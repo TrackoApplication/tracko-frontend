@@ -1,15 +1,4 @@
-/* *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
-  }
-  
-  body{
-    background: color #f5f5f5;
-    color: #111;
-  
-  }
+
   .container{
     max-width: 1300px;
     width: 100%;
@@ -33,13 +22,14 @@
     margin-bottom: 80px;
   }
   
-  .cards{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    .cards{
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: flex-start;
+      
+    }
     
-  }
-  
   
   .card{
   flex: 0 0 calc(33.33% - 20px);
@@ -109,4 +99,4 @@
     max-width: 100%;
     
   }
-  } */
+  }

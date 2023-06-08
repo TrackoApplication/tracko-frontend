@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
 
+
 }
 ul{
   padding: 0;
@@ -15,6 +16,7 @@ li{
 * body{
   background-color: #eee;
   font-family: 'Montserrat', sans-serif;
+  height: 100%;
 }
 
 .page-body {
@@ -83,7 +85,7 @@ li{
 
 
 .btn {
-  @apply font-bold py-2 px-4 rounded shadow mx-2 my-2;
+  @apply font-bold py-2 px-4 rounded shadow mx-2 my-2 ;
 }
 .btn-blue {
   @apply bg-blue-500 text-white ;
@@ -102,6 +104,12 @@ li{
 }
 .btn-green:hover {
   @apply bg-green-700;
+}
+.btn-pink {
+  @apply bg-[#d76161] text-white;
+}
+.btn-pink:hover {
+  @apply bg-[#d76165] ;
 }
 
 

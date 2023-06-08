@@ -37,7 +37,8 @@ export const UpdateUser = (props) => {
   const [systemUsers, setsystemUsers] = React.useState({
     systemUserId: id,
     firstName: '',
-    lastName: ''
+    lastName: '',
+    accessGroup: '',
     // userName: '',
   });
 
@@ -135,14 +136,11 @@ export const UpdateUser = (props) => {
               placeholder={systemUsers.accessGroup}
               autoFocus
               required
-              value={systemUsers.accessGroup}
+              // value={systemUsers.accessGroup}
               onChange={(e) => handleChange('accessGroup', e.target.value)}
-
               >
                 <option value="Not Assigned<">Not Assigned</option>
                 <option value="Product Owner">Product Owner</option>
-                <option value=" Scrum master"> Scrum master</option>
-                <option value="Team member">Team member</option>
               </select>
 
             </Form.Group>

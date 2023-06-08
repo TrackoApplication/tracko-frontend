@@ -15,6 +15,7 @@ import ConfirmPopup from "./ConfirmPopup";
 import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 import { InputGroup } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
+import axios from "axios";
 
 
 
@@ -28,20 +29,34 @@ const UserList = () => {
   const [systemUsers, setSystemUsers] = useState([]);
   const [newchange, setNewchange] = useState(false);
   const [search, setSearch] = useState("");
+  const [role, setRole] = useState("");
+
+
+  const [accessToken, setAccessToken] = useState( localStorage.getItem("accessToken") || null);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await SystemUserService.getSystemUser();
+        // const response = await SystemUserService.getSystemUser();
+
+        const response = await axios.get("http://localhost:8080/api/v1/systemusersDto", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+
         setSystemUsers(response.data);
+        console.log(systemUsers);
       } catch (error) {
         console.log(error);
       }
       setLoading(false);
     };
-    fetchData(); 
+    fetchData();
   }, []);
+
 
   const deleteSystemUser = (id) => {
     SystemUserService.deleteSystemUser(id).then((res) => {

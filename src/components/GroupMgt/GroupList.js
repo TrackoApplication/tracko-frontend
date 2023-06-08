@@ -6,9 +6,33 @@ import { useNavigate } from 'react-router-dom'
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import AddGroup from './AddGroup';
 import "./Group.css"
+import { useEffect } from 'react';
+import axios from 'axios';
 
 export const GroupList = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [groups, setGroups] = useState([]);
+
+  
+
+  useEffect(() => {
+    const getGroups = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get('http://localhost:8080/api/v1/accessgroups');
+
+        setGroups(response.data);
+        console.log(response.data);
+      }
+      catch (err) {
+        console.error(err.message);
+      }
+      setLoading(false);
+    }; 
+    getGroups();
+   
+  }, []);
 
   return (
 
@@ -31,17 +55,20 @@ export const GroupList = () => {
           </tr>
         </MDBTableHead>
 
+
+        {!loading && (
         <MDBTableBody>
+        {groups.map((group) => (
           <tr>
 
             <td className='col-2'>
               <div className='d-flex align-items-center col-3'>
-                  <p className='mb-1 '>Product Owner</p>
+                  <p className='mb-1 '>{group.accessGroupName}</p>
               </div>
             </td>
 
             <td>
-              <p className=' mb-1 col-9 text-justify' style={{fontSize:"10px"}}>The Product Owner (PO) is a member of the Agile Team who is responsible for maximizing the value delivered by the team and ensuring that the Team Backlog is aligned with customer and stakeholder needs.</p>
+              <p className=' mb-1 col-9 text-justify' style={{fontSize:"10px"}}>{group.description}</p>
             </td>
 
             <td className='col-3 '>
@@ -52,65 +79,18 @@ export const GroupList = () => {
 
             <td className='col-2'>
               <MDBBtn
-                onClick={() => navigate('/GroupDetail')}
+               onClick={() => navigate('/GroupDetail/' + group.id)}
                 color='link' rounded size='sm'>
                 Show Details
               </MDBBtn>
             </td>
 
           </tr>
-
-          <tr>
-            <td>
-              <div className='d-flex align-items-center'>
-                <div >
-                  <p className='mb-1'>Team member</p>
-                </div>
-              </div>
-            </td>
-            <td>
-              <p className='fw-normal mb-1 text-justify col-9 ' style={{fontSize:"10px"}}>Team members are assigned to different activities of the project. They are responsible for doing the work in sprints and make sure that iterations complete within the defined time limit. </p>
-            </td>
-            <td>
-              <MDBBadge color='primary' pill>
-                6
-              </MDBBadge>
-            </td>
-            <td>
-              <MDBBtn
-                onClick={() => navigate('/GroupDetail')}
-                color='link' rounded size='sm'>
-                Show Details
-              </MDBBtn>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <div className='d-flex align-items-center'>
-                <div >
-                  <p className='mb-1'>Scrum Master</p>
-                </div>
-              </div>
-            </td>
-            <td>
-              <p className='fw-normal mb-1 text-justify col-9 'style={{fontSize:"10px"}}>The scrum master is responsible for making sure that the team puts efforts to successfully achieve its targets. It is also the duty of scrum master to create a collaborative work environment that supports frictionless communication among the team members. </p>
-            </td>
-            <td>
-              <MDBBadge color='warning' pill>
-                2
-              </MDBBadge>
-            </td>
-            <td>
-              <MDBBtn
-                onClick={() => navigate('/GroupDetail')}
-                color='link' rounded size='sm'>
-                Show Details
-              </MDBBtn>
-            </td>
-          </tr>
-
+          
+        ))}
         </MDBTableBody>
+        )}
+
       </MDBTable>
     </div>
 

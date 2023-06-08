@@ -24,24 +24,31 @@ import BacklogView from "./components/BacklogMgt/BacklogView";
 import SuccesfulAction from "./components/CommonComponents/SuccessfulAction";
 import DashLayout from "./components/NewDashboard/DashLayout";
 import Popup from "./Popup";
+import Home from "./Home";
+import NewResetPassword from "./components/UserAuthentication/NewResetPassword";
+import { PageNotFound } from "./components/CommonComponents/PageNotFound";
+import EmailSent from "./components/UserAuthentication/EmailSent";
 
 function App() {
 
   const UserListWithNavbar = withNavbar(UserList);
+  const token = localStorage.getItem("token");
   
   return (
     <>
       <BrowserRouter>
+      
         <Routes>
 
           {/* pages without sidebar & nav bar */}
-          <Route path="/" element={<Login />} />
-          <Route index element={<Login />} />
+          <Route path="/" element={<Home />} />
+      
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/ResetPass" element={<ResetPass />} />
           <Route path="/AddUser" element={<AddUser />} />
           <Route path="/SuccesfulAction" element={<SuccesfulAction />} />
+          <Route path="/Home" element={<Home/>} />
 
           {/* pages with sidebar */}
           <Route path="/Team" element={<Team />} />
@@ -50,10 +57,11 @@ function App() {
           <Route path="/People" element={<People />} />
           <Route path="/Forum" element={<Forum />} />
           <Route path="/Report" element={<Report />} />
-          <Route path="/GroupDetail" element={<GroupDetail />} />
+          <Route path="/GroupDetail/:id" element={<GroupDetail />} />
           {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
           <Route path="/Group" element={<Group />} />
           <Route path="/Dashboard" element ={<DashLayout/>}/>
+          <Route path="/reset_password" element={<NewResetPassword/>} />
 
 
         {/* pages with sidebar */}
@@ -64,6 +72,7 @@ function App() {
           <Route path="/People" element ={<People/>}/>
           <Route path="/Forum" element ={<Forum/>}/>
           <Route path="/Report" element ={<Report/>}/>
+          <Route path="/emailsent/:email" element ={<EmailSent/>}/>
 
           {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
           <Route path="/Group" element ={<Group/>}/>
@@ -71,10 +80,12 @@ function App() {
 
 
           {/* pages with navbar */}
-          <Route path="/UserList" element={<UserListWithNavbar/>} />
+          <Route path="/UserList" element={<UserListWithNavbar />} />
           <Route path="/ProjectList" element={<ProjectList />} />
           <Route path="/ClientList" element={<ClientList />} />
           <Route path="/Popup" element={<Popup />} />
+
+          <Route path="*" element={<PageNotFound />} />
     
     </Routes>
 

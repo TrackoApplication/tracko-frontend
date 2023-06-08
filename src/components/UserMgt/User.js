@@ -26,7 +26,7 @@ const User = ({ systemUser, deleteSystemUser, key }) => {
           </div>
         </td>
         <td className="w-[300px]">
-          <p className="fw-normal mb-1 ">System Admin</p>
+          <p className="fw-normal mb-1 ">{systemUser.role}</p>
         </td>
         <td className="w-[400px]">
           <MDBBadge color="success" pill>
@@ -52,11 +52,13 @@ const User = ({ systemUser, deleteSystemUser, key }) => {
         onHide={() => setShowConfirm(false)}
         systemUserId={systemUser.systemUserId}
       />
+      
       <UpdateUser
         show={show}
         onHide={() => setShow(false)}
         systemUserId={systemUser.systemUserId}
       />
+    
     </>
   );
 };

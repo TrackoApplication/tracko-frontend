@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const SYSTEMUSER_API_BASE_URL = "http://localhost:8080/api/v1/systemusers";
+const SYSTEMUSER_API_BASE_URL = "http://localhost:8080/api/v1";
 class SystemUserService {
 
     saveSystemUser(systemUser) {
-        return axios.post(SYSTEMUSER_API_BASE_URL, systemUser);
+        return axios.post("http://:localhost:8080/api/v1/auth/register", systemUser);
     }
 
     getSystemUser() {

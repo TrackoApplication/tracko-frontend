@@ -7,25 +7,61 @@ import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-reac
 import EditGroup from './EditGroup';
 import Sidebar from '../SideBar/Sidebar';
 import './Group.css'
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const GroupDetail = () => {
-
+    const { id } = useParams();
     const [inactive, setInactive] = React.useState(false);
     const navigate = useNavigate();
+    const [group, setGroup] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [accessGroups, setAccessGroups] = useState([]);
+
+    const [accessGroupName, setAccessGroupName] = useState('');
+
+    useEffect(() => {
+        const getGroup = async () => {
+          setLoading(true);
+          try {
+            console.log(id);
+            const response = await axios.get('http://localhost:8080/api/v1/accessgroups/one/'+id);
+    
+            setAccessGroups(response.data);
+            setAccessGroupName(response.data.accessGroupName);
+            console.log(response.data);
+          }
+          catch (err) {
+            console.error(err.message);
+          }
+          setLoading(false);
+        }; 
+        getGroup();
+       
+      }, []);
+    
 
     return (
 
+
         <div className='App'>
+   
             <div className='AppGlass'>
                 <Sidebar
                     onCollapse={(inactive) => {
                         setInactive(inactive);
                     }}
                 />
+
+
                 <div className="mainGroup">
+                    
+
                     <div className='title'>
-                        <h1 >Return0/Group/Team Members </h1>
+                        <h1 >Return0/Group/{accessGroupName} </h1>
                     </div>
+
                     <div className="h-12 m-4">
                         <EditGroup />
                     </div>
@@ -160,26 +196,7 @@ const GroupDetail = () => {
                                         </td>
 
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div className='d-flex align-items-center'>
-                                                <div >
-                                                    <p className='mb-1'>Create issue</p>
-
-                                                </div>
-                                            </div>
-
-                                        </td>
-                                        <td>
-                                            <div className='d-flex'>
-                                                <div className="align-items-center">
-                                                    <i class="bi bi-trash"></i>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
+                               
 
 
 
@@ -190,9 +207,13 @@ const GroupDetail = () => {
                         </div>
 
                     </div>
-                </div>
 
+                   
+                </div>
+         
+                
             </div>
+            
         </div>
 
 

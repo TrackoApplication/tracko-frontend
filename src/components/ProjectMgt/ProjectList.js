@@ -53,15 +53,15 @@ const [cards] = useState([
 
     <div>
       <section>
-        <div className='container'>
+        <div className='containery'>
           
-          <div className='cards'>
+          <div className='cardsy'>
             {
               cards.map((card,i) => ( 
-              <div key={i} className='card'>
+              <div key={i} className='cardy'>
               <h3>{card.title}</h3>
               <p>{card.Text}</p>
-              <button className='btn'>Options</button>
+              <button className='btny'>Options</button>
                 </div>
               ))
             }

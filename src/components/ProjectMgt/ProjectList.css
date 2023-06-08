@@ -1,4 +1,4 @@
-/* *{
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -10,7 +10,7 @@
     color: #111;
   
   }
-  .container{
+  .containery{
     max-width: 1300px;
     width: 100%;
     margin-top: auto;
@@ -33,15 +33,20 @@
     margin-bottom: 80px;
   }
   
-  .cards{
+  .cardsy{
     display: flex;
+    margin: auto;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
-    
+    align-items: center;
+    justify-content: flex-start;
+    background-color: rgb(255, 255, 255);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 3px;
   }
   
-  
-  .card{
+  .cardy{
   flex: 0 0 calc(33.33% - 20px);
   max-width: calc(33.33% - 20px) ;
   width: 100%;
@@ -60,7 +65,7 @@
   }
   
   
-  .btn{
+  .btny{
     border: none;
     outline: none;
     background: #1d39c4;
@@ -109,4 +114,4 @@
     max-width: 100%;
     
   }
-  } */
+  }

@@ -11,7 +11,7 @@ const SuccessfulAction = (props) => {
   return (
     <div>
     <Modal
-        {...props}
+        {...props}// show and onHide are passed as props
         size="m"
         aria-labelledby="contained-modal-title-vcenter"
         centered
