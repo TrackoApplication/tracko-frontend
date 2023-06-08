@@ -8,7 +8,7 @@ import logo from "../images/Tp.png";
 const NewResetPassword = () => {
   const [showSuccess, setShowSuccess] = React.useState(false);
   const navigate = useNavigate();
-
+  const [loading, setLoading] = React.useState(false);
   const [password, setPassword] = React.useState({});
   const [errors, setErrors] = React.useState({});
   const [confirmPassword, setConfirmPassword] = React.useState({});
