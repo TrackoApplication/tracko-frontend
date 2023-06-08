@@ -13,8 +13,8 @@ import axios from "axios";
 
 const NavBar = () => {
   const [accessGroup, setAccessGroup] = useState("");
-    const [loading, setLoading] = useState(false);
-      const [accessToken, setAccessToken] = useState( localStorage.getItem("accessToken") || null);
+  const [loading, setLoading] = useState(false);
+  const [accessToken, setAccessToken] = useState( localStorage.getItem("accessToken") || null);
   const [role, setRole] = useState("");
 
 
