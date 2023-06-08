@@ -7,7 +7,7 @@ import Navbar from "./components/NavBar/Navbar";
 import UserList from "./components/UserMgt/UserList";
 import ResetPass from "./components/UserAuthentication/ResetPass";
 import ProjectList from "./components/ProjectMgt/ProjectList";
-import ClientList from "./components/ClientMgt/ClientList";
+
 import Team from "./components/TeamMgt/Team";
 import Backlog from "./components/BacklogMgt/Backlog";
 import ActiveSprint from "./components/ActiveSprintMgt/ActiveSprint";
@@ -23,10 +23,22 @@ import GroupDetail from "./components/GroupMgt/GroupDetail";
 import BacklogView from "./components/BacklogMgt/BacklogView";
 import SuccesfulAction from "./components/CommonComponents/SuccessfulAction";
 import DashLayout from "./components/NewDashboard/DashLayout";
+import AddClient from "./components/ClientMgt/AddClient";
+ import ClientList from "./components/ClientMgt/ClientList";
+import UpdateClient from "./components/ClientMgt/UpdateClient";
+import AddTeam from "./components/TeamMgt/AddTeam";
+ import TeamList from "./components/TeamMgt/TeamList";
+import UpdateTeam from "./components/TeamMgt/UpdateTeam";
+import AddForum from "./components/ForumMgt/AddForum";
+ import ForumList from "./components/ForumMgt/ForumList";
+import UpdateForum from "./components/ForumMgt/UpdateForum";
+import NewPost from "./components/ForumMgt/createpost";
+
 
 function App() {
 
   const UserListWithNavbar = withNavbar(UserList);
+  const ClientListWithNavbar = withNavbar(ClientList);
   
   return (
     <>
@@ -58,7 +70,7 @@ function App() {
           <Route path="/BacklogView" element ={<BacklogView/>}/>
           <Route path="/ActiveSprint" element ={<ActiveSprint/>}/>
           <Route path="/People" element ={<People/>}/>
-          <Route path="/Forum" element ={<Forum/>}/>
+         
           <Route path="/Report" element ={<Report/>}/>
 
           <Route path="/Dashboard" element ={<Dashboard/>}/>
@@ -69,9 +81,20 @@ function App() {
           {/* pages with navbar */}
           <Route path="/UserList" element={<UserListWithNavbar/>} />
           <Route path="/ProjectList" element={<ProjectList />} />
-          <Route path="/ClientList" element={<ClientList />} />
-        
-
+          <Route path="/ClientList" element={<ClientListWithNavbar/>} />
+          
+          
+          
+          {/* <Route path="/ClientList" element={<ClientList />} /> */}
+          <Route path="/addClient" element={<AddClient />} />
+          <Route path="/editClient/:id" element={<UpdateClient />} />
+          <Route path="/TeamList" element={<TeamList />} />
+          <Route path="/addTeam" element={<AddTeam />} />
+          <Route path="/editTeam/:id" element={<UpdateTeam />} />
+          <Route path="/ForumList" element={<ForumList />} />
+          <Route path="/addForum" element={<AddForum />} />
+          {/* <Route path="/editForum/:id" element={<UpdateForum />} /> */}
+          <Route path ="/NewPost" element={<createpost />} />
           {/* pages with navbar */}
           <Route path="/UserList" element ={<UserList/>}/>
           <Route path="/ProjectList" element ={<ProjectList/>}/>

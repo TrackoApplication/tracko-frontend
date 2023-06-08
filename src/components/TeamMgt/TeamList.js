@@ -1,103 +1,90 @@
-import React from 'react'
-import './Team.css';
-import { useState } from 'react'
-import NavBar from '../NavBar/Navbar'
-import { useNavigate } from 'react-router-dom'
-import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
-import AddTeam from './AddTeam';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import TeamService from '../../Services/TeamService';
+import Team from "./Team";
+import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 
-export const TeamList = () => {
+const TeamList = () => {
+  const navigate = useNavigate();
+
+const [loading, setLoading] =useState(false);
+const [teams, setTeams] = useState([]);
+const [showSuccess, setShowSuccess] = useState(false);
+  
+useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await TeamService.getTeam();
+        setTeams(response.data);
+
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  const deleteTeam = (e, id) => {
+    e.preventDefault();
+    TeamService.deleteTeam(id).then((res) => {
+      if (teams) {
+        setTeams((prevElement) => {
+          setShowSuccess(true);
+          return prevElement.filter((team) => team.id !== id);
+        });
+      }
+    });
+  };
+
   return (
-
-    <div className="mainGroup">
-      <div className='title'>
-            <h1 >Team </h1> 
+    <div>
+    <div className="container mx-auto my-8">
+      <div className="h-12">
+        <button
+          onClick={() => navigate("/addTeam")}
+          className="rounded bg-[#231651]  text-white px-6 py-2 font-semibold">
+          Add Team
+        </button>
       </div>
-        <div className ="h-12 m-4">
-            <AddTeam/>
-        </div>
-
-          <div className='mx-4 shadow rounded'>
-            <MDBTable >
-              <MDBTableHead className='bg-gray-100 rounded '>
-                <tr >
-                  <th scope='col'>Team Name</th>
-                  <th scope='col'>Users</th>
-                  <th scope='col'>Actions</th>
-                 </tr>
-              </MDBTableHead>
-              <MDBTableBody>
-                <tr>
-                  <td>
-                    <div className='d-flex align-items-center'>
-                      <div >
-                        <p className='mb-1'>Team 1</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p className='fw-normal mb-1'>1</p>
-                  </td>
-                  <td>
-                    <MDBBtn color='warning' pill>
-                      Delete
-                    </MDBBtn>
-
-                    <MDBBtn color='success' pill>
-                      Edit
-                    </MDBBtn>
-                  </td>
-                  
-                </tr>
-                <tr>
-                  <td>
-                    <div className='d-flex align-items-center'>
-                      <div >
-                        <p className='mb-1'>Group 2</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p className='fw-normal mb-1'>6</p>
-                  </td>
-                  <td>
-                    <MDBBtn color='warning' pill>
-                      Delete
-                    </MDBBtn>
-
-                    <MDBBtn color='success' pill>
-                      Edit
-                    </MDBBtn>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className='d-flex align-items-center'>
-                      <div >
-                        <p className='mb-1'>Team 3</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p className='fw-normal mb-1'>8</p>
-                  </td>
-                  
-                  <td>
-                    <MDBBtn color='warning' pill>
-                      Delete
-                    </MDBBtn>
-
-                    <MDBBtn color='success' pill>
-                      Edit
-                    </MDBBtn>
-                  </td>
-                </tr>
-              </MDBTableBody>
-            </MDBTable>
-          </div>
-
-        </div>
+      <div className="flex shadow border-b">
+        <table className="min-w-full">
+          <thead className="bg-blue-400">
+            <tr>
+              <th className="text-left font-medium text-black-1000 fw-bold uppercase tracking-wider py-3 px-6">
+               Team Name
+              </th>
+              <th className="text-left font-medium text-black-1000 fw-bold uppercase tracking-wider py-3 px-6">
+               Users
+              </th>
+              <th className="text-right font-medium text-black-1000 fw-bold uppercase tracking-wider py-3 px-6">
+                Actions
+              </th>
+            </tr>
+          </thead>
+           {!loading && (
+          <tbody className="bg-white">
+            {teams.map((team) => (
+            <Team
+            team={team}
+            deleteTeam={deleteTeam}
+            key={team.id}></Team>
+            ))}
+          </tbody>
+          )}
 
 
-  )
-}
+        </table>
+      </div>
+    </div>
+    <SuccessfulAction
+    onHide={() => setShowSuccess(false)}
+    show={showSuccess}
+    message="Team Deleted Successfully"
+  />
+    </div>
+  );
+};
+
+export default TeamList;

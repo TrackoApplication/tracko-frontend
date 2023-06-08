@@ -37,6 +37,7 @@
     "react-router-dom": "^6.7.0",
     "react-script": "^2.0.5",
     "react-scripts": "5.0.1",
+    "sockjs-client": "^1.6.1",
     "styled-components": "^5.3.6"
   },
   "scripts": {
