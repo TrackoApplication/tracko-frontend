@@ -61,7 +61,9 @@ const [cards] = useState([
               <div key={i} className='cardy'>
               <h3>{card.title}</h3>
               <p>{card.Text}</p>
-              <button className='btny'>Options</button>
+              <button 
+              onClick={() => navigate("/dashboard")}
+              className='btny'>Options</button>
                 </div>
               ))
             }
