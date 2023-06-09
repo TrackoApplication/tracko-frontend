@@ -21,7 +21,7 @@ const Team= ({team,deleteTeam}) => {
                 {team.users}
                     </div>
                     </td>
-                
+              
                 
                 <td className="text-right px-6 py-4 whitespace-nowrap">
                 <a 
