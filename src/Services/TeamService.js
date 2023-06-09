@@ -24,5 +24,8 @@ class TeamService{
       updateTeam(team, id) {
         return axios.put(TEAM_API_BASE_URL + "/" + id,team);
       }
+      getExistingTeams() {
+        return axios.get(TEAM_API_BASE_URL + "/existing-teams");
+      }
 }
 export default new TeamService();
