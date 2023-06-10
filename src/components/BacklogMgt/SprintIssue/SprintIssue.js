@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import IssueDeleteConfirmation from "./IssueDeleteConfirmation";
+import IssueDeleteConfirmation from "../SprintIssue/IssueDeleteConfirmation";
 
-const Issue = ({ Issue, deleteIssue, key }) => {
+const SprintIssue = ({ SprintIssue, deleteSprintIssue, key }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [show, setShow] = useState(false);
 
   return (
     <>
       <tr>
-        <td>{Issue.issueId}</td>
-        <td>{Issue.summary}</td>
-        <td>{Issue.epicName}</td>
+        <td>{SprintIssue.sprintIssueId}</td>
+        <td>{SprintIssue.summary}</td>
+        <td>{SprintIssue.epicName}</td>
         <td>
           <select
             name="question"
@@ -28,7 +28,7 @@ const Issue = ({ Issue, deleteIssue, key }) => {
             </option>
           </select>
         </td>
-        <td>{Issue.assignee}</td>
+        <td>{SprintIssue.assignee}</td>
         <td>
           {/* redirecting to the Issue deletion confirmation */}
           <i
@@ -42,12 +42,12 @@ const Issue = ({ Issue, deleteIssue, key }) => {
       {/* posting a confirmation of deletion */}
       <IssueDeleteConfirmation
         show={showConfirm}
-        deleteIssue={deleteIssue}
+        deleteSprintIssue={deleteSprintIssue}
         onHide={() => setShowConfirm(false)}
-        issueId={Issue.issueId}
+        sprintIssueId={SprintIssue.sprintIssueId}
       />
     </>
   );
 };
 
-export default Issue;
+export default SprintIssue;

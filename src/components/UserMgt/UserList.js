@@ -29,19 +29,19 @@ const UserList = () => {
   const [newchange, setNewchange] = useState(false);
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await SystemUserService.getSystemUser();
-        setSystemUsers(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await SystemUserService.getSystemUser();
+  //       setSystemUsers(response.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //     setLoading(false);
+  //   };
+  //   fetchData();
+  // }, []);
 
   const deleteSystemUser = (id) => {
     SystemUserService.deleteSystemUser(id).then((res) => {

@@ -22,7 +22,7 @@ class SprintService {
         return axios.get(SPRINT_API_BASE_URL + "/" + sprintId);
     }
 
-    updateSprint(sprint, sprintId){
+    updateSprint(sprintId, sprint){
         return axios.put(SPRINT_API_BASE_URL + "/" + sprintId, sprint);
     }
 }

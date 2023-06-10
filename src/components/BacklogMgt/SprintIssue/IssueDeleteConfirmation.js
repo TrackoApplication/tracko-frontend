@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-const DeleteConfirmation = (props) => {
+const IssueDeleteConfirmation = (props) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
   const CallDelete = () => {
-    props.deleteSprint(props.sprintId);
+    props.deleteSprintIssue(props.sprintIssueId);
     props.onHide();
   };
 
@@ -21,14 +21,14 @@ const DeleteConfirmation = (props) => {
         centered
       >
         <Modal.Header deleteButton>
-          <Modal.Title>Delete Sprint</Modal.Title>
+          <Modal.Title>Delete Issue</Modal.Title>
         </Modal.Header>
 
         {/* warning message */}
-        <Modal.Body>Are you sure you want to delete the Sprint?</Modal.Body>
+        <Modal.Body>Are you sure you want to delete the Issue?</Modal.Body>
 
         <Modal.Footer>
-          {/* deleting the sprint */}
+          {/* deleting the issue */}
           <Button
             variant="primary"
             className="rounded bg-[#ff0000] text-white border-none  font-semibold hover:bg-[#ff0000] "
@@ -51,4 +51,4 @@ const DeleteConfirmation = (props) => {
   );
 };
 
-export default DeleteConfirmation;
+export default IssueDeleteConfirmation;

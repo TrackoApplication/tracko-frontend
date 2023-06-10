@@ -4,12 +4,12 @@ import SprintService from "../../../Services/SprintService";
 import Sprint from "./Sprint";
 import SuccessfulDeletion from "./SuccessfulDeletion.js";
 
-
 function SprintList() {
   const [loading, setloading] = useState(true);
   const [sprints, setsprints] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  // fetching the data from the backend
   useEffect(() => {
     const fetchData = async () => {
       setloading(true);
@@ -24,6 +24,7 @@ function SprintList() {
     fetchData();
   }, []);
 
+  // deleting the sprints based on sprintId
   const deleteSprint = (sprintId) => {
     debugger;
     SprintService.deleteSprint(sprintId).then((res) => {
@@ -43,39 +44,38 @@ function SprintList() {
 
   return (
     <>
+      <Table striped borderless hover size="sm">
+        <thead>
+          <th>Sprint ID</th>
+          <th>Sprint Name</th>
+          <th>Duration</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Sprint Goal</th>
+          <td>Actions</td>
+        </thead>
 
-    <Table striped borderless hover size="sm">
-      <thead>
-        <th>Sprint ID</th>
-        <th>Sprint Name</th>
-        <th>Duration</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Sprint Goal</th>
-        <td>Actions</td>
-      </thead>
+        {/* mapping sprints into the sprint table */}
+        {!loading && (
+          <tbody>
+            {sprints.map((sprints) => (
+              <Sprint
+                Sprint={sprints}
+                deleteSprint={deleteSprint}
+                key={sprints.sprintId}
+              ></Sprint>
+            ))}
+          </tbody>
+        )}
+      </Table>
 
-      {!loading && (
-        <tbody>
-          {sprints.map((sprints) => (
-            <Sprint
-              Sprint={sprints}
-              deleteSprint={deleteSprint}
-              key={sprints.sprintId}
-            ></Sprint>
-          ))}
-        </tbody>
-      )}
-    </Table>
-
-    <SuccessfulDeletion
-    onHide={() => setShowSuccess(false)}
-    show={showSuccess}
-    message="Sprint Deleted Successfully"
-    />
-
-  </>
-
+      {/* displaying the success message of deleting */}
+      <SuccessfulDeletion
+        onHide={() => setShowSuccess(false)}
+        show={showSuccess}
+        message="Sprint Deleted Successfully"
+      />
+    </>
   );
 }
 

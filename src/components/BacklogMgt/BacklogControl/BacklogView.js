@@ -14,7 +14,6 @@ const BacklogView = () => {
             setInactive(inactive);
           }}
         />
-
         <Backlog />
       </div>
     </div>

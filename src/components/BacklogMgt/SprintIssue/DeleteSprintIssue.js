@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import IssueDeleteConfirmation from "./IssueDeleteConfirmation";
+import IssueDeleteConfirmation from "../SprintIssue/IssueDeleteConfirmation";
 
-const DeleteIssue = () => {
+const DeleteSprintIssue = () => {
   const [inactive, setInactive] = React.useState(false);
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
@@ -18,7 +18,7 @@ const DeleteIssue = () => {
           Delete Issue
         </Button>
 
-        <IssueDeleteConfirmation />
+        <IssueDeleteConfirmation/>
 
         {/* <Modal show={show} onHide={handleClose} animation={false}></Modal> */}
       </div>
@@ -26,4 +26,4 @@ const DeleteIssue = () => {
   );
 };
 
-export default DeleteIssue;
+export default DeleteSprintIssue;
