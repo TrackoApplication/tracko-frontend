@@ -3,13 +3,13 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { MDBCol } from "mdb-react-ui-kit";
-import IssueService from "../../../Services/IssueService";
+import SprintIssueService from "../../../Services/SprintIssueService";
 // import { useNavigate } from "react-router-dom";
 
 //setting states for Issue form fields
-const AddIssue = () => {
-  const [issue, setIssue] = useState({
-    issueId: "",
+const AddSprintIssue = () => {
+  const [sprintissue, setSprintIssue] = useState({
+    sprintIssueId: "",
     projectName: "",
     issueType: "",
     summary: "",
@@ -18,9 +18,9 @@ const AddIssue = () => {
     sprintName: "",
     epicName: "",
     reqOfTesting: "true",
-    spdeveloping: 0,
-    sptesting: 0,
-    totalSP: 0,
+    spdeveloping: '',
+    sptesting: '',
+    totalSP: '',
     priority: "",
     reporter: "",
   });
@@ -32,20 +32,20 @@ const AddIssue = () => {
     const { name, value } = e.target;
     if (name === "reqOfTesting") {
       const reqOfTestingValue = value === "true";
-      setIssue({
-        ...issue,
+      setSprintIssue({
+        ...sprintissue,
         reqOfTesting: reqOfTestingValue,
-        sptesting: reqOfTestingValue ? issue.sptesting : 0, // Reset sptesting if reqOfTesting is changed to "false"
+        sptesting: reqOfTestingValue ? sprintissue.sptesting : 0, // Reset sptesting if reqOfTesting is changed to "false"
       });
     } else {
-      setIssue({ ...issue, [name]: value });
+      setSprintIssue({ ...sprintissue, [name]: value });
     }    
   };
   
   // save issue to the database using issueservice post API
-  const saveIssue = (e) => {
+  const saveSprintIssue = (e) => {
     e.preventDefault();
-    IssueService.saveIssue(issue)
+    SprintIssueService.saveSprintIssue(sprintissue)
       .then((response) => {
         console.log(response);
         window.location.reload(false);
@@ -60,8 +60,8 @@ const AddIssue = () => {
   // resetting the issue form fields when closing the modal
   const reset = (e) => {
     e.preventDefault();
-    setIssue({
-      issueId: "",
+    setSprintIssue({
+      sprintIssueId: "",
       projectName: "",
       issueType: "",
       summary: "",
@@ -70,9 +70,9 @@ const AddIssue = () => {
       sprintName: "",
       epicName: "",
       reqOfTesting: "true",
-      spdeveloping: 0,
-      sptesting: 0,
-      totalSP: 0,
+      spdeveloping: '',
+      sptesting: '',
+      totalSP: '',
       priority: "",
       reporter: "",
     });
@@ -88,8 +88,8 @@ const AddIssue = () => {
 
   // setting states for Issue form fields on change
   const setField = (field, value) => {
-    setIssue({
-      ...issue,
+    setSprintIssue({
+      ...sprintissue,
       [field]: value
     })
 
@@ -103,7 +103,7 @@ const AddIssue = () => {
     e.preventDefault();
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
-      saveIssue(e);
+      saveSprintIssue(e);
     } else {
       setErrors(formErrors);
     }
@@ -119,7 +119,7 @@ const AddIssue = () => {
       sptesting,
       priority,
       reporter,
-    } = issue;
+    } = sprintissue;
     const newErrors = {};
   
     if (!projectName || projectName === "") {
@@ -193,7 +193,7 @@ const AddIssue = () => {
                   <Form.Label>Project</Form.Label>
                   <Form.Select
                     name="projectName"
-                    value={issue.projectName}
+                    value={sprintissue.projectName}
                     // onChange={(e) => handleChange(e)}
                     autoFocus
                     required
@@ -220,7 +220,7 @@ const AddIssue = () => {
                   <Form.Label>Issue type</Form.Label>
                   <Form.Select
                     name="issueType"
-                    value={issue.issueType}
+                    value={sprintissue.issueType}
                     // onChange={(e) => handleChange(e)}
                     onChange={(e) => setField("issueType", e.target.value)}
                     isInvalid={!!errors.issueType}
@@ -247,7 +247,7 @@ const AddIssue = () => {
                     type="text"
                     placeholder="Summary"
                     name="summary"
-                    value={issue.summary}
+                    value={sprintissue.summary}
                     // onChange={(e) => handleChange(e)}
                     onChange={(e) => setField("summary", e.target.value)}
                     isInvalid={!!errors.summary}
@@ -269,7 +269,7 @@ const AddIssue = () => {
                     rows={5}
                     placeholder="Description"
                     name="description"
-                    value={issue.description}
+                    value={sprintissue.description}
                     onChange={(e) => handleChange(e)}
                     required
                     // autoFocus
@@ -283,7 +283,7 @@ const AddIssue = () => {
                   <Form.Label>Assignee</Form.Label>
                   <Form.Select
                     name="assignee"
-                    value={issue.assignee}
+                    value={sprintissue.assignee}
                     onChange={(e) => handleChange(e)}
                     defaultValue="Select the Assignee"
                   >
@@ -304,7 +304,7 @@ const AddIssue = () => {
                   <Form.Label>Sprint</Form.Label>
                   <Form.Select
                     name="sprintName"
-                    value={issue.sprintName}
+                    value={sprintissue.sprintName}
                     onChange={(e) => handleChange(e)}
                     defaultValue="Select the Sprint"
                   >
@@ -324,7 +324,7 @@ const AddIssue = () => {
                   <Form.Label>Epic</Form.Label>
                   <Form.Select
                     name="epicName"
-                    value={issue.epicName}
+                    value={sprintissue.epicName}
                     onChange={(e) => handleChange(e)}
                     defaultValue="Select the Epic"
                   >
@@ -344,7 +344,7 @@ const AddIssue = () => {
                   <Form.Label>Requirement of Testing</Form.Label>
                   <Form.Select
                     name="reqOfTesting"
-                    value={issue.reqOfTesting}
+                    value={sprintissue.reqOfTesting}
                     // onChange={(e) => handleChange(e)}
                     onChange={(e) => setField("reqOfTesting", e.target.value)}
                     isInvalid={!!errors.reqOfTesting}
@@ -369,7 +369,7 @@ const AddIssue = () => {
                   <Form.Control
                     type="number"
                     name="spdeveloping"
-                    value={issue.spdeveloping}
+                    value={sprintissue.spdeveloping}
                     // onChange={(e) => handleChange(e)}
                     onChange={(e) => setField("spdeveloping", e.target.value)}
                     isInvalid={!!errors.spdeveloping}
@@ -390,12 +390,12 @@ const AddIssue = () => {
                   <Form.Control
                     type="number"
                     name="sptesting"
-                    value={issue.sptesting}
+                    value={sprintissue.sptesting}
                     // onChange={handleChange}
                     onChange={(e) => setField("sptesting", e.target.value)}
                     isInvalid={!!errors.sptesting}
-                    required={issue.reqOfTesting === "true"}
-                    disabled={issue.reqOfTesting !== "true"} // Disable the field when reqOfTesting is set to "false"
+                    required={sprintissue.reqOfTesting === "true"}
+                    disabled={sprintissue.reqOfTesting !== "true"} // Disable the field when reqOfTesting is set to "false"
                   />
                   <Form.Control.Feedback type="invalid">
                     {errors.sptesting}
@@ -410,7 +410,7 @@ const AddIssue = () => {
                   <Form.Control
                     type="number"
                     name="totalSP"
-                    value={parseInt(issue.spdeveloping) + parseInt(issue.sptesting)}
+                    value={parseInt(sprintissue.spdeveloping) + parseInt(sprintissue.sptesting)}
                     onChange={(e) => handleChange(e)}
                     disabled
                     // placeholder="name@example.com"
@@ -425,7 +425,7 @@ const AddIssue = () => {
                   <Form.Label>Priority</Form.Label>
                   <Form.Select
                     name="priority"
-                    value={issue.priority}
+                    value={sprintissue.priority}
                     // onChange={(e) => handleChange(e)}
                     required
                     defaultValue="Select the priority"
@@ -451,7 +451,7 @@ const AddIssue = () => {
                   <Form.Label>Reporter</Form.Label>
                   <Form.Select
                     name="reporter"
-                    value={issue.reporter}
+                    value={sprintissue.reporter}
                     // onChange={(e) => handleChange(e)}
                     onChange={(e) => setField("reporter", e.target.value)}
                     isInvalid={!!errors.reporter}
@@ -495,5 +495,4 @@ const AddIssue = () => {
   );
 };
 
-export default AddIssue;
-
+export default AddSprintIssue;

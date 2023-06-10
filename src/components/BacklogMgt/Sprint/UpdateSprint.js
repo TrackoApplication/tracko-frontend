@@ -58,6 +58,10 @@ function UpdateSprint(props) {
     sprintGoal: "",
     duration: "default",
   });
+
+  //Update date solution
+  // const Date = new Date(sprint.startDate);
+  // const formattedDate = Date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
   
   useEffect(() => {
     const fetchData = async () => {

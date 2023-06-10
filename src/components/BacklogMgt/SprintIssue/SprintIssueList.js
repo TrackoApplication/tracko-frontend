@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import "./SprintIssueList.css";
-import IssueService from "../../../Services/IssueService";
-import Issue from "../Issue/Issue";
-import SuccessfulIssueDeletion from "../Issue/SuccessfulIssueDeletion.js";
+import SprintIssueService from "../../../Services/SprintIssueService";
+import SprintIssue from "./SprintIssue";
+import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion";
 
 function SprintIssueList() {
   const [loading, setloading] = useState(true);
-  const [issues, setissues] = useState(null);
+  const [sprintissues, setsprintissues] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
 
   // fetching the data from the backend
@@ -15,8 +15,8 @@ function SprintIssueList() {
     const fetchData = async () => {
       setloading(true);
       try {
-        const response = await IssueService.getIssues();
-        setissues(response.data);
+        const response = await SprintIssueService.getSprintIssues();
+        setsprintissues(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -26,28 +26,26 @@ function SprintIssueList() {
   }, []);
 
   // deleting the issues based on issueId
-  const deleteIssue = (issueId) => {
-    debugger;
-    IssueService.deleteIssue(issueId).then((res) => {
-      debugger;
-      if (issues) {
-        setissues((prevElement) => {
+  const deleteSprintIssue = (sprintIssueId) => {
+    SprintIssueService.deleteSprintIssue(sprintIssueId).then((res) => {
+      if (sprintissues) {
+        setsprintissues((prevElement) => {
           setShowSuccess(true);
-          return prevElement.filter((Issue) => Issue.issueId !== issueId);
+          return prevElement.filter((SprintIssue) => SprintIssue.sprintIssueId !== sprintIssueId);
         });
       }
     });
   };
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
   return (
        <>
       <Table striped borderless hover size="sm">
         <thead>
-          <th>Issue Id</th>
+          <th>Sprint Issue Id</th>
           <th>Summary</th>
           <th>Epic Name</th>
           <th>Status</th>
@@ -58,12 +56,12 @@ function SprintIssueList() {
         {/* mapping issues into the backlog table */}
         {!loading && (
           <tbody>
-            {issues.map((issues) => (
-              <Issue
-                Issue={issues}
-                deleteIssue={deleteIssue}
-                key={issues.issueId}
-              ></Issue>
+            {sprintissues.map((sprintissues) => (
+              <SprintIssue
+                SprintIssue={sprintissues}
+                deleteSprintIssue={deleteSprintIssue}
+                key={sprintissues.sprintIssueId}
+              ></SprintIssue>
             ))}
           </tbody>
         )}

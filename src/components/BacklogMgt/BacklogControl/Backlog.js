@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Addissue from "../Issue/Addissue";
+import AddSprintIssue from "../SprintIssue/AddSprintIssue";
 import SprintCreation from "../Sprint/CreateSprint";
 import Sprintdeletion from "../Sprint/DeleteSprint";
 import SprintCompletion from "../SprintComplete/CompleteSprint";
@@ -7,7 +8,7 @@ import SprintStart from "../Sprint/StartSprint";
 import IssueList from "../Issue/IssueList";
 import "./Backlog.css";
 import { MDBBadge } from "mdb-react-ui-kit";
-import SprintIssueList from "../Sprint/SprintIssueList";
+import SprintIssueList from "../SprintIssue/SprintIssueList";
 // import UpdateSprint from "../Sprint/UpdateSprint";
 
 const Backlog = () => {
@@ -90,7 +91,7 @@ const Backlog = () => {
       </div>
 
       {/* Issue creation button */}
-      <Addissue />
+      <AddSprintIssue />
 
       {/* Sprint completion section */}
       <div class="button-container">
@@ -125,7 +126,7 @@ const Backlog = () => {
       </div>
 
       {/* Issue creation button */}
-      <Addissue />
+      <AddSprintIssue/>
     </div>
   );
 };

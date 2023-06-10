@@ -4,6 +4,7 @@ import "./IssueList.css";
 import IssueService from "../../../Services/IssueService";
 import Issue from "./Issue";
 import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion.js";
+// import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function IssueList() {
   const [loading, setloading] = useState(true);
@@ -27,9 +28,7 @@ function IssueList() {
 
   // deleting the issues based on issueId
   const deleteIssue = (issueId) => {
-    debugger;
     IssueService.deleteIssue(issueId).then((res) => {
-      debugger;
       if (issues) {
         setissues((prevElement) => {
           setShowSuccess(true);
@@ -39,20 +38,32 @@ function IssueList() {
     });
   };
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleDragEnd = (result) => {
+  //   if (!result.destination) return; // Return if the item is dropped outside a valid droppable area
+
+  //   const updatedIssues = Array.from(issues);
+  //   const [reorderedIssue] = updatedIssues.splice(result.source.index, 1);
+  //   updatedIssues.splice(result.destination.index, 0, reorderedIssue);
+
+  //   setissues(updatedIssues);
+  // };
+
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
   return (
     <>
       <Table striped borderless hover size="sm">
         <thead>
-          <th>Issue Id</th>
-          <th>Summary</th>
-          <th>Epic Name</th>
-          <th>Status</th>
-          <th>Assignee</th>
-          <th>Actions</th>
+          <tr>
+            <th>Issue Id</th>
+            <th>Summary</th>
+            <th>Epic Name</th>
+            <th>Status</th>
+            <th>Assignee</th>
+            <th>Actions</th>
+          </tr>
         </thead>
 
         {/* mapping issues into the backlog table */}
@@ -80,3 +91,35 @@ function IssueList() {
 }
 
 export default IssueList;
+
+
+
+// {/* <DragDropContext onDragEnd={handleDragEnd}>
+//           <Droppable droppableId="issueList">
+//             {(provided) => (
+//               <tbody {...provided.droppableProps} ref={provided.innerRef}>
+//                 {/* Mapping issues into the backlog table */}
+//         //         {!loading &&
+//         //           issues.map((issue, index) => (
+//         //             <Draggable
+//         //               key={issue.issueId}
+//         //               draggableId={issue.issueId}
+//         //               index={index}
+//         //             >
+//         //               {(provided) => (
+//         //                 <tr
+//         //                   ref={provided.innerRef}
+//         //                   {...provided.draggableProps}
+//         //                   {...provided.dragHandleProps}
+//         //                   key={issue.issueId}
+//         //                 >
+//         //                   <Issue Issue={issue} deleteIssue={deleteIssue} />
+//         //                 </tr>
+//         //               )}
+//         //             </Draggable>
+//         //           ))}
+//         //         {provided.placeholder}
+//         //       </tbody>
+//         //     )}
+//         //   </Droppable>
+//         // </DragDropContext> */}
