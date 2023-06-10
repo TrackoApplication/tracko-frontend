@@ -6,6 +6,7 @@ import Home from './Table';
 import BasicTable from './TableNew';
 
 import "./Report.css"
+import Chart1 from './Chart1';
 
 const Report = () => {
   const [inactive, setInactive] = React.useState(false);
@@ -44,7 +45,7 @@ const Report = () => {
             <input type='submit' className='btnGenerate' value='Generate Report'/>
           </form>
           <div>
-            <Linechart />
+            <Chart1 />
             <Home />
           </div>
         </div>

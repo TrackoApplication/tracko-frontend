@@ -36,9 +36,14 @@ const ActiveSprint = () => {
             </div> 
           </div>
           <div className='table'>
-            <div className='columnTopic'>TO DO
-              <div>
-                <button className='issues'>Issue 1</button>
+            <div className='columnTopic justify-center'>
+              TO DO
+              <div class="card" >
+                <div class="card-body">
+                  <h5 class="card-title">Issue 1</h5>
+                  <p class="card-text">Project planning stage</p>
+                  <a href="./Childissue" class="btn btn-primary">Button</a>
+                </div>
               </div>
             </div>
             <div className='columnTopic'>IN PROGRESS</div>

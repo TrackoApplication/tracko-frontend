@@ -1,0 +1,12 @@
+.report-table {
+    width: 100%;
+}
+
+.report-tr {
+    height: 50px;
+}
+
+.report-tr th {
+    font-weight: bold;
+    font-size: 1.rem;
+}

@@ -25,6 +25,7 @@ import 'mdbreact/dist/css/mdb.css';
 import Childissue from "./components/ActiveSprintMgt/childissue";
 import GroupDetail from "./components/GroupMgt/GroupDetail";
 import BacklogView from "./components/BacklogMgt/BacklogControl/BacklogView";
+import CreateChildIssue from "./components/ChildIssue/CreateChildIssue";
 import SprintList from "./components/BacklogMgt/Sprint/SprintList";
 // import IssueList from "./components/BacklogMgt/Issue/IssueList";
 
@@ -43,13 +44,14 @@ function App() {
         <Route path="/ProjectList" element ={<ProjectList/>}></Route>
         <Route path="/ClientList" element ={<ClientList/>}></Route>
         <Route path="/Childissue" element ={<Childissue/>}></Route>
+        <Route path="/CreateChildIssue" element ={<CreateChildIssue/>}></Route>
         
         {/* pages with sidebar */}
         
        
      
           <Route path="/Team" element ={<Team/>}></Route>
-          <Route path="/Backlog" element ={<Backlog/>}></Route>
+          {/* <Route path="/Backlog" element ={<Backlog/>}></Route> */}
           <Route path="/ActiveSprint" element ={<ActiveSprint/>}></Route>
           <Route path="/People" element ={<People/>}></Route>
           <Route path="/Forum" element ={<Forum/>}></Route>

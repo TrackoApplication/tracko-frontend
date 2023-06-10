@@ -1,5 +1,7 @@
 import React,{useState} from 'react';
 import Chart from 'react-apexcharts';
+//import React, {PureComponent} from 'react';
+//import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 //install : npm install react-apexcharts apexcharts//
 function Linechart()
 {
@@ -35,7 +37,7 @@ function Linechart()
                 'Jan 13','Jan 14','Jan 15','Jan 16','Jan 17','Jan 18']
             },
             yaxis:{
-                title:{text:"Story points/Issue count"}                 
+                title:{text:"Story point"}                 
             }
 
         }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./Report.css"
+import "./Report.css";
+import './Table.css';
 
 export default function Home() {
   const [get_rep, setGet_rep] = useState([]);
@@ -21,10 +22,10 @@ export default function Home() {
 
   return (
     <div className="cont">
-      <div className="py-4">
-        <table className="table table-bordered shadow">
+      <div className="p-4">
+        <table className="report-table table-bordered shadow">
           <thead>
-            <tr>
+            <tr className="report-tr">
               <th scope="col">Date</th>
               <th scope="col">Issue</th>
               <th scope="col">Event</th>
@@ -36,7 +37,7 @@ export default function Home() {
           </thead>
           <tbody>
             {get_rep.map((report) => (
-              <tr>
+              <tr className="report-tr">
                 <td>{report.date}</td>
                 <td>{report.issue}</td>
                 <td>{report.event}</td>

@@ -326,7 +326,6 @@ const AddIssue = () => {
             >
               Cancel
             </Button>
-
             <Button
               variant="primary"
               className="rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] "
