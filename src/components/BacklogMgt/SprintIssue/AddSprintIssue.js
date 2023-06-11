@@ -176,22 +176,23 @@ const AddSprintIssue = () => {
           + Create Issue
         </Button>
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} dialogClassName="mdl">
           {/* header section */}
           <Modal.Header>
             <Modal.Title>Create Issue</Modal.Title>
           </Modal.Header>
 
           {/* body section */}
-          <Modal.Body>
-            <Form style={{ overflowY: "scroll", height: "350px" }}>
+          <Modal.Body className="modalb">
+            <Form className="frm">
               <MDBCol>
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Project</Form.Label>
+                  <Form.Label className="flabel">Project</Form.Label>
                   <Form.Select
+                    className= "sitem"
                     name="projectName"
                     value={sprintissue.projectName}
                     // onChange={(e) => handleChange(e)}
@@ -208,7 +209,7 @@ const AddSprintIssue = () => {
                     <option value="project2">Project 2</option>
                     <option value="project3">Project 3</option>
                   </Form.Select>
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="infeedback">
                     {errors.projectName}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -217,8 +218,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Issue type</Form.Label>
+                  <Form.Label className="flabel">Issue type</Form.Label>
                   <Form.Select
+                    className= "sitem"
                     name="issueType"
                     value={sprintissue.issueType}
                     // onChange={(e) => handleChange(e)}
@@ -233,7 +235,7 @@ const AddSprintIssue = () => {
                     <option>Bug</option>
                     <option>QA</option>
                   </Form.Select>
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="infeedback">
                     {errors.issueType}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -242,8 +244,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Summary</Form.Label>
+                  <Form.Label className="flabel">Summary</Form.Label>
                   <Form.Control
+                    className="citem"
                     type="text"
                     placeholder="Summary"
                     name="summary"
@@ -254,7 +257,7 @@ const AddSprintIssue = () => {
                     required={true}
                     // autoFocus
                   />
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="infeedback">
                     {errors.summary}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -263,8 +266,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Description</Form.Label>
+                  <Form.Label className="flabel">Description</Form.Label>
                   <Form.Control
+                    className="citem"
                     as="textarea"
                     rows={5}
                     placeholder="Description"
@@ -280,8 +284,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Assignee</Form.Label>
+                  <Form.Label className="flabel">Assignee</Form.Label>
                   <Form.Select
+                    className= "sitem"
                     name="assignee"
                     value={sprintissue.assignee}
                     onChange={(e) => handleChange(e)}
@@ -301,8 +306,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Sprint</Form.Label>
+                  <Form.Label className="flabel">Sprint</Form.Label>
                   <Form.Select
+                    className= "sitem"
                     name="sprintName"
                     value={sprintissue.sprintName}
                     onChange={(e) => handleChange(e)}
@@ -321,8 +327,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Epic</Form.Label>
+                  <Form.Label className="flabel">Epic</Form.Label>
                   <Form.Select
+                    className= "sitem"
                     name="epicName"
                     value={sprintissue.epicName}
                     onChange={(e) => handleChange(e)}
@@ -341,8 +348,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Requirement of Testing</Form.Label>
+                  <Form.Label className="flabel">Requirement of Testing</Form.Label>
                   <Form.Select
+                    className= "sitem"
                     name="reqOfTesting"
                     value={sprintissue.reqOfTesting}
                     // onChange={(e) => handleChange(e)}
@@ -356,7 +364,7 @@ const AddSprintIssue = () => {
                     <option value="true">Yes</option>
                     <option value="false">No</option>
                   </Form.Select>
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="infeedback">
                     {errors.reqOfTesting}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -365,8 +373,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Story point estimate for developing</Form.Label>
+                  <Form.Label className="flabel">Story point estimate for developing</Form.Label>
                   <Form.Control
+                    className="citem"
                     type="number"
                     name="spdeveloping"
                     value={sprintissue.spdeveloping}
@@ -377,7 +386,7 @@ const AddSprintIssue = () => {
                     // placeholder="name@example.com"
                     // autoFocus
                   />
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="infeedback">
                     {errors.spdeveloping}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -386,8 +395,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Story point estimate for testing</Form.Label>
+                  <Form.Label className="flabel">Story point estimate for testing</Form.Label>
                   <Form.Control
+                    className="citem"
                     type="number"
                     name="sptesting"
                     value={sprintissue.sptesting}
@@ -397,7 +407,7 @@ const AddSprintIssue = () => {
                     required={sprintissue.reqOfTesting === "true"}
                     disabled={sprintissue.reqOfTesting !== "true"} // Disable the field when reqOfTesting is set to "false"
                   />
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="infeedback">
                     {errors.sptesting}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -406,8 +416,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Total estimated story point</Form.Label>
+                  <Form.Label className="flabel">Total estimated story point</Form.Label>
                   <Form.Control
+                    className="citem"
                     type="number"
                     name="totalSP"
                     value={parseInt(sprintissue.spdeveloping) + parseInt(sprintissue.sptesting)}
@@ -422,8 +433,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Priority</Form.Label>
+                  <Form.Label className="flabel">Priority</Form.Label>
                   <Form.Select
+                    className= "sitem"
                     name="priority"
                     value={sprintissue.priority}
                     // onChange={(e) => handleChange(e)}
@@ -439,7 +451,7 @@ const AddSprintIssue = () => {
                     <option>Medium</option>
                     <option>Low</option>
                   </Form.Select>
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="infeedback">
                     {errors.priority}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -448,8 +460,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Reporter</Form.Label>
+                  <Form.Label className="flabel">Reporter</Form.Label>
                   <Form.Select
+                    className= "sitem"
                     name="reporter"
                     value={sprintissue.reporter}
                     // onChange={(e) => handleChange(e)}
@@ -463,7 +476,7 @@ const AddSprintIssue = () => {
                     <option>Reporter 2</option>
                     <option>Reporter 3</option>
                   </Form.Select>
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="infeedback">
                     {errors.reporter}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -483,7 +496,7 @@ const AddSprintIssue = () => {
 
             <Button
               variant="primary"
-              className="rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] "
+              className="rounded bg-[#281454] text-white border-none  font-semibold hover:bg-[#281454] "
               onClick={handleSubmit}
             >
               Create
