@@ -88,7 +88,7 @@ const NavBar = () => {
               >
                 Users
               </Nav.Link>
-)}
+              )}
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
