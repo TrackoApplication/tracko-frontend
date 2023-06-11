@@ -41,6 +41,7 @@ const Register = () => {
 
   // setting state for form fields on change
   const handleChange = (field, value) => {
+    setErrors({})
     setsystemUsers({
       ...systemUsers,
       [field]: value,
@@ -223,7 +224,7 @@ const Register = () => {
                         data-toggle="tooltip"
                         data-placement="right"
                         title="Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character"
-                        type={passwordType}
+                        type="password"
                         id="password"
                         placeholder="********"
                         autoFocus
@@ -249,12 +250,12 @@ const Register = () => {
                     </Form.Control.Feedback>
                   </Form.Group>
 
-                  <Form.Group className="mb-3" c>
+                  <Form.Group className="mb-3" >
                     <Form.Label>Confirm Password</Form.Label>
                     <div className="input-group">
                       <Form.Control
                         name="confirmPassword"
-                        type={passwordType}
+                        type="password"
                         placeholder="********"
                         autoFocus
                         value={systemUsers.confirmPassword}
@@ -262,7 +263,7 @@ const Register = () => {
                         onChange={(e) =>
                           handleChange("confirmPassword", e.target.value)
                         }
-                        isInvalid={!!errors.password}
+                        isInvalid={!!errors.confirmPassword}
                       />
                       <button onClick={(e) => togglePassword(e)}>
                         {passwordType === "password" ? (

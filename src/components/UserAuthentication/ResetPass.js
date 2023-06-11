@@ -5,40 +5,34 @@ import logo from "../images/Tp.png";
 
 const ResetPass = () => {
   const navigate = useNavigate();
+  
 
   const [email, setEmail] = React.useState({});
   const [errors, setErrors] = React.useState({});
+
+  const handleChange = (e) => {
+    setEmail(e.target.value);
+    setErrors({});
+  };
 
   // setting state for form fields on change
 
   // validating form fields
   const validate = () => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     let errors = {};
     let isValid = true;
 
-    if (!email) {
+    if (email === "") {
       isValid = false;
-      errors["emailId"] = "Please enter your email Address.";
+      errors["email"] = "Please enter your email Address.";
     }
-
-    if (typeof email !== "undefined") {
-      let lastAtPos = email.lastIndexOf("@");
-      let lastDotPos = email.lastIndexOf(".");
-
-      if (
-        !(
-          lastAtPos < lastDotPos &&
-          lastAtPos > 0 &&
-          email.indexOf("@@") === -1 &&
-          lastDotPos > 2 &&
-          email.length - lastDotPos > 2
-        )
-      ) {
+    else if (!emailPattern.test(email)) 
+         {
         isValid = false;
         errors["email"] = "Please enter a valid email Address.";
       }
-    }
-
+    
     setErrors(errors);
     return isValid;
   };
@@ -98,10 +92,11 @@ const ResetPass = () => {
               Email
             </label>
             <input
-              type="text"
+              type="email"
               name="email"
+              required
               className="rounded h-10 w-80  px-2 border"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => handleChange(e)}
             ></input>
             <div>
               <p className="text-red-500 text-xs italic"> {errors.email}</p>

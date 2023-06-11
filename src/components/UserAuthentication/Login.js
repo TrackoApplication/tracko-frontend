@@ -22,120 +22,118 @@ import { AuthService } from "../../Services/auth.service";
 import { AdminPages } from "./AdminPages";
 
 const Login = () => {
+  const [passwordType, setPasswordType] = useState("password");
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [systemUsers, setSystemUsers] = useState();
   const [emailId, setEmail] = useState("");
-  const [error, setError] = useState(null);
-  const [errors, setErrors] = useState({});
+  const [error, setError] = useState("");
+  const [errors, setErrors] = useState("");
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState("");
+  const [accessToken, setAccessToken] = useState("");
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    setErrors("");
+    setError("");
   };
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    setErrors("");
+    setError("");
   };
 
-  const initialValues = {
-    email: "",
-    password: "",
-  };
+  const getUserRole = async () => {};
 
-  const getUserRole = async (accessToken) => {
-    try {
-      
-      // Make a request to the backend with the access token
-      const response = await axios.get("http://localhost:8080/api/v1/auth/role", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      
-      setRole(response.data);
-      if (role === "USER") {
-        navigate("/ProjectList");
-      } else if (role === "ADMIN") {
-        navigate("/userList");
-      }
-      
-      // Use the user role in your application logic
-      console.log('User Role:', role);
-
-    } catch (error) {
-      console.log('error while catching role');
-      // Handle error when retrieving user role
-    }
-  };
-
-
-  //Handlng form submit. Validating the form and if valid then saving the data to the database
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(validateForm());
 
-    // const formErrors = validateForm();
-    // if (Object.keys(formErrors).length === 0) {
-    try {
-      console.log("Sending authentication request...");
-      const response = await fetch(
-        "http://localhost:8080/api/v1/auth/authenticate",
-        {
+      if (Object.keys(validateForm()).length === 0) {
+      try {
+        console.log("Sending authentication request...");
+        const response = await fetch("http://localhost:8080/api/v1/auth/authenticate", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ password, emailId }),
-        }
-      );
+        });
 
-      if (!response.ok) {
-        console.log("Error response received:");
+        if (!response.ok) {
+          console.log("Error response received:");
+          const data = await response.json();
+          console.log(data.message);
+          setError("Username or password is incorrect");
+          throw new Error(data.message);
+        }
+
+        console.log("Success response received:");
         const data = await response.json();
-        console.log(data.message);
-        throw new Error(data.message);
+        console.log(data);
+
+        const accessToken = data.access_token;
+        localStorage.setItem("accessToken", accessToken);
+
+        console.log("Access token:" + accessToken);
+        console.log(data.access_token);
+
+        setError("");
+      } catch (error) {
+        console.log("Error occurred:");
+        console.log(error);
+        setError("Username or password is incorrect");
+
       }
 
-      console.log("Success response received:");
-      const data = await response.json();
-      console.log(data);
+      try {
+        // Make a request to the backend with the access token
+        const response = await axios.get("http://localhost:8080/api/v1/auth/role", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
 
-      // Get the access token from the API response
-      const accessToken = data.access_token;
-      // Save the access token to local storage
-      localStorage.setItem("accessToken", accessToken);
-      // Save the access token expiration date to local storage
+        const role = response.data; // Assuming the response contains the user's role
+        console.log('User Role:', role);
 
-      console.log("Access token:" + accessToken);
-      console.log(data.access_token);
-      getUserRole(accessToken);
+        if (role === "USER") {
+          navigate("/ProjectList");
+        } else if (role === "ADMIN") {
+          navigate("/userList");
+        }
 
-      // Redirect to the home page
-      
+        // Use the user role in your application logic
 
-      setError(null);
-    } catch (error) {
-      console.log("Error occurred:");
-      console.log(error);
-      setError("username or password is incorrect");
+      } catch (error) {
+        console.log('Error while fetching role:', error);
+        // Handle error when retrieving user role
+      }
+
     }
-    //   } else {
-    //     setErrors(formErrors);
-    // }
+    else
+    {
+      console.log("Error occurred:");
+      console.log(errors.password);
+      console.log(errors.emailId);
+
+    }
   };
 
   // validating the form fields
   const validateForm = () => {
-    const { firstName, lastName, password, confirmPassword, emailId } =
-      systemUsers;
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/;
 
     //defining the errors object
     const errors = {};
     if (!password || password === "") {
       errors.password = "Password is required";
+    } else if (!regexPassword.test(password)) {
+      errors.password = "Password should contain minimum eight characters, at least one uppercase letter, one lowercase letter and one number";
     }
 
     if (!emailId || emailId === "") {
@@ -143,8 +141,17 @@ const Login = () => {
     } else if (!regexEmail.test(emailId)) {
       errors.emailId = "Email Id is not valid";
     }
-
+    setErrors(errors);
     return errors;
+  };
+
+  const togglePassword = (e) => {
+    e.preventDefault();
+    if (passwordType === "password") {
+      setPasswordType("text");
+      return;
+    }
+    setPasswordType("password");
   };
 
   return (
@@ -165,30 +172,55 @@ const Login = () => {
             >
               <MDBCardBody className="p-5 shadow-5 text-center">
                 <h2 className="fw-bold mb-4">Sign in </h2>
-                <form>
-                  <MDBInput
-                    wrapperClass="mb-3"
-                    label="Email"
+                <form className="mb-">
+
+                <label className="flex m-2 text-gray-600 text-right">Email</label>
+                <div className="flex bg-[#E7F0FE] rounded">
+                  <input
+                    wrapperClass=""
                     id="form3"
                     type="email"
+                    className="w-[500px] space-between bg-[#E7F0FE] p-2 rounded"
                     required
                     value={emailId}
-                    onChange={handleEmailChange}
+                    onChange={(e) => handleEmailChange(e)}
                     // isInvalid={!!errors.email}
                   />
-                  <div>{errors.email}</div>
+                  </div>
+                  <div className="flex text-red-500 text-xs">{errors.emailId}</div>
 
-                  <MDBInput
-                    wrapperClass="mb-3"
-                    label="Password"
-                    id="form4"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    type="password"
-                  />
+                  <label className="flex m-2 text-gray-600 text-right">Password</label>
+                  <div className="flex bg-[#E7F0FE] rounded">
+                      <input
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character"
+                        type={passwordType}
+                        id="password"
+                        placeholder="********"
+                        autoFocus
+                        required
+                        className="w-[500px] space-between bg-[#E7F0FE] p-2 rounded"
+                        value={password}
+                        name="password"
+                        onChange={(e) => handlePasswordChange(e)}
+                        isInvalid={!!errors.password}
+                      />
+                      
+                      <button onClick={(e) => togglePassword(e)}>
+                        {passwordType === "password" ? (
+                          <i className="bi bi-eye-slash"></i>
+                        ) : (
+                          <i className="bi bi-eye"></i>
+                        )}
+                      </button>
+                      </div>
+                      <div className="flex text-red-500 mb-4 p-0 text-xs ">{errors.password}</div>
+                  
+                  
 
                   <button
-                    className="w-100  bg-[#FF8484] p-2 rounded hover:bg-[#fa7676] cursor-pointer"
+                    className="w-100  mt-3 bg-[#FF8484] p-2 rounded hover:bg-[#fa7676] cursor-pointer"
                     size="md"
                     type="submit"
                     onClick={(e) => {
@@ -198,7 +230,6 @@ const Login = () => {
                     sign in
                   </button>
                   {error && <p className="text-red-500">{error}</p>}
-
                 </form>
 
                 <div className="text-center">
@@ -221,8 +252,6 @@ const Login = () => {
           </MDBCol>
         </MDBRow>
       </MDBContainer>
-
-    
     </div>
   );
 };
