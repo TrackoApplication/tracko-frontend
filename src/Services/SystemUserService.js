@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const SYSTEMUSER_API_BASE_URL = "http://localhost:8080/api/v1";
+const SYSTEMUSER_API_BASE_URL = "http://localhost:8080/api/v1/systemusers";
 class SystemUserService {
 
     saveSystemUser(systemUser) {
@@ -11,8 +11,12 @@ class SystemUserService {
         return axios.get(SYSTEMUSER_API_BASE_URL);
     }
 
-    deleteSystemUser(id) {
-        return axios.delete(SYSTEMUSER_API_BASE_URL + '/' + id);
+    deleteSystemUser(id,accessToken) {
+        return axios.delete(SYSTEMUSER_API_BASE_URL + '/' + id, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
     }
 
     getSystemUserById(id) {

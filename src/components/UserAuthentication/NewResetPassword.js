@@ -13,17 +13,29 @@ const NewResetPassword = () => {
   const [errors, setErrors] = React.useState({});
   const [confirmPassword, setConfirmPassword] = React.useState({});
   const [token, setToken] = React.useState({});
+  const [passwordType, setPasswordType] = React.useState("password");
+
+  const togglePassword = (e) => {
+    e.preventDefault();
+    if (passwordType === "password") {
+      setPasswordType("text");
+      return;
+    }
+    setPasswordType("password");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log({ password, confirmPassword });
+    const validationErrors = validate(password, confirmPassword);
 
-    if (Object.keys(validate(password, confirmPassword)).length === 0) {
+    if (Object.keys(validationErrors).length === 0) {
       const url = window.location.href;
       const token = url.substring(url.lastIndexOf("=") + 1);
       console.log(token);
       try {
         const response = await axios.post(
-          "http://localhost:8080/api/v1/resetpassword",
+          "http://localhost:8080/api/v1/auth/resetpassword",
           {
             token: token,
             password: password,
@@ -40,6 +52,7 @@ const NewResetPassword = () => {
 
       // navigate("/Login");
     } else {
+      setErrors(validationErrors);
       console.log("Errors");
     }
   };
@@ -78,24 +91,31 @@ const NewResetPassword = () => {
             <p className="text-s  mx-auto  text-gray-500 pb-0 mb-o ">
               Your new password must be different to previously{" "}
             </p>
-            <p className="text-s  mx-auto text-gray-500 p-0 ">
-              used one
-            </p>
+            <p className="text-s  mx-auto text-gray-500 p-0 ">used one</p>
           </div>
 
           <div className="px-4 pt-2">
             <label className="block  text-sm font-normal mb-1 ">
               New Password
             </label>
-            <input
-              type="text"
-              name="password"
-              className="rounded h-10 w-80  px-2 border "
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            ></input>
+            <div className="flex bg-[#FFFFFF] rounded border">
+              <input
+                type={passwordType}
+                name="password"
+                className="rounded h-10 w-80  px-2  "
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              ></input>
+              <button onClick={(e) => togglePassword(e)}>
+                {passwordType === "password" ? (
+                  <i className="bi bi-eye-slash"></i>
+                ) : (
+                  <i className="bi bi-eye"></i>
+                )}
+              </button>
+            </div>
             <div>
-              <p className="text-red-500 text-xs italic"> {errors.password}</p>
+              <p className="field-errors text-red-500 text-xs italic"> {errors.password}</p>
             </div>
           </div>
 
@@ -103,13 +123,22 @@ const NewResetPassword = () => {
             <label className="block text-sm font-normal mb-1 ">
               ConfirmPassword
             </label>
+            <div className="flex bg-[#FFFFFF] border rounded">
             <input
-              type="text"
+              type={passwordType}
               name="ConfirmPassword"
-              className="rounded h-10 w-80 px-2 border"
+              className="w-[500px] space-between bg-[#FFFFFF] p-2 rounded"
               required
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></input>
+            <button onClick={(e) => togglePassword(e)}>
+              {passwordType === "password" ? (
+                <i className="bi bi-eye-slash"></i>
+              ) : (
+                <i className="bi bi-eye"></i>
+              )}
+            </button>
+          </div>
             <div>
               <p className="text-red-500 text-xs italic">
                 {errors.confirmPassword}

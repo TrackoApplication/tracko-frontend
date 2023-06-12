@@ -62,6 +62,7 @@ const Login = () => {
           },
           body: JSON.stringify({ password, emailId }),
         });
+        axios.defaults.headers.common["Authorization"] = response.access_token;
 
         if (!response.ok) {
           console.log("Error response received:");
@@ -98,12 +99,13 @@ const Login = () => {
         });
 
         const role = response.data; // Assuming the response contains the user's role
+        
         console.log('User Role:', role);
 
         if (role === "USER") {
           navigate("/ProjectList");
         } else if (role === "ADMIN") {
-          navigate("/userList");
+          navigate("/UserList");
         }
 
         // Use the user role in your application logic

@@ -15,3 +15,30 @@
     margin-right: 0;
   }
 }
+
+/* .input-group.is-valid .form-control {
+  border-color: green;
+} */
+
+.input-group {
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+
+#send-button {
+  position: relative;
+}
+
+#send-button.loading::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url('../images/g2uA.gif'); /* Replace 'loading.gif' with the path to your loading icon */
+  background-size: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

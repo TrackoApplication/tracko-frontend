@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import './App.css';
-import Register from './components/UserAuthentication/Register';
-import Login from './components/UserAuthentication/Login';
+import "./App.css";
+import Register from "./components/UserAuthentication/Register";
+import Login from "./components/UserAuthentication/Login";
 import { BrowserRouter, Router, Link, Route, Routes } from "react-router-dom";
 import Navbar from "./components/NavBar/Navbar";
 import UserList from "./components/UserMgt/UserList";
@@ -28,27 +28,30 @@ import Home from "./Home";
 import NewResetPassword from "./components/UserAuthentication/NewResetPassword";
 import { PageNotFound } from "./components/CommonComponents/PageNotFound";
 import EmailSent from "./components/UserAuthentication/EmailSent";
+import {AuthProvider} from './components/UserAuthentication/AuthContext';
+
 
 function App() {
-
   const UserListWithNavbar = withNavbar(UserList);
   const token = localStorage.getItem("token");
-  
+
   return (
     <>
-      <BrowserRouter>
-      
-        <Routes>
 
+      <AuthProvider>
+    
+
+      <BrowserRouter>
+        <Routes>
           {/* pages without sidebar & nav bar */}
           <Route path="/" element={<Home />} />
-      
+
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/ResetPass" element={<ResetPass />} />
           <Route path="/AddUser" element={<AddUser />} />
           <Route path="/SuccesfulAction" element={<SuccesfulAction />} />
-          <Route path="/Home" element={<Home/>} />
+          <Route path="/Home" element={<Home />} />
 
           {/* pages with sidebar */}
           <Route path="/Team" element={<Team />} />
@@ -60,36 +63,35 @@ function App() {
           <Route path="/GroupDetail/:id" element={<GroupDetail />} />
           {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
           <Route path="/Group" element={<Group />} />
-          <Route path="/Dashboard" element ={<DashLayout/>}/>
-          <Route path="/reset_password" element={<NewResetPassword/>} />
+          <Route path="/Dashboard" element={<DashLayout />} />
+          <Route path="/reset_password" element={<NewResetPassword />} />
 
-
-        {/* pages with sidebar */}
-          <Route path="/Team" element ={<Team/>}/>
-          <Route path="/Backlog" element ={<Backlog/>}/>
-          <Route path="/BacklogView" element ={<BacklogView/>}/>
-          <Route path="/ActiveSprint" element ={<ActiveSprint/>}/>
-          <Route path="/People" element ={<People/>}/>
-          <Route path="/Forum" element ={<Forum/>}/>
-          <Route path="/Report" element ={<Report/>}/>
-          <Route path="/emailsent/:email" element ={<EmailSent/>}/>
+          {/* pages with sidebar */}
+          <Route path="/Team" element={<Team />} />
+          <Route path="/Backlog" element={<Backlog />} />
+          <Route path="/BacklogView" element={<BacklogView />} />
+          <Route path="/ActiveSprint" element={<ActiveSprint />} />
+          <Route path="/People" element={<People />} />
+          <Route path="/Forum" element={<Forum />} />
+          <Route path="/Report" element={<Report />} />
+          <Route path="/emailsent/:email" element={<EmailSent />} />
 
           {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
-          <Route path="/Group" element ={<Group/>}/>
-          <Route path="/Dashboard" element ={<DashLayout/>}/>
-
+          <Route path="/Group" element={<Group />} />
+          <Route path="/Dashboard" element={<DashLayout />} />
 
           {/* pages with navbar */}
+          
           <Route path="/UserList" element={<UserListWithNavbar />} />
+          
           <Route path="/ProjectList" element={<ProjectList />} />
           <Route path="/ClientList" element={<ClientList />} />
           <Route path="/Popup" element={<Popup />} />
 
           <Route path="*" element={<PageNotFound />} />
-    
-    </Routes>
-
+        </Routes>
       </BrowserRouter>
+        </AuthProvider>
     </>
   );
 }
@@ -102,10 +104,9 @@ function withNavbar(Component) {
       <>
         <Navbar />
         <div className="page-body">
-        <Component {...props} />
+          <Component {...props} />
         </div>
       </>
     );
-  }
+  };
 }
-

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -10,16 +10,19 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import "./navStyle.css";
 import { useEffect } from "react";
 import axios from "axios";
+import AuthContext from "../UserAuthentication/AuthContext";
 
 const NavBar = () => {
   const [accessGroup, setAccessGroup] = useState("");
   const [loading, setLoading] = useState(false);
-  const [accessToken, setAccessToken] = useState( localStorage.getItem("accessToken") || null);
   const [role, setRole] = useState("");
+
 
 
   const navigate = useNavigate();
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -30,15 +33,9 @@ const NavBar = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      const response2 = await axios.get("http://localhost:8080/api/v1/systemusersDto", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
 
       setRole(response.data);
-      console.log(response2.data.accessGroup);
-      setAccessGroup(response2.data.accessGroup);
+      console.log(role); 
       } catch (error) {
         console.log(error);
       }
@@ -81,7 +78,7 @@ const NavBar = () => {
                 Clients
               </Nav.Link>
               
-              { role === "ADMIN" && (
+              {role === "ADMIN" && (
               <Nav.Link
                 onClick={() => navigate("/UserList")}
                 className="mx-2 text-white transition duration-700 hover:scale-125 ease-in-out"

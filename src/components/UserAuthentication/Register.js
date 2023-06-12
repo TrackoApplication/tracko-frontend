@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   MDBContainer,
@@ -23,14 +23,13 @@ const Register = () => {
   const handleShow = () => setShow(true);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({});
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState("null");
   const [validated, setValidated] = useState(false);
   const [emailExists, setEmailExists] = useState(false);
   const [passwordType, setPasswordType] = useState("password");
   const navigate = useNavigate();
 
-
-   // setting state for form fields
+  // setting state for form fields
   const [systemUsers, setsystemUsers] = React.useState({
     firstName: "",
     lastName: "",
@@ -38,28 +37,13 @@ const Register = () => {
     emailId: "",
   });
 
-
   // setting state for form fields on change
   const handleChange = (field, value) => {
-    setErrors({})
+    setErrors({});
     setsystemUsers({
       ...systemUsers,
       [field]: value,
     });
-  };
-
-  // save system user to the data base usign the service post api
-  const saveSystemUser = (e) => {
-    e.preventDefault();
-    SystemUserService.saveSystemUser(systemUsers)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    handleClose();
-    setLoading(true);
   };
 
   //Handlng form submit. Validating the form and if valid then saving the data to the database
@@ -68,44 +52,46 @@ const Register = () => {
     const firstName = systemUsers.firstName;
     const lastName = systemUsers.lastName;
     const password = systemUsers.password;
-  
+
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
       try {
         console.log("Sending registration request...");
-        const response = await fetch("http://localhost:8080/api/v1/auth/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ emailId, firstName, lastName, password }),
-        });
-  
+        const response = await fetch(
+          "http://localhost:8080/api/v1/auth/register",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ emailId, firstName, lastName, password }),
+          }
+        );
+
         if (!response.ok) {
           console.log("Error response received:");
           const data = await response.json();
           console.log(data.message);
           throw new Error(data.message);
         }
-  
+
         // Registration successful
         console.log("Registration successful!");
         alert("Registration successful!");
         navigate("/login");
-  
       } catch (error) {
         console.error("An error occurred during registration:");
-        console.error(error);
-        errors.userExistsError = "User already exists";
-        
+
+        // Inside the catch block of the try-catch statement
+        setErrors({ userExistsError: "User already exists" });
+
         // Handle the error here
       }
     } else {
       setErrors(formErrors);
     }
   };
-  
 
   // password show& hide function
   const togglePassword = (e) => {
@@ -116,8 +102,6 @@ const Register = () => {
     }
     setPasswordType("password");
   };
-
-
 
   // validating the form fields
   const validateForm = () => {
@@ -177,40 +161,58 @@ const Register = () => {
                   <MDBRow>
                     <MDBCol>
                       <Form.Group className="mb-3">
-                        <Form.Label>First Name</Form.Label>
-                        <Form.Control
-                          name="firstName"
-                          type="Name"
-                          placeholder="Jhon"
-                          value={systemUsers.firstName}
-                          // onChange={(e)=>handleChange(e)}
-                          onChange={(e) =>
-                            handleChange("firstName", e.target.value)
-                          }
-                          required
-                          isInvalid={!!errors.firstName}
-                        />
-                        <Form.Control.Feedback type="invalid">
+                        <Form.Label className="flex">First Name</Form.Label>
+                        <div
+                          className={`input-group ${
+                            errors.password ? "is-invalid" : "is-valid"
+                          }`}
+                        >
+                          <Form.Control
+                            name="firstName"
+                            type="Name"
+                            placeholder="Jhon"
+                            value={systemUsers.firstName}
+                            // onChange={(e)=>handleChange(e)}
+                            onChange={(e) =>
+                              handleChange("firstName", e.target.value)
+                            }
+                            required
+                            isInvalid={!!errors.firstName}
+                          />
+                        </div>
+                        <Form.Control.Feedback
+                          type="invalid"
+                          className="d-block text-left"
+                        >
                           {errors.firstName}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </MDBCol>
                     <MDBCol>
                       <Form.Group className="mb-3">
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control
-                          name="lastName"
-                          type="Name"
-                          placeholder="Dee"
-                          autoFocus
-                          required
-                          value={systemUsers.lastName}
-                          onChange={(e) =>
-                            handleChange("lastName", e.target.value)
-                          }
-                          isInvalid={!!errors.lastName}
-                        />
-                        <Form.Control.Feedback type="invalid">
+                        <Form.Label className="flex">Last Name</Form.Label>
+                        <div
+                          className={`input-group ${
+                            errors.password ? "is-invalid" : "is-valid"
+                          }`}
+                        >
+                          <Form.Control
+                            name="lastName"
+                            type="Name"
+                            placeholder="Dee"
+                            autoFocus
+                            required
+                            value={systemUsers.lastName}
+                            onChange={(e) =>
+                              handleChange("lastName", e.target.value)
+                            }
+                            isInvalid={!!errors.lastName}
+                          />
+                        </div>
+                        <Form.Control.Feedback
+                          type="invalid"
+                          className="d-block text-left"
+                        >
                           {errors.lastName}
                         </Form.Control.Feedback>
                       </Form.Group>
@@ -218,16 +220,21 @@ const Register = () => {
                   </MDBRow>
 
                   <Form.Group className="mb-3">
-                    <Form.Label>Password</Form.Label>
-                    <div className="input-group">
+                    <Form.Label className="flex">Password</Form.Label>
+                    <div
+                      className={`input-group ${
+                        errors.password ? "is-invalid" : "is-valid"
+                      }`}
+                    >
                       <Form.Control
                         data-toggle="tooltip"
                         data-placement="right"
                         title="Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character"
-                        type="password"
+                        type={passwordType}
                         id="password"
                         placeholder="********"
                         autoFocus
+                        className="border-0"
                         required
                         value={systemUsers.password}
                         name="password"
@@ -245,19 +252,27 @@ const Register = () => {
                       </button>
                     </div>
 
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="d-block text-left"
+                    >
                       {errors.password}
                     </Form.Control.Feedback>
                   </Form.Group>
 
-                  <Form.Group className="mb-3" >
-                    <Form.Label>Confirm Password</Form.Label>
-                    <div className="input-group">
+                  <Form.Group className="mb-3">
+                    <Form.Label className="flex">Confirm Password</Form.Label>
+                    <div
+                      className={`input-group ${
+                        errors.password ? "is-invalid" : "is-valid"
+                      }`}
+                    >
                       <Form.Control
                         name="confirmPassword"
-                        type="password"
+                        type={passwordType}
                         placeholder="********"
                         autoFocus
+                        className="border-0"
                         value={systemUsers.confirmPassword}
                         required
                         onChange={(e) =>
@@ -273,24 +288,38 @@ const Register = () => {
                         )}
                       </button>
                     </div>
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="d-block text-left"
+                    >
                       {errors.confirmPassword}
                     </Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group className="mb-3">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      name="emailId"
-                      type="email"
-                      placeholder="name@example.com"
-                      autoFocus
-                      required
-                      value={systemUsers.emailId}
-                      onChange={(e) => handleChange("emailId", e.target.value)}
-                      isInvalid={!!errors.emailId}
-                    />
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Label className="flex">Email address</Form.Label>
+                    <div
+                      className={`input-group ${
+                        errors.password ? "is-invalid" : "is-valid"
+                      }`}
+                    >
+                      <Form.Control
+                        name="emailId"
+                        type="email"
+                        placeholder="name@example.com"
+                        autoFocus
+                        required
+                        value={systemUsers.emailId}
+                        onChange={(e) =>
+                          handleChange("emailId", e.target.value)
+                        }
+                        isInvalid={!!errors.emailId}
+                      />
+                    </div>
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="d-block text-left"
+                    >
                       {errors.emailId}
                     </Form.Control.Feedback>
                   </Form.Group>
@@ -317,11 +346,12 @@ const Register = () => {
                     >
                       Register
                     </Button>
-        
                   </div>
                   {errors.userExistsError && (
-        <p className="text-red-500 pb-3">User already exists. Please choose a different email.</p>
-      )}
+                    <p className="text-red-500 pb-3">
+                      {errors.userExistsError}
+                    </p>
+                  )}
                 </Form>
 
                 <div className="text-center">

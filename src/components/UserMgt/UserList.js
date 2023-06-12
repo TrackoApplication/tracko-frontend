@@ -20,6 +20,7 @@ import axios from "axios";
 
 
 const UserList = () => {
+
   const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -31,10 +32,11 @@ const UserList = () => {
   const [search, setSearch] = useState("");
   const [role, setRole] = useState("");
 
-
-  const [accessToken, setAccessToken] = useState( localStorage.getItem("accessToken") || null);
+  
 
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -46,20 +48,32 @@ const UserList = () => {
         },
       });
 
-
         setSystemUsers(response.data);
         console.log(systemUsers);
       } catch (error) {
-        console.log(error);
-      }
+        if (error.response && error.response.status === 401) {
+          // Handle 401 Unauthorized error
+          console.log('Unauthorized: Access token expired or invalid');
+          // Perform token refresh or redirect to login
+        } else if (error.message === 'Network Error') {
+          // Handle network error
+          console.log('Network Error: Please check your internet connection');
+        } else {
+          // Handle other errors
+          console.log('An error occurred:', error.message);
+        }}
       setLoading(false);
     };
+
     fetchData();
   }, []);
 
 
   const deleteSystemUser = (id) => {
-    SystemUserService.deleteSystemUser(id).then((res) => {
+    const accessToken = localStorage.getItem('accessToken');
+    console.log(systemUsers.systemUserId);
+    SystemUserService.deleteSystemUser(id,accessToken)
+    .then((res) => {
       if (systemUsers) {
         setSystemUsers((prevElement) => {
           setShowSuccess(true);

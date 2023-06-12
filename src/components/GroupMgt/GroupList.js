@@ -17,11 +17,16 @@ export const GroupList = () => {
   
 
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+
     const getGroups = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:8080/api/v1/accessgroups');
-
+        const response = await axios.get("http://localhost:8080/api/v1/accessgroups/all", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
         setGroups(response.data);
         console.log(response.data);
       }
@@ -30,6 +35,7 @@ export const GroupList = () => {
       }
       setLoading(false);
     }; 
+    
     getGroups();
    
   }, []);
@@ -79,7 +85,7 @@ export const GroupList = () => {
 
             <td className='col-2'>
               <MDBBtn
-               onClick={() => navigate('/GroupDetail/' + group.id)}
+               onClick={() => navigate('/GroupDetail/' + group.accessGroupId)}
                 color='link' rounded size='sm'>
                 Show Details
               </MDBBtn>

@@ -2,13 +2,15 @@ import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../images/Tp.png";
+import "./Register.css";
 
 const ResetPass = () => {
   const navigate = useNavigate();
-  
 
   const [email, setEmail] = React.useState({});
   const [errors, setErrors] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false); // Added loading state
+
 
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -26,13 +28,11 @@ const ResetPass = () => {
     if (email === "") {
       isValid = false;
       errors["email"] = "Please enter your email Address.";
+    } else if (!emailPattern.test(email)) {
+      isValid = false;
+      errors["email"] = "Please enter a valid email Address.";
     }
-    else if (!emailPattern.test(email)) 
-         {
-        isValid = false;
-        errors["email"] = "Please enter a valid email Address.";
-      }
-    
+
     setErrors(errors);
     return isValid;
   };
@@ -40,9 +40,11 @@ const ResetPass = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      setIsLoading(true); // Start loading
+
       axios
         .post(
-          "http://localhost:8080/api/v1/forgotpassword",
+          "http://localhost:8080/api/v1/auth/forgotpassword",
           { email },
           {
             headers: { "Content-Type": "application/json" },
@@ -52,17 +54,18 @@ const ResetPass = () => {
           console.log(res);
           console.log(res.data);
           alert("Password reset link sent to your email");
-          navigate("/emailsent/"+email);
+          navigate("/emailsent/" + email);
         })
         .catch((err) => {
           setErrors(err.response.data);
           errors["email"] = "Please enter a valid email Address.";
           console.log(err);
+        })
+        .finally(() => {
+          setIsLoading(false); // Stop loading
         });
 
       console.log(email);
-      // dispatch(loginUser(resetMail));
-      // navigate("/dashboard");
     }
   };
 
@@ -88,9 +91,7 @@ const ResetPass = () => {
           </div>
 
           <div className="px-4 pt-2">
-            <label className="block  text-sm font-normal mb-1 ">
-              Email
-            </label>
+            <label className="block  text-sm font-normal mb-1 ">Email</label>
             <input
               type="email"
               name="email"
@@ -104,12 +105,40 @@ const ResetPass = () => {
           </div>
 
           <div className="items-center  mx-4 w-full ">
-            <button
-              onClick={handleSubmit}
-              className="rounded text-white font-semibold bg-[#FF8484] w-80 hover:bg-[#fa7676]  my-4 px-4 py-2 cursor-pointer "
-            >
-              Send Email
-            </button>
+          <button
+          id="send-button"
+          onClick={handleSubmit}
+          className="rounded text-white font-semibold bg-[#FF8484] w-80 hover:bg-[#fa7676]  my-4 px-4 py-2 cursor-pointer "
+          disabled={isLoading} // Disable the button while loading
+        >
+          {isLoading ? (
+            <span className="flex items-center mx-auto">
+              <svg
+                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white mx-auto"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25 mx-auto"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75 mx-auto "
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 004 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647zm10-2.647A7.962 7.962 0 0020 12h-4c0-3.042-1.135-5.824-3-7.938l-3 2.647z"
+                ></path>
+              </svg>
+              {/* Sending... */}
+            </span>
+          ) : (
+            "Send Email"
+          )}
+        </button>
 
             <div className="flex   items-center content-center mt-1">
               <div className="ml-12 pl-12">
