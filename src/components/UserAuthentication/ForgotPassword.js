@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../images/Tp.png";
 import "./Register.css";
 
-const ResetPass = () => {
+const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = React.useState({});
@@ -172,4 +172,4 @@ const ResetPass = () => {
   );
 };
 
-export default ResetPass;
+export default ForgotPassword;

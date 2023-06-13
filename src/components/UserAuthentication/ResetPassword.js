@@ -5,7 +5,7 @@ import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 import { useHistory } from "react-router-dom";
 import logo from "../images/Tp.png";
 
-const NewResetPassword = () => {
+const ResetPassword = () => {
   const [showSuccess, setShowSuccess] = React.useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(false);
@@ -186,4 +186,4 @@ const NewResetPassword = () => {
   );
 };
 
-export default NewResetPassword;
+export default ResetPassword;

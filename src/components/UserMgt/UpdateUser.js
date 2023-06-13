@@ -48,6 +48,7 @@ export const UpdateUser = (props) => {
       try {
         const response = await SystemUserService.getSystemUserById(systemUsers.systemUserId);
         setsystemUsers(response.data);
+        console.log(systemUsers);
       } catch (error) {
         console.log(error);
 
@@ -60,8 +61,9 @@ export const UpdateUser = (props) => {
    
 
   const updateSystemUser = (e) => {
+    const accessToken = localStorage.getItem('accessToken');
     e.preventDefault();
-    SystemUserService.updateSystemUser(id,systemUsers).then((res) => {
+    SystemUserService.updateSystemUser(id,systemUsers,accessToken).then((res) => {
       props.onHide();
       // window.location.reload(false);
       setShowSuccess(true);    
@@ -131,7 +133,7 @@ export const UpdateUser = (props) => {
               <select 
               class="form-control" 
               id="exampleFormControlSelect1"
-              name='accessGroup'
+              name='accessGroupName'
               type="Name"
               placeholder={systemUsers.accessGroup}
               autoFocus

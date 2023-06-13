@@ -5,9 +5,10 @@ import Login from "./components/UserAuthentication/Login";
 import { BrowserRouter, Router, Link, Route, Routes } from "react-router-dom";
 import Navbar from "./components/NavBar/Navbar";
 import UserList from "./components/UserMgt/UserList";
-import ResetPass from "./components/UserAuthentication/ResetPass";
+
 import ProjectList from "./components/ProjectMgt/ProjectList";
 import ClientList from "./components/ClientMgt/ClientList";
+
 import Team from "./components/TeamMgt/Team";
 import Backlog from "./components/BacklogMgt/Backlog";
 import ActiveSprint from "./components/ActiveSprintMgt/ActiveSprint";
@@ -25,11 +26,11 @@ import SuccesfulAction from "./components/CommonComponents/SuccessfulAction";
 import DashLayout from "./components/NewDashboard/DashLayout";
 import Popup from "./Popup";
 import Home from "./Home";
-import NewResetPassword from "./components/UserAuthentication/NewResetPassword";
 import { PageNotFound } from "./components/CommonComponents/PageNotFound";
 import EmailSent from "./components/UserAuthentication/EmailSent";
-import {AuthProvider} from './components/UserAuthentication/AuthContext';
-
+import { AuthProvider } from "./components/UserAuthentication/AuthContext";
+import ResetPassword from "./components/UserAuthentication/ResetPassword";
+import ForgotPassword from "./components/UserAuthentication/ForgotPassword";
 
 function App() {
   const UserListWithNavbar = withNavbar(UserList);
@@ -37,61 +38,58 @@ function App() {
 
   return (
     <>
-
       <AuthProvider>
-    
+        <BrowserRouter>
+          <Routes>
+            {/* pages without sidebar & nav bar */}
+            <Route path="/" element={<Home />} />
 
-      <BrowserRouter>
-        <Routes>
-          {/* pages without sidebar & nav bar */}
-          <Route path="/" element={<Home />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/Login" element={<Login />}></Route>
+            <Route path="/ForgotPassword" element={<ForgotPassword />} />
+            <Route path="/AddUser" element={<AddUser />} />
+            <Route path="/SuccesfulAction" element={<SuccesfulAction />} />
+            <Route path="/Home" element={<Home />} />
 
-          <Route path="/Register" element={<Register />} />
-          <Route path="/Login" element={<Login />}></Route>
-          <Route path="/ResetPass" element={<ResetPass />} />
-          <Route path="/AddUser" element={<AddUser />} />
-          <Route path="/SuccesfulAction" element={<SuccesfulAction />} />
-          <Route path="/Home" element={<Home />} />
+            {/* pages with sidebar */}
+            <Route path="/Team" element={<Team />} />
+            <Route path="/Backlog" element={<Backlog />} />
+            <Route path="/ActiveSprint" element={<ActiveSprint />} />
+            <Route path="/People" element={<People />} />
+            <Route path="/Forum" element={<Forum />} />
+            <Route path="/Report" element={<Report />} />
+            <Route path="/GroupDetail/:id" element={<GroupDetail />} />
+            {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
+            <Route path="/Group" element={<Group />} />
+            <Route path="/Dashboard" element={<DashLayout />} />
+            <Route path="/reset_password" element={<ResetPassword />} />
 
-          {/* pages with sidebar */}
-          <Route path="/Team" element={<Team />} />
-          <Route path="/Backlog" element={<Backlog />} />
-          <Route path="/ActiveSprint" element={<ActiveSprint />} />
-          <Route path="/People" element={<People />} />
-          <Route path="/Forum" element={<Forum />} />
-          <Route path="/Report" element={<Report />} />
-          <Route path="/GroupDetail/:id" element={<GroupDetail />} />
-          {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
-          <Route path="/Group" element={<Group />} />
-          <Route path="/Dashboard" element={<DashLayout />} />
-          <Route path="/reset_password" element={<NewResetPassword />} />
+            {/* pages with sidebar */}
+            <Route path="/Team" element={<Team />} />
+            <Route path="/Backlog" element={<Backlog />} />
+            <Route path="/BacklogView" element={<BacklogView />} />
+            <Route path="/ActiveSprint" element={<ActiveSprint />} />
+            <Route path="/People" element={<People />} />
+            <Route path="/Forum" element={<Forum />} />
+            <Route path="/Report" element={<Report />} />
+            <Route path="/emailsent/:email" element={<EmailSent />} />
 
-          {/* pages with sidebar */}
-          <Route path="/Team" element={<Team />} />
-          <Route path="/Backlog" element={<Backlog />} />
-          <Route path="/BacklogView" element={<BacklogView />} />
-          <Route path="/ActiveSprint" element={<ActiveSprint />} />
-          <Route path="/People" element={<People />} />
-          <Route path="/Forum" element={<Forum />} />
-          <Route path="/Report" element={<Report />} />
-          <Route path="/emailsent/:email" element={<EmailSent />} />
+            {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
+            <Route path="/Group" element={<Group />} />
+            <Route path="/Dashboard" element={<DashLayout />} />
 
-          {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
-          <Route path="/Group" element={<Group />} />
-          <Route path="/Dashboard" element={<DashLayout />} />
+            {/* pages with navbar */}
 
-          {/* pages with navbar */}
-          
-          <Route path="/UserList" element={<UserListWithNavbar />} />
-          
-          <Route path="/ProjectList" element={<ProjectList />} />
-          <Route path="/ClientList" element={<ClientList />} />
-          <Route path="/Popup" element={<Popup />} />
+            <Route path="/UserList" element={<UserListWithNavbar />} />
 
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
-        </AuthProvider>
+            <Route path="/ProjectList" element={<ProjectList />} />
+            <Route path="/ClientList" element={<ClientList />} />
+            <Route path="/Popup" element={<Popup />} />
+
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </>
   );
 }

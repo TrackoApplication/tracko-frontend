@@ -41,7 +41,6 @@ const UserList = () => {
       setLoading(true);
       try {
         // const response = await SystemUserService.getSystemUser();
-
         const response = await axios.get("http://localhost:8080/api/v1/systemusersDto", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
