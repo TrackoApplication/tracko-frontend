@@ -334,9 +334,12 @@ import Team from "./Team";
 import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 import AddTeam from "./AddTeam";
 import UpdateTeam from "./UpdateTeam";
+import Sidebar from "../SideBar/Sidebar";
+
 
 const TeamList = () => {
   const navigate = useNavigate();
+  const [inactive, setInactive] = React.useState(false);
 
   const [showAddTeam, setShowAddTeam] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -428,7 +431,13 @@ const TeamList = () => {
   });
 
   return (
-    <div>
+    
+   
+    
+   
+   <div>
+        
+          
       <div className="container mx-auto my-8">
         <div className="h-12">
           <button
@@ -478,8 +487,10 @@ const TeamList = () => {
               </tbody>
             )}
           </table>
+          
         </div>
       </div>
+      
 
       {/* Add Team Popup */}
       {showAddTeam && (
@@ -512,6 +523,7 @@ const TeamList = () => {
         message="Team Deleted Successfully"
       />
     </div>
+    
   );
 };
 

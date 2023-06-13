@@ -56,7 +56,7 @@ function App() {
           <Route path="/SuccesfulAction" element={<SuccesfulAction />} />
 
           {/* pages with sidebar */}
-          <Route path="/Team" element={<Team />} />
+          <Route path="/TeamList" element={<TeamList />} />
           <Route path="/Backlog" element={<Backlog />} />
           <Route path="/ActiveSprint" element={<ActiveSprint />} />
           <Route path="/People" element={<People />} />
@@ -66,7 +66,7 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Group" element={<Group />} />
         {/* pages with sidebar */}
-          <Route path="/Team" element ={<Team/>}/>
+          <Route path="/TeamList" element ={<TeamList/>}/>
           <Route path="/Backlog" element ={<Backlog/>}/>
           <Route path="/BacklogView" element ={<BacklogView/>}/>
           <Route path="/ActiveSprint" element ={<ActiveSprint/>}/>
@@ -77,8 +77,7 @@ function App() {
           <Route path="/Dashboard" element ={<Dashboard/>}/>
           <Route path="/Group" element ={<Group/>}/>
           <Route path="/newdashboard" element ={<DashLayout/>}/>
-
-
+        
           {/* pages with navbar */}
           <Route path="/UserList" element={<UserListWithNavbar/>} />
           <Route path="/ProjectList" element={<ProjectList />} />
