@@ -11,10 +11,10 @@ import ClientList from "./components/ClientMgt/ClientList";
 
 import Team from "./components/TeamMgt/Team";
 import Backlog from "./components/BacklogMgt/Backlog";
-import ActiveSprint from "./components/ActiveSprintMgt/ActiveSprint";
+
 import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
-import Report from "./components/ReportMgt/Report";
+
 import AddUser from "./components/UserMgt/AddUser";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
@@ -54,10 +54,9 @@ function App() {
             {/* pages with sidebar */}
             <Route path="/Team" element={<Team />} />
             <Route path="/Backlog" element={<Backlog />} />
-            <Route path="/ActiveSprint" element={<ActiveSprint />} />
             <Route path="/People" element={<People />} />
             <Route path="/Forum" element={<Forum />} />
-            <Route path="/Report" element={<Report />} />
+            
             <Route path="/GroupDetail/:id" element={<GroupDetail />} />
             {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
             <Route path="/Group" element={<Group />} />
@@ -68,10 +67,9 @@ function App() {
             <Route path="/Team" element={<Team />} />
             <Route path="/Backlog" element={<Backlog />} />
             <Route path="/BacklogView" element={<BacklogView />} />
-            <Route path="/ActiveSprint" element={<ActiveSprint />} />
+
             <Route path="/People" element={<People />} />
             <Route path="/Forum" element={<Forum />} />
-            <Route path="/Report" element={<Report />} />
             <Route path="/emailsent/:email" element={<EmailSent />} />
 
             {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
