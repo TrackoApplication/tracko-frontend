@@ -9,7 +9,7 @@ import ResetPass from "./components/UserAuthentication/ResetPass";
 import ProjectList from "./components/ProjectMgt/ProjectList";
 
 import Team from "./components/TeamMgt/Team";
-import Backlog from "./components/BacklogMgt/Backlog";
+// import Backlog from "./components/BacklogMgt/BacklogControl/Backlog";
 import ActiveSprint from "./components/ActiveSprintMgt/ActiveSprint";
 import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
@@ -17,10 +17,8 @@ import Report from "./components/ReportMgt/Report";
 import AddUser from "./components/UserMgt/AddUser";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
-import NavLayout from "./components/Layout/NavLayout";
-import { SideLayout } from "./components/Layout/SideLayout";
 import GroupDetail from "./components/GroupMgt/GroupDetail";
-import BacklogView from "./components/BacklogMgt/BacklogView";
+import BacklogView from "./components/BacklogMgt/BacklogControl/BacklogView";
 import SuccesfulAction from "./components/CommonComponents/SuccessfulAction";
 import DashLayout from "./components/NewDashboard/DashLayout";
 import AddClient from "./components/ClientMgt/AddClient";
@@ -53,28 +51,34 @@ function App() {
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/ResetPass" element={<ResetPass />} />
           <Route path="/AddUser" element={<AddUser />} />
-          <Route path="/SuccesfulAction" element={<SuccesfulAction />} />
+          {/* <Route path="/SprintList" element={<SprintList />} /> */}
+          {/* <Route path="/IssueList" element={<IssueList />} /> */}
 
           {/* pages with sidebar */}
           <Route path="/TeamList" element={<TeamList />} />
-          <Route path="/Backlog" element={<Backlog />} />
+          {/* <Route path="/Backlog" element={<Backlog />} /> */}
           <Route path="/ActiveSprint" element={<ActiveSprint />} />
           <Route path="/People" element={<People />} />
           <Route path="/Forum" element={<Forum />} />
           <Route path="/Report" element={<Report />} />
           <Route path="/GroupDetail" element={<GroupDetail />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
+          {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
           <Route path="/Group" element={<Group />} />
+          {/* <Route path="/Dashboard" element ={<DashLayout/>}/> */}
+
+
         {/* pages with sidebar */}
           <Route path="/TeamList" element ={<TeamList/>}/>
-          <Route path="/Backlog" element ={<Backlog/>}/>
+          {/* <Route path="/Backlog" element ={<Backlog/>}/> */}
+          <Route path="/Team" element ={<Team/>}/>
+          {/* <Route path="/Backlog" element ={<Backlog/>}/> */}
           <Route path="/BacklogView" element ={<BacklogView/>}/>
           <Route path="/ActiveSprint" element ={<ActiveSprint/>}/>
           <Route path="/People" element ={<People/>}/>
          
           <Route path="/Report" element ={<Report/>}/>
 
-          <Route path="/Dashboard" element ={<Dashboard/>}/>
+          {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
           <Route path="/Group" element ={<Group/>}/>
           <Route path="/newdashboard" element ={<DashLayout/>}/>
         
@@ -104,7 +108,7 @@ function App() {
           <Route path="/ProjectList" element ={<ProjectList/>}/>
           <Route path="/ClientList" element ={<ClientList/>}/>
     
-    </Routes>
+        </Routes>
 
       </BrowserRouter>
     </>
