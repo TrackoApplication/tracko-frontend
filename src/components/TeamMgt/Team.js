@@ -11,13 +11,13 @@ const Team= ({team,deleteTeam}) => {
     return (
     <tr key={team.id}> 
                 <td className="text-left px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-black-500">
                     {team.teamName}
                     </div>
                     </td>
                 
                 <td className="text-left px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-black-500">
                 {team.users}
                     </div>
                     </td>

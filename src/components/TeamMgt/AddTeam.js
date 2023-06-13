@@ -5,6 +5,7 @@ import SuccessfulAction from "../CommonComponents/SuccessfulAction"
 
 const AddTeam = () => {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [onCancel] = useState(false);
   const [team, setTeam] = useState({
     id: "",
     teamName: "",
@@ -122,6 +123,12 @@ const AddTeam = () => {
               className="rounded text-white font-semibold bg-[#231651] hover:bg-blue-700 py-2 px-6"
             >
               Clear
+            </button>
+            <button
+              onClick={onCancel}
+              className="rounded text-white font-semibold bg-[#231651] hover:bg-blue-700 py-2 px-6"
+            >
+              Cancel
             </button>
           </div>
         </div>

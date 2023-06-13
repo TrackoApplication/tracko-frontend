@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const FORUM_API_BASE_URL ="http://localhost:8080/api/v1/forums";
+const FORUM_API_BASE_URL ="http://localhost:8080/api/v1/forum";
 
 
 class ForumService{
@@ -13,16 +13,16 @@ class ForumService{
         return axios.get(FORUM_API_BASE_URL);
       }
     
-      deleteForum(id) {
-        return axios.delete(FORUM_API_BASE_URL + "/" + id);
+      deleteForum(forumId) {
+        return axios.delete(FORUM_API_BASE_URL + "/" + forumId);
       }
     
-      getForumById(id) {
-        return axios.get(FORUM_API_BASE_URL + "/" + id);
+      getForumById(forumId) {
+        return axios.get(FORUM_API_BASE_URL + "/" + forumId);
       }
     
-      updateForum(forum, id) {
-        return axios.put(FORUM_API_BASE_URL + "/" + id, forum);
+      updateForum(forum, forumId) {
+        return axios.put(FORUM_API_BASE_URL + "/" + forumId, forum);
       }
 }
 export default new ForumService();

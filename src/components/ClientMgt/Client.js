@@ -11,23 +11,23 @@ const Client = ({client,deleteClient}) => {
     return (
     <tr key={client.id}> 
                 <td className="text-left px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-black-500">
                     {client.clientName}
                     </div>
                     </td>
                 
                 <td className="text-left px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-black-500">
                 {client.contactPerson}
                     </div>
                     </td>
                 <td className="text-left px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-black-500">
                 {client.emailId}
                     </div>
                     </td>
                 <td className="text-left px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-black-500">
                 {client.description}
                     </div>
                     </td>

@@ -29,10 +29,11 @@ import UpdateClient from "./components/ClientMgt/UpdateClient";
 import AddTeam from "./components/TeamMgt/AddTeam";
  import TeamList from "./components/TeamMgt/TeamList";
 import UpdateTeam from "./components/TeamMgt/UpdateTeam";
-import AddForum from "./components/ForumMgt/AddForum";
- import ForumList from "./components/ForumMgt/ForumList";
-import UpdateForum from "./components/ForumMgt/UpdateForum";
-import NewPost from "./components/ForumMgt/createpost";
+import CreateForum from "./components/ForumMgt/CreateForum";
+import ForumList from "./components/ForumMgt/ForumList";
+import ReplyList from "./components/ForumMgt/ReplyList";
+import AddReply from "./components/ForumMgt/AddReply";
+import Reply from "./components/ForumMgt/Reply";
 
 
 function App() {
@@ -92,9 +93,13 @@ function App() {
           <Route path="/addTeam" element={<AddTeam />} />
           <Route path="/editTeam/:id" element={<UpdateTeam />} />
           <Route path="/ForumList" element={<ForumList />} />
-          <Route path="/addForum" element={<AddForum />} />
+          <Route path="/CreateForum" element={<CreateForum />} />
+          <Route path="/Forum" element={<Forum />} />
+          <Route path="/ReplyList" element={<ReplyList />} />
+          <Route path="/AddReply" element={<AddReply />} />
+          <Route path="/Reply" element={<Reply/>} />
           {/* <Route path="/editForum/:id" element={<UpdateForum />} /> */}
-          <Route path ="/NewPost" element={<createpost />} />
+          
           {/* pages with navbar */}
           <Route path="/UserList" element ={<UserList/>}/>
           <Route path="/ProjectList" element ={<ProjectList/>}/>
