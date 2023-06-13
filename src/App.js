@@ -10,7 +10,7 @@ import ProjectList from "./components/ProjectMgt/ProjectList";
 import ClientList from "./components/ClientMgt/ClientList";
 
 import Team from "./components/TeamMgt/Team";
-import Backlog from "./components/BacklogMgt/Backlog";
+// import Backlog from "./components/BacklogMgt/BacklogControl/Backlog";
 
 import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
@@ -18,19 +18,18 @@ import Forum from "./components/ForumMgt/Forum";
 import AddUser from "./components/UserMgt/AddUser";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
-import NavLayout from "./components/Layout/NavLayout";
-import { SideLayout } from "./components/Layout/SideLayout";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+import '@fortawesome/fontawesome-free/css/all.min.css';  
+import 'bootstrap-css-only/css/bootstrap.min.css';  
+import 'mdbreact/dist/css/mdb.css';
+import Childissue from "./components/ActiveSprintMgt/childissue";
 import GroupDetail from "./components/GroupMgt/GroupDetail";
 import BacklogView from "./components/BacklogMgt/BacklogView";
 import SuccesfulAction from "./components/CommonComponents/SuccessfulAction";
 import DashLayout from "./components/NewDashboard/DashLayout";
 import Popup from "./Popup";
-import Home from "./Home";
-import { PageNotFound } from "./components/CommonComponents/PageNotFound";
-import EmailSent from "./components/UserAuthentication/EmailSent";
-import { AuthProvider } from "./components/UserAuthentication/AuthContext";
-import ResetPassword from "./components/UserAuthentication/ResetPassword";
-import ForgotPassword from "./components/UserAuthentication/ForgotPassword";
+
 
 function App() {
   const UserListWithNavbar = withNavbar(UserList);
@@ -38,34 +37,33 @@ function App() {
 
   return (
     <>
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            {/* pages without sidebar & nav bar */}
-            <Route path="/" element={<Home />} />
+      <BrowserRouter>
+        <Routes>
 
-            <Route path="/Register" element={<Register />} />
-            <Route path="/Login" element={<Login />}></Route>
-            <Route path="/ForgotPassword" element={<ForgotPassword />} />
-            <Route path="/AddUser" element={<AddUser />} />
-            <Route path="/SuccesfulAction" element={<SuccesfulAction />} />
-            <Route path="/Home" element={<Home />} />
+          {/* pages without sidebar & nav bar */}
+          <Route path="/" element={<Login />} />
+          <Route index element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/Login" element={<Login />}></Route>
+          <Route path="/ResetPass" element={<ResetPass />} />
+          <Route path="/AddUser" element={<AddUser />} />
+          <Route path="/SuccesfulAction" element={<SuccesfulAction />} />
 
             {/* pages with sidebar */}
             <Route path="/Team" element={<Team />} />
-            <Route path="/Backlog" element={<Backlog />} />
+            {/* <Route path="/Backlog" element={<Backlog />} /> */}
             <Route path="/People" element={<People />} />
             <Route path="/Forum" element={<Forum />} />
             
             <Route path="/GroupDetail/:id" element={<GroupDetail />} />
             {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
             <Route path="/Group" element={<Group />} />
-            <Route path="/Dashboard" element={<DashLayout />} />
+            {/* <Route path="/Dashboard" element={<DashLayout />} /> */}
             <Route path="/reset_password" element={<ResetPassword />} />
 
             {/* pages with sidebar */}
             <Route path="/Team" element={<Team />} />
-            <Route path="/Backlog" element={<Backlog />} />
+            {/* <Route path="/Backlog" element={<Backlog />} /> */}
             <Route path="/BacklogView" element={<BacklogView />} />
 
             <Route path="/People" element={<People />} />
@@ -74,20 +72,18 @@ function App() {
 
             {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
             <Route path="/Group" element={<Group />} />
-            <Route path="/Dashboard" element={<DashLayout />} />
+            {/* <Route path="/Dashboard" element={<DashLayout />} /> */}
 
-            {/* pages with navbar */}
 
-            <Route path="/UserList" element={<UserListWithNavbar />} />
+          {/* pages with navbar */}
+          <Route path="/UserList" element={<UserListWithNavbar/>} />
+          <Route path="/ProjectList" element={<ProjectList />} />
+          <Route path="/ClientList" element={<ClientList />} />
+          <Route path="/Popup" element={<Popup />} />
+    
+    </Routes>
 
-            <Route path="/ProjectList" element={<ProjectList />} />
-            <Route path="/ClientList" element={<ClientList />} />
-            <Route path="/Popup" element={<Popup />} />
-
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+      </BrowserRouter>
     </>
   );
 }

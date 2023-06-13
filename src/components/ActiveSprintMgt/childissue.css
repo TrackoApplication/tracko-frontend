@@ -1,0 +1,24 @@
+.list{
+    padding-top: 40px;
+}
+
+.childissuePage{
+    padding: 20px;
+}
+
+.scrollbar-container {
+    height: 600px; /* Set the height of the container */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    
+}
+  
+.scrollbar-content {
+    width: 100%; /* Set the width of the content */
+    padding: 10px; /* Add some padding to the content */
+}
+
+.scrollbar-container-2 {
+    height: 500px; /* Set the height of the container */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    
+}

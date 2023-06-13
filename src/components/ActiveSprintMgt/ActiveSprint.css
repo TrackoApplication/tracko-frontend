@@ -1,0 +1,100 @@
+.activeSprint{
+    display: flex;
+    padding: 30px 20px;
+    font-family: 'Poppins';
+    
+}
+
+.activeSprint > h2{
+    font-weight: 600;
+    font-size: 30px;
+    color: #595959;
+}
+
+.dropDowns{
+    line-height: 37px;
+}
+
+.dropDowns > select{
+    margin-left: 20px;
+    background: #F3EFEF;
+    border: 1px solid #656262;
+    border-radius: 8px 8px 8px 8px;
+    transition-delay: 1s;
+}
+
+/* .table{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 0.8rem;
+    place-items: center;
+    padding: 10px;
+}
+
+.columnTopic{
+    font-weight: 600;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding: auto;
+    flex-direction: column;
+    background-color: #F3EFEF;
+    width: 220px;
+    height: 550px;
+}
+
+.star:after{
+  content: "*";
+  color: red;
+}
+
+@media screen and (max-width: 1200px) {
+    .table{
+      grid-template-columns: 10% 50% auto;
+      overflow-y: scroll;
+    } 
+    
+  }
+  
+  @media screen and (max-width: 768px) {
+    .table{
+      grid-template-columns: 1fr;
+    } 
+  } */
+
+
+
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+.App {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.App .column {
+    width: 20%;
+    padding: 5px;
+}
+
+.droppable-col {
+    width: 100%;
+    background-color: #F3EFEF;
+    padding: 10px 10px 0 10px;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+}
+
+.item {
+    margin-bottom: 10px;
+    background-color:white;
+    color:black;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 7px;
+}

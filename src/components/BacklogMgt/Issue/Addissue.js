@@ -1,0 +1,498 @@
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
+import { MDBCol } from "mdb-react-ui-kit";
+import IssueService from "../../../Services/IssueService";
+// import { useNavigate } from "react-router-dom";
+
+//setting states for Issue form fields
+const AddIssue = () => {
+  const [issue, setIssue] = useState({
+    issueId: "",
+    projectName: "",
+    issueType: "",
+    summary: "",
+    description: "",
+    assignee: "",
+    sprintName: "",
+    epicName: "",
+    reqOfTesting: "true",
+    spdeveloping: 0,
+    sptesting: 0,
+    totalSP: 0,
+    priority: "",
+    reporter: "",
+  });
+
+  // const navigate = useNavigate();
+
+  // setting states for Issue form fields on change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "reqOfTesting") {
+      const reqOfTestingValue = value === "true";
+      setIssue({
+        ...issue,
+        reqOfTesting: reqOfTestingValue,
+        sptesting: reqOfTestingValue ? issue.sptesting : 0, // Reset sptesting if reqOfTesting is changed to "false"
+      });
+    } else {
+      setIssue({ ...issue, [name]: value });
+    }    
+  };
+  
+  // save issue to the database using issueservice post API
+  const saveIssue = (e) => {
+    e.preventDefault();
+    IssueService.saveIssue(issue)
+      .then((response) => {
+        console.log(response);
+        window.location.reload(false);
+        // navigate("/Emptybacklog")
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    handleClose();
+  };
+
+  // resetting the issue form fields when closing the modal
+  const reset = (e) => {
+    e.preventDefault();
+    setIssue({
+      issueId: "",
+      projectName: "",
+      issueType: "",
+      summary: "",
+      description: "",
+      assignee: "",
+      sprintName: "",
+      epicName: "",
+      reqOfTesting: "true",
+      spdeveloping: 0,
+      sptesting: 0,
+      totalSP: 0,
+      priority: "",
+      reporter: "",
+    });
+    handleClose();
+  };
+
+  const [inactive] = React.useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  // const [form, setForm] = useState({});
+  const [errors, setErrors] = useState({});
+
+  // setting states for Issue form fields on change
+  const setField = (field, value) => {
+    setIssue({
+      ...issue,
+      [field]: value
+    })
+
+    if(!!errors[field]) setErrors({
+      ...errors,
+      [field]: null
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formErrors = validate();
+    if (Object.keys(formErrors).length === 0) {
+      saveIssue(e);
+    } else {
+      setErrors(formErrors);
+    }
+  };
+  
+  const validate = () => {
+    const {
+      projectName,
+      issueType,
+      summary,
+      reqOfTesting,
+      spdeveloping,
+      sptesting,
+      priority,
+      reporter,
+    } = issue;
+    const newErrors = {};
+  
+    if (!projectName || projectName === "") {
+      newErrors.projectName = "Project name cannot be blank";
+    }
+  
+    if (!issueType || issueType === "") {
+      newErrors.issueType = "Issue type cannot be blank";
+    }
+  
+    if (!summary || summary === "") {
+      newErrors.summary = "Summary cannot be blank";
+    }
+  
+    if (!reqOfTesting || reqOfTesting === "") {
+      newErrors.reqOfTesting = "Requirement of testing cannot be blank";
+    }
+  
+    if (reqOfTesting === "true") {
+      if (!spdeveloping || spdeveloping === "" || spdeveloping < 1 || spdeveloping > 21) {
+        newErrors.spdeveloping = "Story point estimate for developing is required and must be between 1 and 21";
+      }
+      if (!sptesting || sptesting === "" || sptesting < 1 || sptesting > 21) {
+        newErrors.sptesting = "Story point estimate for testing is required and must be between 1 and 21";
+      }
+    } else if (reqOfTesting === "false") {
+      if (!spdeveloping || spdeveloping === "" || spdeveloping < 1 || spdeveloping > 21) {
+        newErrors.spdeveloping = "Story point estimate for developing is required and must be between 1 and 21";
+      }
+      // Clear the error message for sptesting when reqOfTesting is "false"
+      newErrors.sptesting = null;
+    }
+  
+    if (!priority || priority === "") {
+      newErrors.priority = "Priority cannot be blank";
+    }
+  
+    if (!reporter || reporter === "") {
+      newErrors.reporter = "Reporter cannot be blank";
+    }
+  
+    return newErrors;
+  };
+  
+
+  return (
+    <div>
+      <div className={`container ${inactive ? "inactive" : ""}`}>
+        <Button
+          variant="link"
+          className="text-black border-none font-semibold text-decoration-none shadow-none"
+          onClick={handleShow}
+        >
+          + Create Issue
+        </Button>
+
+        <Modal show={show} onHide={handleClose}>
+          {/* header section */}
+          <Modal.Header>
+            <Modal.Title>Create Issue</Modal.Title>
+          </Modal.Header>
+
+          {/* body section */}
+          <Modal.Body>
+            <Form style={{ overflowY: "scroll", height: "350px" }}>
+              <MDBCol>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Project</Form.Label>
+                  <Form.Select
+                    name="projectName"
+                    value={issue.projectName}
+                    // onChange={(e) => handleChange(e)}
+                    autoFocus
+                    required
+                    defaultValue="Select the Project"
+                    onChange={(e) => setField("projectName", e.target.value)}
+                    isInvalid={!!errors.projectName}
+                  >
+                    <option value="" disabled selected>
+                      Select the Project
+                    </option>
+                    <option value="project1">Project 1</option>
+                    <option value="project2">Project 2</option>
+                    <option value="project3">Project 3</option>
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.projectName}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Issue type</Form.Label>
+                  <Form.Select
+                    name="issueType"
+                    value={issue.issueType}
+                    // onChange={(e) => handleChange(e)}
+                    onChange={(e) => setField("issueType", e.target.value)}
+                    isInvalid={!!errors.issueType}
+                    defaultValue="Select the Issue Type"
+                  >
+                    <option value="" disabled selected>
+                      Select the Issue Type
+                    </option>
+                    <option>Issue</option>
+                    <option>Bug</option>
+                    <option>QA</option>
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.issueType}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Summary</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Summary"
+                    name="summary"
+                    value={issue.summary}
+                    // onChange={(e) => handleChange(e)}
+                    onChange={(e) => setField("summary", e.target.value)}
+                    isInvalid={!!errors.summary}
+                    required={true}
+                    // autoFocus
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.summary}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={5}
+                    placeholder="Description"
+                    name="description"
+                    value={issue.description}
+                    onChange={(e) => handleChange(e)}
+                    required
+                    // autoFocus
+                  />
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Assignee</Form.Label>
+                  <Form.Select
+                    name="assignee"
+                    value={issue.assignee}
+                    onChange={(e) => handleChange(e)}
+                    defaultValue="Select the Assignee"
+                  >
+                    <option value="" disabled selected>
+                      Select the Assignee
+                    </option>
+                    <option>Automatic</option>
+                    <option>Ravindu Karunaweera</option>
+                    <option>Yasiru Basura</option>
+                    <option>Seefa Banu</option>
+                  </Form.Select>
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Sprint</Form.Label>
+                  <Form.Select
+                    name="sprintName"
+                    value={issue.sprintName}
+                    onChange={(e) => handleChange(e)}
+                    defaultValue="Select the Sprint"
+                  >
+                    <option value="" disabled selected>
+                      Select the Sprint
+                    </option>
+                    <option>Sprint 1</option>
+                    <option>Sprint 2</option>
+                    <option>Sprint 3</option>
+                  </Form.Select>
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Epic</Form.Label>
+                  <Form.Select
+                    name="epicName"
+                    value={issue.epicName}
+                    onChange={(e) => handleChange(e)}
+                    defaultValue="Select the Epic"
+                  >
+                    <option value="" disabled selected>
+                      Select the Epic
+                    </option>
+                    <option>Epic 1</option>
+                    <option>Epic 2</option>
+                    <option>Epic 3</option>
+                  </Form.Select>
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Requirement of Testing</Form.Label>
+                  <Form.Select
+                    name="reqOfTesting"
+                    value={issue.reqOfTesting}
+                    // onChange={(e) => handleChange(e)}
+                    onChange={(e) => setField("reqOfTesting", e.target.value)}
+                    isInvalid={!!errors.reqOfTesting}
+                    required
+                  >
+                    <option value="" disabled selected>
+                      Select the Requirement of Testing
+                    </option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.reqOfTesting}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Story point estimate for developing</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="spdeveloping"
+                    value={issue.spdeveloping}
+                    // onChange={(e) => handleChange(e)}
+                    onChange={(e) => setField("spdeveloping", e.target.value)}
+                    isInvalid={!!errors.spdeveloping}
+                    required
+                    // placeholder="name@example.com"
+                    // autoFocus
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.spdeveloping}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Story point estimate for testing</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="sptesting"
+                    value={issue.sptesting}
+                    // onChange={handleChange}
+                    onChange={(e) => setField("sptesting", e.target.value)}
+                    isInvalid={!!errors.sptesting}
+                    required={issue.reqOfTesting === "true"}
+                    disabled={issue.reqOfTesting !== "true"} // Disable the field when reqOfTesting is set to "false"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.sptesting}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Total estimated story point</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="totalSP"
+                    value={parseInt(issue.spdeveloping) + parseInt(issue.sptesting)}
+                    onChange={(e) => handleChange(e)}
+                    disabled
+                    // placeholder="name@example.com"
+                    // autoFocus
+                  />
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Priority</Form.Label>
+                  <Form.Select
+                    name="priority"
+                    value={issue.priority}
+                    // onChange={(e) => handleChange(e)}
+                    required
+                    defaultValue="Select the priority"
+                    onChange={(e) => setField("priority", e.target.value)}
+                    isInvalid={!!errors.priority}
+                  >
+                    <option value="" disabled selected>
+                      Select the priority
+                    </option>
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.priority}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Reporter</Form.Label>
+                  <Form.Select
+                    name="reporter"
+                    value={issue.reporter}
+                    // onChange={(e) => handleChange(e)}
+                    onChange={(e) => setField("reporter", e.target.value)}
+                    isInvalid={!!errors.reporter}
+                  >
+                    <option value="" disabled selected>
+                      Select the Reporter
+                    </option>
+                    <option>Reporter 1</option>
+                    <option>Reporter 2</option>
+                    <option>Reporter 3</option>
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.reporter}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </MDBCol>
+            </Form>
+          </Modal.Body>
+
+          {/* button section */}
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              className="rounded bg-none text-black border-none font-semibold hover:underline hover:bg-white "
+              onClick={reset}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              className="rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] "
+              onClick={handleSubmit}
+            >
+              Create
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    </div>
+  );
+};
+
+export default AddIssue;
+

@@ -134,9 +134,9 @@ const UserList = () => {
                 })
                 .map((systemUser) => (
                   <User
-                    systemUser={systemUser}
-                    deleteSystemUser={deleteSystemUser}
-                    key={systemUser.SystemUserId}
+                      systemUser={systemUser}
+                      deleteSystemUser={deleteSystemUser}
+                      key={systemUser.SystemUserId}
                   ></User>
                 ))}
             </MDBTableBody>
