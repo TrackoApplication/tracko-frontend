@@ -48,7 +48,7 @@ const CreateChildIssue = () => {
                       Assignee
                       <IconContext.Provider value={{ size: "2em" }}>
                         <div>
-                          <BsPersonCircle />
+                          {childIssue && childIssue.assignee ? childIssue.assignee : <BsPersonCircle />}
                         </div>
                       </IconContext.Provider>
                     </li>
@@ -56,7 +56,7 @@ const CreateChildIssue = () => {
                       Reporter
                       <IconContext.Provider value={{ size: "2em" }}>
                         <div>
-                          <BsPersonCircle />
+                          {childIssue && childIssue.reporter ? childIssue.reporter : <BsPersonCircle />} 
                         </div>
                       </IconContext.Provider>
                     </li>
@@ -92,7 +92,7 @@ const CreateChildIssue = () => {
                       Assignee
                       <IconContext.Provider value={{ size: "2em" }}>
                         <div>
-                          <BsPersonCircle />
+                          {childIssue && childIssue.assignee ? childIssue.assignee : <BsPersonCircle/>}
                         </div>
                       </IconContext.Provider>
                     </li>
@@ -100,7 +100,7 @@ const CreateChildIssue = () => {
                       Reporter
                       <IconContext.Provider value={{ size: "2em" }}>
                         <div>
-                          <BsPersonCircle />
+                          {childIssue && childIssue.reporter ? childIssue.reporter : <BsPersonCircle/>}
                         </div>
                       </IconContext.Provider>
                     </li>

@@ -28,12 +28,14 @@
     "chart.js": "^4.2.1",
     "font-awesome": "^4.7.0",
     "framer-motion": "^8.5.2",
+    "lodash": "^4.17.21",
     "mdb-react-ui-kit": "^5.1.0",
     "mdb-ui-kit": "^6.1.0",
     "mdbreact": "^5.2.0",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-avatar": "^5.0.3",
+    "react-beautiful-dnd": "^13.1.1",
     "react-bootstrap": "^2.7.0",
     "react-bootstrap-validation": "^0.1.11",
     "react-chartjs-2": "^5.2.0",
@@ -49,7 +51,8 @@
     "react-widgets": "^5.8.4",
     "reactjs-popup": "^2.0.5",
     "recharts": "^2.5.0",
-    "styled-components": "^5.3.11"
+    "styled-components": "^5.3.11",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

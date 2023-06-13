@@ -13,10 +13,6 @@ import "./childissue.css"
 import MultipleAttachments from './Attachment';
 
 const Childissue = () => {
-  const [inactive, setInactive] = React.useState(false);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const [childissue, setChildissue] = useState({
     type:"",
@@ -32,55 +28,20 @@ const Childissue = () => {
     reporter:""
   });
 
-  const [errors, setErrors] = useState({
-    type: '',
-    summary: '',
-    reqOfTest: ''
-  });
-
-  //function to handle form field changes and update the state value
-  const onInputChange = (e) => {
-    const { value, name } = e.target;
-
-    setChildissue({ ...childissue, [name]: value});
-
-    if (name === 'devEstimatedSP' || name === 'testEstimatedSP') {
-      const devSP = name === 'devEstimatedSP' ? parseInt(value) || 0 : childissue.devEstimatedSP || 0;
-      const testSP = name === 'testEstimatedSP' ? parseInt(value) || 0 : childissue.testEstimatedSP || 0;
-      const totalSP = parseInt(devSP) + parseInt(testSP);
-      setChildissue((prevState) => ({ ...prevState, totalSP }));
-    }
+    // setting states for Issue form fields on change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "reqOfTest") {
+      const reqOfTestingValue = value === "true";
+      setChildissue({
+        ...Childissue,
+        reqOfTest: reqOfTestingValue,
+        testEstimatedSP: reqOfTestingValue ? Childissue.testEstimatedSP : 0, // Reset sptesting if reqOfTesting is changed to "false"
+      });
+    } else {
+      setChildissue({ ...Childissue, [name]: value });
+    }    
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Validate the form fields
-    const validationErrors = {};
-    if (!childissue.type) {
-      validationErrors.type = 'Child issue type is required';
-    }
-    if (!childissue.summary) {
-      validationErrors.summary = 'Summary is required';
-    }
-    if (!childissue.reqOfTest) {
-      validationErrors.reqOfTest = 'Requirement of testing is required';
-    }
-
-    setErrors(validationErrors);
-    
-    // If there are any validation errors, set them and stop form submission
-    if (Object.keys(validationErrors).length > 0) {
-      return;
-    }
-    
-    // Clear the validation errors
-    setErrors({});
-    
-    // Perform further actions (e.g., submit data to server)
-    // ...
-  };
-  
 
   const saveChildissue = async (e) => {
     e.preventDefault();
@@ -93,14 +54,6 @@ const Childissue = () => {
       }
     handleClose();
   };
-
-  const [childissues, setChildissues] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:8080/childissue/get_iss').then((response) => {
-      setChildissues(response.data);
-    });
-  }, []);
 
   const reset = (e) => {
     e.preventDefault();
@@ -118,6 +71,121 @@ const Childissue = () => {
       reporter:""
     });
     handleClose();
+  };
+
+  const [inactive, setInactive] = React.useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [errors, setErrors] = useState({});
+
+    // setting states for Issue form fields on change
+  const setField = (field, value) => {
+    setChildissue({
+      ...Childissue,
+      [field]: value
+    }) 
+
+    if(!!errors[field]) setErrors({
+      ...errors,
+      [field]: null
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formErrors = validate();
+    if (Object.keys(formErrors).length === 0) {
+      saveChildissue(e);
+    } else {
+      setErrors(formErrors);
+    }
+  };
+
+  const validate = () => {
+    const {
+      projectName,
+      issueType,
+      type,
+      summary,
+      assignee,
+      devEstimatedSP,
+      testEstimatedSP,
+      totalSP,
+      reqOfTesting,
+      spdeveloping,
+      sptesting,
+      priority,
+      reporter,
+    } = childissue;
+    const newErrors = {};
+  
+    if (!type || type === "") {
+      newErrors.type = "Child issue type cannot be blank";
+    }
+  
+    if (!summary || summary === "") {
+      newErrors.summary = "Summary cannot be blank";
+    }
+  
+    if (!reqOfTesting || reqOfTesting === "") {
+      newErrors.reqOfTesting = "Requirement of testing cannot be blank";
+    }
+  
+    if (reqOfTesting === "true") {
+      if (!spdeveloping || spdeveloping === "" || spdeveloping < 1 || spdeveloping > 21) {
+        newErrors.spdeveloping = "Story point estimate for developing is required and must be between 1 and 21";
+      }
+      if (!sptesting || sptesting === "" || sptesting < 1 || sptesting > 21) {
+        newErrors.sptesting = "Story point estimate for testing is required and must be between 1 and 21";
+      }
+    } else if (reqOfTesting === "false") {
+      if (!spdeveloping || spdeveloping === "" || spdeveloping < 1 || spdeveloping > 21) {
+        newErrors.spdeveloping = "Story point estimate for developing is required and must be between 1 and 21";
+      }
+      // Clear the error message for sptesting when reqOfTesting is "false"
+      newErrors.sptesting = null;
+    }
+  
+    if (!priority || priority === "") {
+      newErrors.priority = "Priority cannot be blank";
+    }
+  
+    if (!reporter || reporter === "") {
+      newErrors.reporter = "Reporter cannot be blank";
+    }
+  
+    return newErrors;
+  };
+
+  //function to handle form field changes and update the state value
+  const onInputChange = (e) => {
+    const { value, name } = e.target;
+
+    setChildissue({ ...childissue, [name]: value});
+
+    if (name === 'devEstimatedSP' || name === 'testEstimatedSP') {
+      const devSP = name === 'devEstimatedSP' ? parseInt(value) || 0 : childissue.devEstimatedSP || 0;
+      const testSP = name === 'testEstimatedSP' ? parseInt(value) || 0 : childissue.testEstimatedSP || 0;
+      const totalSP = parseInt(devSP) + parseInt(testSP);
+      setChildissue((prevState) => ({ ...prevState, totalSP }));
+    }
+  };
+
+  const [childissues, setChildissues] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/childissue/get_iss').then((response) => {
+      setChildissues(response.data); //response.data is an array of objects
+    });
+  }, []);
+
+  const handleOverlayClick = (event) => {
+    event.stopPropagation();
+  };
+
+  const handleTopButtonClick = () => {
+    console.log('Top Button Clicked');
   };
  
   return (    
@@ -160,7 +228,7 @@ const Childissue = () => {
                     <div className="scrollbar-container-2">
                     <div className="scrollbar-content">
                     <Modal.Body>
-                      <Form onSubmit={handleSubmit}>
+                      <Form>
                         <MDBCol>
 
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -168,8 +236,10 @@ const Childissue = () => {
                                 <Form.Select
                                   name="type"
                                   value={childissue.type}
-                                  onChange={(e) => onInputChange(e)}
+                                  autoFocus
                                   required
+                                  defaultValue="--Issue Type--"
+                                  onChange={(e) => setField("type", e.target.value)}
                                   isInvalid={!!errors.type}
                                 >
                                   <option value="" disabled>--Issue Type--</option>
@@ -180,15 +250,15 @@ const Childissue = () => {
                             </Form.Group>
                         
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                <Form.Label className='star'>Summary</Form.Label>
+                                <Form.Label>Summary</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="summary"
                                     //autoFocus
                                     value={childissue.summary}
-                                    onChange={(e) => onInputChange(e)}
-                                    required
+                                    onChange={(e) => setField("summary", e.target.value)}
                                     isInvalid={!!errors.summary}
+                                    required={true}
                                 />
                                 <Form.Control.Feedback type="invalid">{errors.summary}</Form.Control.Feedback>
                             </Form.Group>
@@ -318,7 +388,6 @@ const Childissue = () => {
                         Cancel
                       </Button>
                       <Button
-                        type = "submit"
                         variant="primary"
                         className="rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] "
                         onClick={saveChildissue}
@@ -339,19 +408,26 @@ const Childissue = () => {
                       type="button" 
                       className="list-group-item list-group-item-action" 
                       to={`../CreateChildIssue?childIssueId=${childissue.issueID}`}
+                      onClick={handleTopButtonClick}
                     >
                       <div className='d-flex justify-content-between'>
                         <div>
-                          <button class='badge bg-primary border'>
+                          <button class='badge bg-primary border  '>
                             {childissue.issueID}
                           </button>
                             {" -> "}
                             {childissue.summary}
                         </div>
+                        <div>
+                          <button 
+                            class='badge bg-primary border' onClick={handleOverlayClick}>
+                            Delete
+                          </button>
+                        </div>
                         <div className='d-flex'>
                           <IconContext.Provider value={{ size: "2em" }}>
                             <div>
-                              <BsPersonCircle />
+                              {childissue && childissue.assignee ? childissue.assignee : <BsPersonCircle />}
                             </div>
                           </IconContext.Provider></div>
                       </div>
