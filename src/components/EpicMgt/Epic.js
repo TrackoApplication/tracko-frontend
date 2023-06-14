@@ -2,12 +2,13 @@ import React, { useState } from "react";
 
 import EpicDeletionConfirmation from "./EpicDeletionConfirmation";
 
+
 const Epic = ({ epic, deleteEpic }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [show, setShow] = useState(false);
 
 
-const Epic = () => {
+
   return (
     <>
     <tr key={epic.Id} className='text-left font-semibold text-gray-500 text-sm px-2 py-2 whitespace-nowrap'>
@@ -38,7 +39,7 @@ const Epic = () => {
   );
 };
 
-}
+
 
 
 
