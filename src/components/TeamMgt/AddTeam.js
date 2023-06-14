@@ -5,7 +5,7 @@ import SuccessfulAction from "../CommonComponents/SuccessfulAction"
 
 const AddTeam = () => {
   const [showSuccess, setShowSuccess] = useState(false);
-  const [onCancel] = useState(false);
+  const [cancel] = useState(false);
   const [team, setTeam] = useState({
     id: "",
     teamName: "",
@@ -65,7 +65,7 @@ const AddTeam = () => {
         TeamService.saveTeam(team)
           .then((response) => {
             console.log(response);
-            navigate('/teamList');
+            navigate('/teamView');
           })
           .catch((error) => {
             console.log(error);
@@ -76,6 +76,10 @@ const AddTeam = () => {
       .catch((error) => {
         console.log(error);
       });
+      const cancel = () => {
+        navigate('/teamView');
+      };
+      
   };
   
 
@@ -125,7 +129,7 @@ const AddTeam = () => {
               Clear
             </button>
             <button
-              onClick={onCancel}
+              onClick={() => navigate("/teamView")}
               className="rounded text-white font-semibold bg-[#231651] hover:bg-blue-700 py-2 px-6"
             >
               Cancel

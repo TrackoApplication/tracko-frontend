@@ -334,7 +334,7 @@ import Team from "./Team";
 import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 import AddTeam from "./AddTeam";
 import UpdateTeam from "./UpdateTeam";
-import Sidebar from "../SideBar/Sidebar";
+
 
 
 const TeamList = () => {
@@ -438,8 +438,8 @@ const TeamList = () => {
    <div>
         
           
-      <div className="container mx-auto my-8">
-        <div className="h-12">
+      <div className="w-3/4 mx-auto my-8">
+        <div className="h-12 ">
           <button
             onClick={openAddTeam}
             className="rounded bg-[#231651]  text-white px-6 py-2 font-semibold"
@@ -457,7 +457,7 @@ const TeamList = () => {
           />
         </div>
         <div className="flex shadow border-b">
-          <table className="min-w-full">
+          <table className="min-w-full px-20">
             <thead className="bg-[#153a5f]">
               <tr>
                 <th

@@ -13,9 +13,9 @@ export const menuItems = [
   {name: 'Backlog', to: '/BacklogView', exact: true, iconClassName:'bi bi-x-diamond-fill'},
   {name: 'Active Sprint' , to: '/ActiveSprint', exact: true , iconClassName:'bi bi-amd'},
   {name: 'Report',to: '/Report', exact: true , iconClassName:'bi bi-body-text'},
-  {name: 'Forum',to: '/Forum', exact: true , iconClassName:'bi bi-chat-right-dots'},
+  {name: 'Forum',to: '/ForumView', exact: true , iconClassName:'bi bi-chat-right-dots'},
   {name: 'Group',to: '/Group', exact: true , iconClassName:'bi bi-chat-right-dots'},
-  {name: 'Teams',to: '/Team', exact: true , iconClassName:'bi bi-microsoft-teams'},
+  {name: 'Teams',to: '/TeamView', exact: true , iconClassName:'bi bi-microsoft-teams'},
   {name: 'People',to: '/People', exact: true, iconClassName:'bi bi-people'},
   {name: 'Home',to: '/Userlist', exact: true, iconClassName:'bi bi-house'},
 

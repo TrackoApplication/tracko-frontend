@@ -341,7 +341,7 @@ const ForumList = () => {
 
   return (
     <div> 
-      <div className="container mx-auto my-8"> 
+      <div className="w-3/4 mx-auto my-8"> 
         <div className="h-12 mb-4">
           <input
             type="text"

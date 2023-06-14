@@ -9,7 +9,7 @@ import ResetPass from "./components/UserAuthentication/ResetPass";
 import ProjectList from "./components/ProjectMgt/ProjectList";
 
 import Team from "./components/TeamMgt/Team";
-// import Backlog from "./components/BacklogMgt/BacklogControl/Backlog";
+import Backlog from "./components/BacklogMgt/BacklogControl/Backlog";
 import ActiveSprint from "./components/ActiveSprintMgt/ActiveSprint";
 import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
@@ -32,8 +32,10 @@ import ForumList from "./components/ForumMgt/ForumList";
 import ReplyList from "./components/ForumMgt/ReplyList";
 import AddReply from "./components/ForumMgt/AddReply";
 import Reply from "./components/ForumMgt/Reply";
-
-
+import SprintList from "./components/BacklogMgt/Sprint/SprintList";
+import IssueList from "./components/BacklogMgt/Issue/IssueList";
+import TeamView from "./components/TeamMgt/TeamView";
+import ForumView from "./components/ForumMgt/ForumView";
 function App() {
 
   const UserListWithNavbar = withNavbar(UserList);
@@ -51,12 +53,12 @@ function App() {
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/ResetPass" element={<ResetPass />} />
           <Route path="/AddUser" element={<AddUser />} />
-          {/* <Route path="/SprintList" element={<SprintList />} /> */}
-          {/* <Route path="/IssueList" element={<IssueList />} /> */}
+          <Route path="/SprintList" element={<SprintList />} />
+          <Route path="/IssueList" element={<IssueList />} />
 
           {/* pages with sidebar */}
           <Route path="/TeamList" element={<TeamList />} />
-          {/* <Route path="/Backlog" element={<Backlog />} /> */}
+          <Route path="/Backlog" element={<Backlog />} />
           <Route path="/ActiveSprint" element={<ActiveSprint />} />
           <Route path="/People" element={<People />} />
           <Route path="/Forum" element={<Forum />} />
@@ -69,10 +71,12 @@ function App() {
 
         {/* pages with sidebar */}
           <Route path="/TeamList" element ={<TeamList/>}/>
-          {/* <Route path="/Backlog" element ={<Backlog/>}/> */}
+          <Route path="/Backlog" element ={<Backlog/>}/>
           <Route path="/Team" element ={<Team/>}/>
-          {/* <Route path="/Backlog" element ={<Backlog/>}/> */}
+          <Route path="/Backlog" element ={<Backlog/>}/>
           <Route path="/BacklogView" element ={<BacklogView/>}/>
+          <Route path="/TeamView" element ={<TeamView/>}/>
+          <Route path="/ForumView" element ={<ForumView/>}/>
           <Route path="/ActiveSprint" element ={<ActiveSprint/>}/>
           <Route path="/People" element ={<People/>}/>
          
