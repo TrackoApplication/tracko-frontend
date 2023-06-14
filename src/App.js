@@ -29,7 +29,6 @@ import CreateChildIssue from "./components/ChildIssue/CreateChildIssue";
 import SprintList from "./components/BacklogMgt/Sprint/SprintList";
 // import IssueList from "./components/BacklogMgt/Issue/IssueList";
 
-
 function App() {
 
   const UserListWithNavbar = withNavbar(UserList);
@@ -43,8 +42,6 @@ function App() {
         <Route path="/UserList" element ={<UserList/>}></Route>
         <Route path="/ProjectList" element ={<ProjectList/>}></Route>
         <Route path="/ClientList" element ={<ClientList/>}></Route>
-        <Route path="/Childissue" element ={<Childissue/>}></Route>
-        <Route path="/CreateChildIssue" element ={<CreateChildIssue/>}></Route>
         
         {/* pages with sidebar */}
         
@@ -52,10 +49,13 @@ function App() {
      
           <Route path="/Team" element ={<Team/>}></Route>
           {/* <Route path="/Backlog" element ={<Backlog/>}></Route> */}
-          <Route path="/ActiveSprint" element ={<ActiveSprint/>}></Route>
+          <Route path="/ActiveSprint" element ={<ActiveSprint/>}></Route> {/*Dulani*/}
           <Route path="/People" element ={<People/>}></Route>
           <Route path="/Forum" element ={<Forum/>}></Route>
-          <Route path="/Report" element ={<Report/>}></Route>
+          <Route path="/Report" element ={<Report/>}></Route> {/*Dulani*/}
+          
+        <Route path="/Childissue" element ={<Childissue/>}></Route> {/*Dulani*/}
+        <Route path="/CreateChildIssue" element ={<CreateChildIssue/>}></Route> {/*Dulani*/}
           <Route path="/Dashboard" element ={<Dashboard/>}></Route>
           <Route path="/Group" element ={<Group/>}></Route>
 
@@ -91,7 +91,7 @@ function App() {
           <Route path="/ProjectList" element={<ProjectList />} />
           <Route path="/ClientList" element={<ClientList />} />
           {/* <Route path="/Popup" element={<Popup />} /> */}
-    
+
         </Routes>
 
       </BrowserRouter>

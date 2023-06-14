@@ -403,7 +403,7 @@ const Childissue = () => {
                   <div class="col-12">
 
                   {childissues.map((childissue) => (
-                    <Link 
+                    <div class="list-group-item list-group-item-action"
                       key={childissue.id} 
                       type="button" 
                       className="list-group-item list-group-item-action" 
@@ -431,7 +431,7 @@ const Childissue = () => {
                             </div>
                           </IconContext.Provider></div>
                       </div>
-                    </Link>
+                    </div>
                   ))}
                   </div>
                 </div>

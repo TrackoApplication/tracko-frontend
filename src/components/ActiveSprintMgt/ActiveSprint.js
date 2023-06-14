@@ -1,24 +1,19 @@
-import React from 'react';
-import Sidebar from '../SideBar/Sidebar'
-import './ActiveSprint.css'
-import {useState, useEffect} from 'react';
-import {DragDropContext, Droppable, Draggable, DroppableProps} from "react-beautiful-dnd";
+import React, {useState} from 'react';
+import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 import _ from "lodash";
 import {v4} from "uuid";
-
-
-import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
+import './ActiveSprint.css';
 
 const item = {
-  id: v4(),
+  id: v4(), // v4 is a function that generates a random id
   name: (
-    <a href="./Childissue" class="card">
+    <div class="card">
       <div class="card-body">
         <h5 class="card-title">Special title treatment</h5>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
         <a href="#" type='button' class="btn btn-primary">Go somewhere</a>
       </div>
-    </a>
+    </div>
   )
 }
 
@@ -28,8 +23,6 @@ const item2 = {
 }
 
 function ActiveSprint() {
-  const [inactive, setInactive] = React.useState(false);
-
   const [text, setText] = useState("")
   const [state, setState] = useState({
     "todo": {
@@ -89,13 +82,13 @@ function ActiveSprint() {
             {
               id: v4(),
               name: (
-                <a href="./Childissue" class="card">
+                <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">{text}</h5>
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                     <a href="#" type='button' class="btn btn-primary">Go somewhere</a>
                   </div>
-                </a>
+                </div>
               )
             },
             ...prev.todo.items
@@ -108,81 +101,71 @@ function ActiveSprint() {
   }
 
   return (
-    <div className='App'>
-      <div className='AppGlass'>
-        <Sidebar
-          onCollapse={(inactive) => {
-              setInactive(inactive);
-          }}
-        />
+    <div>
+    <div className="activeSprint">
+    <h2>Active Sprint</h2>
+    <div className='dropDowns'>
+      <select>
+        <option>Team 1</option>
+        <option>Team 2</option>
+      </select>
+      <select>
+        <option>Sprint 1</option>
+        <option>Sprint 2</option>
+        <option>Sprint 3</option>
+        <option>Sprint 4</option>
+      </select> 
+    </div> 
+  </div>
 
-        <div>
-          <div className="activeSprint">
-            <h2>Active Sprint</h2>
-            <div className='dropDowns'>
-              <select>
-                <option>Team 1</option>
-                <option>Team 2</option>
-              </select>
-              <select>
-                <option>Sprint 1</option>
-                <option>Sprint 2</option>
-                <option>Sprint 3</option>
-                <option>Sprint 4</option>
-              </select> 
-            </div> 
-          </div>
-
-          <div className="App">
-            {/* <div>
-              <input type="text" value={text} onChange={(e) => setText(e.target.value)}/>
-              <button onClick={addItem}>Add</button> 
-            </div> */}
-            <DragDropContext onDragEnd={handleDragEnd}>
-              {_.map(state, (data, key) => {
-                return(
-                  <div key={key} className={"column"}>
-                    <h3>{data.title}</h3>
-                    <Droppable droppableId={key}>
-                      {(provided, snapshot) => {
-                        console.log(snapshot)
+    <div className="Appp">
+      {/* <div>
+        <input type="text" value={text} onChange={(e) => setText(e.target.value)}/>
+        <button onClick={addItem}>Add</button> 
+      </div> */}
+      <DragDropContext onDragEnd={handleDragEnd}>
+        {_.map(state, (data, key) => {
+          return(
+            <div key={key} className={"column"}>
+              <h3>{data.title}</h3>
+              <Droppable droppableId={key}>
+                {(provided, snapshot) => {
+                  console.log(snapshot)
+                  return(
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                      className={"droppable-col"}
+                    >
+                      {data.items.map((el, index) => { // el = element
                         return(
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                            className={"droppable-col"}
-                          >
-                            {data.items.map((el, index) => { // el = element
+                          <Draggable key={el.id} index={index} draggableId={el.id}>
+                            {(provided, snapshot) => {
+                              console.log(snapshot)
                               return(
-                                <Draggable key={el.id} index={index} draggableId={el.id}>
-                                  {(provided, snapshot) => {
-                                    console.log(snapshot)
-                                    return(
-                                      <div
-                                        className={`item ${snapshot.isDragging && "dragging"}`}
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps} 
-                                        {...provided.dragHandleProps} // This decides what you can use to drag the item
-                                      >
-                                        {el.name}
-                                      </div>
-                                    )
-                                  }}
-                                </Draggable>
+                                <div
+                                  className={`item ${snapshot.isDragging && "dragging"}`}
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps} 
+                                  {...provided.dragHandleProps} // This decides what you can use to drag the item
+                                >
+                                  {el.name}
+                                </div>
                               )
-                            })}
-                            {provided.placeholder} {/* This is what makes the items move up when you drag one away */}
-                          </div>
+                            }}
+                          </Draggable>
                         )
-                      }}
-                    </Droppable>
-                  </div>
-                )
-              })}
-            </DragDropContext>
-          </div>
-        </div>
-      </div>
+                      })}
+                      {provided.placeholder} {/* This is what makes the items move up when you drag one away */}
+                    </div>
+                  )
+                }}
+              </Droppable>
+            </div>
+          )
+        })}
+      </DragDropContext>
+    </div>
     </div>
   );
 }
