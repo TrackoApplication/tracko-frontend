@@ -13,7 +13,7 @@ import './Backlog.css';
 import { MDBBadge} from 'mdb-react-ui-kit';
 import Emptysprintbacklog from './Emptysprintbacklog';
 import Emptysprinttable from './Emptysprinttable';
-import AddEpic from './AddEpic';
+import AddEpic from '../EpicMgt/AddEpic';
 
 const Backlog = () => {
   const [inactive, setInactive] = React.useState(false);

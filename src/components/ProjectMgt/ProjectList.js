@@ -5,7 +5,6 @@ import AddProject from "./AddProject";
 import "./ProjectList.css";
 import ProjectService from "../../Services/ProjectService";
 import { useEffect } from "react";
-
 import ConfirmPopup from "../UserMgt/ConfirmPopup";
 
 const ProjectList = () => {
@@ -49,6 +48,7 @@ const ProjectList = () => {
       }
     });
   };
+  const Nav = useNavigate();
 
   return (
     <>
@@ -59,21 +59,34 @@ const ProjectList = () => {
         </div>
         <AddProject />
         <section>
-          <div className="ProListcontainer">
+          <div className="ProListcontainer" >
             {!loading && (
-              <div className="PLcards">
-                {projects.map((project, i) => (
-                  <div key={i} className="PLcard ">
-                    <h2 className="mb-1">Project - {i}</h2>
-                    <h2>{project.projectName}</h2>
-                    <div className="PLimage">
+              <div className="PLcards" >
+                {projects
+                // .filter((_, index) => index === projects.length - 1) // Filter for the last element
+                // .filter(project => project.id === desiredProjectId) // Filter projects based on a condition
+                .map((project, i) => (
+              <div key={i} className="PLcard "  >
+                    <h2 className="mb-1" >Project - {i}</h2>
+                    <h2 >{project.projectName}</h2>
+                    <div className="PLimage" >
                       <img src={project.imageURL}></img>
                     </div>
 
-                    <div className=" text-right text-xs">
+                    
+
+  
+                    <div className=" text-right text-xs" >
+                    <button className=" font-semibold mt-3 mb-1 text-indigo-600 hover:text-indigo-800 hover:cursor-pointer px-2"
+                    onClick={() => Nav('/Dashboard/' )}
+                    >
+                        View
+                      </button>
+                     
                       <button className=" font-semibold mt-3 mb-1 text-indigo-600 hover:text-indigo-800 hover:cursor-pointer px-2">
                         Update
                       </button>
+
                       <button
                         onClick={() => setShowConfirm(true)}
                         className=" font-semibold mt-3 mb-1 text-indigo-600 hover:text-indigo-800 hover:cursor-pointer"

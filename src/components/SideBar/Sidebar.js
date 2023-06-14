@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 import {BsFillFileSpreadsheetFill} from "react-icons/bs";
 import { color } from '@mui/system';
 
+
 export const menuItems = [
   {name: 'Dashboard',to: '/Dashboard', exact: true, iconClassName:'bi bi-house'},
   {name: 'Backlog', to: '/BacklogView', exact: true, iconClassName:'bi bi-x-diamond-fill'},
@@ -29,6 +30,9 @@ const Sidebar = (props) => {
     props.onCollapse(inactive);
  
    }, [inactive]);
+
+   
+ 
 
   return (
     <div className={`side-menu ${inactive ? "inactive" : ""}`} >

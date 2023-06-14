@@ -15,7 +15,7 @@ import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
 import Report from "./components/ReportMgt/Report";
 import AddUser from "./components/UserMgt/AddUser";
-import Dashboard from "./components/Dashboard/Dashboard";
+
 import Group from "./components/GroupMgt/Group";
 import NavLayout from "./components/Layout/NavLayout";
 import { SideLayout } from "./components/Layout/SideLayout";
@@ -25,6 +25,12 @@ import SuccesfulAction from "./components/CommonComponents/SuccessfulAction";
 import DashLayout from "./components/NewDashboard/DashLayout";
 import Popup from "./Popup";import Dummy from "./components/ProjectMgt/Dummy";
 import Dummy1 from "./components/ProjectMgt/Dummy1";
+import Epic from "./components/EpicMgt/Epic";
+import EpicList from "./components/EpicMgt/EpicList";
+import EpicView from "./components/EpicMgt/EpicView";
+import EpicDeletionConfirmation from "./components/EpicMgt/EpicDeletionConfirmation";
+import EpicDeletionSuccessful from "./components/EpicMgt/EpicDeletionSuccessful";
+
 
 
 
@@ -37,6 +43,9 @@ function App() {
       <BrowserRouter>
         <Routes>
 
+          {/* Variable Passing through */}
+          {/* <Route path="/epic/:epicId" component={Epic} /> */}
+
           {/* pages without sidebar & nav bar */}
           <Route path="/" element={<Login />} />
           <Route index element={<Login />} />
@@ -45,6 +54,9 @@ function App() {
           <Route path="/ResetPass" element={<ResetPass />} />
           <Route path="/AddUser" element={<AddUser />} />
           <Route path="/SuccesfulAction" element={<SuccesfulAction />} />
+          <Route path="/EpicDeletionConfirmation" element={<EpicDeletionConfirmation />} />
+          <Route path="/EpicDeletionSuccessful" element={<EpicDeletionSuccessful />} />
+
 
           {/* pages with sidebar */}
           <Route path="/Team" element={<Team />} />
@@ -70,6 +82,9 @@ function App() {
           <Route path="/People" element ={<People/>}/>
           <Route path="/Forum" element ={<Forum/>}/>
           <Route path="/Report" element ={<Report/>}/>
+          <Route path="/Epic" element = {<Epic/>}/>
+          <Route path="/EpicList" element = {<EpicList/>}/>
+          <Route path="/EpicView" element = {<EpicView/>}/>
 
           {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
           <Route path="/Group" element ={<Group/>}/>

@@ -5,8 +5,10 @@ import IssueSummary  from "./IssueSummary";
 import { TeamSummary } from "./TeamSummary";
 import  RiskSummary from "./RiskSummary";
 import { IssueUpdateGraph } from "./IssueUpdateGraph";
-
+import { useParams } from "react-router-dom";
 const Dashboard = () => {
+
+  // const { id } = useParams();
   return (
     <>
       <div className=" m-4 p-4 overflow-scroll">

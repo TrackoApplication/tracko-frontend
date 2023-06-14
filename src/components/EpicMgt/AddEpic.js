@@ -4,12 +4,16 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { MDBCol, MDBRow } from "mdb-react-ui-kit";
 import EpicService from "../../Services/EpicService";
+import { useNavigate } from "react-router-dom";
+// import { useHistory } from 'react-router-dom';
 
 const AddEpic = () => {
+  const Nav = useNavigate();
   const [inactive, setInactive] = React.useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [EnteredEpicId,setEnteredEpicId] = useState(null);
   const [epic, setepic] = useState({
     id: "",
     project: "",
@@ -35,14 +39,31 @@ const AddEpic = () => {
     EpicService.saveEpic(epic)
       .then((response) => {
         console.log(response);
+        // const savedEpicId = response.data.project;
+        // setEnteredEpicId(savedEpicId);
+        // console.log('the saved epic id is' , savedEpicId);
       })
-      .catch((Error) => {});
+     
   };
+
+
 
   const handlebuttonclick = (e) => {
     saveEpic();
     handleClose();
+    Nav('/Epic' +epic.id);
+
+
   };
+
+  // const history = useHistory();
+  // const projectId = '123'; // Replace with your actual project ID
+  // const navigateToProjectDetails = () => {
+  //   history.push(`/epic/${epicId}`);
+  // };
+
+// const lastEpicId=props.lastEpicId;
+// console.log('last epicId is' , lastEpicId);
 
 
 
