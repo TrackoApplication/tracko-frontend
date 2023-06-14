@@ -3,8 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
 const EpicDeletionConfirmation = (props) => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
 
   const CallDelete = () => {
     props.deleteEpic(props.epicId);
@@ -53,4 +53,4 @@ const EpicDeletionConfirmation = (props) => {
 
 
 
-export default EpicDeletionConfirmation
+export default EpicDeletionConfirmation;

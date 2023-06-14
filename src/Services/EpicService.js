@@ -15,8 +15,10 @@ class EpicService{
     }
 
     deleteEpic(id){
-        return axios.delete(EPIC_API_BASE_URL+"/"+id);
+        return axios.delete(EPIC_API_BASE_URL+ '/' +id);
     }
+
+   
 
     
 }

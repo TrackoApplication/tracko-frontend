@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-
 import EpicDeletionConfirmation from "./EpicDeletionConfirmation";
 
 
-const Epic = ({ epic, deleteEpic }) => {
+const Epic = ({ epic, deleteEpic, key }) => {
   const [showConfirm, setShowConfirm] = useState(false);
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
 
 
 
   return (
     <>
-    <tr key={epic.Id} className='text-left font-semibold text-gray-500 text-sm px-2 py-2 whitespace-nowrap'>
-      <td>{epic.epicId}</td>
+    <tr>
+      {/* <td>{epic.id}</td> */}
+      <td>{epic.project}</td>
       <td>{epic.epicName}</td>
-      <td>{epic.Project}</td>
-      <td>{epic.epicPriority}</td>
-      <td>{epic.epicTeam}</td>
+      <td>{epic.priority}</td>
+      <td>{epic.assignee}</td>
+      <td>{epic.team}</td>
       
       
       <td>
@@ -33,16 +33,10 @@ const Epic = ({ epic, deleteEpic }) => {
         show={showConfirm}
         deleteEpic={deleteEpic}
         onHide={() => setShowConfirm(false)}
-        epicId={Epic.epicId}
+        epicId={epic.id}
       />
     </>
   );
 };
-
-
-
-
-
-
 
 export default Epic;
