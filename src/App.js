@@ -11,7 +11,7 @@ import ClientList from "./components/ClientMgt/ClientList";
 import UpdateClient from "./components/ClientMgt/UpdateClient";
 
 import Team from "./components/TeamMgt/Team";
-// import Backlog from "./components/BacklogMgt/BacklogControl/Backlog";
+
 
 import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
@@ -46,7 +46,6 @@ import { set } from "lodash";
 import axios from "axios";
 import ForumView from "./components/ForumMgt/ForumView";
 import TeamView from "./components/TeamMgt/TeamView";
-// import BacklogView from "./components/BacklogMgt/BacklogControl/BacklogView";
 
 
 
@@ -130,8 +129,7 @@ function App() {
             <Route path="/Team" element={<Team />} />
 
             <Route path="/ForumView"  element={<ForumView/>} />
-            
-            {/* <Route path="/BacklogView" element={<BacklogView />} /> */}
+
             
 
             <Route path="/People" element={<People />} />
