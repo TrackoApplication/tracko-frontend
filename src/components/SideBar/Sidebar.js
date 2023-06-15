@@ -10,6 +10,7 @@ import { color } from '@mui/system';
 import {useNavigate} from 'react-router-dom';
 import  Logout  from '../UserAuthentication/Logout'
 
+
 export const menuItems = [
   {name: 'Dashboard',to: '/Dashboard', exact: true, iconClassName:'bi bi-house'},
   {name: 'Backlog', to: '/BacklogView', exact: true, iconClassName:'bi bi-x-diamond-fill'},
@@ -43,6 +44,9 @@ const Sidebar = (props) => {
     props.onCollapse(inactive);
  
    }, [inactive]);
+
+   
+ 
 
   return (
     <div className={`side-menu ${inactive ? "inactive" : ""}`} >
