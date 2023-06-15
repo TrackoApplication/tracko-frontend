@@ -6,6 +6,11 @@
     padding: 20px;
 }
 
+.child-issue-title {
+    padding-top: 10px;
+    font-weight: 500;
+}
+
 .scrollbar-container {
     height: 600px; /* Set the height of the container */
     overflow-y: scroll; /* Enable vertical scrolling */
@@ -21,4 +26,38 @@
     height: 500px; /* Set the height of the container */
     overflow-y: scroll; /* Enable vertical scrolling */
     
+}
+
+.right-arrow {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.right-arrow:hover {
+    cursor: auto;
+    color: inherit;
+}
+
+.child-issue-row, .ci-link {
+    display: grid;
+    align-items: center;    
+}
+
+.child-issue-row {
+    border: 1px solid #e8e8e8;
+    padding: 0px;
+    grid-template-columns: 1fr 110px;
+    margin-bottom: 5px;
+}
+
+.ci-link {
+    border: none;
+    padding: 5px;
+    grid-template-columns: 1fr 50px;
+}
+
+.ci-row-id {
+    margin-right: 15px;
+    padding: 5px;
+    width: 30px;
 }

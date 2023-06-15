@@ -46,7 +46,11 @@
     border-radius: 7px;
     display: flex;
     flex-direction: column;
-    height: 77vh;
+    min-height: 77vh;
+}
+
+.board-card {
+    margin-bottom: 10px;
 }
 
 /* .item {

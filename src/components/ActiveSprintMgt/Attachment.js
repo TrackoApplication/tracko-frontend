@@ -23,7 +23,7 @@ function MultipleAttachments() {
   }
 
   return (
-    <div>
+    <div style={{ margin: '10px 0 20px 0' }}>
       <input type="file" multiple onChange={handleFileInputChange} />
       <div>{renderAttachments()}</div>
     </div>

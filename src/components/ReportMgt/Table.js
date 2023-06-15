@@ -28,11 +28,10 @@ export default function Home() {
             <tr className="report-tr">
               <th scope="col">Date</th>
               <th scope="col">Issue</th>
-              <th scope="col">Event</th>
-              <th scope="col">Event Details</th>
-              <th scope="col">Added</th>
-              <th scope="col">Completed</th>
-              <th scope="col">Remaining</th>
+              <th scope="col">Status</th>
+              <th scope="col">Added Storypoints</th>
+              <th scope="col">Complete Storypoints</th>
+              <th scope="col">Remaining Storypoints</th>
             </tr>
           </thead>
           <tbody>
@@ -40,7 +39,6 @@ export default function Home() {
               <tr className="report-tr">
                 <td>{report.date}</td>
                 <td>{report.issue}</td>
-                <td>{report.event}</td>
                 <td>{report.eventDetails}</td>
                 <td>{report.addedStoryPoints}</td>
                 <td>{report.completedStoryPoints}</td>

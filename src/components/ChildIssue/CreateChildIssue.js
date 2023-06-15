@@ -14,7 +14,7 @@ const CreateChildIssue = () => {
 
   useEffect(() => {
     const childIssueId = new URLSearchParams(window.location.search).get(
-      "childIssueId"
+      "childIssueId" 
     );
 
     axios.get('http://localhost:8080/childissue/get_iss/' + childIssueId).then((response) => {

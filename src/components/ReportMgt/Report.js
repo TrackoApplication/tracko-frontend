@@ -21,7 +21,7 @@ const Report = () => {
         />
 
         <div className="mainReport">
-          <h2 className='path'>{"Return0 > Report"}</h2>
+          <h2 className='path'>Report</h2>
           <form className='frmReportGen'>
             <div className='subTopicArea'>
               <span className='boxIcon'>

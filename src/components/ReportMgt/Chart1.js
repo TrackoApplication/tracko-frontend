@@ -7,12 +7,7 @@ import ReactApexChart from 'react-apexcharts'
 
 export default function Chart1() {
     const [state, setState] = useState({
-        series: [{
-            name: 'Non working days',
-            type: 'column',
-            data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
-            color: '#C5C5C5'
-        }, {
+        series: [ {
             name: 'Remaining values',
             type: 'line',
             data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
@@ -29,8 +24,8 @@ export default function Chart1() {
                 stacked: false,
             },
             stroke: {
-                width: [0, 3, 3],
-                curve: 'stepline'
+                width: [3, 3],
+                curve: ['stepline', 'straight']
             },
             plotOptions: {
                 bar: {
