@@ -1,43 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './ActiveSprint.css';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import _ from "lodash";
 import { v4 } from "uuid";
-import Sidebar from '../SideBar/Sidebar'
-import "./ActiveSprint.css";
 // import 'mdbreact/dist/css/mdb.css';
 
-
-
-const StrictModeDroppable = ({ children, ...props }) => {
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    const animation = requestAnimationFrame(() => setEnabled(true));
-
-    return () => {
-      cancelAnimationFrame(animation);
-      setEnabled(false);
-    };
-  }, []);
-
-  if (!enabled) {
-    return null;
-  }
-
-  return <Droppable {...props}>{children}</Droppable>;
-};
 
 const item = {
   id: v4(), // v4 is a function that generates a random id
   name: (
-    <a href="./childissue" class="card">
+    <div class="card">
       <div class="card-body">
         <h5 class="card-title">Special title treatment</h5>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
         <a href="#" type='button' class="btn btn-primary">Go somewhere</a>
       </div>
-    </a>
+    </div>
   )
 }
 
@@ -46,7 +24,7 @@ const item2 = {
   name: "Wash the car"
 }
 
-function ActiveSprint() {
+function Test() {
   const [text, setText] = useState("")
   const [state, setState] = useState({
     "todo": {
@@ -106,13 +84,13 @@ function ActiveSprint() {
             {
               id: v4(),
               name: (
-                <a href="./Chilsissue" class="card">
+                <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">{text}</h5>
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                     <a href="#" type='button' class="btn btn-primary">Go somewhere</a>
                   </div>
-                </a>
+                </div>
               )
             },
             ...prev.todo.items
@@ -124,35 +102,8 @@ function ActiveSprint() {
     setText("")
   }
 
-  const [inactive, setInactive] = React.useState(false);
-
   return (
-    <div className='App'>
-    <div className='AppGlass'>
-      <Sidebar
-
-      onCollapse={(inactive) => {
-          setInactive(inactive);
-      }}
-      
-      />
-      <div>
-      <div className="activeSprint">
-        <h2>Active Sprint</h2>
-        <div className='dropDowns'>
-          <select>
-            <option>Team 1</option>
-            <option>Team 2</option>
-          </select>
-          <select>
-            <option>Sprint 1</option>
-            <option>Sprint 2</option>
-            <option>Sprint 3</option>
-            <option>Sprint 4</option>
-          </select> 
-        </div> 
-      </div>
-
+    <div>
       <div className="Appp">
         {/* <div>
         <input type="text" value={text} onChange={(e) => setText(e.target.value)}/>
@@ -161,9 +112,9 @@ function ActiveSprint() {
         <DragDropContext onDragEnd={handleDragEnd}>
           {_.map(state, (data, key) => {
             return (
-              <div key={key} className="column">
-                <h3 style={{ textAlign: 'center' }}>{data.title}</h3>
-                <StrictModeDroppable droppableId={key}>
+              <div key={key} className={"column"}>
+                <h3>{data.title}</h3>
+                <Droppable droppableId={key}>
                   {(provided, snapshot) => {
                     console.log(snapshot)
                     return (
@@ -195,16 +146,14 @@ function ActiveSprint() {
                       </div>
                     )
                   }}
-                </StrictModeDroppable>
+                </Droppable>
               </div>
             )
           })}
         </DragDropContext>
       </div>
-      </div>
-    </div>
     </div>
   );
 }
 
-export default ActiveSprint;
+export default Test;

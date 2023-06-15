@@ -3,7 +3,6 @@ import Sidebar from '../SideBar/Sidebar';
 import {AiOutlineDropbox} from 'react-icons/ai';
 import Linechart from './Chart';
 import Home from './Table';
-import BasicTable from './TableNew';
 
 import "./Report.css"
 import Chart1 from './Chart1';

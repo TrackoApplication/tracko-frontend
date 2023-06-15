@@ -11,6 +11,7 @@ import ClientList from "./components/ClientMgt/ClientList";
 import Team from "./components/TeamMgt/Team";
 // import Backlog from "./components/BacklogMgt/BacklogControl/Backlog";
 import ActiveSprint from "./components/ActiveSprintMgt/ActiveSprint";
+import Test from "./components/ActiveSprintMgt/Test";
 import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
 import Report from "./components/ReportMgt/Report";

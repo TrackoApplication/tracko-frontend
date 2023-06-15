@@ -44,7 +44,7 @@ const Childissue = () => {
   };
 
   const saveChildissue = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
       try {
         await axios.post('http://localhost:8080/childissue/add_iss', childissue);
         alert('Issue created successfully!');
@@ -82,14 +82,14 @@ const Childissue = () => {
     // setting states for Issue form fields on change
   const setField = (field, value) => {
     setChildissue({
-      ...Childissue,
+      ...childissue,
       [field]: value
     }) 
 
-    if(!!errors[field]) setErrors({
-      ...errors,
-      [field]: null
-    })
+    // if(!!errors[field]) setErrors({
+    //   ...errors,
+    //   [field]: null
+    // })
   }
 
   const handleSubmit = (e) => {
@@ -97,6 +97,7 @@ const Childissue = () => {
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
       saveChildissue(e);
+      handleClose();
     } else {
       setErrors(formErrors);
     }
@@ -111,16 +112,18 @@ const Childissue = () => {
       assignee,
       devEstimatedSP,
       testEstimatedSP,
-      totalSP,
-      reqOfTesting,
+      //totalSP,
+      reqOfTest,
       spdeveloping,
       sptesting,
       priority,
       reporter,
     } = childissue;
     const newErrors = {};
+    debugger;
   
     if (!type || type === "") {
+    
       newErrors.type = "Child issue type cannot be blank";
     }
   
@@ -128,23 +131,25 @@ const Childissue = () => {
       newErrors.summary = "Summary cannot be blank";
     }
   
-    if (!reqOfTesting || reqOfTesting === "") {
-      newErrors.reqOfTesting = "Requirement of testing cannot be blank";
+    if (!reqOfTest || reqOfTest === "") {
+      newErrors.reqOfTest = "Requirement of testing cannot be blank";
     }
   
-    if (reqOfTesting === "true") {
-      if (!spdeveloping || spdeveloping === "" || spdeveloping < 1 || spdeveloping > 21) {
-        newErrors.spdeveloping = "Story point estimate for developing is required and must be between 1 and 21";
+    if (reqOfTest === "true") {
+      if (!devEstimatedSP || devEstimatedSP === "" || devEstimatedSP < 1 || devEstimatedSP > 21) {
+        newErrors.devEstimatedSP = "Story point estimate for developing is required and must be between 1 and 21";
       }
-      if (!sptesting || sptesting === "" || sptesting < 1 || sptesting > 21) {
-        newErrors.sptesting = "Story point estimate for testing is required and must be between 1 and 21";
-      }
-    } else if (reqOfTesting === "false") {
-      if (!spdeveloping || spdeveloping === "" || spdeveloping < 1 || spdeveloping > 21) {
-        newErrors.spdeveloping = "Story point estimate for developing is required and must be between 1 and 21";
-      }
-      // Clear the error message for sptesting when reqOfTesting is "false"
-      newErrors.sptesting = null;
+
+      if (!testEstimatedSP || testEstimatedSP === "" || testEstimatedSP < 1 || testEstimatedSP > 21) {
+        newErrors.testEstimatedSP = "Story point estimate for testing is required and must be between 1 and 21";
+      }}
+
+    else if (reqOfTest === "false") {
+      if (!devEstimatedSP || devEstimatedSP === "" || devEstimatedSP < 1 || devEstimatedSP > 21) {
+        newErrors.devEstimatedSP = "Story point estimate for developing is required and must be between 1 and 21";
+     }
+      // Clear the error message for testEstimatedSP when reqOfTest is "false"
+      newErrors.testEstimatedSP = null;
     }
   
     if (!priority || priority === "") {
@@ -159,18 +164,18 @@ const Childissue = () => {
   };
 
   //function to handle form field changes and update the state value
-  const onInputChange = (e) => {
-    const { value, name } = e.target;
+  // const onInputChange = (e) => {
+  //   const { value, name } = e.target;
 
-    setChildissue({ ...childissue, [name]: value});
+  //   setChildissue({ ...childissue, [name]: value});
 
-    if (name === 'devEstimatedSP' || name === 'testEstimatedSP') {
-      const devSP = name === 'devEstimatedSP' ? parseInt(value) || 0 : childissue.devEstimatedSP || 0;
-      const testSP = name === 'testEstimatedSP' ? parseInt(value) || 0 : childissue.testEstimatedSP || 0;
-      const totalSP = parseInt(devSP) + parseInt(testSP);
-      setChildissue((prevState) => ({ ...prevState, totalSP }));
-    }
-  };
+  //   if (name === 'devEstimatedSP' || name === 'testEstimatedSP') {
+  //     const devSP = name === 'devEstimatedSP' ? parseInt(value) || 0 : childissue.devEstimatedSP || 0;
+  //     const testSP = name === 'testEstimatedSP' ? parseInt(value) || 0 : childissue.testEstimatedSP || 0;
+  //     const totalSP = parseInt(devSP) + parseInt(testSP);
+  //     setChildissue((prevState) => ({ ...prevState, totalSP }));
+  //   }
+  // };
 
   const [childissues, setChildissues] = useState([]);
 
@@ -180,12 +185,22 @@ const Childissue = () => {
     });
   }, []);
 
-  const handleOverlayClick = (event) => {
-    event.stopPropagation();
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete('http://localhost:8080/childissue/delete_iss/${issueID}');
+      alert('Child issue deleted successfully!');
+      // Fetch the updated list of child issues
+      const response = await axios.get('http://localhost:8080/childissue/get_iss');
+      setChildissues(response.data);
+    } catch (error) {
+      console.log(error);
+      alert('An error occurred while deleting the child issue.');
+    }
   };
 
-  const handleTopButtonClick = () => {
-    console.log('Top Button Clicked');
+  const handleButtonClick = (e) => {
+    e.stopPropagation();
+    // Handle button click logic here
   };
  
   return (    
@@ -238,11 +253,11 @@ const Childissue = () => {
                                   value={childissue.type}
                                   autoFocus
                                   required
-                                  defaultValue="--Issue Type--"
+                                 // defaultValue="--Issue Type--"
                                   onChange={(e) => setField("type", e.target.value)}
                                   isInvalid={!!errors.type}
                                 >
-                                  <option value="" disabled>--Issue Type--</option>
+                                  <option value="" > </option>
                                   <option value="bug">Bug</option>
                                   <option value="issue">Issue</option>
                                 </Form.Select>
@@ -258,7 +273,7 @@ const Childissue = () => {
                                     value={childissue.summary}
                                     onChange={(e) => setField("summary", e.target.value)}
                                     isInvalid={!!errors.summary}
-                                    required={true}
+                                    required
                                 />
                                 <Form.Control.Feedback type="invalid">{errors.summary}</Form.Control.Feedback>
                             </Form.Group>
@@ -270,7 +285,7 @@ const Childissue = () => {
                                     rows={5} 
                                     name="description"
                                     value={childissue.description}
-                                    onChange={(e) => onInputChange(e)}
+                                    onChange={(e) => handleChange(e)}
                                 />
                             </Form.Group>
 
@@ -279,8 +294,7 @@ const Childissue = () => {
                                 <Form.Select
                                   name="assignee"
                                   value={childissue.assignee}
-                                  onChange={(e) => onInputChange(e)}
-                                  required
+                                  onChange={(e) => handleChange(e)}
                                 >
                                   <option value="" disabled>--Assignee--</option>
                                   <option value="tom">Tom</option>
@@ -293,8 +307,7 @@ const Childissue = () => {
                                 <Form.Select
                                   name="sprint"
                                   value={childissue.sprint}
-                                  onChange={(e) => onInputChange(e)}
-                                  required
+                                  onChange={(e) => handleChange(e)}
                                 >
                                   <option value="" disabled>--Sprint--</option>
                                   <option value="sprint 1">Sprint 1</option>
@@ -307,12 +320,15 @@ const Childissue = () => {
                                 <Form.Select
                                   name="reqOfTest"
                                   value={childissue.reqOfTest}
-                                  onChange={(e) => onInputChange(e)}
+                                  onChange={(e) => setField("reqOfTest", e.target.value)}
+                                  isInvalid={!!errors.reqOfTest}
                                   required
                                 >
-                                  <option value="yes">Yes</option>
-                                  <option value="no">No</option>
+                                  <option value="" disabled selected> </option>
+                                  <option value="true">Yes</option>
+                                  <option value="false">No</option>
                                 </Form.Select>
+                                <Form.Control.Feedback type="invalid">{errors.reqOfTest}</Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -321,8 +337,13 @@ const Childissue = () => {
                                   type="number"
                                   name="devEstimatedSP"
                                   value={childissue.devEstimatedSP}
-                                  onChange={(e) => onInputChange(e)}
+                                  onChange={(e) => setField("devEstimatedSP", e.target.value)}
+                                  isInvalid={!!errors.devEstimatedSP}
+                                  required
                                 />
+                                <Form.Control.Feedback type="invalid">
+                                  {errors.devEstimatedSP}
+                                </Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -331,8 +352,14 @@ const Childissue = () => {
                                   type="number"
                                   name="testEstimatedSP"
                                   value={childissue.testEstimatedSP}
-                                  onChange={(e) => onInputChange(e)}
+                                  onChange={(e) => setField("testEstimatedSP", e.target.value)}
+                                  isInvalid={!!errors.sptesting}
+                                  required={childissue.reqOfTest === "true"} // required if reqOfTest is true
+                                  disabled={childissue.reqOfTest !== "true"} // disable if reqOfTest is false
                                 />
+                                <Form.Control.Feedback type="invalid">
+                                  {errors.testEstimatedSP}
+                                </Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -340,8 +367,8 @@ const Childissue = () => {
                                 <Form.Control
                                   type="number"
                                   name="totalSP"
-                                  value={childissue.totalSP}
-                                  onChange={(e) => onInputChange(e)}
+                                  value={parseInt(childissue.devEstimatedSP) + parseInt(childissue.testEstimatedSP)}
+                                  onChange={(e) => handleChange(e)}
                                   readOnly
                                 />
                             </Form.Group>
@@ -351,12 +378,20 @@ const Childissue = () => {
                                   <Form.Select
                                     name="priority"
                                     value={childissue.priority}
-                                    onChange={(e) => onInputChange(e)}
+                                    onChange={(e) => setField("priority", e.target.value)}
+                                    isInvalid={!!errors.priority}
+                                    required
                                   >
+                                    <option value="" disabled selected>
+                                      -- Select the priority --
+                                    </option>
                                     <option value="high">High</option>
                                     <option value="medium">Medium</option>
                                     <option value="low">Low</option>
                                   </Form.Select>
+                                  <Form.Control.Feedback type="invalid">
+                                    {errors.priority}
+                                  </Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -364,11 +399,16 @@ const Childissue = () => {
                                 <Form.Select
                                     name="reporter"
                                     value={childissue.reporter}
-                                    onChange={(e) => onInputChange(e)}
+                                    onChange={(e) => setField("reporter", e.target.value)}
+                                    isInvalid={!!errors.reporter}
+                                    required
                                 >
-                                  <option value="tom">Tom</option>
-                                  <option value="jerry">Jerry</option>
+                                  <option>Tom</option>
+                                  <option>Jerry</option>
                                 </Form.Select>
+                                <Form.Control.Feedback type="invalid">
+                                  {errors.reporter}
+                                </Form.Control.Feedback>
                             </Form.Group>
                                   
                         </MDBCol>
@@ -390,7 +430,8 @@ const Childissue = () => {
                       <Button
                         variant="primary"
                         className="rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] "
-                        onClick={saveChildissue}
+                        // onClick={saveChildissue}
+                        onClick={handleSubmit}
                       >
                         Create
                       </Button>
@@ -403,12 +444,11 @@ const Childissue = () => {
                   <div class="col-12">
 
                   {childissues.map((childissue) => (
-                    <div class="list-group-item list-group-item-action"
+                    <div class="card"
                       key={childissue.id} 
                       type="button" 
                       className="list-group-item list-group-item-action" 
                       to={`../CreateChildIssue?childIssueId=${childissue.issueID}`}
-                      onClick={handleTopButtonClick}
                     >
                       <div className='d-flex justify-content-between'>
                         <div>
@@ -419,8 +459,10 @@ const Childissue = () => {
                             {childissue.summary}
                         </div>
                         <div>
-                          <button 
-                            class='badge bg-primary border' onClick={handleOverlayClick}>
+                          <button
+                            class='badge bg-primary border'
+                            onClick={() => handleDelete(childissue.id)}
+                          >
                             Delete
                           </button>
                         </div>
