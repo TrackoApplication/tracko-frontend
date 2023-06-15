@@ -33,6 +33,7 @@ const AddIssue = () => {
 
   //Retrieving sprint names from the backend
   useEffect(() => {
+   
     const fetchData = async () => {
       setloading(true);
       try {
@@ -196,6 +197,7 @@ const AddIssue = () => {
         newErrors.sptesting =
           "Story point estimate for testing is required and must be between 1 and 21";
       }
+      newErrors.sptesting = null;
     } else if (reqOfTesting === "false") {
       if (
         !spdeveloping ||
@@ -424,6 +426,9 @@ const AddIssue = () => {
                   </Form.Select>
                 </Form.Group>
 
+
+               
+
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
@@ -510,10 +515,10 @@ const AddIssue = () => {
                     type="number"
                     name="totalSP"
                     disabled
-                    value={issue.totalSP}
-                    // value={
-                    //   parseInt(issue.spdeveloping) + parseInt(issue.sptesting)
-                    // }
+                    // value={issue.totalSP}
+                    value={
+                      parseInt(issue.spdeveloping) + parseInt(issue.sptesting)
+                    }
                     // onChange={(e) =>setField("totalSP", issue.spdeveloping + issue.sptesting)}
                     // placeholder="name@example.com"
                     // autoFocus

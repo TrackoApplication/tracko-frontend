@@ -15,7 +15,7 @@ function IssueList() {
   const issueState = useSelector((state) => state.issues);
   const sprintState = useSelector((state) => state.sprints);
 
-  // // fetching the data from the backend
+  // fetching the data from the backend
   // useEffect(() => {
   //   const fetchData = async () => {
   //     setloading(true);

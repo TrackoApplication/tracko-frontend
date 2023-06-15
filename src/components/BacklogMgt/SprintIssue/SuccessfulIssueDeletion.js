@@ -1,15 +1,15 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import "./SuccesfulDeletion.css";
+import "./SuccesfulIssueDeletion.css";
 
-const SuccessfulUpdation = (props) => {
-  const CallUpdate = () => {
+const SuccessfulIssueDeletion = (props) => {
+  const CallDelete = () => {
     window.location.reload(false);
   };
 
   return (
     <div>
-      {/* popup successful message of successful updation */}
+      {/* popup successful message successful deletion */}
       <Modal
         {...props}
         size="m"
@@ -26,8 +26,8 @@ const SuccessfulUpdation = (props) => {
         </div>
         <div className="flex p-5 mx-auto text-xl">{props.message}</div>
         <div className="p-2 mx-auto">
-          <btn className="btn btn-green w-20" onClick={() => CallUpdate()}>
-            OK
+          <btn className="btn btn-green w-20" onClick={() => CallDelete()}>
+            Ok
           </btn>
         </div>
       </Modal>
@@ -35,4 +35,4 @@ const SuccessfulUpdation = (props) => {
   );
 };
 
-export default SuccessfulUpdation;
+export default SuccessfulIssueDeletion;

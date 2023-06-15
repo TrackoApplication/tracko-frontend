@@ -16,7 +16,6 @@ import Team from "./components/TeamMgt/Team";
 import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
 import AddUser from "./components/UserMgt/AddUser";
-import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
@@ -49,10 +48,7 @@ import { set } from "lodash";
 import axios from "axios";
 import ForumView from "./components/ForumMgt/ForumView";
 import TeamView from "./components/TeamMgt/TeamView";
-
-
-
-
+import IssueService from "./Services/IssueService";
 
 function App() {
 
@@ -74,9 +70,6 @@ function App() {
     const userGroup = localStorage.getItem("userGroup");
     setUserRole(userRole);
     setUserGroup(userGroup);
-
-    
-
 
     const response = axios.get("http://localhost:8080/api/v1/auth/authenticate", {
       headers: {
@@ -115,7 +108,7 @@ function App() {
           <Route index element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />}></Route>
-          <Route path="/ResetPass" element={<ResetPass />} />
+          <Route path="/ForgotPassword" element={<ForgotPassword />} />
           <Route path="/AddUser" element={<AddUser />} />
           <Route path="/SprintList" element={<SprintList />} />
           {/* <Route path="/IssueList" element={<IssueList />} /> */}
@@ -132,10 +125,10 @@ function App() {
             {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
             <Route path="/Group" element={<Group />} />
             <Route path="/navbar" element={ <Navbar role={userRole} accessGroup={userGroup} />} />
-            <Route path="/Dashboard" element={<DashLayout />} />
+            <Route path="/Dashboard/:id" element={<DashLayout />} />
             <Route path="/reset_password" element={<ResetPassword />} />
             <Route path="/addClient" element={<AddClient />} />
-          <Route path="/editClient/:id" element={<UpdateClient />} />
+            <Route path="/editClient/:id" element={<UpdateClient />} />
 
             {/* pages with sidebar */}
             <Route path="/Team" element={<Team />} />
