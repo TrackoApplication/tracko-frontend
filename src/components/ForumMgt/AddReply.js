@@ -44,13 +44,7 @@ const AddReply=() =>{
       };
        
 
-    //   const Reply = ({ reply, deleteReply }) => {
-    //     const navigate = useNavigate();
-    //     const editReply = (e, id) => {
-    //       e.preventDefault();
-    //       navigate(`/editReply/${id}`);
-    //     };
-    // }      
+         
     //   function FormValidation(){
     //   const[values, setValues]= useState({
     //     clientName:'',

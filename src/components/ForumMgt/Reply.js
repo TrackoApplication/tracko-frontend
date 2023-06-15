@@ -34,7 +34,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const Reply = ({ reply, deleteReply }) => {
+const Reply = ({reply, deleteReply }) => {
   const navigate = useNavigate();
     const editReply = (e, id) => {
     e.preventDefault();
@@ -45,8 +45,7 @@ const Reply = ({ reply, deleteReply }) => {
 
     
     <tr key={reply.id}>
-
-        <td className="text-left px-0 py-8 whitespace-nowrap">
+       <td className="text-left px-0 py-8 whitespace-nowrap">
         <div className="flex flex-col">
           
           

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import './App.css';
-import Register from './components/UserAuthentication/Register';
-import Login from './components/UserAuthentication/Login';
+
+
 import { BrowserRouter, Router, Link, Route, Routes } from "react-router-dom";
 import Navbar from "./components/NavBar/Navbar";
-import UserList from "./components/UserMgt/UserList";
-import ResetPass from "./components/UserAuthentication/ResetPass";
+
 import ProjectList from "./components/ProjectMgt/ProjectList";
 
 import Team from "./components/TeamMgt/Team";
@@ -14,7 +13,7 @@ import ActiveSprint from "./components/ActiveSprintMgt/ActiveSprint";
 import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
 import Report from "./components/ReportMgt/Report";
-import AddUser from "./components/UserMgt/AddUser";
+
 import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
 import GroupDetail from "./components/GroupMgt/GroupDetail";
@@ -36,9 +35,10 @@ import SprintList from "./components/BacklogMgt/Sprint/SprintList";
 import IssueList from "./components/BacklogMgt/Issue/IssueList";
 import TeamView from "./components/TeamMgt/TeamView";
 import ForumView from "./components/ForumMgt/ForumView";
+import UpdateReply from "./components/ForumMgt/UpdateReply";
 function App() {
 
-  const UserListWithNavbar = withNavbar(UserList);
+ 
   const ClientListWithNavbar = withNavbar(ClientList);
   
   return (
@@ -47,12 +47,8 @@ function App() {
         <Routes>
 
           {/* pages without sidebar & nav bar */}
-          <Route path="/" element={<Login />} />
-          <Route index element={<Login />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/Login" element={<Login />}></Route>
-          <Route path="/ResetPass" element={<ResetPass />} />
-          <Route path="/AddUser" element={<AddUser />} />
+          
+          
           <Route path="/SprintList" element={<SprintList />} />
           <Route path="/IssueList" element={<IssueList />} />
 
@@ -87,7 +83,7 @@ function App() {
           <Route path="/newdashboard" element ={<DashLayout/>}/>
         
           {/* pages with navbar */}
-          <Route path="/UserList" element={<UserListWithNavbar/>} />
+          
           <Route path="/ProjectList" element={<ProjectList />} />
           <Route path="/ClientList" element={<ClientListWithNavbar/>} />
           
@@ -105,10 +101,11 @@ function App() {
           <Route path="/ReplyList" element={<ReplyList />} />
           <Route path="/AddReply" element={<AddReply />} />
           <Route path="/Reply" element={<Reply/>} />
+          <Route path="/editReply/:id" element={<UpdateReply />} />
           {/* <Route path="/editForum/:id" element={<UpdateForum />} /> */}
           
           {/* pages with navbar */}
-          <Route path="/UserList" element ={<UserList/>}/>
+          
           <Route path="/ProjectList" element ={<ProjectList/>}/>
           <Route path="/ClientList" element ={<ClientList/>}/>
     

@@ -383,6 +383,8 @@ const TeamList = () => {
         });
     }
   };
+
+  
   
   const openAddTeam = () => {
     setShowAddTeam(true);

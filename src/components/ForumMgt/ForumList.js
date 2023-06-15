@@ -289,7 +289,7 @@ import ForumService from '../../Services/ForumService';
 import Forum from "./Forum";
 import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 import CreateForum from "./CreateForum";
-import UpdateForum from "./UpdateForum";
+
 
 
 const ForumList = () => {

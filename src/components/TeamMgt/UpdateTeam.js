@@ -487,7 +487,7 @@ const UpdateTeam = () => {
               Update
             </button>
             <button
-              onClick={() => navigate('/teamList')}
+              onClick={() => navigate('/teamView')}
               className="rounded text-white font-semibold bg-[#231651] hover:bg-blue-700 py-2 px-6"
             >
               Cancel

@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TeamService from '../../Services/TeamService';
-import SuccessfulAction from "../CommonComponents/SuccessfulAction"
+import SuccessfulAction from "../CommonComponents/SuccessfulAction";
+
 
 const AddTeam = () => {
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [cancel] = useState(false);
+  const [showSuccess,onCancel, setShowSuccess] = useState(false);
+  const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [loading, setLoading] = useState(false);
+ 
   const [team, setTeam] = useState({
     id: "",
     teamName: "",
@@ -20,7 +25,9 @@ const AddTeam = () => {
   };
 
  
-
+  
+  
+  
     
 
     
@@ -76,10 +83,12 @@ const AddTeam = () => {
       .catch((error) => {
         console.log(error);
       });
-      const cancel = () => {
-        navigate('/teamView');
-      };
-      
+     
+  };
+  
+  const handleClose = () => {
+    setShow(false);
+    setShowSuccess(false);
   };
   
 
@@ -129,7 +138,7 @@ const AddTeam = () => {
               Clear
             </button>
             <button
-              onClick={() => navigate("/teamView")}
+              onClick={onCancel}
               className="rounded text-white font-semibold bg-[#231651] hover:bg-blue-700 py-2 px-6"
             >
               Cancel
@@ -140,7 +149,7 @@ const AddTeam = () => {
       <SuccessfulAction
         onHide={() => setShowSuccess(false)}
         show={showSuccess}
-        message="Team Saved Successfully"
+        // message="Team Saved Successfully"
       />
     </div>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import '../UserMgt/userMgt.css'
+// import '../UserMgt/userMgt.css'
 import './SuccesfulAction.css'
 
 const SuccessfulAction = (props) => {
