@@ -18,7 +18,7 @@ const Backlog = () => {
       {/* <SprintBacklogSection /> */}
 
       {/* Sprint completion section */}
-      <SprintCompletionSection/>
+      {/* <SprintCompletionSection/> */}
     </div>
   );
 };
