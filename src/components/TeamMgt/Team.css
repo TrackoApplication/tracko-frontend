@@ -1,0 +1,46 @@
+.AppGlass {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    background: var(--glass);
+    gap: 16px;
+    grid-template-columns: 12rem auto;
+    overflow: scroll;
+  }
+
+
+.mainGroup{
+    padding: 10px;
+    margin: 2px;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow:  0 0 10px rgba(0,0,0,0.2);
+    border-radius: 0.7rem;
+    overflow: hidden;
+    left: -80px;
+}
+
+.mainGroup .title{
+
+    margin-top: 10px;
+    margin-bottom: 40px;
+    margin-left: 20px;
+    padding: 0;
+    color: rgb(66, 66, 66);
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+/* /* @media screen and (max-width: 768px) {
+    .mainGroup{
+        width: 80%;
+        margin-left: 55px;
+    }
+    .AppGlass{
+        grid-template-columns: 1fr;
+      } 
+}
+  */
+ 

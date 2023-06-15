@@ -47,13 +47,14 @@
     "react-icons": "^4.8.0",
     "react-minimal-pie-chart": "^8.4.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.7.0",
+    "react-router-dom": "^6.12.1",
     "react-script": "^2.0.5",
     "react-scripts": "5.0.1",
     "react-scrollbars-custom": "^4.1.1",
     "react-widgets": "^5.8.4",
     "reactjs-popup": "^2.0.5",
     "recharts": "^2.5.0",
+    "sockjs-client": "^1.6.1",
     "styled-components": "^5.3.11",
     "uuid": "^9.0.0"
   },
@@ -83,10 +84,10 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26",
-    "autoprefixer": "^10.4.13",
+    "autoprefixer": "^10.4.14",
     "file-loader": "^6.2.0",
     "postcss": "^8.4.21",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.7"
   },
   "resolutions": {
     "styled-components": "^5"
