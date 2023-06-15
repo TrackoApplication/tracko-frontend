@@ -293,18 +293,36 @@ const CreateForum = () => {
       attachment: "",
     });
   };
-
   const saveForum = (e) => {
     e.preventDefault();
-    ForumService.saveForum(forum)
-      .then((response) => {
-        navigate("/forumList");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    setShowSuccess(true);
+  
+    const confirmed = window.confirm("Are you sure you want to send the forum?");
+  
+    if (confirmed) {
+      ForumService.saveForum(forum)
+        .then((response) => {
+          navigate("/forumList");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  
+      setShowSuccess(true);
+    }
   };
+  
+
+  // const saveForum = (e) => {
+  //   e.preventDefault();
+  //   ForumService.saveForum(forum)
+  //     .then((response) => {
+  //       navigate("/forumList");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  //   setShowSuccess(true);
+  // };
 
   // const handleCancel = (e) => {
   //   e.preventDefault();

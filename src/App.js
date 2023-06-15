@@ -101,7 +101,7 @@ function App() {
           <Route path="/ReplyList" element={<ReplyList />} />
           <Route path="/AddReply" element={<AddReply />} />
           <Route path="/Reply" element={<Reply/>} />
-          <Route path="/editReply/:id" element={<UpdateReply />} />
+          <Route path="/editReply/:replyId" element={<UpdateReply />} />
           {/* <Route path="/editForum/:id" element={<UpdateForum />} /> */}
           
           {/* pages with navbar */}

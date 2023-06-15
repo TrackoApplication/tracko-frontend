@@ -1,5 +1,5 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
 
 const Team= ({team,deleteTeam}) => {
     const navigate = useNavigate();
@@ -7,7 +7,9 @@ const Team= ({team,deleteTeam}) => {
       e.preventDefault();
       navigate(`/editTeam/${id}`);
     };
-  
+    
+
+    
     return (
     <tr key={team.id}> 
                 <td className="text-left px-6 py-4 whitespace-nowrap">
@@ -21,7 +23,7 @@ const Team= ({team,deleteTeam}) => {
                 {team.users}
                     </div>
                     </td>
-              
+                    
                 
                 <td className="text-right px-6 py-4 whitespace-nowrap">
                 <a 

@@ -5,9 +5,9 @@ import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 
 
 const AddTeam = () => {
-  const [showSuccess,onCancel, setShowSuccess] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
+  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [loading, setLoading] = useState(false);
  
@@ -15,6 +15,7 @@ const AddTeam = () => {
     id: "",
     teamName: "",
     users: "",
+    members:"",
   });
 
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const AddTeam = () => {
       id: "",
       teamName: "",
       users: "",
+      members:"",
     });
   };
 
@@ -86,11 +88,11 @@ const AddTeam = () => {
      
   };
   
-  const handleClose = () => {
-    setShow(false);
-    setShowSuccess(false);
-  };
-  
+  // const handleClose = () => {
+  //   setShow(false);
+  //   setShowSuccess(false);
+  // };
+
 
   return (
     <div>
@@ -125,6 +127,20 @@ const AddTeam = () => {
             className="h-10 w-96 border mt-2 px-2"
           ></input>
 
+        <label className="block text-gray-600 text-sm font-normal">MemberList</label>
+<select
+  name="members"
+  value={team.members}
+  onChange={handleChange}
+  className="h-10 w-96 border mt-2 px-2"
+>
+  <option value="">Select members</option>
+  <option value="admin">Seefa</option>
+  <option value="user">Dulani</option>
+  <option value="user">Ravindu</option>
+  <option value="user">Yasiru</option>
+</select>
+
           <div className="items-center justify-center h-10 w-full my-4 space-x-4 pt-4">
             <button
               onClick={saveTeam}
@@ -137,12 +153,12 @@ const AddTeam = () => {
             >
               Clear
             </button>
-            <button
-              onClick={onCancel}
+            {/* <button
+              onClick={handleClose}
               className="rounded text-white font-semibold bg-[#231651] hover:bg-blue-700 py-2 px-6"
             >
               Cancel
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

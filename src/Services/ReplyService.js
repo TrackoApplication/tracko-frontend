@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const REPLY_API_BASE_URL ="http://localhost:8080/api/v1/reply";
 
+const REPLY_API_BASE_URL ="http://localhost:8080/api/v1/reply";
 
 class ReplyService{
 
@@ -13,16 +13,17 @@ class ReplyService{
         return axios.get(REPLY_API_BASE_URL);
       }
     
-      deleteReply(id) {
-        return axios.delete(REPLY_API_BASE_URL + "/" + id);
+      deleteReply(replyId) {
+        
+        return axios.delete(REPLY_API_BASE_URL + "/" + replyId);
       }
     
-      getReplyById(id) {
-        return axios.get(REPLY_API_BASE_URL + "/" + id);
+      getReplyById(replyId) {
+        return axios.get(REPLY_API_BASE_URL + "/" + replyId);
       }
     
-      updateReply(reply, id) {
-        return axios.put(REPLY_API_BASE_URL + "/" + id, reply);
+      updateReply(reply, replyId) {
+        return axios.put(REPLY_API_BASE_URL + "/" + replyId, reply);
       }
 }
 export default new ReplyService();

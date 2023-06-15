@@ -106,10 +106,10 @@ import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 
 const UpdateReply = () => {
   const [showSuccess, setShowSuccess] = useState(false);
-  const { id } = useParams();
+  const { replyId } = useParams();
   const navigate = useNavigate();
   const [reply, setReply] = useState({
-    id: id,
+    id: replyId,
     reply: "",
   });
 
@@ -121,14 +121,14 @@ const UpdateReply = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await ReplyService.getReplyById(id);
+        const response = await ReplyService.getReplyById(replyId);
         setReply(response.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-  }, [id]);
+  }, [replyId]);
 
   const updateReply = (e) => {
     e.preventDefault();

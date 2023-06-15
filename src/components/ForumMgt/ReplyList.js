@@ -32,15 +32,15 @@ useEffect(() => { //setting the "loading" state variable to "true",
     fetchData();
   }, []);
 
-  const deleteReply = (e, id) => { // DELETE request to the API using the "ClientService.deleteClient(id)" method
+  const deleteReply = (e, replyId) => { // DELETE request to the API using the "ClientService.deleteClient(id)" method
     e.preventDefault();
     const confirmation = window.confirm('Are you sure you want to delete this team?');
     if (confirmation) {
-    ReplyService.deleteReply(id).then((res) => {
+    ReplyService.deleteReply(replyId).then((res) => {
       if (replies) {
         setReplies((prevElement) => {  //then updates the "clients" state variable by filtering out the deleted client from the previous state using the "setClients" function.
         setShowSuccess(true);
-          return prevElement.filter((reply) => reply.id !== id);
+          return prevElement.filter((reply) => reply.replyId !== replyId);
         });
       }
     })
@@ -106,7 +106,7 @@ useEffect(() => { //setting the "loading" state variable to "true",
                     reply={reply}
                     deleteReply={deleteReply}
                     // openUpdateTeam={openUpdateTeam}
-                    key={reply.id}
+                    key={reply.replyId}
                   ></Reply>
                 ))}
               </tbody>
@@ -133,7 +133,7 @@ export default ReplyList;
 // import Reply from "./Reply";
 // import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 
-// const ReplyList = ({ forumId }) => {
+// const ReplyList = ({id }) => {
 //   const navigate = useNavigate();
 //   const [showSuccess, setShowSuccess] = useState(false);
 //   const [loading, setLoading] = useState(false);
@@ -143,7 +143,7 @@ export default ReplyList;
 //     const fetchData = async () => {
 //       setLoading(true);
 //       try {
-//         const response = await ReplyService.getRepliesByForumId(forumId); // Fetch replies specific to the forumId
+//         const response = await ReplyService.getRepliesByF(id); // Fetch replies specific to the forumId
 //         setReplies(response.data);
 //       } catch (error) {
 //         console.log(error);
@@ -151,7 +151,7 @@ export default ReplyList;
 //       setLoading(false);
 //     };
 //     fetchData();
-//   }, [forumId]);
+//   }, [id]);
 
 //   const deleteReply = (e, id) => {
 //     e.preventDefault();
@@ -215,20 +215,20 @@ export default ReplyList;
 // import ReplyService from '../../Services/ReplyService';
 // import Reply from "./Reply";
 
-// const ReplyList = ({ forumId }) => {
+// const ReplyList = ({ id }) => {
 //   const [replies, setReplies] = useState([]);
 
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
-//         const response = await ReplyService.getRepliesByForumId(forumId);
+//         const response = await ReplyService.getRepliesById(id);
 //         setReplies(response.data);
 //       } catch (error) {
 //         console.log(error);
 //       }
 //     };
 //     fetchData();
-//   }, [forumId]);
+//   }, [id]);
 
 //   const deleteReply = (id) => {
 //     // Implement the delete functionality here
