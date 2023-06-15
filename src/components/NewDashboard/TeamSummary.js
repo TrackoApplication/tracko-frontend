@@ -61,7 +61,7 @@ export const TeamSummary = () => {
             {teams.map((team) => (
             <tr>
               <td className="col-3 p-1">
-                <p className="col-8 text-lefrt font-bold">{team.teamName}</p>
+                <p className="col-8 text-left ">{team.teamName} style={{ fontSize: "20px" }}</p>
               </td>
 
               <td>

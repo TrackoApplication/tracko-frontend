@@ -15,10 +15,10 @@ const Dashboard = () => {
         <div className="p-2 bg-gray-100 rounded" ><ProjectSummary/></div>
       </div>
       <div className=" row my-2 h-[50%] ">
-        <div className="col w-[30%] rounded bg-gray-100 mr-1 p-2 h-full"><IssueSummary/></div>
-        <div className="col w-[30%] rounded bg-gray-100 ml-1 p-2 h-full"><TeamSummary/></div>
+        <div className="col w-[30%] rounded bg-gray-100 mr-1 p-2  my-3 "><IssueSummary/></div>
+        <div className="col w-[30%] rounded bg-gray-100 ml-1 p-2  my-3"><TeamSummary/></div>
       </div>
-      <div className="row my-2 h-[18%] ">
+      <div className="row my-3 h-[18%] ">
         <div className="p-2 bg-gray-100 rounded"><RiskSummary/></div>
       </div>
       <div>

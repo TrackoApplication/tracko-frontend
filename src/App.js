@@ -46,6 +46,8 @@ import { set } from "lodash";
 import axios from "axios";
 import ForumView from "./components/ForumMgt/ForumView";
 import TeamView from "./components/TeamMgt/TeamView";
+// import BacklogView from "./components/BacklogMgt/BacklogControl/BacklogView";
+
 
 
 
@@ -128,6 +130,8 @@ function App() {
             <Route path="/Team" element={<Team />} />
 
             <Route path="/ForumView"  element={<ForumView/>} />
+            
+            {/* <Route path="/BacklogView" element={<BacklogView />} /> */}
             
 
             <Route path="/People" element={<People />} />

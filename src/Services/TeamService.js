@@ -9,8 +9,12 @@ class TeamService{
         return axios.post(TEAM_API_BASE_URL, team);
       }
 
-      getTeam() {
-        return axios.get(TEAM_API_BASE_URL);
+      getTeam(accessToken) {
+        return axios.get(TEAM_API_BASE_URL,{
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
       }
     
       deleteTeam(id) {

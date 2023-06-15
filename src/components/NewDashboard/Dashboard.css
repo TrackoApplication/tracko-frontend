@@ -22,14 +22,17 @@
 }
 
 .issue-cards{
-    
     display: flex;
     flex-direction: coloumn;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     border-radius: 10px;
     margin: 9px;
+    margin-top: 3px;
+    margin-bottom: 3px;
     color: #ffffff;
 
 }

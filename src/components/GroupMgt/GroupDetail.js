@@ -129,7 +129,9 @@ const GroupDetail = () => {
                           <td>
                             <div className="d-flex align-items-center">
                               <div>
+                              {role == "ADMIN" && (
                                 <i class="bi bi-trash"></i>
+                              )}
                               </div>
                             </div>
                           </td>

@@ -19,28 +19,51 @@ class DashBoardService {
         });
     }
 
-    getIssueTodoCount() {
-        return axios.get(ISSUE_API_BASE_URL+ "/status/TO_DO");
+    getIssueTodoCount(token) {
+        return axios.get(ISSUE_API_BASE_URL+ "/status/TO_DO",{
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        });
     }
 
-    getIssueCompletedCount() {
-        return axios.get(ISSUE_API_BASE_URL+ "/status/COMPLETED");
+    getIssueCompletedCount(token) {
+        return axios.get(ISSUE_API_BASE_URL+ "/status/COMPLETED",{
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        });
+    }
+    getIssueInProgressCount(token) {
+        return axios.get(ISSUE_API_BASE_URL+ "/status/IN_PROGRESS",{
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        });
     }
 
-    getIssueInProgressCount() {
-        return axios.get(ISSUE_API_BASE_URL+ "/status/IN_PROGRESS");
+    getSprintCount(token) {
+        return axios.get(SPRINT_API_BASE_URL,{
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        });
     }
 
-    getSprintCount() {
-        return axios.get(SPRINT_API_BASE_URL);
+    getEpicCount(token) {
+        return axios.get(EPIC_API_BASE_URL,{
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        });
     }
 
-    getEpicCount() {
-        return axios.get(EPIC_API_BASE_URL);
-    }
-
-    getTeamCount() {
-        return axios.get(TEAM_API_BASE_URL + "/count");
+    getTeamCount(token) {
+        return axios.get(TEAM_API_BASE_URL + "/count",{
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        });
     }
 
     getTeamSummary(token) {
@@ -51,20 +74,36 @@ class DashBoardService {
         });
     }
 
-    getPeopleCount() {
-        return axios.get(PEOPLE_API_BASE_URL);
+    getPeopleCount(token) {
+        return axios.get(PEOPLE_API_BASE_URL,{
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        });
     }
 
-    getHighRiskCount() {
-        return axios.get(ISSUE_API_BASE_URL+ "/highrisk");
+    getHighRiskCount(token) {
+        return axios.get(ISSUE_API_BASE_URL+ "/highrisk",{
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        });
     }
 
-    getMediumRiskCount() {
-        return axios.get(ISSUE_API_BASE_URL+ "/mediumrisk");
+    getMediumRiskCount(token) {
+        return axios.get(ISSUE_API_BASE_URL+ "/mediumrisk",{
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        });
     }
 
-    getLowRiskCount() {
-        return axios.get(ISSUE_API_BASE_URL+ "/lowrisk");
+    getLowRiskCount(token) {
+        return axios.get(ISSUE_API_BASE_URL+ "/lowrisk",{
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        });
     }
 
 

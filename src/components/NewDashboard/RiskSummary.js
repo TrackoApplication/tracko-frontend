@@ -17,13 +17,14 @@ const RiskSummary = () => {
   
 
   useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await DashBoardService.getIssueCount();
-        const responseHigh = await DashBoardService.getHighRiskCount();
-        const responseMedium = await DashBoardService.getMediumRiskCount();
-        const responseLow = await DashBoardService.getLowRiskCount();
+        const response = await DashBoardService.getIssueCount(accessToken);
+        const responseHigh = await DashBoardService.getHighRiskCount(accessToken);
+        const responseMedium = await DashBoardService.getMediumRiskCount(accessToken);
+        const responseLow = await DashBoardService.getLowRiskCount(accessToken);
         setIssueCount(response.data);
         setIssueHighRiskCount(responseHigh.data);
         setIssueMediumRiskCount(responseMedium.data);

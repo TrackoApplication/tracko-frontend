@@ -64,9 +64,6 @@ const [showSuccess, setShowSuccess] = useState(false);
   };
 
 
-
- 
-
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
 
@@ -199,6 +196,7 @@ const [showSuccess, setShowSuccess] = useState(false);
           >
             Close
           </Button>
+          
           <Button
             variant="primary"
             className="rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] "
