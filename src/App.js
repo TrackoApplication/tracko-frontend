@@ -15,7 +15,6 @@ import Team from "./components/TeamMgt/Team";
 
 import People from "./components/PeopleMgt/People";
 import Forum from "./components/ForumMgt/Forum";
-
 import AddUser from "./components/UserMgt/AddUser";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Group from "./components/GroupMgt/Group";
@@ -26,6 +25,10 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 // import 'mdbreact/dist/css/mdb.css';
 import Childissue from "./components/ActiveSprintMgt/childissue";
 import GroupDetail from "./components/GroupMgt/GroupDetail";
+import BacklogView from "./components/BacklogMgt/BacklogControl/BacklogView";
+import SprintList from "./components/BacklogMgt/Sprint/SprintList";
+import {SET_ISSUES} from "./reducers/issuesReducer";
+import { useDispatch } from "react-redux";
 import SuccesfulAction from "./components/CommonComponents/SuccessfulAction";
 import DashLayout from "./components/NewDashboard/DashLayout";
 
@@ -52,14 +55,17 @@ import TeamView from "./components/TeamMgt/TeamView";
 
 
 function App() {
+
   const UserListWithNavbar = withNavbar(UserList);
+  const dispatch = useDispatch()
+
   const ProjectListWithNavbar = withNavbar(ProjectList);
   const ClientListWithNavbar = withNavbar(ClientList);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState("");
   const [userGroup, setUserGroup] = useState("");
-
+    // fetching the data from the backend
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
@@ -82,31 +88,37 @@ function App() {
     if (token) {
       setIsAuthenticated(true);
     }
+
+
+    (async () => {
+      try {
+        debugger;
+        const response = await IssueService.getIssues();
+        dispatch({
+          type: SET_ISSUES,
+          payload: response.data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    })();
   }, []);
-
-
-
   
-
-
-
- return (
+  return (
     <>
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
+           <AuthProvider>
+      <BrowserRouter>
+        <Routes>
 
-            {/* pages without sidebar & nav bar */}
-            <Route path="/" element={<Home />} />
-
-            <Route path="/Register" element={<Register />} />
-            <Route path="/Login" element={<Login />}></Route>
-            <Route path="/ForgotPassword" element={<ForgotPassword />} />
-
-
-     
-            <Route path="/SuccesfulAction" element={<SuccesfulAction />} />
-            <Route path="/Home" element={<Home />} />
+          {/* pages without sidebar & nav bar */}
+          <Route path="/" element={<Login />} />
+          <Route index element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/Login" element={<Login />}></Route>
+          <Route path="/ResetPass" element={<ResetPass />} />
+          <Route path="/AddUser" element={<AddUser />} />
+          <Route path="/SprintList" element={<SprintList />} />
+          {/* <Route path="/IssueList" element={<IssueList />} /> */}
 
             {/* pages with sidebar */}
             <Route path="/TeamView" element={<TeamView/>} />
@@ -130,7 +142,8 @@ function App() {
 
             <Route path="/ForumView"  element={<ForumView/>} />
 
-            
+            <Route path="/BacklogView" element={<BacklogView />} />
+          <Route path="/ActiveSprint" element={<ActiveSprint />} />
 
             <Route path="/People" element={<People />} />
             <Route path="/Forum" element={<Forum />} />
@@ -141,7 +154,6 @@ function App() {
             <Route path="/Dashboard" element={<DashLayout />} />
 
             {/* pages with navbar */}
-
             { userRole === "ADMIN" && 
             <>
             <Route path="/UserList" element={<UserListWithNavbar />} />
@@ -149,17 +161,17 @@ function App() {
             </>
             }
 
-            <Route path="/ProjectList" element={<ProjectListWithNavbar />} />
-            <Route path="/ClientList" element={<ClientListWithNavbar />} />
 
+          {/* pages with navbar */}
+          <Route path="/UserList" element={<UserListWithNavbar/>} />
+          <Route path="/ProjectList" element={<ProjectList />} />
+          <Route path="/ClientList" element={<ClientList />} />
+          {/* <Route path="/Popup" element={<Popup />} /> */}
+    
+        </Routes>
 
-            <Route path="*" element={<PageNotFound />} />
-          
-           
-
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+      </BrowserRouter>
+    </AuthProvider>
     </>
   );
 }

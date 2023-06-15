@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_SPRINTS } from "../../../reducers/sprintReducer";
 import SprintService from "../../../Services/SprintService";
 import Sprint from "./Sprint";
 
 function SprintList() {
   const [loading, setloading] = useState(true);
   const [sprints, setsprints] = useState(null);
-  // const [showSuccess, setShowSuccess] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const dispatch = useDispatch();
+  const sprintState = useSelector((state) => state.sprints);
 
   useEffect(() => {
     const fetchData = async () => {
       setloading(true);
       try {
         const response = await SprintService.getSprints();
+        dispatch({
+          type: SET_SPRINTS,
+          payload: response.data,
+        });
         setsprints(response.data);
       } catch (error) {
         console.log(error);
@@ -22,7 +30,8 @@ function SprintList() {
     fetchData();
   }, []);
 
-  const deleteSprint = (e,sprintId) => {
+  // deleting the sprints based on sprintId
+  const deleteSprint = (sprintId) => {
     SprintService.deleteSprint(sprintId).then((res) => {
       if (sprints) {
         setsprints((prevElement) => {
@@ -50,18 +59,27 @@ function SprintList() {
         <td>Actions</td>
       </thead>
 
-      {!loading && (
-        <tbody>
-          {sprints.map((sprints) => (
-            <Sprint
-              Sprint={sprints}
-              deleteSprint={deleteSprint}
-              key={sprints.sprintId}
-            ></Sprint>
-          ))}
-        </tbody>
-      )}
-    </Table>
+        {/* mapping sprints into the sprint table */}
+        {!loading && (
+          <tbody>
+            {sprintState.sprints.map((sprints) => (
+              <Sprint
+                Sprint={sprints}
+                deleteSprint={deleteSprint}
+                key={sprints.sprintId}
+              ></Sprint>
+            ))}
+          </tbody>
+        )}
+      </Table>
+
+      {/* displaying the success message of deleting */}
+      <SuccessfulDeletion
+        onHide={() => setShowSuccess(false)}
+        show={showSuccess}
+        message="Sprint Deleted Successfully"
+      />
+    </>
   );
 }
 

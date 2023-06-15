@@ -1,0 +1,45 @@
+.BacklogMain {
+  padding: 20px;
+}
+
+.container {
+  padding: 10px;
+  margin-bottom: 0px;
+}
+
+.inactive {
+  opacity: 1;
+}
+
+.backlog-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge-container {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Move badge container to the right */
+}
+
+.badge-container MDBBadge {
+  margin-right: 10px; /* Add margin between badges */
+}
+
+.sprint-creation-section {
+  margin-left: auto;
+}
+
+.sprint-creation-section h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.sprint-backlog-sections {
+  margin-top: 10px;
+}
+
+.bck {
+  font-size: 17px;
+}
