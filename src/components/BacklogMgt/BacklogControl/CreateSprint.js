@@ -5,7 +5,7 @@ import "./CreateSprint.css";
 import { SET_SPRINTS } from "../../../reducers/sprintReducer";
 import SprintService from "../../../Services/SprintService";
 
-const CreateSprint = ({sprint}) => {
+const CreateSprint = ({ sprint }) => {
   const [inactive, setInactive] = React.useState(false);
   const dispatch = useDispatch();
 

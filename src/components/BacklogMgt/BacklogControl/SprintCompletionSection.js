@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import AddSprintIssue from "../SprintIssue/AddSprintIssue";
 import SprintCompletion from "../SprintComplete/CompleteSprint";
-import "./Backlog.css";
+import "./DefaultBacklog.css";
 import { MDBBadge } from "mdb-react-ui-kit";
 import SprintIssueList from "../SprintIssue/SprintIssueList";
 
 const SprintCompletionSection = () => {
-  const [inactive, setInactive] = React.useState(false);
+  const [inactive, setInactive] = useState(false);
 
   return (
     <div className="BacklogMain">
@@ -15,29 +15,31 @@ const SprintCompletionSection = () => {
       </div>
 
       {/* Sprint completion section */}
-      <div class="button-container">
-        <MDBBadge
-          color="secondary"
-          pill
-          style={{ height: "20px", width: "24px", fontSize: "12px" }}
-        >
-          0
-        </MDBBadge>
-        <MDBBadge
-          color="primary"
-          pill
-          style={{ height: "20px", width: "24px", fontSize: "12px" }}
-        >
-          0
-        </MDBBadge>
-        <MDBBadge
-          color="success"
-          pill
-          style={{ height: "20px", width: "24px", fontSize: "12px" }}
-        >
-          0
-        </MDBBadge>
-        {/* sprint completion button */}
+      <div className="backlog-container">
+        <div className="badge-container">
+          <MDBBadge
+            color="secondary"
+            pill
+            style={{ height: "20px", width: "24px", fontSize: "12px" }}
+          >
+            0
+          </MDBBadge>
+          <MDBBadge
+            color="primary"
+            pill
+            style={{ height: "20px", width: "24px", fontSize: "12px" }}
+          >
+            0
+          </MDBBadge>
+          <MDBBadge
+            color="success"
+            pill
+            style={{ height: "20px", width: "24px", fontSize: "12px" }}
+          >
+            0
+          </MDBBadge>
+        </div>
+
         <SprintCompletion />
       </div>
 

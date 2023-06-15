@@ -48,7 +48,7 @@ function IssueList() {
 
   return (
     <>
-      <Table striped borderless hover size="sm">
+      <Table striped borderless hover size="sm" className="issue-table">
         <thead>
             <th>Issue Id</th>
             <th>Summary</th>

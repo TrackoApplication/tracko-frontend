@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {SET_SPRINTS} from "../../../reducers/sprintReducer";
+import { SET_SPRINTS } from "../../../reducers/sprintReducer";
 import SprintService from "../../../Services/SprintService";
 import "./Backlog.css";
 import SprintCompletionSection from "./SprintCompletionSection";
@@ -23,7 +23,7 @@ const Backlog = () => {
   return (
     <div className="BacklogMain">
       {/* Default Backlog */}
-      <DefaultBacklogSection/>
+      <DefaultBacklogSection />
 
       {/* Sprint Backlog */}
       {/* Sprint start,update,delete section */}
