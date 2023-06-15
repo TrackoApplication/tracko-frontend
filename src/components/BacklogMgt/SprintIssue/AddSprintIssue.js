@@ -178,8 +178,8 @@ const AddSprintIssue = () => {
 
         <Modal show={show} onHide={handleClose} dialogClassName="mdl">
           {/* header section */}
-          <Modal.Header>
-            <Modal.Title>Create Issue</Modal.Title>
+          <Modal.Header className="hd">
+            <Modal.Title className="mt">Create Issue</Modal.Title>
           </Modal.Header>
 
           {/* body section */}
@@ -375,7 +375,7 @@ const AddSprintIssue = () => {
                 >
                   <Form.Label className="flabel">Story point estimate for developing</Form.Label>
                   <Form.Control
-                    className="citem"
+                    className="cnm"
                     type="number"
                     name="spdeveloping"
                     value={sprintissue.spdeveloping}
@@ -397,7 +397,7 @@ const AddSprintIssue = () => {
                 >
                   <Form.Label className="flabel">Story point estimate for testing</Form.Label>
                   <Form.Control
-                    className="citem"
+                    className="cnm"
                     type="number"
                     name="sptesting"
                     value={sprintissue.sptesting}
@@ -418,7 +418,7 @@ const AddSprintIssue = () => {
                 >
                   <Form.Label className="flabel">Total estimated story point</Form.Label>
                   <Form.Control
-                    className="citem"
+                    className="cnm"
                     type="number"
                     name="totalSP"
                     value={parseInt(sprintissue.spdeveloping) + parseInt(sprintissue.sptesting)}

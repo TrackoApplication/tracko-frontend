@@ -1,10 +1,29 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import IssueDeleteConfirmation from "./IssueDeleteConfirmation";
+import IssueService from "../../../Services/IssueService";
+import { SET_ISSUES } from "../../../reducers/issuesReducer";
 
 const Issue = ({ Issue, deleteIssue, key }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [show, setShow] = useState(false);
+  const sprintState = useSelector((state) => state.sprints);
+  const dispatch = useDispatch();
 
+  const onSprintChange = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
+    debugger;
+    IssueService.updateSprint(Issue.issueId, {...Issue, sprintId: Number(e.target.value), sprintName: e.target.value}).then((res) => {
+      IssueService.getIssues().then((response) => {
+        debugger;
+        dispatch({
+          type: SET_ISSUES,
+          payload: response.data,
+        });
+      });
+    });
+  };
   return (
     <>
       <tr>
@@ -29,6 +48,23 @@ const Issue = ({ Issue, deleteIssue, key }) => {
           </select>
         </td>
         <td>{Issue.assignee}</td>
+        <td>
+          <select
+            name="sprint"
+            id="sprint"
+            onChange={onSprintChange}
+            style={{ color: "black", fontSize: "10px" }}
+          >
+            <option value="null" style={{ color: "blue" }} selected={Issue.sprintId === null}>
+              Select Sprint
+            </option>
+            {sprintState.sprints.map((item, index) => (
+              <option value={item.sprintId} style={{ color: "blue" }} selected={Issue.sprintId === item.sptintId}>
+                {item.sprintName || "Untitled Sprint"}
+              </option>
+            ))}
+          </select>
+        </td>
         <td>
           {/* redirecting to the Issue deletion confirmation */}
           <i

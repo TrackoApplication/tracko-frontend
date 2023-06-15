@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_SPRINTS } from "../../../reducers/sprintReducer";
 import SprintService from "../../../Services/SprintService";
 import Sprint from "./Sprint";
 import SuccessfulDeletion from "./SuccessfulDeletion.js";
@@ -8,6 +10,8 @@ function SprintList() {
   const [loading, setloading] = useState(true);
   const [sprints, setsprints] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const dispatch = useDispatch();
+  const sprintState = useSelector((state) => state.sprints);
 
   // fetching the data from the backend
   useEffect(() => {
@@ -15,6 +19,10 @@ function SprintList() {
       setloading(true);
       try {
         const response = await SprintService.getSprints();
+        dispatch({
+          type: SET_SPRINTS,
+          payload: response.data,
+        });
         setsprints(response.data);
       } catch (error) {
         console.log(error);
@@ -26,9 +34,7 @@ function SprintList() {
 
   // deleting the sprints based on sprintId
   const deleteSprint = (sprintId) => {
-    debugger;
     SprintService.deleteSprint(sprintId).then((res) => {
-      debugger;
       if (sprints) {
         setsprints((prevElement) => {
           setShowSuccess(true);
@@ -58,7 +64,7 @@ function SprintList() {
         {/* mapping sprints into the sprint table */}
         {!loading && (
           <tbody>
-            {sprints.map((sprints) => (
+            {sprintState.sprints.map((sprints) => (
               <Sprint
                 Sprint={sprints}
                 deleteSprint={deleteSprint}

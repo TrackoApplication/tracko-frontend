@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import {SET_SPRINTS} from "../../../reducers/sprintReducer";
+import SprintService from "../../../Services/SprintService";
 import "./Backlog.css";
-import SprintBacklogSection from "./SprintBacklogSection";
 import SprintCompletionSection from "./SprintCompletionSection";
 import DefaultBacklogSection from "./DefaultBacklogSection";
 
 const Backlog = () => {
   const [inactive, setInactive] = React.useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    SprintService.getSprints().then((response) => {
+      dispatch({
+        type: SET_SPRINTS,
+        payload: response.data,
+      });
+    });
+  }, []);
 
   //Backlog organization happens here
   return (
@@ -18,7 +30,7 @@ const Backlog = () => {
       {/* <SprintBacklogSection /> */}
 
       {/* Sprint completion section */}
-      <SprintCompletionSection/>
+      {/* <SprintCompletionSection/> */}
     </div>
   );
 };

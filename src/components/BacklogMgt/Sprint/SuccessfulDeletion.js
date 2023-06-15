@@ -27,7 +27,7 @@ const SuccessfulDeletion = (props) => {
         <div className="flex p-5 mx-auto text-xl">{props.message}</div>
         <div className="p-2 mx-auto">
           <btn className="btn btn-green w-20" onClick={() => CallDelete()}>
-            Ok
+            OK
           </btn>
         </div>
       </Modal>

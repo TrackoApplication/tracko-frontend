@@ -6,13 +6,12 @@ import "./Backlog.css";
 import { MDBBadge } from "mdb-react-ui-kit";
 import SprintIssueList from "../SprintIssue/SprintIssueList";
 
-const SprintBacklogSection = () => {
+const SprintBacklogSection = ({sprint}) => {
   const [inactive, setInactive] = React.useState(false);
-
   return (
     <div>
       <div className={`container ${inactive ? "inactive" : ""}`}>
-        <h1>Sprint Backlog</h1>
+        <h1>#{sprint.sprintId} - {sprint.sprintName || "Untitled Sprint"}</h1>
       </div>
 
       {/* Sprint Backlog */}
@@ -46,11 +45,11 @@ const SprintBacklogSection = () => {
 
       {/* Sprint Issue list */}
       <div className={`container ${inactive ? "inactive" : ""}`}>
-        <SprintIssueList />
+        <SprintIssueList sprintId={sprint.sprintId} />
       </div>
 
       {/* Issue creation button */}
-      <AddSprintIssue />
+      {/* <AddSprintIssue /> */}
     </div>
   );
 }

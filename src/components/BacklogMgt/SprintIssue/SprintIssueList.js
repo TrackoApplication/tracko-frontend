@@ -4,11 +4,15 @@ import "./SprintIssueList.css";
 import SprintIssueService from "../../../Services/SprintIssueService";
 import SprintIssue from "./SprintIssue";
 import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion";
+import { useSelector } from "react-redux";
 
-function SprintIssueList() {
+function SprintIssueList({sprintId}) {
   const [loading, setloading] = useState(true);
   const [sprintissues, setsprintissues] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const sprintState = useSelector((state) => state.sprints);
+  const issueState = useSelector((state) => state.issues);
+  window.issues = issueState;
 
   // fetching the data from the backend
   useEffect(() => {
@@ -31,7 +35,9 @@ function SprintIssueList() {
       if (sprintissues) {
         setsprintissues((prevElement) => {
           setShowSuccess(true);
-          return prevElement.filter((SprintIssue) => SprintIssue.sprintIssueId !== sprintIssueId);
+          return prevElement.filter(
+            (SprintIssue) => SprintIssue.sprintIssueId !== sprintIssueId
+          );
         });
       }
     });
@@ -42,7 +48,7 @@ function SprintIssueList() {
   // const handleShow = () => setShow(true);
 
   return (
-       <>
+    <>
       <Table striped borderless hover size="sm">
         <thead>
           <th>Sprint Issue Id</th>
@@ -56,7 +62,7 @@ function SprintIssueList() {
         {/* mapping issues into the backlog table */}
         {!loading && (
           <tbody>
-            {sprintissues.map((sprintissues) => (
+            {issueState.issues.filter(issue => issue.sprintId == sprintId).map((sprintissues) => (
               <SprintIssue
                 SprintIssue={sprintissues}
                 deleteSprintIssue={deleteSprintIssue}
@@ -65,10 +71,10 @@ function SprintIssueList() {
             ))}
           </tbody>
         )}
-    </Table>
+      </Table>
 
-    {/* displaying the success message of deleting */}
-    <SuccessfulIssueDeletion
+      {/* displaying the success message of deleting */}
+      <SuccessfulIssueDeletion
         onHide={() => setShowSuccess(false)}
         show={showSuccess}
         message="Issue Deleted Successfully"

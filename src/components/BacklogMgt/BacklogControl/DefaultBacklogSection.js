@@ -5,38 +5,43 @@ import IssueList from "../Issue/IssueList";
 import "./Backlog.css";
 import { MDBBadge } from "mdb-react-ui-kit";
 import SprintBacklogSection from "./SprintBacklogSection";
+import { useSelector } from "react-redux";
 
 const DefaultBacklogSection = () => {
-  const [inactive, setInactive] = useState(false);
-
+  const [inactive, setInactive] = useState(true);
+  const sprintState = useSelector((state) => state.sprints);
+  window.sprints = sprintState;
   //Storing the sprintbacklog sections in the local storage
-  const [showSprintBacklog, setShowSprintBacklog] = useState(() => {
-    const storedSprintBacklogs = localStorage.getItem("sprintBacklogs");
-    if (storedSprintBacklogs) {
-      return JSON.parse(storedSprintBacklogs);
-    } else {
-      return {};
-    }
-  });
+  // const [showSprintBacklog, setShowSprintBacklog] = useState(() => {
+  //   const storedSprintBacklogs = localStorage.getItem("sprintBacklogs");
+  //   if (storedSprintBacklogs) {
+  //     return JSON.parse(storedSprintBacklogs);
+  //   } else {
+  //     return {};
+  //   }
+  // });
 
-  useEffect(() => {
-    localStorage.setItem(
-      "showSprintBacklog",
-      JSON.stringify(showSprintBacklog)
-    );
-  }, [showSprintBacklog]);
+  // useEffect(() => {
+  //   localStorage.setItem(
+  //     "showSprintBacklog",
+  //     JSON.stringify(showSprintBacklog)
+  //   );
+  //   debugger
+  // }, [showSprintBacklog]);
 
-  useEffect(() => {
-    const storedShowSprintBacklog = localStorage.getItem("showSprintBacklog");
-    if (storedShowSprintBacklog) {
-      setShowSprintBacklog(storedShowSprintBacklog === "true");
-    }
-  }, []);
+  // useEffect(() => {
+  //   debugger;
+  //   const storedShowSprintBacklog = localStorage.getItem("showSprintBacklog");
+  //   if (storedShowSprintBacklog) {
+  //     setShowSprintBacklog(storedShowSprintBacklog === "true");
+  //   }
+  // }, []);
 
   return (
     <div className="BacklogMain">
       <div className={`container ${inactive ? "inactive" : ""}`}>
-        <h1>Backlog</h1>
+        {/* Add a breadcrum here */}
+        <h1>Projects/Return0</h1>
       </div>
 
       {/* Backlog */}
@@ -63,7 +68,7 @@ const DefaultBacklogSection = () => {
         >
           0
         </MDBBadge>
-        <SprintCreation setShowSprintBacklog={setShowSprintBacklog} />
+        <SprintCreation />
         <br />
       </div>
 
@@ -75,10 +80,12 @@ const DefaultBacklogSection = () => {
       {/* Issue creation button */}
       <Addissue />
 
-      {Object.keys(showSprintBacklog).map(
-        (sprintId) =>
-          showSprintBacklog[sprintId] && <SprintBacklogSection key={sprintId} />
-      )}
+      {sprintState.sprints
+        .sort((item) => item.sprintId)
+        .reverse(true)
+        .map((sprint) => {
+          return <SprintBacklogSection sprint={sprint} />
+        })}
     </div>
   );
 };

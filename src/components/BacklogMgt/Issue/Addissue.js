@@ -4,11 +4,16 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { MDBCol } from "mdb-react-ui-kit";
 import IssueService from "../../../Services/IssueService";
-import './AddIssue.css';
+import "./AddIssue.css";
+import { useEffect } from "react";
+import SprintService from "../../../Services/SprintService";
 // import { useNavigate } from "react-router-dom";
 
 //setting states for Issue form fields
 const AddIssue = () => {
+  const [loading, setloading] = useState(true);
+  const [sprints, setsprints] = useState([]);
+
   const [issue, setIssue] = useState({
     issueId: "",
     projectName: "",
@@ -26,6 +31,22 @@ const AddIssue = () => {
     reporter: "",
   });
 
+  //Retrieving sprint names from the backend
+  useEffect(() => {
+    const fetchData = async () => {
+      setloading(true);
+      try {
+        const response = await SprintService.getSprints();
+        setsprints(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setloading(false);
+    };
+    fetchData();
+  }, []);
+
   // const navigate = useNavigate();
 
   // setting states for Issue form fields on change
@@ -40,12 +61,14 @@ const AddIssue = () => {
       });
     } else {
       setIssue({ ...issue, [name]: value });
-    }    
+    }
   };
-  
+
   // save issue to the database using issueservice post API
   const saveIssue = (e) => {
     e.preventDefault();
+    issue.totalSP = parseInt(issue.spdeveloping) + parseInt(issue.sptesting);
+    // console.log(issue);
     IssueService.saveIssue(issue)
       .then((response) => {
         console.log(response);
@@ -55,6 +78,7 @@ const AddIssue = () => {
       .catch((error) => {
         console.log(error);
       });
+     
     handleClose();
   };
 
@@ -80,6 +104,24 @@ const AddIssue = () => {
     handleClose();
   };
 
+  // const [Loading, setLoading] = useEffect({});
+  // const [projectOption, setProjectOption] = useState({});
+
+  //backend connection
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       setLoading(true);
+//       try {
+//         const response = await IssueService.getProjectList();
+//         setProjectOption(response.data);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//       setLoading(false);
+//     };
+//     fetchData();
+//   }, []);
+
   const [inactive] = React.useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -91,25 +133,26 @@ const AddIssue = () => {
   const setField = (field, value) => {
     setIssue({
       ...issue,
-      [field]: value
-    })
+      [field]: value,
+    });
 
-    if(!!errors[field]) setErrors({
-      ...errors,
-      [field]: null
-    })
-  }
+    if (!!errors[field])
+      setErrors({
+        ...errors,
+        [field]: null,
+      });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
-      saveIssue(e);
+       saveIssue(e);
     } else {
       setErrors(formErrors);
     }
   };
-  
+
   const validate = () => {
     const {
       projectName,
@@ -122,49 +165,61 @@ const AddIssue = () => {
       reporter,
     } = issue;
     const newErrors = {};
-  
+
     if (!projectName || projectName === "") {
       newErrors.projectName = "Project name cannot be blank";
     }
-  
+
     if (!issueType || issueType === "") {
       newErrors.issueType = "Issue type cannot be blank";
     }
-  
+
     if (!summary || summary === "") {
       newErrors.summary = "Summary cannot be blank";
     }
-  
+
     if (!reqOfTesting || reqOfTesting === "") {
       newErrors.reqOfTesting = "Requirement of testing cannot be blank";
     }
-  
+
     if (reqOfTesting === "true") {
-      if (!spdeveloping || spdeveloping === "" || spdeveloping < 1 || spdeveloping > 21) {
-        newErrors.spdeveloping = "Story point estimate for developing is required and must be between 1 and 21";
+      if (
+        !spdeveloping ||
+        spdeveloping === "" ||
+        spdeveloping < 1 ||
+        spdeveloping > 21
+      ) {
+        newErrors.spdeveloping =
+          "Story point estimate for developing is required and must be between 1 and 21";
       }
       if (!sptesting || sptesting === "" || sptesting < 1 || sptesting > 21) {
-        newErrors.sptesting = "Story point estimate for testing is required and must be between 1 and 21";
+        newErrors.sptesting =
+          "Story point estimate for testing is required and must be between 1 and 21";
       }
     } else if (reqOfTesting === "false") {
-      if (!spdeveloping || spdeveloping === "" || spdeveloping < 1 || spdeveloping > 21) {
-        newErrors.spdeveloping = "Story point estimate for developing is required and must be between 1 and 21";
+      if (
+        !spdeveloping ||
+        spdeveloping === "" ||
+        spdeveloping < 1 ||
+        spdeveloping > 21
+      ) {
+        newErrors.spdeveloping =
+          "Story point estimate for developing is required and must be between 1 and 21";
       }
       // Clear the error message for sptesting when reqOfTesting is "false"
       newErrors.sptesting = null;
     }
-  
+
     if (!priority || priority === "") {
       newErrors.priority = "Priority cannot be blank";
     }
-  
+
     if (!reporter || reporter === "") {
       newErrors.reporter = "Reporter cannot be blank";
     }
-  
+
     return newErrors;
   };
-  
 
   return (
     <div>
@@ -179,8 +234,8 @@ const AddIssue = () => {
 
         <Modal show={show} onHide={handleClose} dialogClassName="mdl">
           {/* header section */}
-          <Modal.Header>
-            <Modal.Title>Create Issue</Modal.Title>
+          <Modal.Header className="hd">
+            <Modal.Title className="mt">Create Issue</Modal.Title>
           </Modal.Header>
 
           {/* body section */}
@@ -193,7 +248,7 @@ const AddIssue = () => {
                 >
                   <Form.Label className="flabel">Project</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="projectName"
                     value={issue.projectName}
                     // onChange={(e) => handleChange(e)}
@@ -206,6 +261,14 @@ const AddIssue = () => {
                     <option value="" disabled selected>
                       Select the Project
                     </option>
+                    {/* {projectOption.map((projectOptions) => (
+                      <option
+                        key={projectOptions.projectId}
+                        value={projectOptions.projectName}
+                      >
+                        {projectOptions.projectName}
+                      </option>
+                    ))} */}
                     <option value="project1">Project 1</option>
                     <option value="project2">Project 2</option>
                     <option value="project3">Project 3</option>
@@ -221,7 +284,7 @@ const AddIssue = () => {
                 >
                   <Form.Label className="flabel">Issue type</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="issueType"
                     value={issue.issueType}
                     // onChange={(e) => handleChange(e)}
@@ -287,7 +350,7 @@ const AddIssue = () => {
                 >
                   <Form.Label className="flabel">Assignee</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="assignee"
                     value={issue.assignee}
                     onChange={(e) => handleChange(e)}
@@ -309,7 +372,7 @@ const AddIssue = () => {
                 >
                   <Form.Label className="flabel">Sprint</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="sprintName"
                     value={issue.sprintName}
                     onChange={(e) => handleChange(e)}
@@ -318,9 +381,25 @@ const AddIssue = () => {
                     <option value="" disabled selected>
                       Select the Sprint
                     </option>
-                    <option>Sprint 1</option>
-                    <option>Sprint 2</option>
-                    <option>Sprint 3</option>
+                     {/* {projectOption.map((projectOptions) => (
+                      <option
+                        key={projectOptions.projectId}
+                        value={projectOptions.projectName}
+                      >
+                        {projectOptions.projectName}
+                      </option>
+                    ))} */}
+
+                    {!loading && (
+                      <>
+                      {sprints.map((sprint) => (
+                        <option key={sprint.sprintId} value={sprint.sprintName}>
+                          {sprint.sprintId}
+                        </option>
+                     )) }
+                      </>
+                    )}
+                    
                   </Form.Select>
                 </Form.Group>
 
@@ -330,7 +409,7 @@ const AddIssue = () => {
                 >
                   <Form.Label className="flabel">Epic</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="epicName"
                     value={issue.epicName}
                     onChange={(e) => handleChange(e)}
@@ -349,9 +428,11 @@ const AddIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label className="flabel">Requirement of Testing</Form.Label>
+                  <Form.Label className="flabel">
+                    Requirement of Testing
+                  </Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="reqOfTesting"
                     value={issue.reqOfTesting}
                     // onChange={(e) => handleChange(e)}
@@ -374,9 +455,11 @@ const AddIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label className="flabel">Story point estimate for developing</Form.Label>
+                  <Form.Label className="flabel">
+                    Story point estimate for developing
+                  </Form.Label>
                   <Form.Control
-                    className="citem"
+                    className="cnm"
                     type="number"
                     name="spdeveloping"
                     value={issue.spdeveloping}
@@ -396,9 +479,11 @@ const AddIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label className="flabel">Story point estimate for testing</Form.Label>
+                  <Form.Label className="flabel">
+                    Story point estimate for testing
+                  </Form.Label>
                   <Form.Control
-                    className="citem"
+                    className="cnm"
                     type="number"
                     name="sptesting"
                     value={issue.sptesting}
@@ -417,14 +502,18 @@ const AddIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label className="flabel">Total estimated story point</Form.Label>
+                  <Form.Label className="flabel">
+                    Total estimated story point
+                  </Form.Label>
                   <Form.Control
-                    className="citem"
+                    className="cnm"
                     type="number"
                     name="totalSP"
-                    value={parseInt(issue.spdeveloping) + parseInt(issue.sptesting)}
-                    onChange={(e) => handleChange(e)}
                     disabled
+                    // value={
+                    //   parseInt(issue.spdeveloping) + parseInt(issue.sptesting)
+                    // }
+                    // onChange={(e) =>setField("totalSP", issue.spdeveloping + issue.sptesting)}
                     // placeholder="name@example.com"
                     // autoFocus
                   />
@@ -436,7 +525,7 @@ const AddIssue = () => {
                 >
                   <Form.Label className="flabel">Priority</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="priority"
                     value={issue.priority}
                     // onChange={(e) => handleChange(e)}
@@ -463,7 +552,7 @@ const AddIssue = () => {
                 >
                   <Form.Label className="flabel">Reporter</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="reporter"
                     value={issue.reporter}
                     // onChange={(e) => handleChange(e)}
@@ -510,4 +599,3 @@ const AddIssue = () => {
 };
 
 export default AddIssue;
-

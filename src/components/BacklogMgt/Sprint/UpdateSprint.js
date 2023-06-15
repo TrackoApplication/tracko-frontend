@@ -128,17 +128,18 @@ function UpdateSprint(props) {
   return (
     <div>
       <div className={`container ${inactive ? "inactive" : ""}`}>
-        <Modal {...props}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Sprint</Modal.Title>
+        <Modal {...props} dialogClassName="mdw">
+          <Modal.Header closeButton className="head">
+            <Modal.Title className="title">Edit Sprint</Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>
+          <Modal.Body className="mbody">
             <Form>
               <MDBCol>
                 <Form.Group className="mb-3">
-                  <Form.Label>Edit Sprint Name</Form.Label>
+                  <Form.Label className="flb">Edit Sprint Name</Form.Label>
                   <Form.Control
+                    className="citm"
                     type="text"
                     placeholder="Sprint Name"
                     autoFocus
@@ -147,14 +148,15 @@ function UpdateSprint(props) {
                     onChange={handleChange}
                     isInvalid={!!errors.sprintName}
                   />
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="invalidfeedback">
                     {errors.sprintName}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                  <Form.Label>Edit Duration</Form.Label>
+                  <Form.Label className="flb">Edit Duration</Form.Label>
                   <Form.Select
+                    className="sitm"
                     name="duration"
                     value={sprint.duration}
                     onChange={handleChange}
@@ -167,42 +169,45 @@ function UpdateSprint(props) {
                     <option value="3 weeks">3 weeks</option>
                     <option value="4 weeks">4 weeks</option>
                   </Form.Select>
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="invalidfeedback">
                     {errors.duration}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                  <Form.Label>Edit Start date</Form.Label>
+                  <Form.Label className="flb">Edit Start date</Form.Label>
                   <Form.Control
+                    className="citm"
                     type="date"
                     name="startDate"
                     value={sprint.startDate}
                     onChange={handleChange}
                     isInvalid={!!errors.startDate}
                   />
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="invalidfeedback">
                     {errors.startDate}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                  <Form.Label>Edit End date</Form.Label>
+                  <Form.Label className="flb">Edit End date</Form.Label>
                   <Form.Control
+                    className="citm"
                     type="date"
                     name="endDate"
                     value={sprint.endDate}
                     onChange={handleChange}
                     isInvalid={!!errors.endDate}
                   />
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="invalidfeedback">
                     {errors.endDate}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                  <Form.Label>Edit Sprint Goal</Form.Label>
+                  <Form.Label className="flb">Edit Sprint Goal</Form.Label>
                   <Form.Control
+                    className="cm"
                     as="textarea"
                     rows={5}
                     placeholder="Goal"
@@ -218,7 +223,7 @@ function UpdateSprint(props) {
           <Modal.Footer>
             <Button
               variant="primary"
-              className="rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] "
+              className="rounded bg-[#281454] text-white border-none  font-semibold hover:bg-[#281454]"
               onClick={updateSprint}
             >
               Update

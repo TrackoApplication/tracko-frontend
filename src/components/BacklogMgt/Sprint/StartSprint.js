@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import { MDBCol } from "mdb-react-ui-kit";
 import SprintService from "../../../Services/SprintService";
 import { useNavigate } from "react-router-dom";
+import './StartSprint.css';
 
 //setting states for Sprint start form fields
 const SprintStart = () => {
@@ -95,7 +96,6 @@ const SprintStart = () => {
     }
   };
     
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const formErrors = validate();
@@ -135,22 +135,23 @@ const SprintStart = () => {
           Start Sprint
         </Button>
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} dialogClassName="mdw">
           {/* header section */}
-          <Modal.Header closeButton>
-            <Modal.Title>Start Sprint</Modal.Title>
+          <Modal.Header closeButton className="head">
+            <Modal.Title className="title">Start Sprint</Modal.Title>
           </Modal.Header>
 
           {/* body section */}
-          <Modal.Body>
+          <Modal.Body className="mbody">
             <Form>
               <MDBCol>
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Sprint name</Form.Label>
+                  <Form.Label className="flb">Sprint name</Form.Label>
                   <Form.Control
+                    className="citm"
                     type="text"
                     placeholder="Sprint Name"
                     autoFocus
@@ -161,14 +162,15 @@ const SprintStart = () => {
                     onChange={(e) => setField("sprintName", e.target.value)}
                     isInvalid={!!errors.sprintName}
                   />
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="invalidfeedback">
                     {errors.sprintName}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label>Duration</Form.Label>
+                  <Form.Label className="flb">Duration</Form.Label>
                     <Form.Select
+                      className="sitm"
                       name="duration"
                       value={sprint.duration}
                       required
@@ -184,7 +186,7 @@ const SprintStart = () => {
                       <option value="3 weeks">3 weeks</option>
                       <option value="4 weeks">4 weeks</option>
                     </Form.Select>
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Control.Feedback type="invalid" className="invalidfeedback">
                       {errors.duration}
                     </Form.Control.Feedback>
                 </Form.Group>
@@ -193,8 +195,9 @@ const SprintStart = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Start date</Form.Label>
+                  <Form.Label className="flb">Start date</Form.Label>
                   <Form.Control
+                    className="citm"
                     type="date"
                     name="startDate"
                     value={sprint.startDate}
@@ -204,14 +207,15 @@ const SprintStart = () => {
                     // onChange={(e) => handleChange(e)}
                     // autoFocus
                   />
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="invalidfeedback">
                     {errors.startDate}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label>End date</Form.Label>
+                  <Form.Label className="flb">End date</Form.Label>
                     <Form.Control
+                      className="citm"
                       type="date"
                       name="endDate"
                       value={sprint.endDate}
@@ -220,7 +224,7 @@ const SprintStart = () => {
                       isInvalid={!!errors.endDate}
                       disabled={sprint.duration !== "custom"}
                     />
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Control.Feedback type="invalid" className="invalidfeedback">
                       {errors.endDate}
                     </Form.Control.Feedback>
                 </Form.Group>
@@ -229,8 +233,9 @@ const SprintStart = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Sprint Goal</Form.Label>
+                  <Form.Label className="flb">Sprint Goal</Form.Label>
                   <Form.Control
+                    className="cm"
                     as="textarea"
                     rows={5}
                     placeholder="Goal"
@@ -242,7 +247,7 @@ const SprintStart = () => {
                     // onChange={(e) => handleChange(e)}
                     // autoFocus
                   />
-                  <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid" className="invalidfeedback">
                     {errors.sprintGoal}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -255,7 +260,7 @@ const SprintStart = () => {
             <Button
               type="submit"
               variant="primary"
-              className="rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] "
+              className="rounded bg-[#281454] text-white border-none  font-semibold hover:bg-[#281454] "
               onClick={handleSubmit}
             >
               Start

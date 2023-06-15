@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import './App.css';
-import Register from './components/UserAuthentication/Register';
-import Login from './components/UserAuthentication/Login';
+import "./App.css";
+import Register from "./components/UserAuthentication/Register";
+import Login from "./components/UserAuthentication/Login";
 import { BrowserRouter, Router, Link, Route, Routes } from "react-router-dom";
 import Navbar from "./components/NavBar/Navbar";
 import UserList from "./components/UserMgt/UserList";
@@ -22,16 +22,13 @@ import BacklogView from "./components/BacklogMgt/BacklogControl/BacklogView";
 import SprintList from "./components/BacklogMgt/Sprint/SprintList";
 // import IssueList from "./components/BacklogMgt/Issue/IssueList";
 
-
 function App() {
-
   const UserListWithNavbar = withNavbar(UserList);
-  
+
   return (
     <>
       <BrowserRouter>
         <Routes>
-
           {/* pages without sidebar & nav bar */}
           <Route path="/" element={<Login />} />
           <Route index element={<Login />} />
@@ -54,29 +51,25 @@ function App() {
           <Route path="/Group" element={<Group />} />
           {/* <Route path="/Dashboard" element ={<DashLayout/>}/> */}
 
-
-        {/* pages with sidebar */}
-          <Route path="/Team" element ={<Team/>}/>
+          {/* pages with sidebar */}
+          <Route path="/Team" element={<Team />} />
           {/* <Route path="/Backlog" element ={<Backlog/>}/> */}
-          <Route path="/BacklogView" element ={<BacklogView/>}/>
-          <Route path="/ActiveSprint" element ={<ActiveSprint/>}/>
-          <Route path="/People" element ={<People/>}/>
-          <Route path="/Forum" element ={<Forum/>}/>
-          <Route path="/Report" element ={<Report/>}/>
+          <Route path="/BacklogView" element={<BacklogView />} />
+          <Route path="/ActiveSprint" element={<ActiveSprint />} />
+          <Route path="/People" element={<People />} />
+          <Route path="/Forum" element={<Forum />} />
+          <Route path="/Report" element={<Report />} />
 
           {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
-          <Route path="/Group" element ={<Group/>}/>
+          <Route path="/Group" element={<Group />} />
           {/* <Route path="/Dashboard" element ={<DashLayout/>}/> */}
 
-
           {/* pages with navbar */}
-          <Route path="/UserList" element={<UserListWithNavbar/>} />
+          <Route path="/UserList" element={<UserListWithNavbar />} />
           <Route path="/ProjectList" element={<ProjectList />} />
           <Route path="/ClientList" element={<ClientList />} />
           {/* <Route path="/Popup" element={<Popup />} /> */}
-    
         </Routes>
-
       </BrowserRouter>
     </>
   );
@@ -90,10 +83,9 @@ function withNavbar(Component) {
       <>
         <Navbar />
         <div className="page-body">
-        <Component {...props} />
+          <Component {...props} />
         </div>
       </>
     );
-  }
+  };
 }
-

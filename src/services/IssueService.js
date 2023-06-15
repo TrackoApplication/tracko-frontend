@@ -13,10 +13,18 @@ class IssueService {
     }
 
     deleteIssue(issueId){
-        debugger;
         return axios.delete(ISSUE_API_BASE_URL + "/" + issueId)
         
-    } 
-}
+    }
 
+    getIssueById(issueId){
+        return axios.get(ISSUE_API_BASE_URL + "/" + issueId);
+    }
+
+    updateSprint(issueId, issue){
+        debugger;
+        return axios.put(ISSUE_API_BASE_URL + "/" + issueId, issue);
+    }
+}
+    
 export default new IssueService();

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import "./IssueDeleteConfirmation.css";
 
 const IssueDeleteConfirmation = (props) => {
   const [show, setShow] = useState(false);
@@ -20,12 +21,12 @@ const IssueDeleteConfirmation = (props) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header deleteButton>
-          <Modal.Title>Delete Issue</Modal.Title>
+        <Modal.Header deleteButton className="dhd">
+          <Modal.Title className="dmt">Delete Issue</Modal.Title>
         </Modal.Header>
 
         {/* warning message */}
-        <Modal.Body>Are you sure you want to delete the Issue?</Modal.Body>
+        <Modal.Body className="delbody">Are you sure you want to delete the Issue?</Modal.Body>
 
         <Modal.Footer>
           {/* deleting the issue */}

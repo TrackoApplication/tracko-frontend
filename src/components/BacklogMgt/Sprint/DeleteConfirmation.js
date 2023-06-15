@@ -20,12 +20,12 @@ const DeleteConfirmation = (props) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header deleteButton>
-          <Modal.Title>Delete Sprint</Modal.Title>
+        <Modal.Header deleteButton className="dhd">
+          <Modal.Title className="dmt">Delete Sprint</Modal.Title>
         </Modal.Header>
 
         {/* warning message */}
-        <Modal.Body>Are you sure you want to delete the Sprint?</Modal.Body>
+        <Modal.Body className="delbody">Are you sure you want to delete the Sprint?</Modal.Body>
 
         <Modal.Footer>
           {/* deleting the sprint */}

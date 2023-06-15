@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
+import { useDispatch, useSelector } from "react-redux";
 import "./IssueList.css";
 import IssueService from "../../../Services/IssueService";
 import Issue from "./Issue";
 import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion.js";
-// import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { SET_ISSUES } from "../../../reducers/issuesReducer";
 
 function IssueList() {
   const [loading, setloading] = useState(true);
   const [issues, setissues] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const dispatch = useDispatch();
+  const issueState = useSelector((state) => state.issues);
+  const sprintState = useSelector((state) => state.sprints);
 
   // fetching the data from the backend
   useEffect(() => {
@@ -17,6 +21,10 @@ function IssueList() {
       setloading(true);
       try {
         const response = await IssueService.getIssues();
+        dispatch({
+          type: SET_ISSUES,
+          payload: response.data,
+        });
         setissues(response.data);
       } catch (error) {
         console.log(error);
@@ -38,34 +46,18 @@ function IssueList() {
     });
   };
 
-  // const handleDragEnd = (result) => {
-  //   if (!result.destination) return; // Return if the item is dropped outside a valid droppable area
-
-  //   const updatedIssues = Array.from(issues);
-  //   const [reorderedIssue] = updatedIssues.splice(result.source.index, 1);
-  //   updatedIssues.splice(result.destination.index, 0, reorderedIssue);
-
-  //   setissues(updatedIssues);
-  // };
-
-  // const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-
   return (
     <>
       <Table striped borderless hover size="sm">
         <thead>
-          <tr>
             <th>Issue Id</th>
             <th>Summary</th>
             <th>Epic Name</th>
             <th>Status</th>
             <th>Assignee</th>
+            <th>Sprint</th>
             <th>Actions</th>
-          </tr>
         </thead>
-
         {/* mapping issues into the backlog table */}
         {!loading && (
           <tbody>
@@ -91,35 +83,3 @@ function IssueList() {
 }
 
 export default IssueList;
-
-
-
-// {/* <DragDropContext onDragEnd={handleDragEnd}>
-//           <Droppable droppableId="issueList">
-//             {(provided) => (
-//               <tbody {...provided.droppableProps} ref={provided.innerRef}>
-//                 {/* Mapping issues into the backlog table */}
-//         //         {!loading &&
-//         //           issues.map((issue, index) => (
-//         //             <Draggable
-//         //               key={issue.issueId}
-//         //               draggableId={issue.issueId}
-//         //               index={index}
-//         //             >
-//         //               {(provided) => (
-//         //                 <tr
-//         //                   ref={provided.innerRef}
-//         //                   {...provided.draggableProps}
-//         //                   {...provided.dragHandleProps}
-//         //                   key={issue.issueId}
-//         //                 >
-//         //                   <Issue Issue={issue} deleteIssue={deleteIssue} />
-//         //                 </tr>
-//         //               )}
-//         //             </Draggable>
-//         //           ))}
-//         //         {provided.placeholder}
-//         //       </tbody>
-//         //     )}
-//         //   </Droppable>
-//         // </DragDropContext> */}
