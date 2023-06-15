@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Router, Link, Route, Routes } from "react-router-dom";
 import Navbar from "./components/NavBar/Navbar";
@@ -14,9 +14,30 @@ import Group from "./components/GroupMgt/Group";
 import GroupDetail from "./components/GroupMgt/GroupDetail";
 import BacklogView from "./components/BacklogMgt/BacklogControl/BacklogView";
 import SprintList from "./components/BacklogMgt/Sprint/SprintList";
+import {SET_ISSUES} from "./reducers/issuesReducer";
+import { useDispatch } from "react-redux";
 // import IssueList from "./components/BacklogMgt/Issue/IssueList";
+import IssueService from "./Services/IssueService";
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  // fetching the data from the backend
+  useEffect(() => {
+    (async () => {
+      try {
+        debugger;
+        const response = await IssueService.getIssues();
+        dispatch({
+          type: SET_ISSUES,
+          payload: response.data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddSprintIssue from "../SprintIssue/AddSprintIssue";
 import SprintDeletion from "../Sprint/DeleteSprint";
-import SprintStart from "../Sprint/StartSprint";
+// import SprintStart from "../Sprint/StartSprint";
 import "./DefaultBacklog.css";
 import { MDBBadge } from "mdb-react-ui-kit";
 import SprintIssueList from "../SprintIssue/SprintIssueList";
@@ -43,7 +43,7 @@ const SprintBacklogSection = ({ sprint }) => {
           </MDBBadge>
         </div>
 
-        <SprintStart />
+        {/* <SprintStart /> */}
         {/* <UpdateSprint /> */}
         {/* <SprintDeletion /> */}
       </div>

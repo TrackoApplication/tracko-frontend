@@ -8,31 +8,31 @@ import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion.js";
 import { SET_ISSUES } from "../../../reducers/issuesReducer";
 
 function IssueList() {
-  const [loading, setloading] = useState(true);
+  const [loading, setloading] = useState(false);
   const [issues, setissues] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const dispatch = useDispatch();
   const issueState = useSelector((state) => state.issues);
   const sprintState = useSelector((state) => state.sprints);
 
-  // fetching the data from the backend
-  useEffect(() => {
-    const fetchData = async () => {
-      setloading(true);
-      try {
-        const response = await IssueService.getIssues();
-        dispatch({
-          type: SET_ISSUES,
-          payload: response.data,
-        });
-        setissues(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-      setloading(false);
-    };
-    fetchData();
-  }, []);
+  // // fetching the data from the backend
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setloading(true);
+  //     try {
+  //       const response = await IssueService.getIssues();
+  //       dispatch({
+  //         type: SET_ISSUES,
+  //         payload: response.data,
+  //       });
+  //       setissues(response.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //     setloading(false);
+  //   };
+  //   fetchData();
+  // }, []);
 
   // deleting the issues based on issueId
   const deleteIssue = (issueId) => {
@@ -49,7 +49,7 @@ function IssueList() {
   return (
     <>
       <Table striped borderless hover size="sm" className="issue-table">
-        <thead>
+        {/* <thead>
             <th>Issue Id</th>
             <th>Summary</th>
             <th>Epic Name</th>
@@ -57,15 +57,15 @@ function IssueList() {
             <th>Assignee</th>
             <th>Sprint</th>
             <th>Actions</th>
-        </thead>
+        </thead> */}
         {/* mapping issues into the backlog table */}
         {!loading && (
           <tbody>
-            {issues.map((issues) => (
+            {issueState.issues.map((issue) => (
               <Issue
-                Issue={issues}
+                Issue={issue}
                 deleteIssue={deleteIssue}
-                key={issues.issueId}
+                key={issue.issueId}
               ></Issue>
             ))}
           </tbody>

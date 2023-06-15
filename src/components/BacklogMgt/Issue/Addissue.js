@@ -510,6 +510,7 @@ const AddIssue = () => {
                     type="number"
                     name="totalSP"
                     disabled
+                    value={issue.totalSP}
                     // value={
                     //   parseInt(issue.spdeveloping) + parseInt(issue.sptesting)
                     // }

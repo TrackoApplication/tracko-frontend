@@ -4,10 +4,11 @@
 
 .issue-table {
   width: 100%;
-  border-collapse: separate;
+  /* border-collapse: separate; */
   border-spacing: 0;
   font-size: 14px;
   line-height: 1.5;
+  margin-left: 0;
 }
 
 .issue-table th {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import IssueDeleteConfirmation from "./IssueDeleteConfirmation";
 import IssueService from "../../../Services/IssueService";
-import { SET_ISSUES } from "../../../reducers/issuesReducer";
+import { SET_ISSUES, UPDATE_SPRINT_ID } from "../../../reducers/issuesReducer";
 
 const Issue = ({ Issue, deleteIssue, key }) => {
   const [showConfirm, setShowConfirm] = useState(false);
@@ -14,15 +14,22 @@ const Issue = ({ Issue, deleteIssue, key }) => {
     e.preventDefault();
     console.log(e.target.value);
     debugger;
-    IssueService.updateSprint(Issue.issueId, {...Issue, sprintId: Number(e.target.value), sprintName: e.target.value}).then((res) => {
-      IssueService.getIssues().then((response) => {
-        debugger;
-        dispatch({
-          type: SET_ISSUES,
-          payload: response.data,
-        });
-      });
-    });
+    dispatch({
+      type: UPDATE_SPRINT_ID,
+      payload: {
+        sprintId: Number(e.target.value),
+        issueId: Issue.issueId,
+      }
+    })
+    // IssueService.updateSprint(Issue.issueId, {...Issue, sprintId: Number(e.target.value), sprintName: e.target.value}).then((res) => {
+    //   IssueService.getIssues().then((response) => {
+    //     debugger;
+    //     dispatch({
+    //       type: SET_ISSUES,
+    //       payload: response.data,
+    //     });
+    //   });
+    // });
   };
   return (
     <>
@@ -54,12 +61,13 @@ const Issue = ({ Issue, deleteIssue, key }) => {
             id="sprint"
             onChange={onSprintChange}
             style={{ color: "black", fontSize: "10px" }}
+            value={Issue.sprintId}
           >
-            <option value="null" style={{ color: "blue" }} selected={Issue.sprintId === null}>
+            <option value="null" style={{ color: "blue" }}>
               Select Sprint
             </option>
             {sprintState.sprints.map((item, index) => (
-              <option value={item.sprintId} style={{ color: "blue" }} selected={Issue.sprintId === item.sptintId}>
+              <option value={item.sprintId} style={{ color: "blue" }}>
                 {item.sprintName || "Untitled Sprint"}
               </option>
             ))}
