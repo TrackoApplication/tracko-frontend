@@ -48,7 +48,6 @@ const [cards] = useState([
 
   return (
     <>
-    <NavBar></NavBar>
     <h1><b>Projects</b></h1> 
 
     <div>

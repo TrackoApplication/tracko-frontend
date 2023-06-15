@@ -86,3 +86,13 @@
     width: 50%;
 }
 
+
+
+.selected-option {
+    background-color: yellow; /* Set your desired background color */
+    color: black; /* Set your desired text color */
+  }
+
+.form-control-group{
+    height: 200px;
+}

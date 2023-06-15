@@ -1,16 +1,16 @@
 .cascading-left {
-    margin-left: -50px;
-  }
+  margin-left: -50px;
+}
 
-  .mdbcontainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.mdbcontainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media (max) {
+  .cascading-right {
+    margin-right: 0;
   }
-  
-  @media (max) {
-    .cascading-right {
-      margin-right: 0;
-    }
-  }
+}

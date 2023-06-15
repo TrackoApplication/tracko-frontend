@@ -32,6 +32,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState("");
   const [accessToken, setAccessToken] = useState("");
+  
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -52,17 +53,19 @@ const Login = () => {
     e.preventDefault();
     console.log(validateForm());
 
-      if (Object.keys(validateForm()).length === 0) {
+    if (Object.keys(validateForm()).length === 0) {
       try {
         console.log("Sending authentication request...");
-        const response = await fetch("http://localhost:8080/api/v1/auth/authenticate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ password, emailId }),
-        });
-        axios.defaults.headers.common["Authorization"] = response.access_token;
+        const response = await fetch(
+          "http://localhost:8080/api/v1/auth/authenticate",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ password, emailId }),
+          }
+        );
 
         if (!response.ok) {
           console.log("Error response received:");
@@ -77,65 +80,109 @@ const Login = () => {
         console.log(data);
 
         const accessToken = data.access_token;
-        localStorage.setItem("accessToken", accessToken);
-
+        localStorage.setItem("accessToken", data.access_token);
+        localStorage.setItem("refreshToken", data.refresh_token);
         console.log("Access token:" + accessToken);
-        console.log(data.access_token);
-
         setError("");
+
+        try {
+          // Make a request to the backend with the access token
+          const roleResponse = await axios.get(
+            "http://localhost:8080/api/v1/auth/role",
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+
+          const role = roleResponse.data; // Assuming the response contains the user's role
+
+          console.log("User Role:", role);
+          localStorage.setItem("userRole", role);
+
+          if (role === "USER") {
+            navigate("/ProjectList");
+          } else if (role === "ADMIN") {
+            navigate("/UserList");
+          }
+
+          // Use the user role in your application logic
+        } catch (error) {
+          console.log("Error while fetching role:", error);
+          // Handle error when retrieving user role
+        }
+        try {
+          // Make a request to the backend with the access token
+          const idResponse = await axios.get(
+            "http://localhost:8080/api/v1/auth/id",
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+
+          const userId = idResponse.data; // Assuming the response contains the user's role
+
+
+          console.log("User Id:",  userId);
+          localStorage.setItem("userId", userId);
+
+          // Use the user role in your application logic
+        } catch (error) {
+          console.log("Error while fetching id:", error);
+          // Handle error when retrieving user role
+        }
+
+        try {
+          const id = localStorage.getItem("userId");
+          // Make a request to the backend with the access token
+          const groupResponse = await axios.get(
+            `http://localhost:8080/api/v1/getAccessGroupOfAUser/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+
+          console.log("User Group:", groupResponse.data);
+          localStorage.setItem("userGroup", groupResponse.data);
+          const userGroup = localStorage.getItem("userGroup");
+          console.log("User Group:", userGroup);
+
+          // Use the user role in your application logic
+        } catch (error) {
+          console.log("Error while fetching groups:", error);
+
+          // Handle error when retrieving user role
+        }
       } catch (error) {
         console.log("Error occurred:");
         console.log(error);
         setError("Username or password is incorrect");
-
       }
-
-      try {
-        // Make a request to the backend with the access token
-        const response = await axios.get("http://localhost:8080/api/v1/auth/role", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
-
-        const role = response.data; // Assuming the response contains the user's role
-        
-        console.log('User Role:', role);
-
-        if (role === "USER") {
-          navigate("/ProjectList");
-        } else if (role === "ADMIN") {
-          navigate("/UserList");
-        }
-
-        // Use the user role in your application logic
-
-      } catch (error) {
-        console.log('Error while fetching role:', error);
-        // Handle error when retrieving user role
-      }
-
-    }
-    else
-    {
+    } else {
       console.log("Error occurred:");
       console.log(errors.password);
       console.log(errors.emailId);
-
     }
   };
 
   // validating the form fields
   const validateForm = () => {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/;
+    const regexPassword =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/;
 
     //defining the errors object
     const errors = {};
     if (!password || password === "") {
       errors.password = "Password is required";
     } else if (!regexPassword.test(password)) {
-      errors.password = "Password should contain minimum eight characters, at least one uppercase letter, one lowercase letter and one number";
+      errors.password =
+        "Password should contain minimum eight characters, at least one uppercase letter, one lowercase letter and one number";
     }
 
     if (!emailId || emailId === "") {
@@ -175,51 +222,56 @@ const Login = () => {
               <MDBCardBody className="p-5 shadow-5 text-center">
                 <h2 className="fw-bold mb-4">Sign in </h2>
                 <form className="mb-">
-
-                <label className="flex m-2 text-gray-600 text-right">Email</label>
-                <div className="flex bg-[#E7F0FE] rounded">
-                  <input
-                    wrapperClass=""
-                    id="form3"
-                    type="email"
-                    className="w-[500px] space-between bg-[#E7F0FE] p-2 rounded"
-                    required
-                    value={emailId}
-                    onChange={(e) => handleEmailChange(e)}
-                    // isInvalid={!!errors.email}
-                  />
-                  </div>
-                  <div className="flex text-red-500 text-xs">{errors.emailId}</div>
-
-                  <label className="flex m-2 text-gray-600 text-right">Password</label>
+                  <label className="flex m-2 text-gray-600 text-right">
+                    Email
+                  </label>
                   <div className="flex bg-[#E7F0FE] rounded">
-                      <input
-                        data-toggle="tooltip"
-                        data-placement="right"
-                        title="Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character"
-                        type={passwordType}
-                        id="password"
-                        placeholder="********"
-                        autoFocus
-                        required
-                        className="w-[500px] space-between bg-[#E7F0FE] p-2 rounded"
-                        value={password}
-                        name="password"
-                        onChange={(e) => handlePasswordChange(e)}
-                        isInvalid={!!errors.password}
-                      />
-                      
-                      <button onClick={(e) => togglePassword(e)}>
-                        {passwordType === "password" ? (
-                          <i className="bi bi-eye-slash"></i>
-                        ) : (
-                          <i className="bi bi-eye"></i>
-                        )}
-                      </button>
-                      </div>
-                      <div className="flex text-red-500 mb-4 p-0 text-xs ">{errors.password}</div>
-                  
-                  
+                    <input
+                      wrapperClass=""
+                      id="form3"
+                      type="email"
+                      className="w-[500px] space-between bg-[#E7F0FE] p-2 rounded"
+                      required
+                      value={emailId}
+                      onChange={(e) => handleEmailChange(e)}
+                      // isInvalid={!!errors.email}
+                    />
+                  </div>
+                  <div className="flex text-red-500 text-xs">
+                    {errors.emailId}
+                  </div>
+
+                  <label className="flex m-2 text-gray-600 text-right">
+                    Password
+                  </label>
+                  <div className="flex bg-[#E7F0FE] rounded">
+                    <input
+                      data-toggle="tooltip"
+                      data-placement="right"
+                      title="Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character"
+                      type={passwordType}
+                      id="password"
+                      placeholder="********"
+                      autoFocus
+                      required
+                      className="w-[500px] space-between bg-[#E7F0FE] p-2 rounded"
+                      value={password}
+                      name="password"
+                      onChange={(e) => handlePasswordChange(e)}
+                      isInvalid={!!errors.password}
+                    />
+
+                    <button onClick={(e) => togglePassword(e)}>
+                      {passwordType === "password" ? (
+                        <i className="bi bi-eye-slash"></i>
+                      ) : (
+                        <i className="bi bi-eye"></i>
+                      )}
+                    </button>
+                  </div>
+                  <div className="flex text-red-500 mb-4 p-0 text-xs ">
+                    {errors.password}
+                  </div>
 
                   <button
                     className="w-100  mt-3 bg-[#FF8484] p-2 rounded hover:bg-[#fa7676] cursor-pointer"
@@ -244,7 +296,7 @@ const Login = () => {
 
                   <p
                     className="cursor-pointer my-2  hover:underline "
-                    onClick={() => navigate("/ResetPass")}
+                    onClick={() => navigate("/ForgotPassword")}
                   >
                     Forgot Password?
                   </p>

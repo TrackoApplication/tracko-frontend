@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -11,31 +11,38 @@ import "./navStyle.css";
 import { useEffect } from "react";
 import axios from "axios";
 import AuthContext from "../UserAuthentication/AuthContext";
+import { set } from "lodash";
 
-const NavBar = () => {
+const NavBar = ({ }) => {
   const [accessGroup, setAccessGroup] = useState("");
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState("");
-
-
+  const [userGroup, setUserGroup] = useState("");
+ 
 
   const navigate = useNavigate();
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    
+
+    console.log("userGroup", localStorage.getItem("userGroup"));
+
+    const accessToken = localStorage.getItem("accessToken");
+    setUserGroup(localStorage.getItem("userGroup"));
+
     const fetchData = async () => {
       setLoading(true);
       try {
- 
-      // Make a request to the backend with the access token
-      const response = await axios.get("http://localhost:8080/api/v1/auth/role", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+        // Make a request to the backend with the access token
+        const response = await axios.get(
+          "http://localhost:8080/api/v1/auth/role",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
 
-      setRole(response.data);
-      console.log(role); 
+        setRole(response.data);
+        console.log(role);
       } catch (error) {
         console.log(error);
       }
@@ -45,7 +52,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <Navbar bg="#231651" className=" mt-0 mb-3 bg-[#231651]">
+    <Navbar bg="#231651" className=" mt-0 mb-3 bg-[#231651] sticky-top">
       <Container fluid>
         <Navbar.Brand href="#" className="">
           <img
@@ -70,21 +77,22 @@ const NavBar = () => {
               >
                 Project
               </Nav.Link>
+              {(role === "ADMIN" || userGroup === "Scrum Master" || userGroup === "Product Owner" || userGroup === "Team Member" ) && (
+                <Nav.Link
+                  onClick={() => navigate("/ClientList")}
+                  className="mx-2 text-white transition duration-700 hover:scale-125 ease-in-out"
+                >
+                  Clients
+                </Nav.Link>
+              )}
 
-              <Nav.Link
-                onClick={() => navigate("/ClientList")}
-                className="mx-2  text-white transition duration-700 hover:scale-125 ease-in-out"
-              >
-                Clients
-              </Nav.Link>
-              
               {role === "ADMIN" && (
-              <Nav.Link
-                onClick={() => navigate("/UserList")}
-                className="mx-2 text-white transition duration-700 hover:scale-125 ease-in-out"
-              >
-                Users
-              </Nav.Link>
+                <Nav.Link
+                  onClick={() => navigate("/UserList")}
+                  className="mx-2 text-white transition duration-700 hover:scale-125 ease-in-out"
+                >
+                  Users
+                </Nav.Link>
               )}
             </Nav>
           </Offcanvas.Body>

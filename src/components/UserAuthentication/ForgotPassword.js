@@ -10,11 +10,13 @@ const ForgotPassword = () => {
   const [email, setEmail] = React.useState({});
   const [errors, setErrors] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false); // Added loading state
+  const [message, setMessage] = React.useState("");
 
 
   const handleChange = (e) => {
     setEmail(e.target.value);
     setErrors({});
+    setMessage("");
   };
 
   // setting state for form fields on change
@@ -41,7 +43,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     if (validate()) {
       setIsLoading(true); // Start loading
-
+  
       axios
         .post(
           "http://localhost:8080/api/v1/auth/forgotpassword",
@@ -57,17 +59,24 @@ const ForgotPassword = () => {
           navigate("/emailsent/" + email);
         })
         .catch((err) => {
-          setErrors(err.response.data);
-          errors["email"] = "Please enter a valid email Address.";
-          console.log(err);
+          if (err.response && err.response.status === 404) {
+        
+            setMessage("User not found. Please enter a valid email address.");
+
+          } else {
+            console.log(err);
+        
+            setMessage("An error occurred. Please try again later.");
+          }
         })
         .finally(() => {
           setIsLoading(false); // Stop loading
         });
-
+  
       console.log(email);
     }
   };
+  
 
   return (
     <div>
@@ -108,7 +117,7 @@ const ForgotPassword = () => {
           <button
           id="send-button"
           onClick={handleSubmit}
-          className="rounded text-white font-semibold bg-[#FF8484] w-80 hover:bg-[#fa7676]  my-4 px-4 py-2 cursor-pointer "
+          className="rounded text-white font-semibold bg-[#FF8484] w-80 hover:bg-[#fa7676]  mt-4 px-4 py-2 cursor-pointer "
           disabled={isLoading} // Disable the button while loading
         >
           {isLoading ? (
@@ -139,6 +148,8 @@ const ForgotPassword = () => {
             "Send Email"
           )}
         </button>
+        
+         <p className="text-red-500 text-xs ">{message}</p>
 
             <div className="flex   items-center content-center mt-1">
               <div className="ml-12 pl-12">

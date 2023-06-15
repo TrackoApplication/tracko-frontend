@@ -29,21 +29,39 @@ const User = ({ systemUser, deleteSystemUser, key }) => {
           <p className="fw-normal mb-1 ">{systemUser.role}</p>
         </td>
         <td className="w-[400px]">
-          <MDBBadge color="success" pill>
-            {systemUser.accessGroup}
-          </MDBBadge>
+          
+            {systemUser.accessGroups.map((group) => (
+             <>
+                {group === " " ? (
+                  <MDBBadge color="success"  pill >
+                  <span className="mr-2">Not assigned</span>
+                  </MDBBadge>
+                  
+                ) : (
+                  <MDBBadge color="success" pill className="mr-2" >
+                  <span >{group}</span>
+                  </MDBBadge>
+                )}
+            </>
+            ))}
+  
         </td>
+        {systemUser.role !== "ADMIN" && (
         <td className="w-[200px]">
           <i
             class="bi bi-pen"
             onClick={(e, id) => editSystemUser(e, systemUser.systemUserId)}
-          ></i>
-          <i
-            class="bi bi-trash-fill"
-            // onClick={() => deleteSystemUser(systemUser.systemUserId)}
-            onClick={() => setShowConfirm(true)}
-          ></i>
+          />
+
+          
+            <i
+              class="bi bi-trash-fill"
+              // onClick={() => deleteSystemUser(systemUser.systemUserId)}
+              onClick={() => setShowConfirm(true)}
+            />
+          
         </td>
+        )}
       </tr>
 
       <ConfirmPopup
@@ -52,13 +70,12 @@ const User = ({ systemUser, deleteSystemUser, key }) => {
         onHide={() => setShowConfirm(false)}
         systemUserId={systemUser.systemUserId}
       />
-      
+
       <UpdateUser
         show={show}
         onHide={() => setShow(false)}
         systemUserId={systemUser.systemUserId}
       />
-    
     </>
   );
 };

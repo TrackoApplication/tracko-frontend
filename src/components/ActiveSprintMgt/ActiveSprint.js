@@ -118,7 +118,7 @@ function ActiveSprint() {
 
         <div>
           <div className="activeSprint">
-            <h2>Active Sprint</h2>
+            <h2 className=''>Active Sprint</h2>
             <div className='dropDowns'>
               <select>
                 <option>Team 1</option>

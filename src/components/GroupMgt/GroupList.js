@@ -9,20 +9,24 @@ import "./Group.css"
 import { useEffect } from 'react';
 import axios from 'axios';
 
-export const GroupList = () => {
+export const GroupList = (props) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [groups, setGroups] = useState([]);
+  const [role, setRole] = useState([]);
+  const [group, setGroup] = useState([]);
 
   
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
+    setRole(localStorage.getItem("userRole"));
+    setGroup(localStorage.getItem("userGroup"));
 
     const getGroups = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:8080/api/v1/accessgroups/all", {
+        const response = await axios.get("http://localhost:8080/api/v1/accessgroups/allDto", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -47,7 +51,9 @@ export const GroupList = () => {
         <h1 >Return0/Group </h1>
       </div>
       <div className="h-12 m-4">
+        {role === "ADMIN" && (
         <AddGroup />
+        )}
       </div>
 
       <MDBTable className='m-4 group-table center'>
@@ -67,25 +73,25 @@ export const GroupList = () => {
         {groups.map((group) => (
           <tr>
 
-            <td className='col-2'>
+            <td className='col-1'>
               <div className='d-flex align-items-center col-3'>
                   <p className='mb-1 '>{group.accessGroupName}</p>
               </div>
             </td>
 
             <td>
-              <p className=' mb-1 col-9 text-justify' style={{fontSize:"10px"}}>{group.description}</p>
+              <p className=' mb-1  text-justify' style={{fontSize:"10px"}}>{group.description}</p>
             </td>
 
-            <td className='col-3 '>
+            <td className='col-1 '>
               <MDBBadge color='success' pill>
-                7
+                {group.noOfMembers}
               </MDBBadge>
             </td>
 
-            <td className='col-2'>
+            <td className='col-1'>
               <MDBBtn
-               onClick={() => navigate('/GroupDetail/' + group.accessGroupId)}
+               onClick={() => navigate('/GroupDetail/' + group.accessGroupId +'/'+ group.accessGroupName)}
                 color='link' rounded size='sm'>
                 Show Details
               </MDBBtn>

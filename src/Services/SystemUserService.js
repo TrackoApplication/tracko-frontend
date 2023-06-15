@@ -23,8 +23,8 @@ class SystemUserService {
         return axios.get(SYSTEMUSER_API_BASE_URL + '/' + id);
     }
 
-    updateSystemUser(id, systemUser, accessToken) {
-        return axios.put(SYSTEMUSER_API_BASE_URL + '/' + id, systemUser,{
+    updateSystemUser(id, request, accessToken) {
+        return axios.put(SYSTEMUSER_API_BASE_URL + '/' + id, request,{
             headers: {
                 Authorization: `Bearer ${accessToken}`,},
         });

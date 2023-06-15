@@ -1,12 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   MDBBadge,
   MDBTable,
   MDBTableHead,
   MDBTableBody,
 } from "mdb-react-ui-kit";
+import { useState } from "react";
+import DashBoardService from "../../Services/DashBoardService";
 
 export const TeamSummary = () => {
+  const [loading, setLoading] = useState(false);
+  const [teams, setTeams] = useState([]);
+
+ 
+
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await DashBoardService.getTeamSummary(accessToken);
+        setTeams(response.data);
+      
+
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+  
+
+
   return (
     <>
       <div>TeamSummary</div>
@@ -28,176 +55,35 @@ export const TeamSummary = () => {
               </th>
             </tr>
           </thead>
+
+          {!loading && (
           <tbody className="">
+            {teams.map((team) => (
             <tr>
-              <td className="col-3">
-                <p className="col-9 text-justify">Team A</p>
+              <td className="col-3 p-1">
+                <p className="col-8 text-lefrt font-bold">{team.teamName}</p>
               </td>
 
               <td>
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  Jhon wick
+                <p className=" col-8 text-justify " style={{ fontSize: "10px" }}>
+                  {team.scrumMasterName}
                 </p>
               </td>
               <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  5
+                <p className=" col-8 text-justify" style={{ fontSize: "10px" }}>
+                  {team.noOfMembers}
                 </p>
               </td>
               <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  100
+                <p className=" col-8 text-justify" style={{ fontSize: "10px" }}>
+                  {team.involvedIssues}
                 </p>
               </td>
             </tr>
-            <tr>
-              <td className="col-3">
-                <p className="col-9 text-justify">Team B</p>
-              </td>
-
-              <td>
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  Jhon doi
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  5
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  90
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="col-3">
-                <p className="col-9 text-justify">Team C</p>
-              </td>
-
-              <td>
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  peter
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  6
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  98
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="col-3">
-                <p className="col-9 text-justify">Team D</p>
-              </td>
-
-              <td>
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  peter
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  5
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  109
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="col-3">
-                <p className="col-9 text-justify">Team E</p>
-              </td>
-
-              <td>
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  west
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  5
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  76
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="col-3">
-                <p className="col-9 text-justify">Team F</p>
-              </td>
-
-              <td>
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  Jhon wick
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  5
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  100
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="col-3">
-                <p className="col-9 text-justify">Team G</p>
-              </td>
-
-              <td>
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  Jhon wick
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  5
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  100
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="col-3">
-                <p className="col-9 text-justify">Team H</p>
-              </td>
-
-              <td>
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  mohi
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  7
-                </p>
-              </td>
-              <td className="col-3 ">
-                <p className=" col-9 text-justify" style={{ fontSize: "10px" }}>
-                  89
-                </p>
-              </td>
-            </tr>
+            ))}
+            
           </tbody>
+)}
         
         </table>
       </div>

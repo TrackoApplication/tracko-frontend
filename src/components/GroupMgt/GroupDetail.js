@@ -16,27 +16,31 @@ import "./Group.css";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
+import { get, set } from "lodash";
 
 const GroupDetail = () => {
-  const { id } = useParams();
+  const { id ,name} = useParams();
   const [inactive, setInactive] = React.useState(false);
   const navigate = useNavigate();
-  const [group, setGroup] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [accessGroups, setAccessGroups] = useState([]);
-  const [accesses, setAccesses] = useState([]);
 
-  
+  const [accesses, setAccesses] = useState([]);
+  const [members, setMembers] = useState([]);
+  const [group, setGroup] = useState([]);
+  const [role, setRole] = useState([]);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
+    setRole(localStorage.getItem("userRole"));
+    setGroup(localStorage.getItem("userGroup"));
+    
     const getGroup = async () => {
       setLoading(true);
       try {
         console.log(id);
         const response = await axios.get(
-            `http://localhost:8080/api/v1/accessgroups/perGroup?id=${id}`,
-            {
+          `http://localhost:8080/api/v1/accessgroups/?id=${id}`,
+          {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
@@ -50,7 +54,30 @@ const GroupDetail = () => {
       }
       setLoading(false);
     };
+
+    const getMembers = async () => {
+      setLoading(true);
+      try {
+        console.log(id);
+        const response2 = await axios.get(
+          `http://localhost:8080/api/v1/accessgroups/membersPerGroup?id=${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        setMembers(response2.data);
+        console.log(members);
+      } catch (err) {
+        console.error(err.message);
+      }
+      setLoading(false);
+    };
+    getMembers();
     getGroup();
+
   }, []);
 
   return (
@@ -64,40 +91,52 @@ const GroupDetail = () => {
 
         <div className="mainGroup">
           <div className="title">
-            <h1>Return0/Group/ </h1>
+            <h1 className="text-xl font-normal ">Return0/Group/{name} </h1>
           </div>
 
+          
           <div className="h-12 m-4">
-            <EditGroup />
+          {role == "ADMIN" && (
+            <EditGroup  id={id} groupName = {name}/>
+            )}
           </div>
+          
           <div className="container-box">
             <div className="member">
               <MDBTable className="group-details-table">
                 <MDBTableHead className="bg-gray-100 rounded ">
                   <tr>
-                    <th scope="col-5">Members</th>
+                    <th scope="col-5" className="w-[90">
+                      Members
+                    </th>
                     <th scope="col-6">Action</th>
                   </tr>
                 </MDBTableHead>
 
                 <MDBTableBody>
-                  <tr>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <div>
-                          <p className="mb-1">Jhon</p>
-                        </div>
-                      </div>
-                    </td>
+                  {!loading && (
+                    <>
+                      {members.map((member) => (
+                        <tr>
+                          <td>
+                            <div className="d-flex align-items-center">
+                              <div>
+                                <p className="mb-1">{member.firstName}</p>
+                              </div>
+                            </div>
+                          </td>
 
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <div>
-                          <i class="bi bi-trash"></i>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                          <td>
+                            <div className="d-flex align-items-center">
+                              <div>
+                                <i class="bi bi-trash"></i>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
                 </MDBTableBody>
               </MDBTable>
             </div>
@@ -133,22 +172,6 @@ const GroupDetail = () => {
                     </>
                   )}
 
-                  <tr>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <div>
-                          <p className="mb-1">Create report</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="d-flex">
-                        <div className="align-items-center">
-                          <i class="bi bi-trash"></i>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
                 </MDBTableBody>
               </MDBTable>
             </div>

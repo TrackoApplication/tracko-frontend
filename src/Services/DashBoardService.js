@@ -3,14 +3,20 @@ import axios from "axios";
 const ISSUE_API_BASE_URL = "http://localhost:8080/api/v1/issues"
 const SPRINT_API_BASE_URL = "http://localhost:8080/api/v1/sprints/count"
 const EPIC_API_BASE_URL = "http://localhost:8080/api/v1/epics/count"
-const TEAM_API_BASE_URL = "http://localhost:8080/api/v1/teams/count"
+const TEAM_API_BASE_URL = "http://localhost:8080/api/v1/teams"
 const PEOPLE_API_BASE_URL = "http://localhost:8080/api/v1/peoples/count"
 
 
-class DashBoardService {
 
-    getIssueCount() {
-        return axios.get(ISSUE_API_BASE_URL+ "/count");
+class DashBoardService {
+ 
+
+    getIssueCount(token) {
+        return axios.get(ISSUE_API_BASE_URL+ "/count",{
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        });
     }
 
     getIssueTodoCount() {
@@ -34,7 +40,15 @@ class DashBoardService {
     }
 
     getTeamCount() {
-        return axios.get(TEAM_API_BASE_URL);
+        return axios.get(TEAM_API_BASE_URL + "/count");
+    }
+
+    getTeamSummary(token) {
+        return axios.get(TEAM_API_BASE_URL + "/teamSummary",{
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        });
     }
 
     getPeopleCount() {

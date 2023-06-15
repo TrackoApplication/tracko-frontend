@@ -5,9 +5,14 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { MDBCol, MDBRow } from "mdb-react-ui-kit";
 import Dropdown from "react-bootstrap/Dropdown";
-import AccessGroupService from "../../Services/AccessGroupService";
+import AccessGroupService from "../../Services/AccessGroupService"; 
+import './Group.css'
+import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 
-const EditGroup = () => {
+
+const EditGroup = (props) => {
+const [showSuccess, setShowSuccess] = useState(false);
+  const { id, groupName } = props;
   const [selectedValuesMember, setSelectedValuesMember] = useState([]);
   const [selectedValuesAccess, setSelectedValuesAccess] = useState([]);
   const [show, setShow] = useState(false);
@@ -15,18 +20,17 @@ const EditGroup = () => {
   const handleShow = () => setShow(true);
   const [loading, setLoading] = useState(false);
 
-    const [peopleOption, setPeopleOption] = useState([]);
+  const [peopleOption, setPeopleOption] = useState([]);
+  const [accessOption, setAccessOption] = useState([]);
 
   const handleCheckboxChangeMember = (e) => {
-    const { value } = e.target;
-    setSelectedValuesMember((prevSelectedValuesMember) => {
-      // Toggle the value in the array
-      if (prevSelectedValuesMember.includes(value)) {
-        return prevSelectedValuesMember.filter((val) => val !== value);
-      } else {
-        return [...prevSelectedValuesMember, value];
-      }
-    });
+    const { options } = e.target;
+    const selectedValues = Array.from(options)
+      .filter((option) => option.selected)
+      .map((option) => option.value);
+  
+    setSelectedValuesMember(selectedValues);
+    console.log(selectedValues);
   };
 
   const handleCheckboxChangeAccess = (e) => {
@@ -41,18 +45,63 @@ const EditGroup = () => {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const accessToken = localStorage.getItem("accessToken");
+    const data = {
+      systemUserId: selectedValuesMember,
+      accessId: selectedValuesAccess,
+    };
+    console.log(data);
+    try {
+      const response = await AccessGroupService.addMembers(id, selectedValuesMember,accessToken);
+      console.log(response.data);
+      setShowSuccess(true);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+ 
+
   useEffect(() => {
-    const fetchData = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    const fetchMemberData = async () => {
       setLoading(true);
       try {
-        const response = await AccessGroupService.getPeopleList();
+        const response = await AccessGroupService.getMemberList(
+          id,
+          accessToken
+        );
         setPeopleOption(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
       setLoading(false);
     };
-    fetchData();
+    const fetchAccessData = async () => {
+      setLoading(true);
+      try {
+        const response = await AccessGroupService.getAccessList(
+          id,
+          accessToken
+        );
+        setAccessOption(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+
+    fetchAccessData();
+    fetchMemberData();
+
   }, []);
 
   return (
@@ -80,7 +129,7 @@ const EditGroup = () => {
                   <Form.Label>Group Name</Form.Label>
                   <Form.Control
                     type="Name"
-                    placeholder="Team members"
+                    placeholder={groupName}
                     autoFocus
                     disabled
                   />
@@ -88,63 +137,58 @@ const EditGroup = () => {
               </MDBCol>
             </MDBRow>
 
-            <Form.Group className="mb-3" controlId="multiSelect1">
-              <Form.Label>Add Member</Form.Label>
-              <Form.Control
-                as="select"
-                multiple
-                value={selectedValuesMember}
-                onChange={handleCheckboxChangeMember}
-              >
-                {peopleOption.map((peopleOptions) => (
-                  <option
-                    key={peopleOptions.peopleId}
-                    value={peopleOptions.peopleName}
-                  >
-                    {peopleOptions.peopleName}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-            <div className="border p-2 my-2 bg-gray-100 rounded ">
-              <h3>Selected Members:</h3>
-              {selectedValuesMember.length > 0 ? (
-                <ul>
-                  {selectedValuesMember.map((value) => (
-                    <p key={value}>{value}</p>
-                  ))}
-                </ul>
-              ) : (
-                <p>No Members selected</p>
-              )}
-            </div>
+            <Form.Control
+              as="select"
+              multiple
+              className="mb-3 form-control-group "
+              value={selectedValuesMember}
+              onChange={(e) => handleCheckboxChangeMember(e)}
+            >
+              {peopleOption.map((peopleOptions) => (
+                <option
+                  key={peopleOptions.systemUserId}
+                  value={peopleOptions.systemUserId}
+                  style={{
+                    backgroundColor: selectedValuesMember.includes(
+                      peopleOptions.firstName
+                    )
+                      ? "green"
+                      : "white",
+                  }}
+                >
+                  {peopleOptions.firstName}
+                </option>
+              ))}
+            </Form.Control>
 
-            <Form.Group className="mb-3" controlId="multiSelect2">
+  
+
+            {/* <Form.Group className="mb-3" controlId="multiSelect2">
               <Form.Label>Add Access</Form.Label>
               <Form.Control
-                as="select"
-                multiple
-                value={selectedValuesAccess}
-                onChange={handleCheckboxChangeAccess}
-              >
-                <option>Create backlog</option>
-                <option>Create forum</option>
-                <option>Delete sprint</option>
-                <option>delete issue</option>
-              </Form.Control>
-            </Form.Group>
-            <div className="border p-2 my-2 bg-gray-100 rounded ">
-              <h3>Selected Access:</h3>
-              {selectedValuesAccess.length > 0 ? (
-                <ul>
-                  {selectedValuesAccess.map((value) => (
-                    <p key={value}>{value}</p>
-                  ))}
-                </ul>
-              ) : (
-                <p>No Access selected</p>
-              )}
-            </div>
+              as="select"
+              multiple
+              value={selectedValuesAccess}
+              onChange={(e) => handleCheckboxChangeAccess(e)}
+            >
+              {accessOption.map((accessOptions) => (
+                <option
+                  key={accessOptions.accessId}
+                  value={accessOptions.accessId}
+                  style={{
+                    backgroundColor: selectedValuesMember.includes(
+                      accessOptions.accessName
+                    )
+                      ? "green"
+                      : "white",
+                  }}
+                >
+                  {accessOptions.accessName}
+                </option>
+              ))}
+            </Form.Control>
+            </Form.Group> */}
+
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -158,12 +202,19 @@ const EditGroup = () => {
           <Button
             variant="primary"
             className="rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] "
-            onClick={handleClose}
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
           >
             Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
+      <SuccessfulAction
+        onHide={() => setShowSuccess(false)}
+        show={showSuccess}
+        message="New User Added to AccesGroup Successfully"
+      />
     </>
   );
 };

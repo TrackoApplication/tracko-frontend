@@ -15,8 +15,6 @@ const ClientList = () => {
 
   return (
     <>
-        <NavBar/>
-    
     <div className =" h-12 m-4 ">
         {/* <button 
          onClick={<AddClient handleClose/>}

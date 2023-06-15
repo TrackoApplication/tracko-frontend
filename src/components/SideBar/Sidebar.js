@@ -7,6 +7,8 @@ import Avatar from 'react-avatar';
 import { NavLink } from 'react-router-dom';
 import {BsFillFileSpreadsheetFill} from "react-icons/bs";
 import { color } from '@mui/system';
+import {useNavigate} from 'react-router-dom';
+import  Logout  from '../UserAuthentication/Logout'
 
 export const menuItems = [
   {name: 'Dashboard',to: '/Dashboard', exact: true, iconClassName:'bi bi-house'},
@@ -22,6 +24,18 @@ export const menuItems = [
 ];
 
 const Sidebar = (props) => {
+
+  const handleLogoutClick = () => {
+    // Call the logout function from the Logout component
+    console.log(localStorage.getItem('accessToken'));
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    console.log(localStorage.getItem('accessToken'));
+    navigate('/Home');
+  };
+
+  const navigate = useNavigate();
+
 
   const [inactive, setInactive] =useState(false);
 
@@ -143,14 +157,14 @@ const Sidebar = (props) => {
           </div>
 
           <div className='side-menu-footer'>
-            <NavLink to='/'>
+            <button onClick={handleLogoutClick}>
               <div className='avatar'>
                 <i class="bi bi-power "></i>
               </div>
               <div className='user-info inline-block'>
                 <h5>Logout</h5>
               </div>
-            </NavLink>
+            </button>
           </div>
 
       </div>

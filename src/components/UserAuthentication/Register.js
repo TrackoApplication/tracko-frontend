@@ -145,7 +145,7 @@ const Register = () => {
 
   return (
     <>
-      <MDBContainer fluid className="mdbcontainer">
+      <MDBContainer fluid className="mdbcontainer-register">
         <MDBRow className="g-0 align-items-center">
           <MDBCol col="6 ">
             <MDBCard
@@ -163,7 +163,7 @@ const Register = () => {
                       <Form.Group className="mb-3">
                         <Form.Label className="flex">First Name</Form.Label>
                         <div
-                          className={`input-group ${
+                          className={`input-group-register ${
                             errors.password ? "is-invalid" : "is-valid"
                           }`}
                         >
