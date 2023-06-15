@@ -10,6 +10,7 @@ const AddProject = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [errors, setErrors] = useState({});
   const [project, setproject] = useState({
     id: "",
     projectName: "",
@@ -30,13 +31,17 @@ const AddProject = () => {
       .then((response) => {
         console.log(response);
       })
-      .catch((Error) => {});
+      .catch((error) => {
+        console.log(error);
+      });
+      handleClose();
+    
   };
 
-  const handlebuttonclick = (e) => {
-    saveproject();
-    handleClose();
-  };
+  // const handlebuttonclick = (e) => {
+  //   saveproject();
+  //   handleClose();
+  // };
 
   //image preview
   // const [imagePreview, setImagePreview] = useState(null);
@@ -66,6 +71,63 @@ const AddProject = () => {
   //   );
   // }, []);
 
+  const setField = (field, value) => {
+    setproject({
+      ...project,
+      [field]: value,
+    });
+  };
+
+
+  //Handlng form submit. Validating the form and if valid then saving the data to the database
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formErrors = validate();
+    if (Object.keys(formErrors).length === 0) {
+      saveproject(e);
+      //Nav("/EpicList");
+      handleClose();
+      // setShowSuccess(true);
+    } else {
+      setErrors(formErrors);
+    }
+  };
+
+  // validating the form fields
+  const validate = () => {
+    const {
+    projectName, 
+    imageURL,
+    description,
+    client,
+    projectLead,
+    } = project;
+
+    //defining the errors object
+    const errors = {};
+    if (!projectName || projectName === "") {
+      errors.projectName = "Project Name is required";
+    }
+   
+
+    if (!description || description === "") {
+      errors.description = "Description is required";
+    }
+
+  
+
+    if (!client || client === "") {
+      errors.client = "Client is required";
+    }
+
+    if (!projectLead || projectLead === "") {
+      errors.projectLead = "Project Lead is required";
+    }
+
+
+    return errors;
+  };
+
   return (
     <>
       <Button
@@ -93,10 +155,19 @@ const AddProject = () => {
                     type="Name"
                     name="projectName"
                     value={project.projectName}
-                    onChange={(e) => handleChange(e)}
+                    required
+                    onChange={(e) => setField("projectName", e.target.value)}
+                    isInvalid={!!errors.projectName}
+                    //onChange={(e) => handleChange(e)}
                     placeholder="Return 0 Software Project"
                     autoFocus
                   />
+                  <Form.Control.Feedback
+                    type="invalid"
+                    className="invalidfeedback"
+                  >
+                    {errors.projectName}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </MDBCol>
               <Form.Group
@@ -158,9 +229,18 @@ const AddProject = () => {
                   placeholder="..........."
                   name="description"
                   value={project.description}
-                  onChange={(e) => handleChange(e)}
+                 // onChange={(e) => handleChange(e)}
                   autoFocus
+                  required
+                    onChange={(e) => setField("description", e.target.value)}
+                    isInvalid={!!errors.description}
                 />
+                <Form.Control.Feedback
+                    type="invalid"
+                    className="invalidfeedback"
+                  >
+                    {errors.description}
+                  </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Client </Form.Label>
@@ -168,10 +248,19 @@ const AddProject = () => {
                   type="Name"
                   name="client"
                   value={project.client}
-                  onChange={(e) => handleChange(e)}
+                  //onChange={(e) => handleChange(e)}
                   placeholder="Creative Software"
                   autoFocus
+                  required
+                    onChange={(e) => setField("client", e.target.value)}
+                    isInvalid={!!errors.client}
                 />
+                <Form.Control.Feedback
+                    type="invalid"
+                    className="invalidfeedback"
+                  >
+                    {errors.client}
+                  </Form.Control.Feedback>
               </Form.Group>
               <Form.Group
                 className="mb-3"
@@ -182,7 +271,10 @@ const AddProject = () => {
                 <Form.Select
                   name="projectLead"
                   value={project.projectLead}
-                  onChange={(e) => handleChange(e)}
+                 // onChange={(e) => handleChange(e)}
+                 required
+                    onChange={(e) => setField("projectLead", e.target.value)}
+                    isInvalid={!!errors.projectLead}
                 >
                   <option value="">Assignee</option>
                   <option value="Ravindu Karunawwera">
@@ -196,7 +288,12 @@ const AddProject = () => {
                   <option value="Dulani Lamahewage">Dulani Lamahewage</option>
                   
                 </Form.Select>
-               
+                <Form.Control.Feedback
+                    type="invalid"
+                    className="invalidfeedback"
+                  >
+                    {errors.projectLead}
+                  </Form.Control.Feedback>
               </Form.Group>
             </MDBRow>
           </Form>
@@ -212,7 +309,7 @@ const AddProject = () => {
           <Button
             variant="primary"
             className="rounded bg-[#231651] text-white border-none  font-semibold hover:bg-[#2a1670] "
-            onClick={handlebuttonclick}
+            onClick={handleSubmit}
           >
             Create Project
           </Button>
