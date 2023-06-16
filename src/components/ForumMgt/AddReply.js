@@ -176,11 +176,10 @@ const AddReply = () => {
             <h1>Post a reply</h1>
           </div>
           <div className="text-sm text-black-500">
-            <strong>How to handle deeplink with branch.io sdk for flutter?</strong>
+            <strong>How to create a forum?</strong>
           </div>
           <div className="text-sm px-6 text-black-500">
-            I am trying to handle deeplink with branch sdk in flutter app.
-            I have used routemaster library for navigation
+         I want to create a Discussion forum 
           </div>
           <div className="items-center justify-center h-10 w-full"></div>
           <label className='block text-gray-600 text-sm font-normal'>

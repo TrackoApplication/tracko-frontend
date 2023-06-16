@@ -385,12 +385,12 @@ const CreateForum = () => {
             >
               Clear
             </button>
-            <button
+            {/* <button
               onClick={onCancel}
               className="rounded text-white font-semibold bg-[#231651] hover:bg-blue-700 py-2 px-6"
             >
               Cancel
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

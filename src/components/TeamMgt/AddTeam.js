@@ -135,6 +135,7 @@ const AddTeam = () => {
   className="h-10 w-96 border mt-2 px-2"
 >
   <option value="">Select members</option>
+  <option value="admin">Jithmi</option>
   <option value="admin">Seefa</option>
   <option value="user">Dulani</option>
   <option value="user">Ravindu</option>

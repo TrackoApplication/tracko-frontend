@@ -335,7 +335,7 @@ import ClientService from '../../Services/ClientService';
 import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 
 const AddClient = () => {
-  const [showSuccess,onCancel, setShowSuccess] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   
   const [client, setClient] = useState({
     id: "",
@@ -475,18 +475,18 @@ const AddClient = () => {
             >
               Clear
             </button>
-            <button
+            {/* <button
               onClick={onCancel}
               className="rounded text-white font-semibold bg-[#231651] hover:bg-blue-700 py-2 px-6"
             >
               Cancel
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
       <SuccessfulAction onHide={() => setShowSuccess(false)} 
       show={showSuccess} 
-      // message="Client Saved Successfully"
+      message="Client Saved Successfully"
        />
     </div>
   );

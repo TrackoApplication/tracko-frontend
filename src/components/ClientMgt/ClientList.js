@@ -284,7 +284,7 @@ const ClientList = () => {
     }
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = (e) => {  
     setSearch(e.target.value);
   };
 

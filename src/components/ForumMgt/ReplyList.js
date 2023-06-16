@@ -78,12 +78,11 @@ useEffect(() => { //setting the "loading" state variable to "true",
           <thead className="bg-blue-400">
             <tr className="text-left font-medium text-black-500 fw-bold uppercase tracking-wider py-3 px-6">
               
-            How to handle deeplink with branch.io sdk for flutter?
+            How to create a forum?
               </tr>
               <tr className="text-left font-medium text-black-500 fw-bold  tracking-wider py-3 px-6">
               
-              I am trying to handle deeplink with branch sdk in flutter app. 
-                I have used routemaster library for navigation 
+              I want to create a discussion forum
               </tr>
             <tr className="text-right font-medium text-black-500 fw-bold uppercase tracking-wider py-3 px-6">
               CreatedBy:johnsteven
