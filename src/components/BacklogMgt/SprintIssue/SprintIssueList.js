@@ -51,7 +51,7 @@ function SprintIssueList({sprintId}) {
     <>
       <Table striped borderless hover size="sm">
         <thead>
-          <th>Sprint Issue Id</th>
+          <th>Issue Id</th>
           <th>Summary</th>
           <th>Epic Name</th>
           <th>Status</th>

@@ -7,7 +7,8 @@ import Issue from "./Issue";
 import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion.js";
 import { SET_ISSUES } from "../../../reducers/issuesReducer";
 
-function IssueList() {
+function IssueList(props) {
+  const search = props.search;
   const [loading, setloading] = useState(false);
   const [issues, setissues] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -15,7 +16,7 @@ function IssueList() {
   const issueState = useSelector((state) => state.issues);
   const sprintState = useSelector((state) => state.sprints);
 
-  // // fetching the data from the backend
+  // fetching the data from the backend
   // useEffect(() => {
   //   const fetchData = async () => {
   //     setloading(true);
@@ -61,7 +62,16 @@ function IssueList() {
         {/* mapping issues into the backlog table */}
         {!loading && (
           <tbody>
-            {issueState.issues.map((issue) => (
+            {issueState.issues
+            .filter((issue) =>{
+            return(
+              search.toLowerCase() === "" ||
+                        issue.summary
+                          .toLowerCase()
+                          .includes(search.toLowerCase())
+            )}
+            )
+            .map((issue) => (
               <Issue
                 Issue={issue}
                 deleteIssue={deleteIssue}

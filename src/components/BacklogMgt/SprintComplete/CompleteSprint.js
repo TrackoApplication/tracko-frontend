@@ -22,15 +22,15 @@ const SprintCompletion = () => {
 
         {/* sprint completion modal */}
         <Modal show={show} onHide={handleClose} animation={false}>
-          <Modal.Header deleteButton>
-            <Modal.Title>Complete Sprint</Modal.Title>
+          <Modal.Header deleteButton className="hd">
+            <Modal.Title className="mt">Complete Sprint</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            <Form.Label>Complete Project 1 Sprint 1</Form.Label>
+            <Form.Label className="flabel">Complete Project 1 Sprint 1</Form.Label>
             <br />
             <br />
-            <Form.Label>This sprint contains</Form.Label>
+            <Form.Label className="flabel">This sprint contains</Form.Label>
             {/* add the options to move issues when completing a sprint */}
             <ul>
               <li>0 completed values</li>
@@ -40,9 +40,8 @@ const SprintCompletion = () => {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Move open issues to</Form.Label>
               {/* example options: Next sprint, Backlog */}
-              <Form.Select>
-                <option value="">--Select option--</option>
-                <option value="">Next sprint</option>
+              <Form.Select className="sitem">
+                <option disabled value="">--Select option--</option>
                 <option value="">Backlog</option>
               </Form.Select>
             </Form.Group>
@@ -51,7 +50,7 @@ const SprintCompletion = () => {
           <Modal.Footer>
             <Button
               variant="primary"
-              className="rounded bg-[#1e90ff] text-white border-none  font-semibold hover:bg-[#1e90ff] "
+              className="rounded bg-[#1F456E] text-white border-none  font-semibold hover:bg-[#1F456E] "
               onClick={handleClose}
             >
               Complete Sprint

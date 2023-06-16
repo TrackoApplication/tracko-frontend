@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { MDBCol } from "mdb-react-ui-kit";
 import IssueService from "../../../Services/IssueService";
+import EpicService from "../../../Services/EpicService";
 import "./AddIssue.css";
 import { useEffect } from "react";
 import SprintService from "../../../Services/SprintService";
@@ -13,6 +14,7 @@ import SprintService from "../../../Services/SprintService";
 const AddIssue = () => {
   const [loading, setloading] = useState(true);
   const [sprints, setsprints] = useState([]);
+  const [epics, setepics] = useState([]);
 
   const [issue, setIssue] = useState({
     issueId: "",
@@ -38,6 +40,22 @@ const AddIssue = () => {
       try {
         const response = await SprintService.getSprints();
         setsprints(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setloading(false);
+    };
+    fetchData();
+  }, []);
+
+  //Retrieving epic names from the backend
+  useEffect(() => {
+    const fetchData = async () => {
+      setloading(true);
+      try {
+        const response = await EpicService.getEpics();
+        setepics(response.data);
         console.log(response.data);
       } catch (error) {
         console.log(error);
@@ -78,7 +96,7 @@ const AddIssue = () => {
       .catch((error) => {
         console.log(error);
       });
-     
+
     handleClose();
   };
 
@@ -108,19 +126,19 @@ const AddIssue = () => {
   // const [projectOption, setProjectOption] = useState({});
 
   //backend connection
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       setLoading(true);
-//       try {
-//         const response = await IssueService.getProjectList();
-//         setProjectOption(response.data);
-//       } catch (error) {
-//         console.log(error);
-//       }
-//       setLoading(false);
-//     };
-//     fetchData();
-//   }, []);
+  //   useEffect(() => {
+  //     const fetchData = async () => {
+  //       setLoading(true);
+  //       try {
+  //         const response = await IssueService.getProjectList();
+  //         setProjectOption(response.data);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //       setLoading(false);
+  //     };
+  //     fetchData();
+  //   }, []);
 
   const [inactive] = React.useState(false);
   const [show, setShow] = useState(false);
@@ -147,7 +165,7 @@ const AddIssue = () => {
     e.preventDefault();
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
-       saveIssue(e);
+      saveIssue(e);
     } else {
       setErrors(formErrors);
     }
@@ -223,10 +241,14 @@ const AddIssue = () => {
 
   return (
     <div>
-      <div className={`container ${inactive ? "inactive" : ""}`}>
+      <div
+        className={`container ${
+          inactive ? "inactive" : ""
+        } btn-add-issue-container`}
+      >
         <Button
           variant="link"
-          className="text-black border-none font-semibold text-decoration-none shadow-none"
+          className="text-black border-none font-semibold text-decoration-none shadow-none btn-add-issue"
           onClick={handleShow}
         >
           + Create Issue
@@ -381,7 +403,7 @@ const AddIssue = () => {
                     <option value="" disabled selected>
                       Select the Sprint
                     </option>
-                     {/* {projectOption.map((projectOptions) => (
+                    {/* {projectOption.map((projectOptions) => (
                       <option
                         key={projectOptions.projectId}
                         value={projectOptions.projectName}
@@ -392,14 +414,16 @@ const AddIssue = () => {
 
                     {!loading && (
                       <>
-                      {sprints.map((sprint) => (
-                        <option key={sprint.sprintId} value={sprint.sprintName}>
-                          {sprint.sprintId}
-                        </option>
-                     )) }
+                        {sprints.map((sprint) => (
+                          <option
+                            key={sprint.sprintId}
+                            value={sprint.sprintName}
+                          >
+                            {sprint.sprintName}
+                          </option>
+                        ))}
                       </>
                     )}
-                    
                   </Form.Select>
                 </Form.Group>
 
@@ -418,9 +442,17 @@ const AddIssue = () => {
                     <option value="" disabled selected>
                       Select the Epic
                     </option>
-                    <option>Epic 1</option>
-                    <option>Epic 2</option>
-                    <option>Epic 3</option>
+                    {!loading && (
+                      <>
+                        {epics.map((epic) => (
+                          <option 
+                            key={epic.epicId} 
+                            value={epic.epicName}>
+                            {epic.epicName}
+                          </option>
+                        ))}
+                      </>
+                    )}
                   </Form.Select>
                 </Form.Group>
 
@@ -510,10 +542,10 @@ const AddIssue = () => {
                     type="number"
                     name="totalSP"
                     disabled
-                    value={issue.totalSP}
-                    // value={
-                    //   parseInt(issue.spdeveloping) + parseInt(issue.sptesting)
-                    // }
+                    // value={issue.totalSP}
+                    value={
+                      parseInt(issue.spdeveloping) + parseInt(issue.sptesting)
+                    }
                     // onChange={(e) =>setField("totalSP", issue.spdeveloping + issue.sptesting)}
                     // placeholder="name@example.com"
                     // autoFocus
