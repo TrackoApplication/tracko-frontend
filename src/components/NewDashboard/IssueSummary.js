@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 import "./Dashboard.css";
 import { PieChart } from "react-minimal-pie-chart";
 import DashBoardService from "../../Services/DashBoardService";
+import { useParams } from "react-router-dom";
 
 const IssueSummary = () => {
+  const { id } = useParams();
+
   const [loading, setLoading] = useState(false);
   const [issueCount, setIssueCount] = useState([0]);
   const [completedIssueCount, setCompletedIssueCount] = useState([0]);
@@ -22,10 +25,10 @@ const IssueSummary = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await DashBoardService.getIssueCount(accessToken);
-        const responseTodo= await DashBoardService.getIssueTodoCount(accessToken);
-        const responseCompleted = await DashBoardService.getIssueCompletedCount(accessToken);
-        const responseInProgress= await DashBoardService.getIssueInProgressCount(accessToken);
+        const response = await DashBoardService.getIssueCount(accessToken,id);
+        const responseTodo= await DashBoardService.getIssueTodoCount(accessToken,id);
+        const responseCompleted = await DashBoardService.getIssueCompletedCount(accessToken,id);
+        const responseInProgress= await DashBoardService.getIssueInProgressCount(accessToken,id);
         setTodoIssueCount(responseTodo.data);
         setInProgressIssueCount(responseInProgress.data);
         setCompletedIssueCount(responseCompleted.data);

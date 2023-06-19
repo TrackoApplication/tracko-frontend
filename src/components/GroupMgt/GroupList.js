@@ -51,12 +51,12 @@ export const GroupList = (props) => {
         <h1 >Return0/Group </h1>
       </div>
       <div className="h-12 m-4">
-        {role === "ADMIN" && (
+        {role === "ADMI" && (
         <AddGroup />
         )}
       </div>
 
-      <MDBTable className='m-4 group-table center'>
+      <MDBTable className='m-4 group-table center border'>
         <MDBTableHead className='bg-gray-100 rounded '>
           <tr >
             <th scope='col'>Access Group</th>

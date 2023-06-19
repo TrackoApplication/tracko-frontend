@@ -66,6 +66,7 @@ const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
+ 
 
     const fetchMemberData = async () => {
       setLoading(true);

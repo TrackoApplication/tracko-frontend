@@ -11,12 +11,17 @@ const AddProject = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [errors, setErrors] = useState({});
+  const [loading, setloading] = useState(true);
+  const [clients, setClients] = useState([]);
+  const [projectLeads, setProjectLeads] = useState([]);
+  const [pos, setPos] = useState([]);
+
   const [project, setproject] = useState({
     id: "",
     projectName: "",
     imageURL: "",
     description: "",
-    client: "",
+    client: 0,
     projectLead: "",
   });
 
@@ -26,6 +31,7 @@ const AddProject = () => {
   };
 
   const saveproject = (e) => {
+    const accessToken = localStorage.getItem("accessToken");
     //  e.preventDefault();
     ProjectService.saveproject(project)
       .then((response) => {
@@ -34,42 +40,45 @@ const AddProject = () => {
       .catch((error) => {
         console.log(error);
       });
-      handleClose();
-    
+    handleClose();
   };
 
-  // const handlebuttonclick = (e) => {
-  //   saveproject();
-  //   handleClose();
-  // };
-
-  //image preview
-  // const [imagePreview, setImagePreview] = useState(null);
-  // const [defaultImage, setDefaultImage] = useState(
-  //   "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-  // );
-
-  // const handleImageUpload = (event) => {
-  //   const file = event.target.files[0]; //gets the selected image from the 'input' element's 'onchange event' to "files array" as 0th element
-  //   const reader = new FileReader();
-
-  //   if (!file) {
-  //     setImagePreview(null);
-  //     return;
-  //   }
-
-  //   reader.onloadend = () => {
-  //     //onloadend is an event handler of Filereader object
-  //     setImagePreview(reader.result);
-  //   };
-
-  //   reader.readAsDataURL(file);
-  // };
-  // useEffect(() => {
-  //   setDefaultImage(
-  //     "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-  //   );
-  // }, []);
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const id = localStorage.getItem("userId");
+    console.log(id);
+    const fetchdata = async () => {
+      setloading(true); //set loading to true as at this moment we are loading the data
+      try {
+        //calling the api itself in the try block
+        const response = await ProjectService.getProjectClients(accessToken,id);
+        //to get the data from the api it may take some time. so we need to wait until we get the data
+        //so we Use the "await" & ** must include the "async" to the funcion itselt as 'await' expressions are only allowed within async functions and at the top levels of modules.
+        setClients(response.data); //setting the response to the state(useState) and passing the whatever data
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setloading(false); //when everything is done set loading to false
+    };
+    const fetchPo = async () => {
+      setloading(true); //set loading to true as at this moment we are loading the data
+      try {
+        //calling the api itself in the try block
+        const response = await ProjectService.getProjectPo(accessToken,id);
+        //to get the data from the api it may take some time. so we need to wait until we get the data
+        //so we Use the "await" & ** must include the "async" to the funcion itselt as 'await' expressions are only allowed within async functions and at the top levels of modules.
+        setPos(response.data); //setting the response to the state(useState) and passing the whatever data
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setloading(false); //when everything is done set loading to false
+    };
+    fetchPo();
+    //above is the declaration of the function "fetchdata"
+    fetchdata(); //calling of the function
+  }, []);
 
   const setField = (field, value) => {
     setproject({
@@ -78,6 +87,11 @@ const AddProject = () => {
     });
   };
 
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    // const fetchData = await axios.get
+  }, []);
 
   //Handlng form submit. Validating the form and if valid then saving the data to the database
   const handleSubmit = async (e) => {
@@ -95,26 +109,17 @@ const AddProject = () => {
 
   // validating the form fields
   const validate = () => {
-    const {
-    projectName, 
-    imageURL,
-    description,
-    client,
-    projectLead,
-    } = project;
+    const { projectName, imageURL, description, client, projectLead } = project;
 
     //defining the errors object
     const errors = {};
     if (!projectName || projectName === "") {
       errors.projectName = "Project Name is required";
     }
-   
 
     if (!description || description === "") {
       errors.description = "Description is required";
     }
-
-  
 
     if (!client || client === "") {
       errors.client = "Client is required";
@@ -124,7 +129,6 @@ const AddProject = () => {
       errors.projectLead = "Project Lead is required";
     }
 
-
     return errors;
   };
 
@@ -132,7 +136,7 @@ const AddProject = () => {
     <>
       <Button
         variant="primary"
-        className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651] ease-in-out"
+        className="rounded bg-[#231651] text-white border-none px-6 py-2 font-semibold transition duration-700 hover:scale-105 hover:bg-[#231651]  ease-in-out"
         onClick={handleShow}
       >
         Add Project
@@ -185,40 +189,6 @@ const AddProject = () => {
                 />
               </Form.Group>
 
-              {/* <MDBCol>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Key</Form.Label>
-                  <Form.Control type="Number" placeholder="3329" autoFocus />
-                </Form.Group>
-              </MDBCol> */}
-
-              {/* <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlInput1"
-              >
-                <Form.Label>Avatar</Form.Label>
-                <div>
-                  <div style={styles.preview && styles.image}>
-                    {imagePreview ? ( //this is a conditional redering statement and checks whether the "imagePreview" is true or false.
-                      <img src={imagePreview} alt="Preview" />
-                    ) : (
-                      <img src={defaultImage} alt="Default" />
-                    )}
-                  </div>
-                  <label className="text-left font-sans font-semibold text-xs text-blue-600 hover:text-blue-900">
-                    Select image
-                    <input
-                      type="file"
-                      style={styles.input} //adding post css
-                      onChange={handleImageUpload}
-                    />
-                  </label>
-                </div>
-              </Form.Group> */}
-
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
@@ -229,71 +199,80 @@ const AddProject = () => {
                   placeholder="..........."
                   name="description"
                   value={project.description}
-                 // onChange={(e) => handleChange(e)}
+                  // onChange={(e) => handleChange(e)}
                   autoFocus
                   required
-                    onChange={(e) => setField("description", e.target.value)}
-                    isInvalid={!!errors.description}
+                  onChange={(e) => setField("description", e.target.value)}
+                  isInvalid={!!errors.description}
                 />
                 <Form.Control.Feedback
-                    type="invalid"
-                    className="invalidfeedback"
-                  >
-                    {errors.description}
-                  </Form.Control.Feedback>
+                  type="invalid"
+                  className="invalidfeedback"
+                >
+                  {errors.description}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Client </Form.Label>
+                <Form.Label>Client</Form.Label>
                 <Form.Control
-                  type="Name"
+                  as="select"
                   name="client"
-                  value={project.client}
-                  //onChange={(e) => handleChange(e)}
-                  placeholder="Creative Software"
+                  value={project.client} // Make sure project.client is a single value
+                  onChange={(e) => setField("client", e.target.value)}
+                  isInvalid={!!errors.client}
                   autoFocus
                   required
-                    onChange={(e) => setField("client", e.target.value)}
-                    isInvalid={!!errors.client}
-                />
+                >
+                  <option value="">Select a client</option>
+                  {!loading && (
+                    <>
+                  {clients.map((client) => (
+                    <option key={client.clientId} value={client.clientId}>
+                      {client.clientName}
+                    </option>
+                  ))}
+                  </>
+                  )}
+                </Form.Control>
                 <Form.Control.Feedback
-                    type="invalid"
-                    className="invalidfeedback"
-                  >
-                    {errors.client}
-                  </Form.Control.Feedback>
+                  type="invalid"
+                  className="invalidfeedback"
+                >
+
+                  {errors.client}
+                </Form.Control.Feedback>
               </Form.Group>
+
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label>Project Lead </Form.Label>
+                <Form.Label>Product Owner </Form.Label>
                 {/* <FormControl name="projectLead"> */}
                 <Form.Select
                   name="projectLead"
                   value={project.projectLead}
-                 // onChange={(e) => handleChange(e)}
-                 required
-                    onChange={(e) => setField("projectLead", e.target.value)}
-                    isInvalid={!!errors.projectLead}
+                  // onChange={(e) => handleChange(e)}
+                  required
+                  onChange={(e) => setField("projectLead", e.target.value)}
+                  isInvalid={!!errors.projectLead}
+          
                 >
-                  <option value="">Assignee</option>
-                  <option value="Ravindu Karunawwera">
-                    Ravindu Karunaweera
-                  </option>
-                  <option value="Yasiru Basura">Yasiru Basura</option>
-                  <option value="Seefa Baanu">Seefa Banu</option>
-                  <option value="Jithmi Kumarasingha">
-                    Jithmi Kumarasingha
-                  </option>
-                  <option value="Dulani Lamahewage">Dulani Lamahewage</option>
-                  
+                   <option value="">Select a product owner</option>
+                      {!loading && (
+                    <>
+                      {pos.map((po) => (
+                  <option value={po.firstName}>{po.firstName}</option>
+                       ))}
+                    </>
+                  )}
                 </Form.Select>
                 <Form.Control.Feedback
-                    type="invalid"
-                    className="invalidfeedback"
-                  >
-                    {errors.projectLead}
-                  </Form.Control.Feedback>
+                  type="invalid"
+                  className="invalidfeedback"
+                >
+                  {errors.projectLead}
+                </Form.Control.Feedback>
               </Form.Group>
             </MDBRow>
           </Form>

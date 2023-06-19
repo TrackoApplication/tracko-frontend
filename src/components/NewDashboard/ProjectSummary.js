@@ -2,8 +2,11 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import './Dashboard.css'
 import DashBoardService from "../../Services/DashBoardService";
+import { useParams } from "react-router-dom";
+
 
 export const ProjectSummary = () => {
+  const { id } = useParams();
 
     const [loading, setLoading] = useState(false);
     const [sprintCount, setSprintCount] = useState([1]);
@@ -12,17 +15,31 @@ export const ProjectSummary = () => {
     const [peopleCount, setPeopleCount] = useState([1]);
 
     useEffect(() => {
+      const accessToken = localStorage.getItem("accessToken");
+
         const fetchData = async () => {
           setLoading(true);
           try {
-            const responseSprint = await DashBoardService.getSprintCount();
-            const responseEpic = await DashBoardService.getEpicCount();
-            const responseTeam = await DashBoardService.getTeamCount();
-            const responsePeople = await DashBoardService.getPeopleCount();
-            setSprintCount(responseSprint.data);
-            setEpicCount(responseEpic.data);
-            setTeamCount(responseTeam.data);
+            const responsePeople = await DashBoardService.getPeopleCount(accessToken,id);
             setPeopleCount(responsePeople.data);
+          } catch (error) {
+            console.log(error);
+          }
+          try {
+            const responseEpic = await DashBoardService.getEpicCount(accessToken,id);
+            setEpicCount(responseEpic.data);
+          } catch (error) {
+            console.log(error);
+          }
+          try {
+            const responseSprint = await DashBoardService.getSprintCount(accessToken,id);
+            setSprintCount(responseSprint.data);
+          } catch (error) {
+            console.log(error);
+          }
+          try {
+            const responseTeam = await DashBoardService.getTeamCount(accessToken,id);
+            setTeamCount(responseTeam.data);
           } catch (error) {
             console.log(error);
           }

@@ -7,8 +7,11 @@ import {
 } from "mdb-react-ui-kit";
 import { useState } from "react";
 import DashBoardService from "../../Services/DashBoardService";
+import { useParams } from "react-router-dom";
+
 
 export const TeamSummary = () => {
+  const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [teams, setTeams] = useState([]);
 
@@ -20,7 +23,7 @@ export const TeamSummary = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await DashBoardService.getTeamSummary(accessToken);
+        const response = await DashBoardService.getTeamSummary(accessToken,id);
         setTeams(response.data);
       
 
@@ -37,11 +40,11 @@ export const TeamSummary = () => {
   return (
     <>
       <div>TeamSummary</div>
-      <div className="table-container border my-2 ">
+      <div className="table-container border ">
         <table className="table center ">
           <thead className="header bg-gray-100 ">
             <tr className="text-xs">
-              <th scope="col" className="py-0 ">
+              <th scope="col" className="py-0  text-xs">
                 Team Name
               </th>
               <th scope="col" className="py-0">
@@ -59,23 +62,23 @@ export const TeamSummary = () => {
           {!loading && (
           <tbody className="">
             {teams.map((team) => (
-            <tr>
-              <td className="col-3 p-1">
-                <p className="col-8 text-left ">{team.teamName} style={{ fontSize: "20px" }}</p>
+            <tr key={team.teamId}>
+              <td className="col-4 p-0 m-0">
+                <p className="col-8 text-left" style={{ fontSize: "11px" }}>{team.teamName}</p>
               </td>
 
-              <td>
-                <p className=" col-8 text-justify " style={{ fontSize: "10px" }}>
+              <td className="col-3  p-0 m-0 ">
+                <p className="col-8  text-left  p-0 m-0" style={{ fontSize: "10px" }}>
                   {team.scrumMasterName}
                 </p>
               </td>
-              <td className="col-3 ">
-                <p className=" col-8 text-justify" style={{ fontSize: "10px" }}>
+              <td className="col-3  p-0 m-0 ">
+                <p className=" col-8 text-left " style={{ fontSize: "10px" }}>
                   {team.noOfMembers}
                 </p>
               </td>
-              <td className="col-3 ">
-                <p className=" col-8 text-justify" style={{ fontSize: "10px" }}>
+              <td className="col-3 p-0 m-0 ">
+                <p className=" col-8 text-left  p-0 m-0" style={{ fontSize: "10px" }}>
                   {team.involvedIssues}
                 </p>
               </td>

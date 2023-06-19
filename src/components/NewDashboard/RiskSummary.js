@@ -2,8 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import DashBoardService from "../../Services/DashBoardService";
 import "./Dashboard.css";
+import { useParams } from "react-router-dom";
 
 const RiskSummary = () => {
+
 
   const [loading, setLoading] = useState(false);
   const [issueCount, setIssueCount] = useState([0]);
@@ -11,20 +13,21 @@ const RiskSummary = () => {
   const [issueMediumRiskCount, setIssueMediumRiskCount] = useState([0]);
   const [issueLowRiskCount, setIssueLowRiskCount] = useState([0]);
 
-  const highriskPercentage = (issueHighRiskCount/issueCount) * 100;
-  const mediumriskPercentage = issueMediumRiskCount/issueCount * 100;
-  const lowriskPercentage = issueLowRiskCount/issueCount * 100;
+  const highriskPercentage = issueCount !== 0 ? (issueHighRiskCount / issueCount) * 100 : 0;
+  const mediumriskPercentage = issueCount !== 0 ? (issueMediumRiskCount / issueCount) * 100 : 0;
+  const lowriskPercentage = issueCount !== 0 ? (issueLowRiskCount / issueCount) * 100 : 0;
   
+  const { id } = useParams();
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await DashBoardService.getIssueCount(accessToken);
-        const responseHigh = await DashBoardService.getHighRiskCount(accessToken);
-        const responseMedium = await DashBoardService.getMediumRiskCount(accessToken);
-        const responseLow = await DashBoardService.getLowRiskCount(accessToken);
+        const response = await DashBoardService.getIssueCount(accessToken,id);
+        const responseHigh = await DashBoardService.getHighRiskCount(accessToken,id);
+        const responseMedium = await DashBoardService.getMediumRiskCount(accessToken,id);
+        const responseLow = await DashBoardService.getLowRiskCount(accessToken,id);
         setIssueCount(response.data);
         setIssueHighRiskCount(responseHigh.data);
         setIssueMediumRiskCount(responseMedium.data);

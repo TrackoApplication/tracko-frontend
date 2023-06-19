@@ -85,10 +85,10 @@ const UserList = () => {
     <>
       <div className="d-flex justify-content-between">
 
-        <div className=" h-12 m-4">
+        {/* <div className=" h-12 m-4">
           <AddUser />
-        </div>
-        <Form className="m-4 p-2">
+        </div> */}
+        <Form className="m-4 p-2 w-full">
           <div className="flex">
             {/* <div className="p-3">
               <select
@@ -104,7 +104,7 @@ const UserList = () => {
               </select>
             </div> */}
 
-            <InputGroup size-sm className="my-2 mx-2">
+            <InputGroup size-sm className="my-2 ">
               <Form.Control
                 type="search"
                 placeholder="Search"

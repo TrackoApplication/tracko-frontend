@@ -9,6 +9,8 @@ import Client from "./Client";
 import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 
 import AddClient from "./AddClient";
+import Form from "react-bootstrap/Form";
+import { InputGroup } from "react-bootstrap";
 
 
 
@@ -164,50 +166,43 @@ const ClientList = () => {
   return (
 
     <div>
+      <div className="d-flex justify-content-between">
 
-      <div className="container mx-auto my-8">
 
-        <div className="h-12">
+        <div className="h-12 m-4">
 
-          <button
-
-            onClick={openAddClient}
-
-            className="rounded bg-[#231651]  text-white px-6 py-2 font-semibold"
-
-          >
-
-            Add Client
-
-          </button>
+         <AddClient/>
 
         </div>
 
-        <div className="flex shadow border-b">
+     
 
-          <div className="w-half px-4 py-2">
+        <Form className="m-4 p-2">
+  <div className="flex">
 
-            <input
+    <InputGroup size-sm className="my-2 mx-2">
+      <Form.Control
+        type="search"
+        placeholder="Search"
+        className="rounded"
+        value={search}
 
-              type="text"
+        onChange={handleSearch}
+        aria-label="Search"
 
-              placeholder="Search client..."
+      />
+    </InputGroup>
+  </div>
 
-              value={search}
-
-              onChange={handleSearch}
-
-              className="w-full h-10 px-2 border"
-
-            />
-
-          </div>
+  {/* <Button variant="outline-success " className='text-white  outline-slate-100 bg-[rgb(194, 194, 194)]'>Search</Button> */}
+</Form>
 
         </div>
 
-        <div className="flex shadow border-b">
 
-          <table className="min-w-full">
+        <div className="flex  border-b mx-2">
+
+          <table className="min-w-full border ">
 
             <thead className="bg-[#153a5f]">
 
@@ -297,7 +292,7 @@ const ClientList = () => {
 
         </div>
 
-      </div>
+
 
       {showAddClient && (
 

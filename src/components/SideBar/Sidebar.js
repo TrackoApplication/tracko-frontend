@@ -26,6 +26,7 @@ export const menuItems = [
 
 const Sidebar = (props) => {
 
+
   const handleLogoutClick = () => {
     // Call the logout function from the Logout component
     console.log(localStorage.getItem('accessToken'));
@@ -41,6 +42,7 @@ const Sidebar = (props) => {
   const [inactive, setInactive] =useState(false);
 
   useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
     props.onCollapse(inactive);
  
    }, [inactive]);

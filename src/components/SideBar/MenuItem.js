@@ -3,10 +3,13 @@ import { NavLink } from 'react-router-dom';
 
 const MenuItem = (props) => {
 
+    
+
     const {name,to, iconClassName,subMenus,onClick} =props;
     const [expand,setExpand] = React.useState(false);
 
   return (
+
     <li onClick={props.onClick}>
         <NavLink to={to} onClick={()=> setExpand(!expand)} className='menu-item duration-300 hover:scale-105 '>
             <div className='menu-icon'>
@@ -26,6 +29,7 @@ const MenuItem = (props) => {
                     ) : null
         }
     </li>
+
             
   )
 }

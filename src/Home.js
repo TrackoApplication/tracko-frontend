@@ -56,7 +56,7 @@ const Home = () => {
           <div className="home-buttons justify-between">
             <div
               onClick={() => navigate("/Register")}
-              className="btn btn-pink h-10"
+              className="font-bold py-2 px-4 rounded shadow mx-2 my-2 cursor-pointor h-10 bg-[#d76161] text-white"
             >
               Let's Get Started
             </div>

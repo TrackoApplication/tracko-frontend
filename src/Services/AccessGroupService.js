@@ -6,7 +6,7 @@ class AccessGroupService {
 
 
     getMemberList(id, accessToken) {
-        const url = `${ACCESSGROUP_API_BASE_URL}/projects/getMembersPerProject?id=${1}`;
+        const url = `${ACCESSGROUP_API_BASE_URL}/project/getMembersPerProject/${id}`;
         const config = {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -36,6 +36,7 @@ class AccessGroupService {
         return axios.get(url, config);
       }
       
+
       
 }
 

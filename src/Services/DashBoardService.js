@@ -3,16 +3,18 @@ import axios from "axios";
 const ISSUE_API_BASE_URL = "http://localhost:8080/api/v1/issues"
 const SPRINT_API_BASE_URL = "http://localhost:8080/api/v1/sprints/count"
 const EPIC_API_BASE_URL = "http://localhost:8080/api/v1/epics/count"
-const TEAM_API_BASE_URL = "http://localhost:8080/api/v1/teams"
+const TEAM_API_BASE_URL = "http://localhost:8080/api/v1/team"
 const PEOPLE_API_BASE_URL = "http://localhost:8080/api/v1/peoples/count"
+const PROJECT_API_BASE_URL = "http://localhost:8080/api/v1/project"
+const GROUP_API_BASE_URL = "http://localhost:8080/api/v1/accesgroups"
+
 
 
 
 class DashBoardService {
  
-
-    getIssueCount(token) {
-        return axios.get(ISSUE_API_BASE_URL+ "/count",{
+    getIssueCount(token,id) {
+        return axios.get(PROJECT_API_BASE_URL+ "/getIssueCountOnAProject/"+id,{
             headers: {
                 Authorization: `Bearer ${token}`
               }
@@ -42,40 +44,43 @@ class DashBoardService {
         });
     }
 
-    getSprintCount(token) {
-        return axios.get(SPRINT_API_BASE_URL,{
+    getSprintCount(token, id) {
+        return axios.get(PROJECT_API_BASE_URL + "/getSprintCountOnAProject/" + id, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
+    
+
+    getEpicCount(token,id) {
+        return axios.get(PROJECT_API_BASE_URL+ "/getEpicCountOnAProject/"+id,{
             headers: {
                 Authorization: `Bearer ${token}`
               }
         });
     }
 
-    getEpicCount(token) {
-        return axios.get(EPIC_API_BASE_URL,{
+    getTeamCount(token,id) {
+        return axios.get(PROJECT_API_BASE_URL+ "/getTeamCountOnAProject/"+id,{
             headers: {
                 Authorization: `Bearer ${token}`
               }
         });
     }
 
-    getTeamCount(token) {
-        return axios.get(TEAM_API_BASE_URL + "/count",{
+    getTeamSummary(token,id) {
+        return axios.get(TEAM_API_BASE_URL + "/teamSummary/"+id,{
             headers: {
                 Authorization: `Bearer ${token}`
               }
         });
     }
 
-    getTeamSummary(token) {
-        return axios.get(TEAM_API_BASE_URL + "/teamSummary",{
-            headers: {
-                Authorization: `Bearer ${token}`
-              }
-        });
-    }
+  
 
-    getPeopleCount(token) {
-        return axios.get(PEOPLE_API_BASE_URL,{
+    getPeopleCount(token,id) {
+        return axios.get(PROJECT_API_BASE_URL+ "/getPeopleCountOnAProject/"+id,{
             headers: {
                 Authorization: `Bearer ${token}`
               }

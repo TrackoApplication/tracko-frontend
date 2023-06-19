@@ -5,6 +5,7 @@ import '../../App.css'
 import { useParams } from "react-router-dom";
 
 const DashLayout = () => {
+  const { projectId } = useParams();
   const [inactive, setInactive] = React.useState(false);
   
  
@@ -16,7 +17,7 @@ const DashLayout = () => {
               setInactive(inactive);
           }}
           />
-          <Dashboard/> 
+          <Dashboard projectId={projectId}/> 
       </div>
     </div>
 
