@@ -49,7 +49,7 @@ function SprintIssueList({sprintId}) {
 
   return (
     <>
-      <Table striped borderless hover size="sm">
+      <Table striped borderless hover size="sm" className="">
         <thead>
           <th>Issue Id</th>
           <th>Summary</th>

@@ -7,6 +7,34 @@ import SprintService from "../../../Services/SprintService";
 import SuccessfulUpdation from "./SuccessfulUpdation";
 
 function UpdateSprint(props) {
+  const [sprint, setSprint] = useState({
+    sprintId: props.sprintId,
+    sprintName: "",
+    startDate: "",
+    endDate: "",
+    sprintGoal: "",
+    duration: "default",
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await SprintService.getSprintById(props.sprintId);
+        const _data = response.data;
+        _data.startDate = _data.startDate.split("T")[0];
+        _data.endDate = _data.endDate.split("T")[0];
+        setSprint(_data);
+        debugger;
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, [props.sprintId, props]); // Add props to the dependency array
+  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
   
@@ -37,10 +65,10 @@ function UpdateSprint(props) {
         }));
       }
     } else if (name === "startDate" || name === "endDate") {
-      const dateValue = new Date(value).toISOString();
+      // const dateValue = new Date(value).toISOString();
       setSprint((prevState) => ({
         ...prevState,
-        [name]: dateValue,
+        [name]: value,
       }));
     } else {
       setSprint((prevState) => ({
@@ -50,33 +78,6 @@ function UpdateSprint(props) {
     }
   };  
 
-  const [sprint, setSprint] = useState({
-    sprintId: props.sprintId,
-    sprintName: "",
-    startDate: "",
-    endDate: "",
-    sprintGoal: "",
-    duration: "default",
-  });
-
-  //Update date solution
-  // const Date = new Date(sprint.startDate);
-  // const formattedDate = Date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await SprintService.getSprintById(props.sprintId);
-        setSprint(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, [props.sprintId, props]); // Add props to the dependency array
-  
   
 
   const updateSprint = (e) => {
@@ -196,7 +197,8 @@ function UpdateSprint(props) {
                     type="date"
                     name="endDate"
                     value={sprint.endDate}
-                    onChange={handleChange}
+                    // onChange={handleChange}
+                    disabled={true}
                     isInvalid={!!errors.endDate}
                   />
                   <Form.Control.Feedback type="invalid" className="invalidfeedback">

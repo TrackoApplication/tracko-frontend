@@ -125,12 +125,12 @@ const SprintBacklogSection = ({ sprint }) => {
         </h2>
       </div>
 
-      <hr></hr>
+      {/* <hr></hr> */}
 
       {/* Sprint Backlog */}
       <div className="backlog-container">
         <div className="badge-container">
-          <MDBBadge
+          {/* <MDBBadge
             color="secondary"
             pill
             style={{ height: "20px", width: "24px", fontSize: "12px" }}
@@ -150,7 +150,7 @@ const SprintBacklogSection = ({ sprint }) => {
             style={{ height: "20px", width: "24px", fontSize: "12px" }}
           >
             0
-          </MDBBadge>
+          </MDBBadge> */}
         </div>
 
         {/* <SprintStart /> */}
@@ -160,7 +160,7 @@ const SprintBacklogSection = ({ sprint }) => {
           <SprintCompletion />
         </div>
 
-        <hr></hr>
+        {/* <hr></hr> */}
 
         {/* <i
           class="bi bi-pen"
@@ -175,7 +175,7 @@ const SprintBacklogSection = ({ sprint }) => {
       </div>
 
       {/* Sprint Issue list */}
-      <div className={`container ${inactive ? "inactive" : ""}`}>
+      <div className={`container ${inactive ? "inactive" : ""} "`}>
         <SprintIssueList sprintId={sprint.sprintId} />
       </div>
 

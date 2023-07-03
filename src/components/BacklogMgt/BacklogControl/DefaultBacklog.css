@@ -1,4 +1,4 @@
-.BacklogMain {
+/* .BacklogMain {
   padding: 20px;
   background-color: #f5f4f7;
 }
@@ -17,19 +17,21 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2px;
-}
+} */
 
-.badge-container {
+/* Move badge container to the right */
+/* .badge-container {
   display: flex;
   align-items: center;
-  margin-left: auto; /* Move badge container to the right */
-}
+  margin-left: auto; 
+} */
 
-.badge-container MDBBadge {
-  margin-right: 10px; /* Add margin between badges */
-}
+/* Add margin between badges */
+/* .badge-container MDBBadge {
+  margin-right: 10px; 
+} */
 
-.sprint-creation-section {
+/* .sprint-creation-section {
   margin-left: auto;
 }
 
@@ -39,7 +41,7 @@
 }
 
 .sprint-backlog-sections {
-  margin-top: 10px;
+  margin-top: 30px;
 }
 
 .bck {
@@ -66,4 +68,4 @@ hr {
   height: 3px;
   background-color: #ffffff;
   border: none;
-}
+} */

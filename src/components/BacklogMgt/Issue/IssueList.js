@@ -38,11 +38,15 @@ function IssueList(props) {
   // deleting the issues based on issueId
   const deleteIssue = (issueId) => {
     IssueService.deleteIssue(issueId).then((res) => {
-      if (issues) {
-        setissues((prevElement) => {
-          setShowSuccess(true);
-          return prevElement.filter((Issue) => Issue.issueId !== issueId);
+      if (issueState.issues.length > 0) {
+        // setissues((prevElement) => {
+        setShowSuccess(true);
+        dispatch({
+          type: SET_ISSUES,
+          payload: issueState.issues.filter((Issue) => Issue.issueId !== issueId),
         });
+        // return prevElement.filter((Issue) => Issue.issueId !== issueId);
+        // });
       }
     });
   };
@@ -63,21 +67,19 @@ function IssueList(props) {
         {!loading && (
           <tbody>
             {issueState.issues
-            .filter((issue) =>{
-            return(
-              search.toLowerCase() === "" ||
-                        issue.summary
-                          .toLowerCase()
-                          .includes(search.toLowerCase())
-            )}
-            )
-            .map((issue) => (
-              <Issue
-                Issue={issue}
-                deleteIssue={deleteIssue}
-                key={issue.issueId}
-              ></Issue>
-            ))}
+              .filter((issue) => {
+                return (
+                  search.toLowerCase() === "" ||
+                  issue.summary.toLowerCase().includes(search.toLowerCase())
+                );
+              })
+              .map((issue) => (
+                <Issue
+                  Issue={issue}
+                  deleteIssue={deleteIssue}
+                  key={issue.issueId}
+                ></Issue>
+              ))}
           </tbody>
         )}
       </Table>

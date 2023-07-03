@@ -163,6 +163,7 @@ const AddIssue = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    debugger;
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
       saveIssue(e);
@@ -183,7 +184,7 @@ const AddIssue = () => {
       reporter,
     } = issue;
     const newErrors = {};
-
+debugger;
     if (!projectName || projectName === "") {
       newErrors.projectName = "Project name cannot be blank";
     }
@@ -225,7 +226,7 @@ const AddIssue = () => {
           "Story point estimate for developing is required and must be between 1 and 21";
       }
       // Clear the error message for sptesting when reqOfTesting is "false"
-      newErrors.sptesting = null;
+      // newErrors.sptesting = null;
     }
 
     if (!priority || priority === "") {
