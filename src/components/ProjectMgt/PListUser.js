@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import ConfirmPopup from "../UserMgt/ConfirmPopup";
 import UpdateProject from "./UpdateProject";
 
-const ProjectList = () => {
+const PListUser = () => {
   const navigate = useNavigate();
   const [showUpdate, setShowUpdate] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -88,7 +88,7 @@ const ProjectList = () => {
                           View
                         </button>
 
-                        <button
+                        {/* <button
                           className=" font-semibold mt-3 mb-1 text-indigo-600 hover:text-indigo-800 hover:cursor-pointer px-2"
                           onClick={() => {
                             debugger;
@@ -104,7 +104,7 @@ const ProjectList = () => {
                           className=" font-semibold mt-3 mb-1 text-indigo-600 hover:text-indigo-800 hover:cursor-pointer"
                         >
                           Delete
-                        </button>
+                        </button> */}
 
                         <ConfirmPopup
                           show={showConfirm}
@@ -137,4 +137,4 @@ const ProjectList = () => {
   );
 };
 
-export default ProjectList;
+export default PListUser;

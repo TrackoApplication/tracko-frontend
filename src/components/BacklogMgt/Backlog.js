@@ -14,6 +14,7 @@ import { MDBBadge} from 'mdb-react-ui-kit';
 import Emptysprintbacklog from './Emptysprintbacklog';
 import Emptysprinttable from './Emptysprinttable';
 import AddEpic from '../EpicMgt/AddEpic';
+import EpicList from '../EpicMgt/EpicList';
 
 const Backlog = () => {
   const [inactive, setInactive] = React.useState(false);
@@ -104,10 +105,10 @@ const Backlog = () => {
          </div>
       {/* </div> */}
 
-      <div className={`container ${inactive ? "inactive" : ""}`}>
+      {/* <div className={`container ${inactive ? "inactive" : ""}`}>
         <CompleteSprinttable />
-      </div> 
-
+      </div>  */}
+      <EpicList/>
 
 
   </div>

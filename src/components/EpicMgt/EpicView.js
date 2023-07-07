@@ -38,10 +38,15 @@ const EpicView = () => {
             onCollapse={(inactive) => {
               setInactive(inactive);
             }}
-          />
+            />
+            <div className="Heading">
+              <h1>Epic No 1</h1>
+            
+
+         
           <h1></h1>
   
-          
+          </div>
         </div>
       </div>
     );

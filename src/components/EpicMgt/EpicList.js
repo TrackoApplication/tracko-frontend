@@ -54,7 +54,7 @@ const EpicList = () => {
           <th>Epic Name</th>
           <th>Priority</th>
           <th>Assignee</th>
-          <th>Team</th>
+          <th>Story Points</th>
         </thead>
         {/* mapping epics into the backlog table */}
         {!loading && (

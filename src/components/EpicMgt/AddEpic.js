@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import { MDBCol, MDBRow } from "mdb-react-ui-kit";
 import EpicService from "../../Services/EpicService";
 import { useNavigate } from "react-router-dom";
+import Epic from "./Epic";
 // import { useHistory } from 'react-router-dom';
 
 const AddEpic = () => {
@@ -71,7 +72,7 @@ const AddEpic = () => {
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
       saveEpic(e);
-      Nav("/EpicList");
+      Nav("/Backlogview");
       handleClose();
       // setShowSuccess(true);
     } else {
@@ -94,7 +95,12 @@ const AddEpic = () => {
       storyPoints,
     } = epic;
 
+    const startDate = new Date(Epic.targetStart || new Date()); // Use the current date if start date is not set
+
+
+
     //defining the errors object
+    debugger
     const errors = {};
     if (!project || project === "") {
       errors.project = "Project is required";
@@ -120,17 +126,23 @@ const AddEpic = () => {
     }
 
 
-    if (!targetStart || targetStart === "") {
-      errors.targetStart = "Start date is required";
-    }
+    // if (!targetStart || targetStart === "") {
+    //   errors.targetStart = "Start date is required";
+    // }
 
     if (!targetEnd || targetEnd === "") {
       errors.targetEnd = "End date required";
     }
 
-    if (!storyPoints || storyPoints === "") {
-      errors.storyPoints = "Story Points required";
+    // if (!storyPoints || storyPoints === "") {
+    //   errors.storyPoints = "Story Points required";
+    // }
+
+    if (!storyPoints || storyPoints === "" || storyPoints < 1 ) {
+      errors.storyPoints =
+        "Story point estimate for Epic must be above 0";
     }
+
 
     // }else if(checkEmailExists){
     //   errors.emailId = 'Email Id already not exists';

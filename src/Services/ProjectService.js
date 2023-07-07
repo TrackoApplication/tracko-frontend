@@ -14,8 +14,12 @@ class ProjectService{
         return axios.get(PROJECT_API_BASE_URL);
     }
 
-    deleteProject(id){
-        return axios.delete(PROJECT_API_BASE_URL+"/"+id);
+    deleteProject(projectId){
+        return axios.delete(PROJECT_API_BASE_URL+"/"+projectId);
+    }
+
+    updateProject(id, project) {
+        return axios.put(PROJECT_API_BASE_URL + '/' + id, project);
     }
 
     

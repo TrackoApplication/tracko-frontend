@@ -30,6 +30,7 @@ import EpicList from "./components/EpicMgt/EpicList";
 import EpicView from "./components/EpicMgt/EpicView";
 import EpicDeletionConfirmation from "./components/EpicMgt/EpicDeletionConfirmation";
 import EpicDeletionSuccessful from "./components/EpicMgt/EpicDeletionSuccessful";
+import PListUser from "./components/ProjectMgt/PListUser";
 
 
 
@@ -96,6 +97,8 @@ function App() {
           <Route path="/ProjectList" element={<ProjectList />} />
           <Route path="/ClientList" element={<ClientList />} />
           <Route path="/Popup" element={<Popup />} />
+          <Route path="/PListUser" element={<PListUser />} />
+
     
     </Routes>
 
