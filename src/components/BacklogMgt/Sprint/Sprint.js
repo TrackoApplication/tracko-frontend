@@ -28,6 +28,7 @@ const Sprint = ({ Sprint, deleteSprint, key }) => {
             // onClick={(e, sprintId) => editSprint(e, sprintId)}
             onClick={() => setShow(true)}
           ></i>
+
           {/* Sprint updation popup will appear */}
           <i
             class="bi bi-trash-fill"

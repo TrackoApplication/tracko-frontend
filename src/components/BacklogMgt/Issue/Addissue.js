@@ -8,6 +8,8 @@ import EpicService from "../../../Services/EpicService";
 import "./AddIssue.css";
 import { useEffect } from "react";
 import SprintService from "../../../Services/SprintService";
+import IssuetypeService from "../../../Services/IssuetypeService";
+import PriorityService from "../../../Services/PriorityService";
 // import { useNavigate } from "react-router-dom";
 
 //setting states for Issue form fields
@@ -15,11 +17,13 @@ const AddIssue = () => {
   const [loading, setloading] = useState(true);
   const [sprints, setsprints] = useState([]);
   const [epics, setepics] = useState([]);
+  const [issuetypes, setissuetypes] = useState([]);
+  const [priorities, setpriorities] = useState([]);
 
   const [issue, setIssue] = useState({
     issueId: "",
     projectName: "",
-    issueType: "",
+    issuetypeName: "",
     summary: "",
     description: "",
     assignee: "",
@@ -56,6 +60,38 @@ const AddIssue = () => {
       try {
         const response = await EpicService.getEpics();
         setepics(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setloading(false);
+    };
+    fetchData();
+  }, []);
+
+  //Retrieving issue types from the backend
+  useEffect(() => {
+    const fetchData = async () => {
+      setloading(true);
+      try {
+        const response = await IssuetypeService.getIssuetype();
+        setissuetypes(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setloading(false);
+    };
+    fetchData();
+  }, []);
+
+  //Retrieving priorities from the backend
+  useEffect(() => {
+    const fetchData = async () => {
+      setloading(true);
+      try {
+        const response = await PriorityService.getPriority();
+        setpriorities(response.data);
         console.log(response.data);
       } catch (error) {
         console.log(error);
@@ -106,7 +142,7 @@ const AddIssue = () => {
     setIssue({
       issueId: "",
       projectName: "",
-      issueType: "",
+      issuetypeName: "",
       summary: "",
       description: "",
       assignee: "",
@@ -175,7 +211,7 @@ const AddIssue = () => {
   const validate = () => {
     const {
       projectName,
-      issueType,
+      issuetypeName,
       summary,
       reqOfTesting,
       spdeveloping,
@@ -184,12 +220,12 @@ const AddIssue = () => {
       reporter,
     } = issue;
     const newErrors = {};
-debugger;
+    debugger;
     if (!projectName || projectName === "") {
       newErrors.projectName = "Project name cannot be blank";
     }
 
-    if (!issueType || issueType === "") {
+    if (!issuetypeName || issuetypeName === "") {
       newErrors.issueType = "Issue type cannot be blank";
     }
 
@@ -308,22 +344,32 @@ debugger;
                   <Form.Label className="flabel">Issue type</Form.Label>
                   <Form.Select
                     className="sitem"
-                    name="issueType"
-                    value={issue.issueType}
+                    name="issuetypeName"
+                    value={issue.issuetypeName}
                     // onChange={(e) => handleChange(e)}
-                    onChange={(e) => setField("issueType", e.target.value)}
-                    isInvalid={!!errors.issueType}
+                    onChange={(e) => setField("issuetypeName", e.target.value)}
+                    isInvalid={!!errors.issuetypeName}
                     defaultValue="Select the Issue Type"
                   >
                     <option value="" disabled selected>
                       Select the Issue Type
                     </option>
-                    <option>Issue</option>
-                    <option>Bug</option>
-                    <option>QA</option>
+                    
+                    {!loading && (
+                      <>
+                        {issuetypes.map((issuetype) => (
+                          <option
+                            key={issuetype.issueTypeId}
+                            value={issuetype.issuetypeName}
+                          >
+                            {issuetype.issuetypeName}
+                          </option>
+                        ))}
+                      </>
+                    )}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid" className="infeedback">
-                    {errors.issueType}
+                    {errors.issuetypeName}
                   </Form.Control.Feedback>
                 </Form.Group>
 
@@ -404,14 +450,6 @@ debugger;
                     <option value="" disabled selected>
                       Select the Sprint
                     </option>
-                    {/* {projectOption.map((projectOptions) => (
-                      <option
-                        key={projectOptions.projectId}
-                        value={projectOptions.projectName}
-                      >
-                        {projectOptions.projectName}
-                      </option>
-                    ))} */}
 
                     {!loading && (
                       <>
@@ -446,9 +484,7 @@ debugger;
                     {!loading && (
                       <>
                         {epics.map((epic) => (
-                          <option 
-                            key={epic.epicId} 
-                            value={epic.epicName}>
+                          <option key={epic.epicId} value={epic.epicName}>
                             {epic.epicName}
                           </option>
                         ))}
@@ -571,9 +607,18 @@ debugger;
                     <option value="" disabled selected>
                       Select the priority
                     </option>
-                    <option>High</option>
-                    <option>Medium</option>
-                    <option>Low</option>
+                    {!loading && (
+                      <>
+                        {priorities.map((issuePriority) => (
+                          <option
+                            key={issuePriority.priorityId}
+                            value={issuePriority.priority}
+                          >
+                            {issuePriority.priority}
+                          </option>
+                        ))}
+                      </>
+                    )}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid" className="infeedback">
                     {errors.priority}

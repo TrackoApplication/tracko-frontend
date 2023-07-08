@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -7,7 +8,8 @@ import SprintService from "../../../Services/SprintService";
 import { useNavigate } from "react-router-dom";
 import "./CreateSprint.css";
 import { useDispatch } from "react-redux";
-import {SET_SPRINTS} from "../../../reducers/sprintReducer";
+import { SET_SPRINTS } from "../../../reducers/sprintReducer";
+import DurationService from "../../../Services/DurationService";
 
 //setting states for Sprint start form fields
 const SprintCreate = () => {
@@ -57,12 +59,30 @@ const SprintCreate = () => {
     handleClose();
   };
 
+  const [loading, setloading] = useState(true);
   const [inactive] = React.useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   // const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const [durations, setDurations] = useState([]);
+
+  //Retrieving durations from the backend
+  useEffect(() => {
+    const fetchData = async () => {
+      setloading(true);
+      try {
+        const response = await DurationService.getDuration();
+        setDurations(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setloading(false);
+    };
+    fetchData();
+  }, []);
 
   //Validation part of the date fields
   const setField = (field, value) => {
@@ -207,11 +227,15 @@ const SprintCreate = () => {
                     <option value="" disabled>
                       --Duration--
                     </option>
-                    <option value="custom">Custom</option>
-                    <option value="1 week">1 week</option>
-                    <option value="2 weeks">2 weeks</option>
-                    <option value="3 weeks">3 weeks</option>
-                    <option value="4 weeks">4 weeks</option>
+                    {!loading && (
+                      <>
+                        {durations.map((dur) => (
+                          <option key={dur.durationId} value={dur.duration}>
+                            {dur.duration}
+                          </option>
+                        ))}
+                      </>
+                    )}
                   </Form.Select>
                   <Form.Control.Feedback
                     type="invalid"

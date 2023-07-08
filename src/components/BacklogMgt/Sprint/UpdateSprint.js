@@ -33,11 +33,10 @@ function UpdateSprint(props) {
     };
     fetchData();
   }, [props.sprintId, props]); // Add props to the dependency array
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     if (name === "duration") {
       if (value === "custom") {
         setSprint((prevState) => ({
@@ -47,7 +46,7 @@ function UpdateSprint(props) {
       } else {
         const startDate = new Date(sprint.startDate);
         let endDate = new Date(startDate);
-  
+
         if (value === "1 week") {
           endDate.setDate(startDate.getDate() + 7);
         } else if (value === "2 weeks") {
@@ -57,7 +56,7 @@ function UpdateSprint(props) {
         } else if (value === "4 weeks") {
           endDate.setDate(startDate.getDate() + 28);
         }
-  
+
         setSprint((prevState) => ({
           ...prevState,
           duration: value,
@@ -76,9 +75,7 @@ function UpdateSprint(props) {
         [name]: value,
       }));
     }
-  };  
-
-  
+  };
 
   const updateSprint = (e) => {
     e.preventDefault();
@@ -149,7 +146,10 @@ function UpdateSprint(props) {
                     onChange={handleChange}
                     isInvalid={!!errors.sprintName}
                   />
-                  <Form.Control.Feedback type="invalid" className="invalidfeedback">
+                  <Form.Control.Feedback
+                    type="invalid"
+                    className="invalidfeedback"
+                  >
                     {errors.sprintName}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -170,7 +170,10 @@ function UpdateSprint(props) {
                     <option value="3 weeks">3 weeks</option>
                     <option value="4 weeks">4 weeks</option>
                   </Form.Select>
-                  <Form.Control.Feedback type="invalid" className="invalidfeedback">
+                  <Form.Control.Feedback
+                    type="invalid"
+                    className="invalidfeedback"
+                  >
                     {errors.duration}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -185,7 +188,10 @@ function UpdateSprint(props) {
                     onChange={handleChange}
                     isInvalid={!!errors.startDate}
                   />
-                  <Form.Control.Feedback type="invalid" className="invalidfeedback">
+                  <Form.Control.Feedback
+                    type="invalid"
+                    className="invalidfeedback"
+                  >
                     {errors.startDate}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -201,7 +207,10 @@ function UpdateSprint(props) {
                     disabled={true}
                     isInvalid={!!errors.endDate}
                   />
-                  <Form.Control.Feedback type="invalid" className="invalidfeedback">
+                  <Form.Control.Feedback
+                    type="invalid"
+                    className="invalidfeedback"
+                  >
                     {errors.endDate}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -252,5 +261,3 @@ function UpdateSprint(props) {
 }
 
 export default UpdateSprint;
-
-

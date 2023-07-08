@@ -25,7 +25,9 @@ const DeleteConfirmation = (props) => {
         </Modal.Header>
 
         {/* warning message */}
-        <Modal.Body className="delbody">Are you sure you want to delete the Sprint?</Modal.Body>
+        <Modal.Body className="delbody">
+          Are you sure you want to delete the Sprint?
+        </Modal.Body>
 
         <Modal.Footer>
           {/* deleting the sprint */}
