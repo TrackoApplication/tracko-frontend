@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import SprintService from "../../../Services/SprintService";
 import IssuetypeService from "../../../Services/IssuetypeService";
 import PriorityService from "../../../Services/PriorityService";
+import ProjectService from "../../../Services/ProjectService";
 // import { useNavigate } from "react-router-dom";
 
 //setting states for Issue form fields
@@ -19,6 +20,7 @@ const AddIssue = () => {
   const [epics, setepics] = useState([]);
   const [issuetypes, setissuetypes] = useState([]);
   const [priorities, setpriorities] = useState([]);
+  const [projects, setprojects] = useState([]);
 
   const [issue, setIssue] = useState({
     issueId: "",
@@ -35,6 +37,7 @@ const AddIssue = () => {
     totalSP: 0,
     priority: "",
     reporter: "",
+    status: "",
   });
 
   //Retrieving sprint names from the backend
@@ -101,6 +104,22 @@ const AddIssue = () => {
     fetchData();
   }, []);
 
+  //Retrieving priorities from the backend
+  useEffect(() => {
+    const fetchData = async () => {
+      setloading(true);
+      try {
+        const response = await ProjectService.getProjects();
+        setprojects(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setloading(false);
+    };
+    fetchData();
+  }, []);
+
   // const navigate = useNavigate();
 
   // setting states for Issue form fields on change
@@ -154,6 +173,7 @@ const AddIssue = () => {
       totalSP: 0,
       priority: "",
       reporter: "",
+      status: "",
     });
     handleClose();
   };
@@ -226,7 +246,7 @@ const AddIssue = () => {
     }
 
     if (!issuetypeName || issuetypeName === "") {
-      newErrors.issueType = "Issue type cannot be blank";
+      newErrors.issuetypeName = "Issue type cannot be blank";
     }
 
     if (!summary || summary === "") {
@@ -320,17 +340,15 @@ const AddIssue = () => {
                     <option value="" disabled selected>
                       Select the Project
                     </option>
-                    {/* {projectOption.map((projectOptions) => (
-                      <option
-                        key={projectOptions.projectId}
-                        value={projectOptions.projectName}
-                      >
-                        {projectOptions.projectName}
-                      </option>
-                    ))} */}
-                    <option value="project1">Project 1</option>
-                    <option value="project2">Project 2</option>
-                    <option value="project3">Project 3</option>
+                    {!loading && (
+                      <>
+                        {projects.map((project) => (
+                          <option key={project.projectId} value={project.projectName}>
+                            {project.projectName}
+                          </option>
+                        ))}
+                      </>
+                    )}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid" className="infeedback">
                     {errors.projectName}

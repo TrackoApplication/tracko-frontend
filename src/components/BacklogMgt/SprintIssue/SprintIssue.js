@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import IssueDeleteConfirmation from "../SprintIssue/IssueDeleteConfirmation";
+import AssigneeIcon from "../Issue/AssigneeIcon";
 
 const SprintIssue = ({ SprintIssue, deleteSprintIssue, key }) => {
   const [showConfirm, setShowConfirm] = useState(false);
@@ -28,7 +29,7 @@ const SprintIssue = ({ SprintIssue, deleteSprintIssue, key }) => {
             </option>
           </select>
         </td>
-        <td>{SprintIssue.assignee}</td>
+        <td><AssigneeIcon assignee={SprintIssue.assignee} /></td>
         <td>
           {/* redirecting to the Issue deletion confirmation */}
           <i

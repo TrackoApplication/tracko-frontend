@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import IssueDeleteConfirmation from "./IssueDeleteConfirmation";
 import IssueService from "../../../Services/IssueService";
 import { SET_ISSUES, UPDATE_SPRINT_ID } from "../../../reducers/issuesReducer";
+import AssigneeIcon from "./AssigneeIcon";
+import StatusService from "../../../Services/StateService";
 
 const Issue = ({ Issue, deleteIssue, key }) => {
+  const [loading, setloading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [show, setShow] = useState(false);
+  const [states, setStates] = useState([]);
   const sprintState = useSelector((state) => state.sprints);
   const dispatch = useDispatch();
 
@@ -19,18 +23,56 @@ const Issue = ({ Issue, deleteIssue, key }) => {
       payload: {
         sprintId: Number(e.target.value),
         issueId: Issue.issueId,
-      }
-    })
-    // IssueService.updateSprint(Issue.issueId, {...Issue, sprintId: Number(e.target.value), sprintName: e.target.value}).then((res) => {
-    //   IssueService.getIssues().then((response) => {
-    //     debugger;
-    //     dispatch({
-    //       type: SET_ISSUES,
-    //       payload: response.data,
-    //     });
-    //   });
-    // });
+      },
+    });
   };
+
+  const onStatusChange = async (e) => {
+    e.preventDefault();
+    const selectedStatus = e.target.value;
+
+    try {
+      const response = await IssueService.updateIssue(Issue.issueId, {
+        ...Issue,
+        status: selectedStatus,
+      });
+
+      dispatch({
+        type: SET_ISSUES,
+        payload: response.data,
+        window: window.location.reload(),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // IssueService.updateSprint(Issue.issueId, {...Issue, sprintId: Number(e.target.value), sprintName: e.target.value}).then((res) => {
+  //   IssueService.getIssues().then((response) => {
+  //     debugger;
+  //     dispatch({
+  //       type: SET_ISSUES,
+  //       payload: response.data,
+  //     });
+  //   });
+  // });
+
+  //Retrieving states from the backend
+  useEffect(() => {
+    const fetchData = async () => {
+      setloading(true);
+      try {
+        const response = await StatusService.getStatus();
+        setStates(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setloading(false);
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <tr>
@@ -39,22 +81,30 @@ const Issue = ({ Issue, deleteIssue, key }) => {
         <td>{Issue.epicName}</td>
         <td>
           <select
-            name="question"
-            id="question"
-            style={{ color: "black", fontSize: "10px" }}
+            name="status"
+            id="status"
+            onChange={onStatusChange}
+            value={Issue.status}
           >
-            <option value="ip" style={{ color: "blue" }}>
-              IN-PROGRESS
+            <option value="" defaultValue={"--Status--"} disabled>
+              --Status--
             </option>
-            <option value="td" style={{ color: "grey" }}>
-              TODO
-            </option>
-            <option value="done" style={{ color: "green" }}>
-              DONE
-            </option>
+            
+            {!loading && (
+              <>
+                {states.map((state) => (
+                  <option key={state.stateId} value={state.staus}>
+                    {state.status}
+                  </option>
+                ))}
+              </>
+            )}
           </select>
         </td>
-        <td>{Issue.assignee}</td>
+        <td>
+          <AssigneeIcon assignee={Issue.assignee} />
+        </td>
+
         <td>
           <select
             name="sprint"
@@ -73,6 +123,7 @@ const Issue = ({ Issue, deleteIssue, key }) => {
             ))}
           </select>
         </td>
+
         <td>
           {/* redirecting to the Issue deletion confirmation */}
           <i

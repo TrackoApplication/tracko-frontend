@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
-import "./SprintIssueList.css";
+import "../Issue/IssueList.css";
 import SprintIssueService from "../../../Services/SprintIssueService";
 import SprintIssue from "./SprintIssue";
 import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion";
@@ -43,13 +43,13 @@ function SprintIssueList({sprintId}) {
     });
   };
 
-  // const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <>
-      <Table striped borderless hover size="sm" className="">
+      <Table striped borderless hover size="sm" className="SprintIssuList">
         <thead>
           <th>Issue Id</th>
           <th>Summary</th>

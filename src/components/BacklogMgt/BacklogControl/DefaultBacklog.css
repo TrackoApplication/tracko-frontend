@@ -1,6 +1,6 @@
-/* .BacklogMain {
+.BacklogMain {
   padding: 20px;
-  background-color: #f5f4f7;
+  /* background-color: #f5f4f7; */
 }
 
 .container {
@@ -17,17 +17,17 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2px;
-} */
+}
 
 /* Move badge container to the right */
-/* .badge-container {
+.badge-container {
   display: flex;
   align-items: center;
   margin-left: auto; 
-} */
+}
 
 /* Add margin between badges */
-/* .badge-container MDBBadge {
+.badge-container MDBBadge {
   margin-right: 10px; 
 }
 
@@ -45,11 +45,12 @@
 }
 
 .bck {
-  font-size: 20px;
+  font-size: 16px;
+  padding-left: 15px;
 }
 
 .defBack{
-  background-color: #e3e5e3;
+  background-color: #F5F5F5;
   border-radius: 4px;
 }
 
@@ -68,4 +69,10 @@ hr {
   height: 3px;
   background-color: #ffffff;
   border: none;
-} */
+}
+
+.breadcrumb{
+  font-size: 16px;
+  margin-bottom: 8px;
+  padding-left: 10px;
+}

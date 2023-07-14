@@ -7,6 +7,7 @@ import SuccessfulDeletion from "../Sprint/SuccessfulDeletion";
 import SprintService from "../../../Services/SprintService";
 import { useDispatch } from "react-redux";
 import { SET_SPRINTS } from "../../../reducers/sprintReducer";
+import { MDBBadge } from "mdb-react-ui-kit";
 import "./DefaultBacklog.css";
 
 const SprintBacklogSection = ({ sprint }) => {
@@ -62,7 +63,7 @@ const SprintBacklogSection = ({ sprint }) => {
       {/* Sprint Backlog */}
       <div className="backlog-container">
         <div className="badge-container">
-          {/* <MDBBadge
+          <MDBBadge
             color="secondary"
             pill
             style={{ height: "20px", width: "24px", fontSize: "12px" }}
@@ -82,7 +83,7 @@ const SprintBacklogSection = ({ sprint }) => {
             style={{ height: "20px", width: "24px", fontSize: "12px" }}
           >
             0
-          </MDBBadge> */}
+          </MDBBadge>
         </div>
 
         {/* <SprintStart /> */}
