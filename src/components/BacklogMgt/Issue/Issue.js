@@ -14,19 +14,6 @@ const Issue = ({ Issue, deleteIssue, key }) => {
   const sprintState = useSelector((state) => state.sprints);
   const dispatch = useDispatch();
 
-  const onSprintChange = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
-    debugger;
-    dispatch({
-      type: UPDATE_SPRINT_ID,
-      payload: {
-        sprintId: Number(e.target.value),
-        issueId: Issue.issueId,
-      },
-    });
-  };
-
   const onStatusChange = async (e) => {
     e.preventDefault();
     const selectedStatus = e.target.value;
@@ -47,15 +34,26 @@ const Issue = ({ Issue, deleteIssue, key }) => {
     }
   };
 
-  // IssueService.updateSprint(Issue.issueId, {...Issue, sprintId: Number(e.target.value), sprintName: e.target.value}).then((res) => {
-  //   IssueService.getIssues().then((response) => {
-  //     debugger;
-  //     dispatch({
-  //       type: SET_ISSUES,
-  //       payload: response.data,
-  //     });
-  //   });
-  // });
+  const onSprintChange = async (e) => {
+    const selectedSprintId = e.target.value;
+
+    try {
+      const response = await IssueService.updateSprint(Issue.issueId, {
+        ...Issue,
+        sprintId: Number(selectedSprintId),
+        sprintName: selectedSprintId,
+      });
+
+      const updatedIssuesResponse = await IssueService.getIssues();
+
+      dispatch({
+        type: SET_ISSUES,
+        payload: updatedIssuesResponse.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //Retrieving states from the backend
   useEffect(() => {
@@ -89,7 +87,7 @@ const Issue = ({ Issue, deleteIssue, key }) => {
             <option value="" defaultValue={"--Status--"} disabled>
               --Status--
             </option>
-            
+
             {!loading && (
               <>
                 {states.map((state) => (
@@ -107,11 +105,11 @@ const Issue = ({ Issue, deleteIssue, key }) => {
 
         <td>
           <select
-            name="sprint"
+            name="sprint" //i need to call this function here
             id="sprint"
-            onChange={onSprintChange}
             style={{ color: "black", fontSize: "10px" }}
             value={Issue.sprintId}
+            onChange={onSprintChange}
           >
             <option value="null" style={{ color: "blue" }}>
               Select Sprint
@@ -146,3 +144,27 @@ const Issue = ({ Issue, deleteIssue, key }) => {
 };
 
 export default Issue;
+
+//   const onSprintChange = (e) => {
+//     e.preventDefault();
+//     console.log(e.target.value);
+//     debugger;
+//     dispatch({
+//       type: UPDATE_SPRINT_ID,
+//       payload: {
+//         sprintId: Number(e.target.value),
+//         issueId: Issue.issueId,
+//       },
+//     });
+//   };
+
+  //where i need to figure out
+  //   IssueService.updateSprint(Issue.issueId, {...Issue, sprintId: Number(e.target.value), sprintName: e.target.value}).then((res) => {
+  //     IssueService.getIssues().then((response) => {
+  //       debugger;
+  //       dispatch({
+  //         type: SET_ISSUES,
+  //         payload: response.data,
+  //       });
+  //     });
+  //   });

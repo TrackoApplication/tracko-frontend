@@ -24,13 +24,7 @@ const Backlog = () => {
     <div className="BacklogMain">
       {/* Default Backlog */}
       <DefaultBacklogSection />
-
-      {/* Sprint Backlog */}
-      {/* Sprint start,update,delete section */}
-      {/* <SprintBacklogSection /> */}
-
-      {/* Sprint completion section */}
-      {/* <SprintCompletionSection/> */}
+      {/* <FullBacklogSection /> */}
     </div>
   );
 };

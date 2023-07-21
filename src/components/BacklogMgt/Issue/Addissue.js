@@ -656,6 +656,7 @@ const AddIssue = () => {
                     onChange={(e) => setField("reporter", e.target.value)}
                     isInvalid={!!errors.reporter}
                   >
+                    {/* In here it should automatically show the current user(The one who enter the issue) */}
                     <option value="" disabled selected>
                       Select the Reporter
                     </option>

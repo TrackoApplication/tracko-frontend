@@ -103,18 +103,26 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
+import Issue from "./Issue";
 import "./IssueList.css";
 import IssueService from "../../../Services/IssueService";
-import Issue from "./Issue";
+// import StatusService from "../../../Services/StateService";
+import IssueDeleteConfirmation from "./IssueDeleteConfirmation";
 import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion.js";
 import { SET_ISSUES } from "../../../reducers/issuesReducer";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import SprintIssueList from "../SprintIssue/SprintIssueList";
+// import AssigneeIcon from "./AssigneeIcon";
 
 function IssueList(props) {
   const search = props.search;
+  // const [loading, setloading] = useState(false);
+  // const [states, setStates] = useState([]);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-  const dispatch = useDispatch();
   const issueState = useSelector((state) => state.issues);
+  // const sprintState = useSelector((state) => state.sprints);
+  const dispatch = useDispatch();
 
   // deleting the issues based on issueId
   const deleteIssue = (issueId) => {
@@ -130,6 +138,27 @@ function IssueList(props) {
       }
     });
   };
+
+  // const onStatusChange = async (e, issue) => {
+  //   e.preventDefault();
+  //   const selectedStatus = e.target.value;
+
+  //   debugger;
+  //   try {
+  //     const response = await IssueService.updateIssue(issue.issueId, {
+  //       ...issue,
+  //       status: selectedStatus,
+  //     });
+
+  //     dispatch({
+  //       type: SET_ISSUES,
+  //       payload: response.data,
+  //       window: window.location.reload(),
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const StrictModeDroppable = ({ children, ...props }) => {
     const [enabled, setEnabled] = useState(false);
@@ -166,6 +195,22 @@ function IssueList(props) {
     });
   };
 
+  // //Retrieving states from the backend
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setloading(true);
+  //     try {
+  //       const response = await StatusService.getStatus();
+  //       setStates(response.data);
+  //       console.log(response.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //     setloading(false);
+  //   };
+  //   fetchData();
+  // }, []);
+
   return (
     <>
       <Table striped borderless hover size="sm" className="issue-table">
@@ -181,7 +226,7 @@ function IssueList(props) {
           </tr>
         </thead> */}
         <DragDropContext onDragEnd={handleDragEnd}>
-          <StrictModeDroppable droppableId="issueList">
+          <StrictModeDroppable droppableId = "issue-list" >
             {(provided) => (
               <tbody
                 ref={provided.innerRef}
@@ -214,6 +259,73 @@ function IssueList(props) {
                             key={issue.issueId}
                           />
 
+                          {/* <td>{issue.issueId}</td>
+                          <td>{issue.summary}</td>
+                          <td>{issue.epicName}</td>
+                          <td>
+                            <select
+                              name="status"
+                              id="status"
+                              // onChange={onStatusChange}
+                              onChange={(e) => onStatusChange(e, issue)}
+                              value={issue.status}
+                            >
+                              <option
+                                value=""
+                                defaultValue={"--Status--"}
+                                disabled
+                              >
+                                --Status--
+                              </option>
+
+                              {!loading && (
+                                <>
+                                  {states.map((state) => (
+                                    <option
+                                      key={state.stateId}
+                                      value={state.staus}
+                                    >
+                                      {state.status}
+                                    </option>
+                                  ))}
+                                </>
+                              )}
+                            </select>
+                          </td>
+                          <td>
+                            <AssigneeIcon assignee={issue.assignee} />
+                          </td>
+
+                          <td>
+                            <select
+                              name="sprint"
+                              id="sprint"
+                              // onChange={onSprintChange}
+                              style={{ color: "black", fontSize: "10px" }}
+                              value={issue.sprintId}
+                            >
+                              <option value="null" style={{ color: "blue" }}>
+                                Select Sprint
+                              </option>
+                              {sprintState.sprints.map((item, index) => (
+                                <option
+                                  value={item.sprintId}
+                                  style={{ color: "blue" }}
+                                >
+                                  {item.sprintName || "Untitled Sprint"}
+                                </option>
+                              ))}
+                            </select>
+                          </td> */}
+
+                          {/* <td> */}
+                            {/* redirecting to the Issue deletion confirmation */}
+                            {/* <i
+                              class="bi bi-trash-fill"
+                              // onClick={(e,issueId) => deleteIssue(e, Issue.issueId)}
+                              onClick={() => setShowConfirm(true)}
+                            ></i>
+                          </td> */}
                         </tr>
                       )}
                     </Draggable>
@@ -225,6 +337,14 @@ function IssueList(props) {
         </DragDropContext>
       </Table>
 
+      {/* posting a confirmation of deletion */}
+      {/* <IssueDeleteConfirmation
+        show={showConfirm}
+        deleteIssue={deleteIssue}
+        onHide={() => setShowConfirm(false)}
+        issueId={Issue.issueId}
+      /> */}
+
       <SuccessfulIssueDeletion
         onHide={() => setShowSuccess(false)}
         show={showSuccess}
@@ -235,3 +355,4 @@ function IssueList(props) {
 }
 
 export default IssueList;
+

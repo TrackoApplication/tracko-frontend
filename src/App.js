@@ -27,7 +27,6 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        debugger;
         const response = await IssueService.getIssues();
         dispatch({
           type: SET_ISSUES,

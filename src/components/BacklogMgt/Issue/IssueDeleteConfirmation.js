@@ -8,7 +8,7 @@ const IssueDeleteConfirmation = (props) => {
   const handleClose = () => setShow(false);
 
   const CallDelete = () => {
-    props.deleteIssue(props.issueId);
+    props.deleteIssue(props.issueId)
     props.onHide();
   };
 

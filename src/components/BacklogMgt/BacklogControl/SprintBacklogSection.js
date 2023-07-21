@@ -58,8 +58,6 @@ const SprintBacklogSection = ({ sprint }) => {
         </h2>
       </div>
 
-      {/* <hr></hr> */}
-
       {/* Sprint Backlog */}
       <div className="backlog-container">
         <div className="badge-container">
@@ -86,34 +84,29 @@ const SprintBacklogSection = ({ sprint }) => {
           </MDBBadge>
         </div>
 
-        {/* <SprintStart /> */}
-        {/* <UpdateSprint /> */}
-        {/* <SprintDeletion /> */}
         <div>
           <SprintCompletion />
         </div>
 
-        {/* <hr></hr> */}
-
-        <i
-          class="bi bi-pen"
-          // onClick={(e, sprintId) => editSprint(e, sprintId)}
-          onClick={() => setShow(true)}
-        ></i>
-        <i
-          class="bi bi-trash-fill"
-          // onClick={(e,sprintId) => deleteSprint(e, Sprint.sprintId)}
-          onClick={() => setShowConfirm(true)}
-        ></i>
+        <div>
+          <i
+            class="bi bi-pen"
+            // onClick={(e, sprintId) => editSprint(e, sprintId)}
+            onClick={() => setShow(true)}
+          ></i>
+          <i
+            class="bi bi-trash-fill"
+            // onClick={(e,sprintId) => deleteSprint(e, Sprint.sprintId)}
+            onClick={() => setShowConfirm(true)}
+          ></i>
+        </div>
       </div>
 
       {/* Sprint Issue list */}
       <div className={`container ${inactive ? "inactive" : ""} "`}>
+        {/* <SprintIssueList sprintId={sprint.sprintId} /> */}
         <SprintIssueList sprintId={sprint.sprintId} />
       </div>
-
-      {/* Issue creation button */}
-      {/* <AddSprintIssue /> */}
 
       <DeleteConfirmation
         show={showConfirm}
@@ -133,6 +126,7 @@ const SprintBacklogSection = ({ sprint }) => {
         show={showSuccess}
         message="Sprint Deleted Successfully"
       />
+      
     </div>
   );
 };

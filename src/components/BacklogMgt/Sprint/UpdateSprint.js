@@ -25,7 +25,6 @@ function UpdateSprint(props) {
         _data.startDate = _data.startDate.split("T")[0];
         _data.endDate = _data.endDate.split("T")[0];
         setSprint(_data);
-        debugger;
       } catch (error) {
         console.log(error);
       }
