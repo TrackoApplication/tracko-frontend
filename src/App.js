@@ -14,16 +14,16 @@ import Group from "./components/GroupMgt/Group";
 import GroupDetail from "./components/GroupMgt/GroupDetail";
 import BacklogView from "./components/BacklogMgt/BacklogControl/BacklogView";
 import SprintList from "./components/BacklogMgt/Sprint/SprintList";
-import {SET_ISSUES} from "./reducers/issuesReducer";
+import { SET_ISSUES } from "./reducers/issuesReducer";
 import { useDispatch } from "react-redux";
 // import IssueList from "./components/BacklogMgt/Issue/IssueList";
 import IssueService from "./Services/IssueService";
+import { DragDropContext } from "react-beautiful-dnd";
 
 function App() {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-
-  // fetching the data from the backend
+  //fetching the data from the backend
   useEffect(() => {
     (async () => {
       try {
@@ -40,43 +40,45 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          {/* pages without sidebar & nav bar */}
-          <Route path="/SprintList" element={<SprintList />} />
-          {/* <Route path="/IssueList" element={<IssueList />} /> */}
+      <DragDropContext>
+        <BrowserRouter>
+          <Routes>
+            {/* pages without sidebar & nav bar */}
+            <Route path="/SprintList" element={<SprintList />} />
+            {/* <Route path="/IssueList" element={<IssueList />} /> */}
 
-          {/* pages with sidebar */}
-          <Route path="/Team" element={<Team />} />
-          {/* <Route path="/Backlog" element={<Backlog />} /> */}
-          <Route path="/ActiveSprint" element={<ActiveSprint />} />
-          <Route path="/People" element={<People />} />
-          <Route path="/Forum" element={<Forum />} />
-          <Route path="/Report" element={<Report />} />
-          <Route path="/GroupDetail" element={<GroupDetail />} />
-          {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
-          <Route path="/Group" element={<Group />} />
-          {/* <Route path="/Dashboard" element ={<DashLayout/>}/> */}
+            {/* pages with sidebar */}
+            <Route path="/Team" element={<Team />} />
+            {/* <Route path="/Backlog" element={<Backlog />} /> */}
+            <Route path="/ActiveSprint" element={<ActiveSprint />} />
+            <Route path="/People" element={<People />} />
+            <Route path="/Forum" element={<Forum />} />
+            <Route path="/Report" element={<Report />} />
+            <Route path="/GroupDetail" element={<GroupDetail />} />
+            {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
+            <Route path="/Group" element={<Group />} />
+            {/* <Route path="/Dashboard" element ={<DashLayout/>}/> */}
 
-          {/* pages with sidebar */}
-          <Route path="/Team" element={<Team />} />
-          {/* <Route path="/Backlog" element ={<Backlog/>}/> */}
-          <Route path="/BacklogView" element={<BacklogView />} />
-          <Route path="/ActiveSprint" element={<ActiveSprint />} />
-          <Route path="/People" element={<People />} />
-          <Route path="/Forum" element={<Forum />} />
-          <Route path="/Report" element={<Report />} />
+            {/* pages with sidebar */}
+            <Route path="/Team" element={<Team />} />
+            {/* <Route path="/Backlog" element ={<Backlog/>}/> */}
+            <Route path="/BacklogView" element={<BacklogView />} />
+            <Route path="/ActiveSprint" element={<ActiveSprint />} />
+            <Route path="/People" element={<People />} />
+            <Route path="/Forum" element={<Forum />} />
+            <Route path="/Report" element={<Report />} />
 
-          {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
-          <Route path="/Group" element={<Group />} />
-          {/* <Route path="/Dashboard" element ={<DashLayout/>}/> */}
+            {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
+            <Route path="/Group" element={<Group />} />
+            {/* <Route path="/Dashboard" element ={<DashLayout/>}/> */}
 
-          {/* pages with navbar */}
-          <Route path="/ProjectList" element={<ProjectList />} />
-          <Route path="/ClientList" element={<ClientList />} />
-          {/* <Route path="/Popup" element={<Popup />} /> */}
-        </Routes>
-      </BrowserRouter>
+            {/* pages with navbar */}
+            <Route path="/ProjectList" element={<ProjectList />} />
+            <Route path="/ClientList" element={<ClientList />} />
+            {/* <Route path="/Popup" element={<Popup />} /> */}
+          </Routes>
+        </BrowserRouter>
+      </DragDropContext>
     </>
   );
 }

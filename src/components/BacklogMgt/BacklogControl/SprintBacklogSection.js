@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { SET_SPRINTS } from "../../../reducers/sprintReducer";
 import { MDBBadge } from "mdb-react-ui-kit";
 import "./DefaultBacklog.css";
+import { padding } from "@mui/system";
 
 const SprintBacklogSection = ({ sprint }) => {
   const [inactive, setInactive] = useState(false);

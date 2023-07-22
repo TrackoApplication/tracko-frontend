@@ -22,14 +22,15 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './reducers/store';
 
-ReactDOM.render(
+const rootElement = document.getElementById('root');
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
+
 
 
 

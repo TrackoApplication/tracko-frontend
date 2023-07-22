@@ -6,7 +6,7 @@ import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion";
 import { useSelector } from "react-redux";
 import "./SprintIssueList.css";
 
-function SprintIssueList({sprintId}) {
+function SprintIssueList({ sprintId }) {
   const [loading, setloading] = useState(true);
   const [sprintissues, setsprintissues] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -62,13 +62,15 @@ function SprintIssueList({sprintId}) {
         {/* mapping issues into the backlog table */}
         {!loading && (
           <tbody>
-            {issueState.issues.filter(issue => issue.sprintId == sprintId).map((sprintissues) => (
-              <SprintIssue
-                SprintIssue={sprintissues}
-                deleteSprintIssue={deleteSprintIssue}
-                key={sprintissues.sprintIssueId}
-              ></SprintIssue>
-            ))}
+            {issueState.issues
+              .filter((issue) => issue.sprintId == sprintId)
+              .map((sprintissues) => (
+                <SprintIssue
+                  SprintIssue={sprintissues}
+                  deleteSprintIssue={deleteSprintIssue}
+                  key={sprintissues.sprintIssueId}
+                ></SprintIssue>
+              ))}
           </tbody>
         )}
       </Table>
@@ -88,6 +90,7 @@ export default SprintIssueList;
 // import React, { useState, useEffect } from "react";
 // import Table from "react-bootstrap/Table";
 // import SprintIssueService from "../../../Services/SprintIssueService";
+// import IssueService from "../../../Services/IssueService";
 // import SprintIssue from "./SprintIssue";
 // import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion";
 // import { useDispatch, useSelector } from "react-redux";
@@ -233,5 +236,3 @@ export default SprintIssueList;
 // }
 
 // export default SprintIssueList;
-
-

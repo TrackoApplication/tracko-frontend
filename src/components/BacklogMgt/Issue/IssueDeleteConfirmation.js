@@ -13,8 +13,7 @@ const IssueDeleteConfirmation = (props) => {
   };
 
   return (
-    <div>
-      {/* delete confirmation modal */}
+      //delete confirmation modal
       <Modal
         {...props}
         size="lg"
@@ -48,7 +47,6 @@ const IssueDeleteConfirmation = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
   );
 };
 

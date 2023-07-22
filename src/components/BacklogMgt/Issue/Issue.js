@@ -5,6 +5,7 @@ import IssueService from "../../../Services/IssueService";
 import { SET_ISSUES, UPDATE_SPRINT_ID } from "../../../reducers/issuesReducer";
 import AssigneeIcon from "./AssigneeIcon";
 import StatusService from "../../../Services/StateService";
+import axios from "axios";
 
 const Issue = ({ Issue, deleteIssue, key }) => {
   const [loading, setloading] = useState(false);
@@ -34,21 +35,27 @@ const Issue = ({ Issue, deleteIssue, key }) => {
     }
   };
 
+  // Function to handle sprint change
   const onSprintChange = async (e) => {
-    const selectedSprintId = e.target.value;
+    const selectedSprintId = Number(e.target.value);
+    const selectedSprintName = e.target.options[e.target.selectedIndex].text;
 
     try {
-      const response = await IssueService.updateSprint(Issue.issueId, {
-        ...Issue,
-        sprintId: Number(selectedSprintId),
-        sprintName: selectedSprintId,
-      });
+      // Make an API call to update the sprint of the issue
+      const response = await axios.put(
+        `/api/v1/issues/${Issue.issueId}/sprint`,
+        {
+          ...Issue,
+          sprintId: selectedSprintId,
+          sprintName: selectedSprintName,
+        }
+      );
 
-      const updatedIssuesResponse = await IssueService.getIssues();
-
+      // Refresh the list of issues after the sprint is updated
+      const updatedIssues = await axios.get("/api/v1/issues");
       dispatch({
         type: SET_ISSUES,
-        payload: updatedIssuesResponse.data,
+        payload: updatedIssues.data,
       });
     } catch (error) {
       console.log(error);
@@ -62,7 +69,7 @@ const Issue = ({ Issue, deleteIssue, key }) => {
       try {
         const response = await StatusService.getStatus();
         setStates(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -158,13 +165,37 @@ export default Issue;
 //     });
 //   };
 
-  //where i need to figure out
-  //   IssueService.updateSprint(Issue.issueId, {...Issue, sprintId: Number(e.target.value), sprintName: e.target.value}).then((res) => {
+//where i need to figure out
+//   IssueService.updateSprint(Issue.issueId, {...Issue, sprintId: Number(e.target.value), sprintName: e.target.value}).then((res) => {
+//     IssueService.getIssues().then((response) => {
+//       debugger;
+//       dispatch({
+//         type: SET_ISSUES,
+//         payload: response.data,
+//       });
+//     });
+//   });
+
+  //   const onSprintChange = (e) => {
+  //     debugger;
+  //     IssueService.updateSprint(Issue.issueId, {...Issue, sprintId: Number(e.target.value), sprintName: e.target.value}).then((res) => {
   //     IssueService.getIssues().then((response) => {
-  //       debugger;
   //       dispatch({
   //         type: SET_ISSUES,
   //         payload: response.data,
   //       });
   //     });
   //   });
+  // };
+
+  // const onSprintChange = (e) => {
+  //   e.preventDefault();
+  //   console.log(e.target.value);
+  //   dispatch({
+  //     type: UPDATE_SPRINT_ID,
+  //     payload: {
+  //       sprintId: Number(e.target.value),
+  //       issueId: Issue.issueId,
+  //     },
+  //   });
+  // };
