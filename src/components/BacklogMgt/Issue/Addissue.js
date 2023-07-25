@@ -364,8 +364,8 @@ const AddIssue = () => {
                     className="sitem"
                     name="issuetypeName"
                     value={issue.issuetypeName}
-                    onChange={(e) => handleChange(e)}
-                    // onChange={(e) => setField("issuetypeName", e.target.value)}
+                    // onChange={(e) => handleChange(e)}
+                    onChange={(e) => setField("issuetypeName", e.target.value)}
                     isInvalid={!!errors.issuetypeName}
                     defaultValue="Select the Issue Type"
                   >

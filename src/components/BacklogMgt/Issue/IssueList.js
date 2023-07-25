@@ -1,7 +1,6 @@
 // import React, { useState, useEffect } from "react";
 // import Table from "react-bootstrap/Table";
 // import { useDispatch, useSelector } from "react-redux";
-// import "./IssueList.css";
 // import IssueService from "../../../Services/IssueService";
 // import Issue from "./Issue";
 // import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion.js";
@@ -104,11 +103,11 @@ import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import Issue from "./Issue";
-import "./IssueList.css";
 import IssueService from "../../../Services/IssueService";
 import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion.js";
 import { SET_ISSUES } from "../../../reducers/issuesReducer";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import "./IssueList.css";
 
 function IssueList(props) {
   const search = props.search;
@@ -165,27 +164,7 @@ function IssueList(props) {
       type: SET_ISSUES,
       payload: issues,
     });
-
-    // Save the updated issue order to local storage
-    // localStorage.setItem(
-    //   "issueOrder",
-    //   JSON.stringify(issues.map((issue) => issue.issueId))
-    // );
   };
-
-  // // Use useEffect to load the issue order from local storage upon component mount
-  // useEffect(() => {
-  //   const storedIssueOrder = localStorage.getItem("issueOrder");
-  //   if (storedIssueOrder) {
-  //     const issueOrder = JSON.parse(storedIssueOrder);
-  //     dispatch({
-  //       type: SET_ISSUES,
-  //       payload: issueOrder.map((issueId) =>
-  //         issueState.issues.find((issue) => issue.issueId === issueId)
-  //       ),
-  //     });
-  //   }
-  // }, []);
 
   return (
     <>

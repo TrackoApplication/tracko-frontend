@@ -28,7 +28,7 @@ const DefaultBacklogSection = () => {
       </div>
       <div className="flex">
         <div className={`container ${inactive ? "inactive" : ""}`}>
-          <h1>Backlog</h1>
+          <h1 className="bckh1">Backlog</h1>
         </div>
 
         <Form className="m-4 p-2">
@@ -76,18 +76,18 @@ const DefaultBacklogSection = () => {
               {doneCount}
             </MDBBadge>
           </div>
-          <div>
+          <div className="sprcreate">
             <SprintCreation />
           </div>
         </div>
 
         {/* Issue list */}
-        <div className={`container ${inactive ? "inactive" : ""}`}>
+        <div className="isslist">
           <IssueList search={search} />
         </div>
 
         {/* Issue creation button */}
-        <div>
+        <div className="addissue">
           <Addissue />
         </div>
       </div>

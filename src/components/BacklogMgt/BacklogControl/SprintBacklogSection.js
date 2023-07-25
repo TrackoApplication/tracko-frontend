@@ -53,14 +53,14 @@ const SprintBacklogSection = ({ sprint }) => {
 
   return (
     <div className="defBack">
-      <div className={`container ${inactive ? "inactive" : ""}`}>
-        <h2 className="bck">
-          #{sprint.sprintId} - {sprint.sprintName || "Untitled Sprint"}
-        </h2>
-      </div>
-
       {/* Sprint Backlog */}
       <div className="backlog-container">
+        <div className="flex">
+          <h2 className="bck">
+            #{sprint.sprintId} - {sprint.sprintName || "Untitled Sprint"}
+          </h2>
+        </div>
+
         <div className="badge-container">
           <MDBBadge
             color="secondary"
@@ -89,7 +89,7 @@ const SprintBacklogSection = ({ sprint }) => {
           <SprintCompletion />
         </div>
 
-        <div>
+        <div className="spract-buttons">
           <i
             class="bi bi-pen"
             // onClick={(e, sprintId) => editSprint(e, sprintId)}
@@ -104,8 +104,7 @@ const SprintBacklogSection = ({ sprint }) => {
       </div>
 
       {/* Sprint Issue list */}
-      <div className={`container ${inactive ? "inactive" : ""} "`}>
-        {/* <SprintIssueList sprintId={sprint.sprintId} /> */}
+      <div className="sprisslist">
         <SprintIssueList sprintId={sprint.sprintId} />
       </div>
 
@@ -127,7 +126,6 @@ const SprintBacklogSection = ({ sprint }) => {
         show={showSuccess}
         message="Sprint Deleted Successfully"
       />
-      
     </div>
   );
 };

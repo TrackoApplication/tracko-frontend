@@ -6,13 +6,16 @@ import { SET_ISSUES, UPDATE_SPRINT_ID } from "../../../reducers/issuesReducer";
 import AssigneeIcon from "./AssigneeIcon";
 import StatusService from "../../../Services/StateService";
 import axios from "axios";
+import SprintService from "../../../Services/SprintService";
+// import "./Issue.css";
 
 const Issue = ({ Issue, deleteIssue, key }) => {
   const [loading, setloading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [show, setShow] = useState(false);
   const [states, setStates] = useState([]);
-  const sprintState = useSelector((state) => state.sprints);
+  const [sprints, setSprints] = useState([]);
+  // const sprintState = useSelector((state) => state.sprints);
   const dispatch = useDispatch();
 
   const onStatusChange = async (e) => {
@@ -35,27 +38,19 @@ const Issue = ({ Issue, deleteIssue, key }) => {
     }
   };
 
-  // Function to handle sprint change
   const onSprintChange = async (e) => {
-    const selectedSprintId = Number(e.target.value);
-    const selectedSprintName = e.target.options[e.target.selectedIndex].text;
+    e.preventDefault();
+    const selectedSprintId = e.target.value;
 
     try {
-      // Make an API call to update the sprint of the issue
-      const response = await axios.put(
-        `/api/v1/issues/${Issue.issueId}/sprint`,
-        {
-          ...Issue,
-          sprintId: selectedSprintId,
-          sprintName: selectedSprintName,
-        }
-      );
-
-      // Refresh the list of issues after the sprint is updated
-      const updatedIssues = await axios.get("/api/v1/issues");
+      const response = await IssueService.updateIssueSprint(Issue.issueId, {
+        ...Issue,
+        sprintId: selectedSprintId,
+      });
       dispatch({
         type: SET_ISSUES,
-        payload: updatedIssues.data,
+        payload: response.data,
+        window: window.location.reload(),
       });
     } catch (error) {
       console.log(error);
@@ -69,6 +64,22 @@ const Issue = ({ Issue, deleteIssue, key }) => {
       try {
         const response = await StatusService.getStatus();
         setStates(response.data);
+        // console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setloading(false);
+    };
+    fetchData();
+  }, []);
+
+  //Retrieving sprints from the backend
+  useEffect(() => {
+    const fetchData = async () => {
+      setloading(true);
+      try {
+        const response = await SprintService.getSprints();
+        setSprints(response.data);
         // console.log(response.data);
       } catch (error) {
         console.log(error);
@@ -115,17 +126,30 @@ const Issue = ({ Issue, deleteIssue, key }) => {
             name="sprint" //i need to call this function here
             id="sprint"
             style={{ color: "black", fontSize: "10px" }}
-            value={Issue.sprintId}
             onChange={onSprintChange}
+            value={Issue.sprintId}
           >
-            <option value="null" style={{ color: "blue" }}>
+            <option
+              value=""
+              defaultValue={"Select Sprint"}
+              style={{ color: "blue" }}
+            >
               Select Sprint
             </option>
-            {sprintState.sprints.map((item, index) => (
-              <option value={item.sprintId} style={{ color: "blue" }}>
-                {item.sprintName || "Untitled Sprint"}
-              </option>
-            ))}
+
+            {!loading && (
+              <>
+                {sprints.map((item) => (
+                  <option
+                    key={item.sprintId}
+                    value={item.sprintId}
+                    style={{ color: "blue" }}
+                  >
+                    {item.sprintName || "Untitled Sprint"}
+                  </option>
+                ))}
+              </>
+            )}
           </select>
         </td>
 
@@ -176,26 +200,47 @@ export default Issue;
 //     });
 //   });
 
-  //   const onSprintChange = (e) => {
-  //     debugger;
-  //     IssueService.updateSprint(Issue.issueId, {...Issue, sprintId: Number(e.target.value), sprintName: e.target.value}).then((res) => {
-  //     IssueService.getIssues().then((response) => {
-  //       dispatch({
-  //         type: SET_ISSUES,
-  //         payload: response.data,
-  //       });
-  //     });
-  //   });
-  // };
+// const onSprintChange = (e) => {
+//   e.preventDefault();
+//   console.log(e.target.value);
+//   dispatch({
+//     type: UPDATE_SPRINT_ID,
+//     payload: {
+//       sprintId: Number(e.target.value),
+//       issueId: Issue.issueId,
+//     },
+//   });
+// };
 
-  // const onSprintChange = (e) => {
-  //   e.preventDefault();
-  //   console.log(e.target.value);
-  //   dispatch({
-  //     type: UPDATE_SPRINT_ID,
-  //     payload: {
-  //       sprintId: Number(e.target.value),
-  //       issueId: Issue.issueId,
-  //     },
-  //   });
-  // };
+// Function to handle sprint change
+// const onSprintChange = async (e) => {
+//   const selectedSprintId = Number(e.target.value);
+//   const selectedSprintName = e.target.options[e.target.selectedIndex].text;
+
+//   try {
+//     // Make an API call to update the sprint of the issue
+//     const response = await axios.put(
+//       `/api/v1/issues/${Issue.issueId}/sprint`,
+//       {
+//         ...Issue,
+//         sprintId: selectedSprintId,
+//         sprintName: selectedSprintName,
+//       }
+//     );
+
+//     // Refresh the list of issues after the sprint is updated
+//     const updatedIssues = await axios.get("/api/v1/issues");
+//     dispatch({
+//       type: SET_ISSUES,
+//       payload: updatedIssues.data,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// {sprintState.sprints.map((item, index) => (
+//   <option value={item.sprintId} style={{ color: "blue" }}>
+//     {item.sprintName || "Untitled Sprint"}
+//   </option>
+// ))}

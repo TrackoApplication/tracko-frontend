@@ -5,9 +5,10 @@ import IssueService from "../../../Services/IssueService";
 import StatusService from "../../../Services/StateService";
 import { SET_ISSUES } from "../../../reducers/issuesReducer";
 import { useDispatch } from "react-redux";
+import "./SprintIssue.css";
 
-const SprintIssue = ({ SprintIssue, deleteSprintIssue, key }) => {
-  const [loading, setloading] = useState(false);
+const SprintIssue = ({ SprintIssue, deleteSprintIssue }) => {
+  const [loading, setLoading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [show, setShow] = useState(false);
   const [states, setStates] = useState([]);
@@ -33,10 +34,10 @@ const SprintIssue = ({ SprintIssue, deleteSprintIssue, key }) => {
     }
   };
 
-  //Retrieving states from the backend
+  // Retrieving states from the backend
   useEffect(() => {
     const fetchData = async () => {
-      setloading(true);
+      setLoading(true);
       try {
         const response = await StatusService.getStatus();
         setStates(response.data);
@@ -44,32 +45,31 @@ const SprintIssue = ({ SprintIssue, deleteSprintIssue, key }) => {
       } catch (error) {
         console.log(error);
       }
-      setloading(false);
+      setLoading(false);
     };
     fetchData();
   }, []);
 
   return (
     <>
-      <tr>
+      <tr className="sprint-issue-row">
         <td>{SprintIssue.issueId}</td>
         <td>{SprintIssue.summary}</td>
         <td>{SprintIssue.epicName}</td>
         <td>
           <select
-            name="status"
-            id="status"
+            className="status-select"
             onChange={onStatusChange}
             value={SprintIssue.status}
           >
-            <option value="" defaultValue={"--Status--"} disabled>
+            <option value="" disabled>
               --Status--
             </option>
 
             {!loading && (
               <>
                 {states.map((state) => (
-                  <option key={state.stateId} value={state.staus}>
+                  <option key={state.stateId} value={state.status}>
                     {state.status}
                   </option>
                 ))}
@@ -81,16 +81,15 @@ const SprintIssue = ({ SprintIssue, deleteSprintIssue, key }) => {
           <AssigneeIcon assignee={SprintIssue.assignee} />
         </td>
         <td>
-          {/* redirecting to the Issue deletion confirmation */}
+          {/* Redirecting to the Issue deletion confirmation */}
           <i
-            class="bi bi-trash-fill"
-            // onClick={(e,issueId) => deleteIssue(e, Issue.issueId)}
+            className="bi bi-trash-fill delete-icon"
             onClick={() => setShowConfirm(true)}
           ></i>
         </td>
       </tr>
 
-      {/* posting a confirmation of deletion */}
+      {/* Displaying the confirmation of deletion */}
       <IssueDeleteConfirmation
         show={showConfirm}
         deleteSprintIssue={deleteSprintIssue}
@@ -102,3 +101,4 @@ const SprintIssue = ({ SprintIssue, deleteSprintIssue, key }) => {
 };
 
 export default SprintIssue;
+

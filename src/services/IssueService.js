@@ -25,9 +25,15 @@ class IssueService {
         return axios.put(ISSUE_API_BASE_URL + "/" + issueId, issue);
     }
 
-    updateSprint(issueId, updatedIssue) {
-        return axios.put(ISSUE_API_BASE_URL + "/" + issueId, updatedIssue);
+    // updateIssueSprint(issueId, updatedIssue) {
+    //     return axios.put(ISSUE_API_BASE_URL + "/" + issueId, updatedIssue);
+    // }
+
+    updateIssueSprint(issueId, updatedIssue) {
+        const sprintUpdateURL = `${ISSUE_API_BASE_URL}/${issueId}/sprint`;
+        return axios.put(sprintUpdateURL, updatedIssue);
     }
+    
 }
     
 export default new IssueService();

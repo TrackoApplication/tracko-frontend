@@ -23,7 +23,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 function App() {
   const dispatch = useDispatch();
 
-  //fetching the data from the backend
+  // fetching the data from the backend
   useEffect(() => {
     (async () => {
       try {

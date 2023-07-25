@@ -4,7 +4,6 @@ import SprintIssueService from "../../../Services/SprintIssueService";
 import SprintIssue from "./SprintIssue";
 import SuccessfulIssueDeletion from "./SuccessfulIssueDeletion";
 import { useSelector } from "react-redux";
-import "./SprintIssueList.css";
 
 function SprintIssueList({ sprintId }) {
   const [loading, setloading] = useState(true);
@@ -50,15 +49,6 @@ function SprintIssueList({ sprintId }) {
   return (
     <>
       <Table striped borderless hover size="sm" className="issue-table">
-        <thead>
-          <th>Issue Id</th>
-          <th>Summary</th>
-          <th>Epic Name</th>
-          <th>Status</th>
-          <th>Assignee</th>
-          <th>Actions</th>
-        </thead>
-
         {/* mapping issues into the backlog table */}
         {!loading && (
           <tbody>
