@@ -9,7 +9,7 @@ function SprintIssueList({ sprintId }) {
   const [loading, setloading] = useState(true);
   const [sprintissues, setsprintissues] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
-  const sprintState = useSelector((state) => state.sprints);
+  // const sprintState = useSelector((state) => state.sprints);
   const issueState = useSelector((state) => state.issues);
   window.issues = issueState;
 
@@ -28,7 +28,6 @@ function SprintIssueList({ sprintId }) {
     fetchData();
   }, []);
 
-  // deleting the issues based on issueId
   const deleteSprintIssue = (sprintIssueId) => {
     SprintIssueService.deleteSprintIssue(sprintIssueId).then((res) => {
       if (sprintissues) {
@@ -42,9 +41,17 @@ function SprintIssueList({ sprintId }) {
     });
   };
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
+
+  // Function to sort issues based on priority
+  const sortIssuesByPriority = (issues) => {
+    const prioritiesOrder = { High: 1, Medium: 2, Low: 3 };
+    return issues.sort(
+      (a, b) => prioritiesOrder[a.priority] - prioritiesOrder[b.priority]
+    );
+  };
 
   return (
     <>
@@ -52,8 +59,8 @@ function SprintIssueList({ sprintId }) {
         {/* mapping issues into the backlog table */}
         {!loading && (
           <tbody>
-            {issueState.issues
-              .filter((issue) => issue.sprintId == sprintId)
+            {sortIssuesByPriority(issueState.issues)
+              .filter((issue) => issue.sprintId === sprintId)
               .map((sprintissues) => (
                 <SprintIssue
                   SprintIssue={sprintissues}

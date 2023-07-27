@@ -343,7 +343,10 @@ const AddIssue = () => {
                     {!loading && (
                       <>
                         {projects.map((project) => (
-                          <option key={project.projectId} value={project.projectName}>
+                          <option
+                            key={project.projectId}
+                            value={project.projectName}
+                          >
                             {project.projectName}
                           </option>
                         ))}
@@ -372,7 +375,7 @@ const AddIssue = () => {
                     <option value="" disabled selected>
                       Select the Issue Type
                     </option>
-                    
+
                     {!loading && (
                       <>
                         {issuetypes.map((issuetype) => (
@@ -623,7 +626,7 @@ const AddIssue = () => {
                     isInvalid={!!errors.priority}
                   >
                     <option value="" disabled selected>
-                      Select the priority
+                      Select the Priority
                     </option>
                     {!loading && (
                       <>

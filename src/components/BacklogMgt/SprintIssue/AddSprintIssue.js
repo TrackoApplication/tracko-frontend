@@ -18,9 +18,9 @@ const AddSprintIssue = () => {
     sprintName: "",
     epicName: "",
     reqOfTesting: "true",
-    spdeveloping: '',
-    sptesting: '',
-    totalSP: '',
+    spdeveloping: "",
+    sptesting: "",
+    totalSP: "",
     priority: "",
     reporter: "",
   });
@@ -39,9 +39,9 @@ const AddSprintIssue = () => {
       });
     } else {
       setSprintIssue({ ...sprintissue, [name]: value });
-    }    
+    }
   };
-  
+
   // save issue to the database using issueservice post API
   const saveSprintIssue = (e) => {
     e.preventDefault();
@@ -70,9 +70,9 @@ const AddSprintIssue = () => {
       sprintName: "",
       epicName: "",
       reqOfTesting: "true",
-      spdeveloping: '',
-      sptesting: '',
-      totalSP: '',
+      spdeveloping: "",
+      sptesting: "",
+      totalSP: "",
       priority: "",
       reporter: "",
     });
@@ -90,14 +90,15 @@ const AddSprintIssue = () => {
   const setField = (field, value) => {
     setSprintIssue({
       ...sprintissue,
-      [field]: value
-    })
+      [field]: value,
+    });
 
-    if(!!errors[field]) setErrors({
-      ...errors,
-      [field]: null
-    })
-  }
+    if (!!errors[field])
+      setErrors({
+        ...errors,
+        [field]: null,
+      });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -108,7 +109,7 @@ const AddSprintIssue = () => {
       setErrors(formErrors);
     }
   };
-  
+
   const validate = () => {
     const {
       projectName,
@@ -121,49 +122,61 @@ const AddSprintIssue = () => {
       reporter,
     } = sprintissue;
     const newErrors = {};
-  
+
     if (!projectName || projectName === "") {
       newErrors.projectName = "Project name cannot be blank";
     }
-  
+
     if (!issueType || issueType === "") {
       newErrors.issueType = "Issue type cannot be blank";
     }
-  
+
     if (!summary || summary === "") {
       newErrors.summary = "Summary cannot be blank";
     }
-  
+
     if (!reqOfTesting || reqOfTesting === "") {
       newErrors.reqOfTesting = "Requirement of testing cannot be blank";
     }
-  
+
     if (reqOfTesting === "true") {
-      if (!spdeveloping || spdeveloping === "" || spdeveloping < 1 || spdeveloping > 21) {
-        newErrors.spdeveloping = "Story point estimate for developing is required and must be between 1 and 21";
+      if (
+        !spdeveloping ||
+        spdeveloping === "" ||
+        spdeveloping < 1 ||
+        spdeveloping > 21
+      ) {
+        newErrors.spdeveloping =
+          "Story point estimate for developing is required and must be between 1 and 21";
       }
       if (!sptesting || sptesting === "" || sptesting < 1 || sptesting > 21) {
-        newErrors.sptesting = "Story point estimate for testing is required and must be between 1 and 21";
+        newErrors.sptesting =
+          "Story point estimate for testing is required and must be between 1 and 21";
       }
     } else if (reqOfTesting === "false") {
-      if (!spdeveloping || spdeveloping === "" || spdeveloping < 1 || spdeveloping > 21) {
-        newErrors.spdeveloping = "Story point estimate for developing is required and must be between 1 and 21";
+      if (
+        !spdeveloping ||
+        spdeveloping === "" ||
+        spdeveloping < 1 ||
+        spdeveloping > 21
+      ) {
+        newErrors.spdeveloping =
+          "Story point estimate for developing is required and must be between 1 and 21";
       }
       // Clear the error message for sptesting when reqOfTesting is "false"
       newErrors.sptesting = null;
     }
-  
+
     if (!priority || priority === "") {
       newErrors.priority = "Priority cannot be blank";
     }
-  
+
     if (!reporter || reporter === "") {
       newErrors.reporter = "Reporter cannot be blank";
     }
-  
+
     return newErrors;
   };
-  
 
   return (
     <div>
@@ -192,7 +205,7 @@ const AddSprintIssue = () => {
                 >
                   <Form.Label className="flabel">Project</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="projectName"
                     value={sprintissue.projectName}
                     // onChange={(e) => handleChange(e)}
@@ -220,7 +233,7 @@ const AddSprintIssue = () => {
                 >
                   <Form.Label className="flabel">Issue type</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="issueType"
                     value={sprintissue.issueType}
                     // onChange={(e) => handleChange(e)}
@@ -286,7 +299,7 @@ const AddSprintIssue = () => {
                 >
                   <Form.Label className="flabel">Assignee</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="assignee"
                     value={sprintissue.assignee}
                     onChange={(e) => handleChange(e)}
@@ -308,7 +321,7 @@ const AddSprintIssue = () => {
                 >
                   <Form.Label className="flabel">Sprint</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="sprintName"
                     value={sprintissue.sprintName}
                     onChange={(e) => handleChange(e)}
@@ -329,7 +342,7 @@ const AddSprintIssue = () => {
                 >
                   <Form.Label className="flabel">Epic</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="epicName"
                     value={sprintissue.epicName}
                     onChange={(e) => handleChange(e)}
@@ -348,9 +361,11 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label className="flabel">Requirement of Testing</Form.Label>
+                  <Form.Label className="flabel">
+                    Requirement of Testing
+                  </Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="reqOfTesting"
                     value={sprintissue.reqOfTesting}
                     // onChange={(e) => handleChange(e)}
@@ -373,7 +388,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label className="flabel">Story point estimate for developing</Form.Label>
+                  <Form.Label className="flabel">
+                    Story point estimate for developing
+                  </Form.Label>
                   <Form.Control
                     className="cnm"
                     type="number"
@@ -395,7 +412,9 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label className="flabel">Story point estimate for testing</Form.Label>
+                  <Form.Label className="flabel">
+                    Story point estimate for testing
+                  </Form.Label>
                   <Form.Control
                     className="cnm"
                     type="number"
@@ -416,12 +435,17 @@ const AddSprintIssue = () => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label className="flabel">Total estimated story point</Form.Label>
+                  <Form.Label className="flabel">
+                    Total estimated story point
+                  </Form.Label>
                   <Form.Control
                     className="cnm"
                     type="number"
                     name="totalSP"
-                    value={parseInt(sprintissue.spdeveloping) + parseInt(sprintissue.sptesting)}
+                    value={
+                      parseInt(sprintissue.spdeveloping) +
+                      parseInt(sprintissue.sptesting)
+                    }
                     onChange={(e) => handleChange(e)}
                     disabled
                     // placeholder="name@example.com"
@@ -435,7 +459,7 @@ const AddSprintIssue = () => {
                 >
                   <Form.Label className="flabel">Priority</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="priority"
                     value={sprintissue.priority}
                     // onChange={(e) => handleChange(e)}
@@ -462,7 +486,7 @@ const AddSprintIssue = () => {
                 >
                   <Form.Label className="flabel">Reporter</Form.Label>
                   <Form.Select
-                    className= "sitem"
+                    className="sitem"
                     name="reporter"
                     value={sprintissue.reporter}
                     // onChange={(e) => handleChange(e)}

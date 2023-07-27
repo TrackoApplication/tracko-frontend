@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
 const DeleteConfirmation = (props) => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
 
   const CallDelete = () => {
     props.deleteSprint(props.sprintId);

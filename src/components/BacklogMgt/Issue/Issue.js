@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import IssueDeleteConfirmation from "./IssueDeleteConfirmation";
 import IssueService from "../../../Services/IssueService";
-import { SET_ISSUES, UPDATE_SPRINT_ID } from "../../../reducers/issuesReducer";
+import { SET_ISSUES } from "../../../reducers/issuesReducer";
 import AssigneeIcon from "./AssigneeIcon";
 import StatusService from "../../../Services/StateService";
-import axios from "axios";
 import SprintService from "../../../Services/SprintService";
 // import "./Issue.css";
 
 const Issue = ({ Issue, deleteIssue, key }) => {
   const [loading, setloading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const [states, setStates] = useState([]);
   const [sprints, setSprints] = useState([]);
   // const sprintState = useSelector((state) => state.sprints);

@@ -5,12 +5,12 @@ import UpdateSprint from "./UpdateSprint";
 const Sprint = ({ Sprint, deleteSprint, key }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
+  // const handleShow = () => setShow(true);
 
-  const editSprint = (e, sprintId) => {
-    e.preventDefault();
-    setShow(true);
-  };
+  // const editSprint = (e, sprintId) => {
+  //   e.preventDefault();
+  //   setShow(true);
+  // };
 
   return (
     <>
@@ -44,6 +44,7 @@ const Sprint = ({ Sprint, deleteSprint, key }) => {
         deleteSprint={deleteSprint}
         onHide={() => setShowConfirm(false)}
         sprintId={Sprint.sprintId}
+        sprintName={Sprint.sprintName}
       />
 
       {/* sprint updation */}

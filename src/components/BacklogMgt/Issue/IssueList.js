@@ -111,7 +111,7 @@ import "./IssueList.css";
 
 function IssueList(props) {
   const search = props.search;
-  const [showConfirm, setShowConfirm] = useState(false);
+  // const [showConfirm, setShowConfirm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const issueState = useSelector((state) => state.issues);
   const dispatch = useDispatch();
@@ -166,6 +166,14 @@ function IssueList(props) {
     });
   };
 
+  // Function to sort issues based on priority
+  const sortIssuesByPriority = (issues) => {
+    const prioritiesOrder = { High: 1, Medium: 2, Low: 3 };
+    return issues.sort(
+      (a, b) => prioritiesOrder[a.priority] - prioritiesOrder[b.priority]
+    );
+  };
+
   return (
     <>
       <Table striped borderless hover size="sm" className="issue-table">
@@ -177,7 +185,7 @@ function IssueList(props) {
                 {...provided.droppableProps}
                 className="table-body"
               >
-                {issueState.issues
+                {sortIssuesByPriority(issueState.issues)
                   .filter((issue) => {
                     return (
                       search.toLowerCase() === "" ||

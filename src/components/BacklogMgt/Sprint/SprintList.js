@@ -12,7 +12,7 @@ function SprintList() {
   const [showSuccess, setShowSuccess] = useState(false);
   const dispatch = useDispatch();
   const sprintState = useSelector((state) => state.sprints);
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
 
   // fetching the data from the backend
   useEffect(() => {
@@ -45,13 +45,12 @@ function SprintList() {
     });
   };
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
   return (
     <>
-
       <Table striped borderless hover size="sm">
         <thead>
           <th>Sprint ID</th>
@@ -66,9 +65,7 @@ function SprintList() {
         {/* mapping sprints into the sprint table */}
         {!loading && (
           <tbody>
-            {sprintState.sprints
-             
-            .map((sprints) => (
+            {sprintState.sprints.map((sprints) => (
               <Sprint
                 Sprint={sprints}
                 deleteSprint={deleteSprint}

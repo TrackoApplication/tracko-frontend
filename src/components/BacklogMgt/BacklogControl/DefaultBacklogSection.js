@@ -1,24 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Addissue from "../Issue/Addissue";
 import SprintCreation from "./CreateSprint";
 import IssueList from "../Issue/IssueList";
 import "./DefaultBacklog.css";
 import SprintBacklogSection from "./SprintBacklogSection";
 import { useSelector } from "react-redux";
-import { Form, InputGroup, Button } from "react-bootstrap";
+import { Form, InputGroup } from "react-bootstrap";
 import { MDBBadge } from "mdb-react-ui-kit";
 
 const DefaultBacklogSection = () => {
   const [search, setSearch] = useState("");
   const [search1, setSearch1] = useState("");
-  const [inactive, setInactive] = useState(true);
+  const [inactive] = useState(true);
   const issueState = useSelector((state) => state.issues);
   const sprintState = useSelector((state) => state.sprints);
 
   // Calculate the count of issues based on their status
-  const todoCount = issueState.issues.filter((issue) => issue.status === "TODO").length;
-  const inProgressCount = issueState.issues.filter((issue) => issue.status === "IN-PROGRESS").length;
-  const doneCount = issueState.issues.filter((issue) => issue.status === "DONE").length;
+  const todoCount = issueState.issues.filter(
+    (issue) => issue.status === "TODO"
+  ).length;
+  const inProgressCount = issueState.issues.filter(
+    (issue) => issue.status === "IN-PROGRESS"
+  ).length;
+  const doneCount = issueState.issues.filter(
+    (issue) => issue.status === "DONE"
+  ).length;
   const totalIssueCount = todoCount + inProgressCount + doneCount;
 
   return (
@@ -51,7 +57,9 @@ const DefaultBacklogSection = () => {
         {/* Backlog */}
         <div className="backlog-container">
           <div>
-            <h2 className="bck">Backlog <span>(Total Issues: {totalIssueCount})</span></h2>
+            <h2 className="bck">
+              Backlog <span>(Total Issues: {totalIssueCount})</span>
+            </h2>
           </div>
           <div className="badge-container">
             <MDBBadge
@@ -133,5 +141,3 @@ const DefaultBacklogSection = () => {
 };
 
 export default DefaultBacklogSection;
-
-

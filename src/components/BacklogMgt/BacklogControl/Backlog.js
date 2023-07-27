@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { SET_SPRINTS } from "../../../reducers/sprintReducer";
 import SprintService from "../../../Services/SprintService";
 import "./Backlog.css";
-import SprintCompletionSection from "./SprintCompletionSection";
 import DefaultBacklogSection from "./DefaultBacklogSection";
 
 const Backlog = () => {
-  const [inactive, setInactive] = React.useState(false);
+  // const [inactive, setInactive] = React.useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {

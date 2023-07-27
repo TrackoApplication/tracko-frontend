@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
 const SprintCompletion = () => {
-  const [inactive, setInactive] = React.useState(false);
+  const [inactive] = React.useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -22,12 +22,14 @@ const SprintCompletion = () => {
 
         {/* sprint completion modal */}
         <Modal show={show} onHide={handleClose} animation={false}>
-          <Modal.Header deleteButton className="hd">
+          <Modal.Header deleteButton className="bg-[#1F456E] text-white">
             <Modal.Title className="mt">Complete Sprint</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            <Form.Label className="flabel">Complete Project 1 Sprint 1</Form.Label>
+            <Form.Label className="flabel">
+              Complete Project 1 Sprint 1
+            </Form.Label>
             <br />
             <br />
             <Form.Label className="flabel">This sprint contains</Form.Label>
@@ -41,7 +43,9 @@ const SprintCompletion = () => {
               <Form.Label>Move open issues to</Form.Label>
               {/* example options: Next sprint, Backlog */}
               <Form.Select className="sitem">
-                <option disabled value="">--Select option--</option>
+                <option disabled value="">
+                  --Select option--
+                </option>
                 <option value="">Backlog</option>
               </Form.Select>
             </Form.Group>

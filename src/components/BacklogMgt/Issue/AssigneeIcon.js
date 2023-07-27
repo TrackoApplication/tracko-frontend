@@ -11,7 +11,11 @@ const AssigneeIcon = ({ assignee }) => {
       {hasAssignee ? (
         <span className="initials">{initials}</span>
       ) : (
-        <img src={defaultImage} alt="Default Assignee" className="default-image" />
+        <img
+          src={defaultImage}
+          alt="Default Assignee"
+          className="default-image"
+        />
       )}
     </div>
   );
@@ -30,5 +34,3 @@ const getInitials = (assignee) => {
 };
 
 export default AssigneeIcon;
-
-

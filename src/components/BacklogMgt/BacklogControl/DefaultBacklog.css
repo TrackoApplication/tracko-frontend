@@ -51,8 +51,8 @@
   margin-left: 20px;
 }
 
-.defBack{
-  background-color: #F5F5F5;
+.defBack {
+  background-color: #f5f5f5;
   border-radius: 4px;
   margin-bottom: 30px;
 }
@@ -63,34 +63,34 @@
   margin-bottom: 10px;
 }
 
-.breadcrumb{
+.breadcrumb {
   font-size: 16px;
   margin-bottom: 8px;
   padding-left: 10px;
 }
 
-.spract-buttons{
+.spract-buttons {
   margin-right: 20px;
   align-items: center;
 }
 
-.addissue{
+.addissue {
   margin-left: 5px;
   margin-top: 10px;
 }
 
-.sprcreate{
+.sprcreate {
   margin-right: 20px;
 }
 
-.sprisslist{
+.sprisslist {
   max-height: 150px;
   overflow-y: scroll;
   margin-left: 15px;
   margin-right: 15px;
 }
 
-.isslist{
+.isslist {
   max-height: 250px;
   overflow-y: scroll;
   margin-left: 15px;

@@ -10,7 +10,7 @@ import "./SprintIssue.css";
 const SprintIssue = ({ SprintIssue, deleteSprintIssue }) => {
   const [loading, setLoading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const [states, setStates] = useState([]);
   const dispatch = useDispatch();
 
@@ -101,4 +101,3 @@ const SprintIssue = ({ SprintIssue, deleteSprintIssue }) => {
 };
 
 export default SprintIssue;
-

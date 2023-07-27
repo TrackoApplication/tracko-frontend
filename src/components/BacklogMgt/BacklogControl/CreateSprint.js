@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { MDBCol } from "mdb-react-ui-kit";
 import SprintService from "../../../Services/SprintService";
-import { useNavigate } from "react-router-dom";
 import "./CreateSprint.css";
 import { useDispatch } from "react-redux";
 import { SET_SPRINTS } from "../../../reducers/sprintReducer";
@@ -22,7 +21,6 @@ const SprintCreate = () => {
     duration: "",
   });
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // save sprints to the database using sprintservice post API

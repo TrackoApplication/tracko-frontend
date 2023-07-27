@@ -9,16 +9,34 @@ import { useDispatch } from "react-redux";
 import { SET_SPRINTS } from "../../../reducers/sprintReducer";
 import { MDBBadge } from "mdb-react-ui-kit";
 import "./DefaultBacklog.css";
-import { padding } from "@mui/system";
+import { useSelector } from "react-redux";
 
 const SprintBacklogSection = ({ sprint }) => {
-  const [inactive, setInactive] = useState(false);
+  // const [inactive, setInactive] = useState(false);
   const [loading, setloading] = useState(true);
   const [showConfirm, setShowConfirm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const [sprints, setsprints] = useState(null);
+  const issueState = useSelector((state) => state.issues);
+
+  // Filter the issues for the current sprint based on sprintId
+  const sprintIssues = issueState.issues.filter(
+    (issue) => issue.sprintId === sprint.sprintId
+  );
+
+  // Calculate the count of issues based on their status for the current sprint
+  const todoCount = sprintIssues.filter(
+    (issue) => issue.status === "TODO"
+  ).length;
+  const inProgressCount = sprintIssues.filter(
+    (issue) => issue.status === "IN-PROGRESS"
+  ).length;
+  const doneCount = sprintIssues.filter(
+    (issue) => issue.status === "DONE"
+  ).length;
+  const totalIssueCount = sprintIssues.length;
 
   // fetching the data from the backend
   useEffect(() => {
@@ -57,7 +75,7 @@ const SprintBacklogSection = ({ sprint }) => {
       <div className="backlog-container">
         <div className="flex">
           <h2 className="bck">
-            #{sprint.sprintId} - {sprint.sprintName || "Untitled Sprint"}
+            #{sprint.sprintId} - {sprint.sprintName || "Untitled Sprint"} <span>(Total Issues: {totalIssueCount})</span>
           </h2>
         </div>
 
@@ -67,21 +85,21 @@ const SprintBacklogSection = ({ sprint }) => {
             pill
             style={{ height: "20px", width: "24px", fontSize: "12px" }}
           >
-            0
+            {todoCount}
           </MDBBadge>
           <MDBBadge
             color="primary"
             pill
             style={{ height: "20px", width: "24px", fontSize: "12px" }}
           >
-            0
+            {inProgressCount}
           </MDBBadge>
           <MDBBadge
             color="success"
             pill
             style={{ height: "20px", width: "24px", fontSize: "12px" }}
           >
-            0
+            {doneCount}
           </MDBBadge>
         </div>
 

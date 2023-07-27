@@ -4,7 +4,7 @@ import "./Backlog.css";
 import Backlog from "./Backlog";
 
 const BacklogView = () => {
-  const [inactive, setInactive] = React.useState(false);
+  const [setInactive] = React.useState(false);
 
   return (
     <div className="App">
