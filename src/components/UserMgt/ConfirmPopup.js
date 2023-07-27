@@ -19,10 +19,10 @@ const ConfirmPopup = (props) => {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Delete User</Modal.Title>
+          <Modal.Title>Delete Project</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to delete this user? This action cannot be
+          Are you sure you want to delete this Project? This action cannot be
           undone.
         </Modal.Body>
         <Modal.Footer>

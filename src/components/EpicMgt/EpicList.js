@@ -44,7 +44,8 @@ const EpicList = () => {
       }
     });
   };
-
+ 
+ 
   return (
     <>
       <Table striped borderless hover size="sm">
