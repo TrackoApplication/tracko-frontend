@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TeamService from '../../Services/TeamService';
+import TeamService from "../../Services/TeamService";
 import Team from "./Team";
 import SuccessfulAction from "../CommonComponents/SuccessfulAction";
 import AddTeam from "./AddTeam";
 import UpdateTeam from "./UpdateTeam";
+import Form from "react-bootstrap/Form";
+import { InputGroup } from "react-bootstrap";
+import {
+  MDBBadge,
+  MDBBtn,
+  MDBTable,
+  MDBTableHead,
+  MDBTableBody,
+} from "mdb-react-ui-kit";
 
 
 
@@ -18,16 +27,17 @@ const TeamList = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showUpdateTeam, setShowUpdateTeam] = useState(false);
   const [updateTeamId, setUpdateTeamId] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [sortCriteria, setSortCriteria] = useState("teamName");
   const [sortOrder, setSortOrder] = useState("asc");
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken")
+    const accessToken = localStorage.getItem("accessToken");
+    const projectId = localStorage.getItem("projectId");
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await TeamService.getTeam(accessToken);
+        const response = await TeamService.getTeam(accessToken,projectId);
         setTeams(response.data);
       } catch (error) {
         console.log(error);
@@ -39,7 +49,9 @@ const TeamList = () => {
 
   const deleteTeam = (e, id) => {
     e.preventDefault();
-    const confirmation = window.confirm('Are you sure you want to delete this team?');
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this team?"
+    );
     if (confirmation) {
       TeamService.deleteTeam(id)
         .then((res) => {
@@ -56,8 +68,6 @@ const TeamList = () => {
     }
   };
 
-  
-  
   const openAddTeam = () => {
     setShowAddTeam(true);
   };
@@ -105,68 +115,56 @@ const TeamList = () => {
   });
 
   return (
-    
-   
-    
-   
-   <div>
-        
-          
-      <div className="w-3/4 mx-auto my-8">
-        <div className="h-12 ">
-          <button
-            onClick={openAddTeam}
-            className="rounded bg-[#231651]  text-white px-6 py-2 font-semibold"
-          >
-            Add Team
-          </button>
-        </div>
-        <div className="h-12 mb-4">
-          <input
-            type="text"
-            placeholder="Search team..."
-            value={searchQuery}
-            onChange={handleSearchChange}
-            className="rounded border-gray-300 px-2 py-1 w-64"
-          />
-        </div>
-        <div className="flex shadow border-b">
-          <table className="min-w-full px-20">
-            <thead className="bg-[#153a5f]">
-              <tr>
-                <th
-                  className="text-left font-medium text-white fw-bold uppercase tracking-wider py-3 px-6 cursor-pointer"
-                  onClick={() => handleSort("teamName")}
-                >
-                  Team Name
-                </th>
-                <th className="text-left font-medium text-white fw-bold uppercase tracking-wider py-3 px-6">
-                  Members
-                </th>
-                <th className="text-right font-medium text-white fw-bold uppercase tracking-wider py-3 px-6">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            {!loading && (
-              <tbody className="bg-white">
-                {sortedTeams.map((team) => (
-                  <Team
-                    team={team}
-                    deleteTeam={deleteTeam}
-                    openUpdateTeam={openUpdateTeam}
-                    key={team.id}
-                  ></Team>
-                ))}
-              </tbody>
-            )}
-          </table>
-          
-        </div>
-      </div>
-      
+      <>
+        <div className="d-flex justify-content-between">
+          <div className=" h-12 m-4">
+            <AddTeam />
+          </div>
 
-      {/* Add Team Popup */}
+          <Form className="m-4 p-2">
+            <div className="flex">
+              <InputGroup size-sm className="my-2 mx-2">
+                <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  className="rounded"
+                  value={searchQuery}
+                  aria-label="Search"
+                  onChange={handleSearchChange}
+                />
+              </InputGroup>
+            </div>
+
+            {/* <Button variant="outline-success " className='text-white  outline-slate-100 bg-[rgb(194, 194, 194)]'>Search</Button> */}
+          </Form>
+        </div>
+
+        <div className="table-container-user mx-3  o">
+        <MDBTable className="m-4 group-table center border">
+          <MDBTableHead className="bg-gray-100 group-table-head rounded ">
+            <tr>
+              <th scope="col">Team name</th>
+              <th scope="col">Members</th>
+              <th scope="col">Scrum Master</th>
+              <th scope="col" className="text-right px-5">Actions</th>
+            </tr>
+          </MDBTableHead>
+          {!loading && (
+            <tbody className="bg-white team-body w-full">
+              {sortedTeams.map((team) => (
+                <Team
+                  team={team}
+                  deleteTeam={deleteTeam}
+                  openUpdateTeam={openUpdateTeam}
+                  key={team.id}
+                ></Team>
+              ))}
+            </tbody>
+          )}
+
+        </MDBTable>
+        </div>
+              {/* Add Team Popup */}
       {showAddTeam && (
         <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
           <div className="bg-white p-4 rounded shadow">
@@ -196,8 +194,10 @@ const TeamList = () => {
         show={showSuccess}
         message="Team Deleted Successfully"
       />
-    </div>
-    
+      </>
+
+
+
   );
 };
 

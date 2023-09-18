@@ -262,7 +262,7 @@ const AddProject = () => {
                       {!loading && (
                     <>
                       {pos.map((po) => (
-                  <option value={po.firstName}>{po.firstName}</option>
+                  <option key = {po.systemUserId} value={po.systemUserId}>{po.firstName}</option>
                        ))}
                     </>
                   )}

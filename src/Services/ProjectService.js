@@ -48,7 +48,7 @@ class ProjectService{
     }
 
     getProjectPo(token,id) {
-        return axios.get(ACCESSGROUP_API_BASE_URL+ "/po",{
+        return axios.get(ACCESSGROUP_API_BASE_URL+ "/getAllProductOwners",{
             headers: {
                 Authorization: `Bearer ${token}`
               }

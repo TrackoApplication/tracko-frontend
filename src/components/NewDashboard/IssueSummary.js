@@ -6,7 +6,7 @@ import DashBoardService from "../../Services/DashBoardService";
 import { useParams } from "react-router-dom";
 
 const IssueSummary = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
   const [issueCount, setIssueCount] = useState([0]);
@@ -22,6 +22,7 @@ const IssueSummary = () => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
+    const id = localStorage.getItem("projectId");
     const fetchData = async () => {
       setLoading(true);
       try {

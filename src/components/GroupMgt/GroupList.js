@@ -5,7 +5,7 @@ import NavBar from '../NavBar/Navbar'
 import { useNavigate } from 'react-router-dom'
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import AddGroup from './AddGroup';
-import "./Group.css"
+
 import { useEffect } from 'react';
 import axios from 'axios';
 
@@ -20,13 +20,14 @@ export const GroupList = (props) => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
+    const projectId= localStorage.getItem("projectId");
     setRole(localStorage.getItem("userRole"));
     setGroup(localStorage.getItem("userGroup"));
 
     const getGroups = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:8080/api/v1/accessgroups/allDto", {
+        const response = await axios.get(`http://localhost:8080/api/v1/accessgroups/allDto?id=${projectId}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -46,18 +47,20 @@ export const GroupList = (props) => {
 
   return (
 
-    <div className="mainGroup">
-      <div className='title'>
-        <h1 >Return0/Group </h1>
-      </div>
-      <div className="h-12 m-4">
-        {role === "ADMI" && (
+    // <div className="mainGroup">
+
+      // <div className='title'>
+      //   <h1 >Group </h1>
+      // </div>
+      <>
+      <div className="h-12 ">
+        {role === "ADMIN" && (
         <AddGroup />
         )}
       </div>
 
-      <MDBTable className='m-4 group-table center border'>
-        <MDBTableHead className='bg-gray-100 rounded '>
+      <MDBTable className='group-table center border'>
+        <MDBTableHead className='bg-gray-100 rounded group-table-head'>
           <tr >
             <th scope='col'>Access Group</th>
             <th scope='col'>Group Description</th>
@@ -73,23 +76,23 @@ export const GroupList = (props) => {
         {groups.map((group) => (
           <tr>
 
-            <td className='col-1'>
+            <td className=''>
               <div className='d-flex align-items-center col-3'>
                   <p className='mb-1 '>{group.accessGroupName}</p>
               </div>
             </td>
 
             <td>
-              <p className=' mb-1  text-justify' style={{fontSize:"10px"}}>{group.description}</p>
+              <p className=' mb-1  text-justify col-7' style={{fontSize:"10px"}}>{group.description}</p>
             </td>
 
-            <td className='col-1 '>
+            <td className=''>
               <MDBBadge color='success' pill>
                 {group.noOfMembers}
               </MDBBadge>
             </td>
 
-            <td className='col-1'>
+            <td className=''>
               <MDBBtn
                onClick={() => navigate('/GroupDetail/' + group.accessGroupId +'/'+ group.accessGroupName)}
                 color='link' rounded size='sm'>
@@ -104,7 +107,8 @@ export const GroupList = (props) => {
         )}
 
       </MDBTable>
-    </div>
+    </>
+    // </div>
 
 
 

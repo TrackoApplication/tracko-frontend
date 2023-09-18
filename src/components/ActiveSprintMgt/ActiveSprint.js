@@ -108,13 +108,6 @@ function ActiveSprint() {
   }
 
   return (
-    <div className='App'>
-      <div className='AppGlass'>
-        <Sidebar
-          onCollapse={(inactive) => {
-              setInactive(inactive);
-          }}
-        />
 
         <div>
           <div className="activeSprint">
@@ -182,8 +175,6 @@ function ActiveSprint() {
             </DragDropContext>
           </div>
         </div>
-      </div>
-    </div>
   );
 }
 

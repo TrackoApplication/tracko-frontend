@@ -8,12 +8,13 @@ import { IssueUpdateGraph } from "./IssueUpdateGraph";
 import { useParams } from "react-router-dom";
 const Dashboard = () => {
   const { projectId } = useParams();
+ 
+  
 
   // const { id } = useParams();
   return (
     <>
       <div className=" m-4 p-4 overflow-scroll">
-        <div className="row "><PageHeader/></div>
       <div className="row h-[18%]">
         <div className="p-2 bg-gray-100 rounded" ><ProjectSummary/></div>
       </div>

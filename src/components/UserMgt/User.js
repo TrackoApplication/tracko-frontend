@@ -47,7 +47,7 @@ const User = ({ systemUser, deleteSystemUser, key }) => {
   
         </td>
         {systemUser.role !== "ADMIN" && (
-        <td className="w-[200px]">
+        <td className="w-[200px] text-right">
           <i
             class="bi bi-pen"
             onClick={(e, id) => editSystemUser(e, systemUser.systemUserId)}
@@ -55,7 +55,7 @@ const User = ({ systemUser, deleteSystemUser, key }) => {
 
           
             <i
-              class="bi bi-trash-fill"
+              class="bi bi-trash"
               // onClick={() => deleteSystemUser(systemUser.systemUserId)}
               onClick={() => setShowConfirm(true)}
             />

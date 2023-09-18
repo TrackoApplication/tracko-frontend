@@ -16,29 +16,30 @@ export const ProjectSummary = () => {
 
     useEffect(() => {
       const accessToken = localStorage.getItem("accessToken");
+      const projectId= localStorage.getItem("projectId");
 
         const fetchData = async () => {
           setLoading(true);
           try {
-            const responsePeople = await DashBoardService.getPeopleCount(accessToken,id);
+            const responsePeople = await DashBoardService.getPeopleCount(accessToken,projectId);
             setPeopleCount(responsePeople.data);
           } catch (error) {
             console.log(error);
           }
           try {
-            const responseEpic = await DashBoardService.getEpicCount(accessToken,id);
+            const responseEpic = await DashBoardService.getEpicCount(accessToken,projectId);
             setEpicCount(responseEpic.data);
           } catch (error) {
             console.log(error);
           }
           try {
-            const responseSprint = await DashBoardService.getSprintCount(accessToken,id);
+            const responseSprint = await DashBoardService.getSprintCount(accessToken,projectId);
             setSprintCount(responseSprint.data);
           } catch (error) {
             console.log(error);
           }
           try {
-            const responseTeam = await DashBoardService.getTeamCount(accessToken,id);
+            const responseTeam = await DashBoardService.getTeamCount(accessToken,projectId);
             setTeamCount(responseTeam.data);
           } catch (error) {
             console.log(error);

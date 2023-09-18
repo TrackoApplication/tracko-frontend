@@ -9,6 +9,7 @@ import ProjectList from "./components/ProjectMgt/ProjectList";
 import AddClient from "./components/ClientMgt/AddClient";
 import ClientList from "./components/ClientMgt/ClientList";
 import UpdateClient from "./components/ClientMgt/UpdateClient";
+import Sidebar from "./components/SideBar/Sidebar";
 
 import Team from "./components/TeamMgt/Team";
 
@@ -48,13 +49,26 @@ import axios from "axios";
 import ForumView from "./components/ForumMgt/ForumView";
 import TeamView from "./components/TeamMgt/TeamView";
 import IssueService from "./Services/IssueService";
+import { GroupList } from "./components/GroupMgt/GroupList";
+import TeamList from "./components/TeamMgt/TeamList";
+import Dashboard from "./components/NewDashboard/Dashboard";
+import ForumList from "./components/ForumMgt/ForumList";
+import Backlog from "./components/BacklogMgt/BacklogControl/Backlog";
 
 function App() {
   const UserListWithNavbar = withNavbar(UserList);
   const dispatch = useDispatch();
-
   const ProjectListWithNavbar = withNavbar(ProjectList);
   const ClientListWithNavbar = withNavbar(ClientList);
+  const GroupListX = withSidebar(GroupList, "Group");
+  const TeamListX = withSidebar(TeamList, "Team");
+  const DashboardX = withSidebar(Dashboard, "Dashboard");
+  const ReportX = withSidebar(Report, "Report");
+  const ForumListX = withSidebar(ForumList, "Forum");
+  const GroupDetailX = withSidebar(GroupDetail, "Group");
+  const ActiveSprintX = withSidebar(ActiveSprint, "Active Sprint");
+  const BacklogX = withSidebar(Backlog, "Backlog");
+  const [project, setProject] = useState([]);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState("");
@@ -66,7 +80,26 @@ function App() {
     const userRole = localStorage.getItem("userRole");
     const id = localStorage.getItem("userId");
     const userGroup = localStorage.getItem("userGroup");
-    
+    const projectId = localStorage.getItem("projectId");
+
+    const getProject = async () => {
+      try {
+        const response = await axios.get(
+          "localhost:8080/api/v1/project/getAProject/" + projectId,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setProject(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProject();
+
     setUserRole(userRole);
     setUserGroup(userGroup);
 
@@ -101,10 +134,19 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
+            <Route path="/Group/:id" element={<GroupListX />} />
+            <Route path="/Group" element={<GroupListX />} />
+            <Route path="/TeamView" element={<TeamListX />} />
+            <Route path="/Dashboard" element={<DashboardX />} />
+            <Route path="/Report" element={<ReportX />} />
+            <Route path="/ForumView" element={<ForumListX />} />
+            <Route path="/GroupDetail/:id/:name" element={<GroupDetailX />} />
+            <Route path="/ActiveSprint" element={<ActiveSprintX />} />
+            <Route path="/BacklogView" element={<BacklogX />} />
+
             {/* pages without sidebar & nav bar */}
             <Route path="/Home" element={<Home />} />
             <Route path="" element={<Home />} />
-
             <Route path="/Register" element={<Register />} />
             <Route path="/Login" element={<Login />}></Route>
             <Route path="/ForgotPassword" element={<ForgotPassword />} />
@@ -112,44 +154,21 @@ function App() {
             <Route path="/SprintList" element={<SprintList />} />
             {/* <Route path="/IssueList" element={<IssueList />} /> */}
 
-            {/* pages with sidebar */}
-            <Route path="/TeamView" element={<TeamView />} />
-            <Route path="/ActiveSprint" element={<ActiveSprint />} />
-            <Route path="/Report" element={<Report />} />
-
-            <Route path="/People" element={<People />} />
-            <Route path="/Forum" element={<Forum />} />
-
-            <Route path="/GroupDetail/:id/:name" element={<GroupDetail />} />
-            {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
-            <Route path="/Group" element={<Group />} />
             <Route
               path="/navbar"
               element={<Navbar role={userRole} accessGroup={userGroup} />}
             />
-            <Route path="/Dashboard/:id" element={<DashLayout />} />
+
             <Route path="/reset_password" element={<ResetPassword />} />
             <Route path="/addClient" element={<AddClient />} />
             <Route path="/editClient/:id" element={<UpdateClient />} />
 
-            {/* pages with sidebar */}
-            <Route path="/Team" element={<Team />} />
-
-            <Route path="/ForumView" element={<ForumView />} />
-
-            <Route path="/BacklogView" element={<BacklogView />} />
-            <Route path="/ActiveSprint" element={<ActiveSprint />} />
-
-            <Route path="/People" element={<People />} />
-            <Route path="/Forum" element={<Forum />} />
             <Route path="/emailsent/:email" element={<EmailSent />} />
 
-            {/* <Route path="/Dashboard" element ={<Dashboard/>}/> */}
             <Route
-              path="/Group"
+              path="/Group/:id"
               element={<Group role={userRole} accessGroup={userGroup} />}
             />
-            <Route path="/Dashboard" element={<DashLayout />} />
 
             {/* pages with navbar */}
             {userRole === "ADMIN" && (
@@ -159,11 +178,8 @@ function App() {
               </>
             )}
 
-            {/* pages with navbar */}
-         
             <Route path="/ProjectList" element={<ProjectListWithNavbar />} />
             <Route path="/ClientList" element={<ClientListWithNavbar />} />
-            {/* <Route path="/Popup" element={<Popup />} /> */}
           </Routes>
         </BrowserRouter>
       </AuthProvider>
@@ -182,6 +198,60 @@ function withNavbar(Component) {
           <Component {...props} />
         </div>
       </>
+    );
+  };
+}
+
+function withSidebar(Component, title) {
+  return function WrappedComponent(props) {
+    const [inactive, setInactive] = React.useState(false);
+
+    const [project, setProject] = useState([]);
+
+    useEffect(() => {
+      const token = localStorage.getItem("accessToken");
+      const projectId = localStorage.getItem("projectId");
+
+      const getProject = async () => {
+        try {
+          const response = await axios.get(
+            "localhost:8080/api/v1/project/getAProject/" + projectId,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setProject(response.data);
+          console.log("project details");
+          console.log(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getProject();
+    }, []);
+
+    return (
+      <div className="App">
+        <div className="AppGlass">
+          <Sidebar
+            onCollapse={(inactive) => {
+              setInactive(inactive);
+            }}
+            pname={project.projectName}
+            pid={project.projectId}
+          />
+
+          <div className="mainGroup">
+            <div className="title">
+              <h1>{title} </h1>
+            </div>
+
+            <Component {...props} />
+          </div>
+        </div>
+      </div>
     );
   };
 }

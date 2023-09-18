@@ -9,6 +9,7 @@ import {BsFillFileSpreadsheetFill} from "react-icons/bs";
 import { color } from '@mui/system';
 import {useNavigate} from 'react-router-dom';
 import  Logout  from '../UserAuthentication/Logout'
+import axios from 'axios';
 
 
 export const menuItems = [
@@ -19,13 +20,15 @@ export const menuItems = [
   {name: 'Forum',to: '/ForumView', exact: true , iconClassName:'bi bi-chat-right-dots'},
   {name: 'Group',to: '/Group', exact: true , iconClassName:'bi bi-chat-right-dots'},
   {name: 'Teams',to: '/TeamView', exact: true , iconClassName:'bi bi-microsoft-teams'},
-  {name: 'People',to: '/People', exact: true, iconClassName:'bi bi-people'},
   {name: 'Home',to: '/Userlist', exact: true, iconClassName:'bi bi-house'},
 
 ];
 
+
+
 const Sidebar = (props) => {
 
+  const [project,setProject] = useState([]);
 
   const handleLogoutClick = () => {
     // Call the logout function from the Logout component
@@ -43,6 +46,23 @@ const Sidebar = (props) => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
+    const projectId = localStorage.getItem("projectId");
+    const getProject = async () => {
+      try {
+        const response = await axios.get(`localhost:8080/api/v1/project/getAProject/{projectId}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        setProject(response.data);
+        console.log(response.data);
+        
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProject();
+
     props.onCollapse(inactive);
  
    }, [inactive]);
@@ -75,8 +95,8 @@ const Sidebar = (props) => {
           <div className='project-icon'><BsFillFileSpreadsheetFill style={{ fontSize: '3em' , color:'rgb(1, 255, 239)' }} />
           </div>
           <div>
-          <p style={{fontSize:"20px", color:"white" }}>Return0</p>
-          <p style={{fontSize:"10px", color:"white" }}>PID_20</p>
+          <p className = " m-0" style={{fontSize:"15px", color:"white" }}>Return0</p>
+          <p className = " m-0" style={{fontSize:"10px", color:"white" }}>PID_20</p>
 
           </div>
           

@@ -18,13 +18,14 @@ import { useEffect } from "react";
 import axios from "axios";
 import { get, set } from "lodash";
 
+
 const GroupDetail = () => {
   const { id, name } = useParams();
+
   const [inactive, setInactive] = React.useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [po, setPo] = useState([]);
-
   const [accesses, setAccesses] = useState([]);
   const [members, setMembers] = useState([]);
   const [group, setGroup] = useState([]);
@@ -32,6 +33,8 @@ const GroupDetail = () => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
+    const projectId= localStorage.getItem("projectId");
+    console.log(projectId);
     setRole(localStorage.getItem("userRole"));
     setGroup(localStorage.getItem("userGroup"));
 
@@ -59,9 +62,8 @@ const GroupDetail = () => {
     const getMembers = async () => {
       setLoading(true);
       try {
-        console.log(id);
         const response2 = await axios.get(
-          `http://localhost:8080/api/v1/accessgroups/membersPerGroup?id=${id}`,
+          `http://localhost:8080/api/v1/accessgroups/membersPerProjectGroup?id1=${projectId}&id2=${id}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -69,6 +71,7 @@ const GroupDetail = () => {
           }
         );
 
+        console.log(response2.data);
         setMembers(response2.data);
         console.log(members);
       } catch (err) {
@@ -76,6 +79,7 @@ const GroupDetail = () => {
       }
       setLoading(false);
     };
+
     const getPo = async () => {
       setLoading(true);
       try {
@@ -102,23 +106,12 @@ const GroupDetail = () => {
   }, []);
 
   return (
-    <div className="App">
-      <div className="AppGlass">
-        <Sidebar
-          onCollapse={(inactive) => {
-            setInactive(inactive);
-          }}
-        />
 
-        <div className="mainGroup">
-          <div className="title">
-            <h1 className="text-xl font-normal ">Return0/Group/{name} </h1>
-          </div>
-
+<>
           <div className="h-12 m-4">
             {role == "ADMIN" &&
               name !== "Product Owner" &&
-              name !== "Team Member" && <EditGroup id={id} groupName={name} />}
+              <EditGroup id={id} groupName={name} />}
           </div>
 
           <div className="container-box">
@@ -165,7 +158,7 @@ const GroupDetail = () => {
                 </MDBTableBody>
               </MDBTable>
             </div>
-            <div className="access">
+            {/* <div className="access">
               <MDBTable className="group-details-table border">
                 <MDBTableHead className="bg-gray-100 rounded ">
                   <tr>
@@ -188,7 +181,7 @@ const GroupDetail = () => {
                           <td>
                             <div className="d-flex">
                               <div className="align-items-center">
-                                {/* Add your content here */}
+                             
                               </div>
                             </div>
                           </td>
@@ -198,11 +191,10 @@ const GroupDetail = () => {
                   )}
                 </MDBTableBody>
               </MDBTable>
-            </div>
+            </div> */}
           </div>
-        </div>
-      </div>
-    </div>
+</>
+
   );
 };
 

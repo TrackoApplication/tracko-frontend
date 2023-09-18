@@ -65,12 +65,12 @@ export const UpdateUser = (props) => {
   const updateSystemUser = (e) => {
     e.preventDefault();
     const accessToken = localStorage.getItem("accessToken");
-    
+
     const request = {
       systemUserDto: systemUsers,
-      accessGroup: accessGroup
+      accessGroup: accessGroup,
     };
-  
+
     SystemUserService.updateSystemUser(id, request, accessToken)
       .then((res) => {
         props.onHide();
@@ -132,40 +132,41 @@ export const UpdateUser = (props) => {
             <div className="mb-4">
               AccesGroups
               <div className="flex justify-start border rounded p-2 bg-green-400">
-                {systemUsers.accessGroups.length > 0 ? (
+                {systemUsers.accessGroups.includes.length > 0 ? (
                   systemUsers.accessGroups.map((group, index) => (
                     <div key={index} className="mx-2">
                       {group}
                     </div>
                   ))
                 ) : (
-                  <div className="mx-2">No groups assigned</div>
+                  <div className="mx-2">No Groups Assigned</div>
                 )}
               </div>
             </div>
 
-            {!systemUsers.accessGroups.includes("Product Owner") && (
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlInput1"
-              >
-                <Form.Label>Group</Form.Label>
-                <select
-                  class="form-control"
-                  id="exampleFormControlSelect1"
-                  name="accessGroupName"
-                  type="Name"
-                  placeholder={systemUsers.accessGroups}
-                  autoFocus
-                  required
-                  // value={systemUsers.accessGroup}
-                  onChange={(e) => setAccessGroup(e.target.value)}
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
                 >
-                  <option value="Not Assigned<">Not Assigned </option>
-                  <option value="Product Owner">Product Owner</option>
-                </select>
-              </Form.Group>
-            )}
+                  <Form.Label>Group</Form.Label>
+                  <select
+                    className="form-control"
+                    id="exampleFormControlSelect1"
+                    name="accessGroupName"
+                    type="Name"
+                    placeholder={systemUsers.accessGroups}
+                    autoFocus
+                    required
+                    // value={systemUsers.accessGroup}
+                    onChange={(e) => setAccessGroup(e.target.value)}
+                  >
+                    <option value="Not Assigned">Assign an Access Group</option>
+                    <option value="Product Owner">Product Owner</option>
+                    <option value="Scrum Master">Scrum Master</option>
+                    <option value="Team Member">Team Member</option>
+                  </select>
+                </Form.Group>
+         
 
             <btn className="btn btn-blue btn-sm" onClick={props.onHide}>
               Close

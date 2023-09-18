@@ -48,13 +48,14 @@ const [showSuccess, setShowSuccess] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const accessToken = localStorage.getItem("accessToken");
+    const projectId = localStorage.getItem("projectId");
     const data = {
       systemUserId: selectedValuesMember,
       accessId: selectedValuesAccess,
     };
     console.log(data);
     try {
-      const response = await AccessGroupService.addMembers(id, selectedValuesMember,accessToken);
+      const response = await AccessGroupService.addMembers(id,projectId, selectedValuesMember,accessToken);
       console.log(response.data);
       setShowSuccess(true);
 
@@ -66,7 +67,6 @@ const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
- 
 
     const fetchMemberData = async () => {
       setLoading(true);

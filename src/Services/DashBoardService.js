@@ -21,23 +21,23 @@ class DashBoardService {
         });
     }
 
-    getIssueTodoCount(token) {
-        return axios.get(ISSUE_API_BASE_URL+ "/status/TO_DO",{
+    getIssueTodoCount(token,id) {
+        return axios.get(ISSUE_API_BASE_URL+ "/status/TO_DO/"+id,{
             headers: {
                 Authorization: `Bearer ${token}`
               }
         });
     }
 
-    getIssueCompletedCount(token) {
-        return axios.get(ISSUE_API_BASE_URL+ "/status/COMPLETED",{
+    getIssueCompletedCount(token,id) {
+        return axios.get(ISSUE_API_BASE_URL+ "/status/COMPLETED/"+id,{
             headers: {
                 Authorization: `Bearer ${token}`
               }
         });
     }
-    getIssueInProgressCount(token) {
-        return axios.get(ISSUE_API_BASE_URL+ "/status/IN_PROGRESS",{
+    getIssueInProgressCount(token,id) {
+        return axios.get(ISSUE_API_BASE_URL+ "/status/IN_PROGRESS/"+id,{
             headers: {
                 Authorization: `Bearer ${token}`
               }

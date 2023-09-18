@@ -14,15 +14,6 @@ const DefaultBacklogSection = () => {
 
   return (
     <div className="BacklogMain">
-      <div className={`container ${inactive ? "inactive" : ""}`}>
-        {/* Add a breadcrumb here */}
-        <h1>Projects/Return0</h1>
-      </div>
-
-      <div className={`container ${inactive ? "inactive" : ""}`}>
-        <h2 className="bck">Backlog</h2>
-      </div>
-
       {/* Backlog */}
       <div className="backlog-container">
         <div className="badge-container">

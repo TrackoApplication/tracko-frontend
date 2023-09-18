@@ -22,6 +22,8 @@ import { AuthService } from "../../Services/auth.service";
 import { AdminPages } from "./AdminPages";
 
 const Login = () => {
+  const {userId,role,accesstoken,refreshToken,userGroup} = useSelector(state => state.auth);
+  const dispatch = useDispatch();
   const [passwordType, setPasswordType] = useState("password");
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
@@ -30,8 +32,9 @@ const Login = () => {
   const [error, setError] = useState("");
   const [errors, setErrors] = useState("");
   const [loading, setLoading] = useState(false);
-  const [role, setRole] = useState("");
+  // const [role, setRole] = useState("");
   const [accessToken, setAccessToken] = useState("");
+
   
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -81,7 +84,9 @@ const Login = () => {
 
         const accessToken = data.access_token;
         localStorage.setItem("accessToken", data.access_token);
+        
         localStorage.setItem("refreshToken", data.refresh_token);
+    
         console.log("Access token:" + accessToken);
         setError("");
 
@@ -230,7 +235,7 @@ const Login = () => {
                       wrapperClass=""
                       id="form3"
                       type="email"
-                      className="w-[500px] space-between bg-[#E7F0FE] p-2 rounded"
+                      className="w-[640px] space-between bg-[#E7F0FE] p-2 rounded"
                       required
                       value={emailId}
                       onChange={(e) => handleEmailChange(e)}
@@ -241,10 +246,10 @@ const Login = () => {
                     {errors.emailId}
                   </div>
 
-                  <label className="flex m-2 text-gray-600 text-right">
+                  <label className="flex m-2 text-gray-600 ">
                     Password
                   </label>
-                  <div className="flex bg-[#E7F0FE] rounded">
+                  <div className="flex justify-between bg-[#E7F0FE] rounded">
                     <input
                       data-toggle="tooltip"
                       data-placement="right"
@@ -254,16 +259,16 @@ const Login = () => {
                       placeholder="********"
                       autoFocus
                       required
-                      className="w-[500px] space-between bg-[#E7F0FE] p-2 rounded"
+                      className="w-[640px] space-between bg-[#E7F0FE] p-2 rounded"
                       value={password}
                       name="password"
                       onChange={(e) => handlePasswordChange(e)}
                       isInvalid={!!errors.password}
                     />
 
-                    <button onClick={(e) => togglePassword(e)}>
+                    <button className = "text-right" onClick={(e) => togglePassword(e)}>
                       {passwordType === "password" ? (
-                        <i className="bi bi-eye-slash"></i>
+                        <i className="bi bi-eye-slash "></i>
                       ) : (
                         <i className="bi bi-eye"></i>
                       )}

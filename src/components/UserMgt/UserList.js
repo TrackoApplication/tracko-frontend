@@ -123,12 +123,12 @@ const UserList = () => {
       <div className="outer">
       <div className="table-container-user mx-3  ">
             <Table className="table rounded shadow " >
-              <thead className="header-user  rounded" >
+              <thead className="header-user  rounded text-left " >
                 <tr>
                   <th scope="col">Name</th>
                   <th scope="col">Role</th>
                   <th scope="col">Group</th>
-                  <th scope="col">Actions</th>
+                  <th scope="col" className=" text-right px-2 ">Actions</th>
                 </tr>
               </thead>
 

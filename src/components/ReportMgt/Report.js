@@ -12,17 +12,8 @@ const Report = () => {
   const [inactive, setInactive] = React.useState(false);
 
   return (
-
-    <div className='App'>
-      <div className='AppGlass'>
-        <Sidebar
-          onCollapse={(inactive) => {
-            setInactive(inactive);
-          }}
-        />
-
         <div className="mainReport">
-          <h2 className='path'>{"Return0 > Report"}</h2>
+        
           <form className='frmReportGen'>
             <div className='subTopicArea'>
               <span className='boxIcon'>
@@ -49,8 +40,6 @@ const Report = () => {
             <Home />
           </div>
         </div>
-      </div>
-    </div>
   );
 }
 

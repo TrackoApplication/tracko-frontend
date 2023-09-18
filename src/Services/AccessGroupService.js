@@ -6,7 +6,7 @@ class AccessGroupService {
 
 
     getMemberList(id, accessToken) {
-        const url = `${ACCESSGROUP_API_BASE_URL}/project/getMembersPerProject/${id}`;
+        const url = `${ACCESSGROUP_API_BASE_URL}/accessgroups/membersPerGroup/${id}`;
         const config = {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -15,15 +15,15 @@ class AccessGroupService {
         return axios.get(url, config);
       }
 
-      addMembers(id, membersIds, accessToken) {
-        const url = `${ACCESSGROUP_API_BASE_URL}/accessgroups/userToGroup?id=${id}`;
+      addMembers(id,projectId, membersIds, accessToken) {
+        const url = `${ACCESSGROUP_API_BASE_URL}/accessgroups/addGroupMembersToProject?id1=${projectId}&id2=${id}&id3=${membersIds}`;
         const config = {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         };
         const membersList = Array.from(membersIds); 
-        return axios.put(url,membersList, config);
+        return axios.put(url, config);
       }
 
       getAccessList(id, accessToken) {
