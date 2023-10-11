@@ -11,7 +11,7 @@ import { MDBBadge } from "mdb-react-ui-kit";
 import "./DefaultBacklog.css";
 import { useSelector } from "react-redux";
 
-const SprintBacklogSection = ({ sprint }) => {
+const SprintBacklogSection = ({ sprint, projectName }) => {
   // const [inactive, setInactive] = useState(false);
   const [loading, setloading] = useState(true);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -37,6 +37,9 @@ const SprintBacklogSection = ({ sprint }) => {
     (issue) => issue.status === "DONE"
   ).length;
   const totalIssueCount = sprintIssues.length;
+
+  // const projectPrefix = projectName.substring(0, 3);
+  // const modifiedSprintId = `${projectPrefix} - ${sprint.sprintId}`;
 
   // fetching the data from the backend
   useEffect(() => {
@@ -131,6 +134,7 @@ const SprintBacklogSection = ({ sprint }) => {
         deleteSprint={deleteSprint}
         onHide={() => setShowConfirm(false)}
         sprintId={sprint.sprintId}
+        sprintName={sprint.sprintName}
       />
 
       <UpdateSprint

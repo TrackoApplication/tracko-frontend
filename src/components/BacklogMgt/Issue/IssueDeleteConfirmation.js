@@ -26,7 +26,12 @@ const IssueDeleteConfirmation = (props) => {
 
       {/* warning message */}
       <Modal.Body className="delbody">
-        Are you sure you want to delete the Issue?
+        {/* Are you sure you want to delete the Issue? */}
+        {props.isAssignedToSprint ? (
+          <p>This issue is assigned to a sprint and cannot be deleted.</p>
+        ) : (
+          <p>Are you sure you want to delete the Issue?</p>
+        )}
       </Modal.Body>
 
       <Modal.Footer>

@@ -23,7 +23,6 @@ const Backlog = () => {
     <div className="BacklogMain">
       {/* Default Backlog */}
       <DefaultBacklogSection />
-      {/* <FullBacklogSection /> */}
     </div>
   );
 };

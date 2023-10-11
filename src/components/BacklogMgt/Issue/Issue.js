@@ -6,9 +6,9 @@ import { SET_ISSUES } from "../../../reducers/issuesReducer";
 import AssigneeIcon from "./AssigneeIcon";
 import StatusService from "../../../Services/StateService";
 import SprintService from "../../../Services/SprintService";
-// import "./Issue.css";
+import "../SprintIssue/SprintIssue.css"
 
-const Issue = ({ Issue, deleteIssue, key }) => {
+const Issue = ({ Issue, deleteIssue, key, projectName }) => {
   const [loading, setloading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   // const [show, setShow] = useState(false);
@@ -56,6 +56,9 @@ const Issue = ({ Issue, deleteIssue, key }) => {
     }
   };
 
+  const projectPrefix = projectName.substring(0, 3);
+  const modifiedIssueId = `${projectPrefix} - ${Issue.issueId}`;
+
   //Retrieving states from the backend
   useEffect(() => {
     const fetchData = async () => {
@@ -90,12 +93,13 @@ const Issue = ({ Issue, deleteIssue, key }) => {
 
   return (
     <>
-      <tr>
-        <td>{Issue.issueId}</td>
+      <tr className="sprint-issue-row">
+        <td>{modifiedIssueId}</td>
         <td>{Issue.summary}</td>
         <td>{Issue.epicName}</td>
         <td>
           <select
+            className="status-select"
             name="status"
             id="status"
             onChange={onStatusChange}
@@ -122,6 +126,7 @@ const Issue = ({ Issue, deleteIssue, key }) => {
 
         <td>
           <select
+            className="status-select"
             name="sprint" //i need to call this function here
             id="sprint"
             style={{ color: "black", fontSize: "10px" }}
@@ -175,71 +180,4 @@ const Issue = ({ Issue, deleteIssue, key }) => {
 
 export default Issue;
 
-//   const onSprintChange = (e) => {
-//     e.preventDefault();
-//     console.log(e.target.value);
-//     debugger;
-//     dispatch({
-//       type: UPDATE_SPRINT_ID,
-//       payload: {
-//         sprintId: Number(e.target.value),
-//         issueId: Issue.issueId,
-//       },
-//     });
-//   };
 
-//where i need to figure out
-//   IssueService.updateSprint(Issue.issueId, {...Issue, sprintId: Number(e.target.value), sprintName: e.target.value}).then((res) => {
-//     IssueService.getIssues().then((response) => {
-//       debugger;
-//       dispatch({
-//         type: SET_ISSUES,
-//         payload: response.data,
-//       });
-//     });
-//   });
-
-// const onSprintChange = (e) => {
-//   e.preventDefault();
-//   console.log(e.target.value);
-//   dispatch({
-//     type: UPDATE_SPRINT_ID,
-//     payload: {
-//       sprintId: Number(e.target.value),
-//       issueId: Issue.issueId,
-//     },
-//   });
-// };
-
-// Function to handle sprint change
-// const onSprintChange = async (e) => {
-//   const selectedSprintId = Number(e.target.value);
-//   const selectedSprintName = e.target.options[e.target.selectedIndex].text;
-
-//   try {
-//     // Make an API call to update the sprint of the issue
-//     const response = await axios.put(
-//       `/api/v1/issues/${Issue.issueId}/sprint`,
-//       {
-//         ...Issue,
-//         sprintId: selectedSprintId,
-//         sprintName: selectedSprintName,
-//       }
-//     );
-
-//     // Refresh the list of issues after the sprint is updated
-//     const updatedIssues = await axios.get("/api/v1/issues");
-//     dispatch({
-//       type: SET_ISSUES,
-//       payload: updatedIssues.data,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// {sprintState.sprints.map((item, index) => (
-//   <option value={item.sprintId} style={{ color: "blue" }}>
-//     {item.sprintName || "Untitled Sprint"}
-//   </option>
-// ))}

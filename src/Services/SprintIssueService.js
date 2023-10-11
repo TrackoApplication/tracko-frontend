@@ -12,7 +12,7 @@ class SprintIssueService {
         return axios.get(SPRINTISSUE_API_BASE_URL);
     }
 
-    deleteSprintIssue(sprintIssueId){
+    deleteIssue(sprintIssueId){
         return axios.delete(SPRINTISSUE_API_BASE_URL + "/" + sprintIssueId); 
     } 
 }

@@ -28,29 +28,26 @@ function SprintIssueList({ sprintId }) {
     fetchData();
   }, []);
 
-  const deleteSprintIssue = (sprintIssueId) => {
-    SprintIssueService.deleteSprintIssue(sprintIssueId).then((res) => {
-      if (sprintissues) {
-        setsprintissues((prevElement) => {
-          setShowSuccess(true);
-          return prevElement.filter(
-            (SprintIssue) => SprintIssue.sprintIssueId !== sprintIssueId
-          );
-        });
-      }
-    });
-  };
-
-  // const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-
   // Function to sort issues based on priority
   const sortIssuesByPriority = (issues) => {
     const prioritiesOrder = { High: 1, Medium: 2, Low: 3 };
     return issues.sort(
       (a, b) => prioritiesOrder[a.priority] - prioritiesOrder[b.priority]
     );
+  };
+
+  // deleting the issues based on issueId from the sprint
+  const deleteIssue = (issueId) => {
+    SprintIssueService.deleteIssue(issueId).then((res) => {
+      // If deletion from the backend is successful, update the local state
+      if (res.success) {
+        setShowSuccess(true);
+        // Filter out the deleted issue from the local state
+        setsprintissues(
+          sprintissues.filter((issue) => issue.issueId !== issueId)
+        );
+      }
+    });
   };
 
   return (
@@ -63,9 +60,10 @@ function SprintIssueList({ sprintId }) {
               .filter((issue) => issue.sprintId === sprintId)
               .map((sprintissues) => (
                 <SprintIssue
+                  key={sprintissues.issueId}
                   SprintIssue={sprintissues}
-                  deleteSprintIssue={deleteSprintIssue}
-                  key={sprintissues.sprintIssueId}
+                  deleteIssue={deleteIssue}
+                  projectName={sprintissues.projectName}
                 ></SprintIssue>
               ))}
           </tbody>
@@ -83,6 +81,22 @@ function SprintIssueList({ sprintId }) {
 }
 
 export default SprintIssueList;
+
+// deleteSprintIssue={deleteSprintIssue}
+// key={sprintissues.sprintIssueId}
+
+// const deleteSprintIssue = (sprintIssueId) => {
+//   SprintIssueService.deleteSprintIssue(sprintIssueId).then((res) => {
+//     if (sprintissues) {
+//       setsprintissues((prevElement) => {
+//         setShowSuccess(true);
+//         return prevElement.filter(
+//           (SprintIssue) => SprintIssue.sprintIssueId !== sprintIssueId
+//         );
+//       });
+//     }
+//   });
+// };
 
 // import React, { useState, useEffect } from "react";
 // import Table from "react-bootstrap/Table";

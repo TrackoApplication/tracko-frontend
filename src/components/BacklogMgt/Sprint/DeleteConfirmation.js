@@ -11,6 +11,9 @@ const DeleteConfirmation = (props) => {
     props.onHide();
   };
 
+  const sprintId = props.sprintId;
+  const sprintName = props.sprintName;
+
   return (
     <div>
       {/* delete confirmation modal */}
@@ -26,7 +29,17 @@ const DeleteConfirmation = (props) => {
 
         {/* warning message */}
         <Modal.Body className="delbody">
-          Are you sure you want to delete the Sprint?
+          Are you sure you want to delete the{" "}
+          <b>
+            #{sprintId} - {sprintName || "Untitled Sprint"}
+          </b>
+          ?
+          <br />
+          <br />
+          You're about to permanently delete this sprint, its issues and all of
+          its data.
+          <br />
+          If you're not sure, you can complete this sprint instead.
         </Modal.Body>
 
         <Modal.Footer>

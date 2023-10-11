@@ -7,7 +7,7 @@ import { SET_ISSUES } from "../../../reducers/issuesReducer";
 import { useDispatch } from "react-redux";
 import "./SprintIssue.css";
 
-const SprintIssue = ({ SprintIssue, deleteSprintIssue }) => {
+const SprintIssue = ({ SprintIssue, deleteIssue, projectName }) => {
   const [loading, setLoading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   // const [show, setShow] = useState(false);
@@ -34,6 +34,9 @@ const SprintIssue = ({ SprintIssue, deleteSprintIssue }) => {
     }
   };
 
+  const projectPrefix = projectName.substring(0, 3);
+  const modifiedIssueId = `${projectPrefix} - ${SprintIssue.issueId}`;
+
   // Retrieving states from the backend
   useEffect(() => {
     const fetchData = async () => {
@@ -53,7 +56,7 @@ const SprintIssue = ({ SprintIssue, deleteSprintIssue }) => {
   return (
     <>
       <tr className="sprint-issue-row">
-        <td>{SprintIssue.issueId}</td>
+        <td>{modifiedIssueId}</td>
         <td>{SprintIssue.summary}</td>
         <td>{SprintIssue.epicName}</td>
         <td>
@@ -92,9 +95,9 @@ const SprintIssue = ({ SprintIssue, deleteSprintIssue }) => {
       {/* Displaying the confirmation of deletion */}
       <IssueDeleteConfirmation
         show={showConfirm}
-        deleteSprintIssue={deleteSprintIssue}
+        deleteSprintIssue={deleteIssue}
         onHide={() => setShowConfirm(false)}
-        sprintIssueId={SprintIssue.sprintIssueId}
+        sprintIssueId={SprintIssue.issueId}
       />
     </>
   );
