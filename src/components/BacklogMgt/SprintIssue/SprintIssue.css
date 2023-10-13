@@ -1,0 +1,24 @@
+/* Styling the table row */
+.sprint-issue-row {
+  background-color: #fff;
+}
+
+/* Styling the table row when hovering over it */
+.sprint-issue-row:hover {
+  background-color: #f2f2f2;
+}
+
+/* Styling the delete icon */
+.delete-icon {
+  /* color: #cc0000; */
+  cursor: pointer;
+}
+
+/* Styling the select dropdown */
+.status-select {
+  padding: 6px;
+  font-size: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}

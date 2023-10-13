@@ -1,0 +1,11 @@
+.iconSuccess{
+    color: #000000;
+}
+
+.bi-check-circle{
+    color: #257e0f;
+    font-size: 60px;
+    background-color: #41ff12;
+    box-shadow: 1px 2px 8px #69ff43;
+    border-radius: 50%;
+}

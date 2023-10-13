@@ -1,0 +1,31 @@
+    .DashGlass {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    background: var(--glass);
+    gap: 16px;
+    grid-template-columns:12rem auto 20rem;
+    
+  }
+
+  .DashGlass::-webkit-scrollbar {
+    display: none;
+  }
+
+  .DashGlass .sideBarposition{ 
+    overflow-x: hidden;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .DashGlass{
+      grid-template-columns:10% 50% auto;
+      overflow-y: scroll;
+    } 
+    
+  }
+  
+  @media screen and (max-width: 768px) {
+    .DashGlass{
+      grid-template-columns: 1fr;
+    } 
+  }

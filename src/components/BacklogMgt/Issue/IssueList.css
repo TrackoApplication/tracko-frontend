@@ -1,0 +1,15 @@
+.issue-table td {
+  background-color: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.issue-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* .issue-table tbody tr {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+} */

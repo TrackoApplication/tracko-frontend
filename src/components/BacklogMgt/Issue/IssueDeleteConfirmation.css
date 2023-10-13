@@ -1,0 +1,32 @@
+.modal-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* color change of modal header */
+.dhd {
+  background-color: #ff0000; /* Replace with your desired background color */
+}
+
+/* color change of modal title */
+.dmt {
+  color: white;
+}
+
+.delbody {
+  font-size: medium;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 1.5rem;
+  border-top: 2px solid #e9ecef;
+}
+
+.modal-footer .btn {
+  margin-left: 0.5rem;
+}

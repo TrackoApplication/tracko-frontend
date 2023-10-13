@@ -1,0 +1,31 @@
+.iconSuccess {
+  color: #000000;
+  transition: color 0.3s ease;
+}
+
+.bi-check-circle {
+  font-family: "Arial", sans-serif;
+  font-size: 60px;
+  font-weight: bold;
+  color: #257e0f;
+  font-size: 60px;
+  background-color: #41ff12;
+  box-shadow: 1px 2px 8px #69ff43;
+  border-radius: 50%;
+  transition: color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.iconSuccess:hover {
+  color: #257e0f;
+}
+
+.bi-check-circle:hover {
+  box-shadow: 0 4px 16px #69ff43;
+}
+
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust this based on your requirements */
+}

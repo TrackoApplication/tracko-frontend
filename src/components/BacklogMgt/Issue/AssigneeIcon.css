@@ -1,0 +1,26 @@
+.assignee-icon {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #281454;
+  text-align: center;
+  line-height: 25px;
+}
+
+.initials {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.no-assignee {
+  background-color: #e4e4e4;
+}
+
+.default-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}

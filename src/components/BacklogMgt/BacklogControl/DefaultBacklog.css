@@ -1,0 +1,98 @@
+.BacklogMain {
+  margin: 20px;
+  /* background-color: #f5f4f7; */
+}
+
+.container {
+  padding: 10px;
+  margin-bottom: 0px;
+}
+
+.inactive {
+  opacity: 1;
+}
+
+.backlog-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: -40px;
+}
+
+/* Move badge container to the right */
+.badge-container {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+/* Add margin between badges */
+.badge-container MDBBadge {
+  margin-left: 5px;
+}
+
+.sprint-creation-section {
+  margin-left: auto;
+}
+
+.sprint-creation-section h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.sprint-backlog-sections {
+  margin-top: 30px;
+}
+
+.bck {
+  font-size: 16px;
+  padding-left: 15px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.defBack {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
+
+.bckh1 {
+  font-size: 35px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.breadcrumb {
+  font-size: 16px;
+  margin-bottom: 8px;
+  padding-left: 10px;
+}
+
+.spract-buttons {
+  margin-right: 20px;
+  align-items: center;
+}
+
+.addissue {
+  margin-left: 5px;
+  margin-top: -15px;
+}
+
+.sprcreate {
+  margin-right: 20px;
+}
+
+.sprisslist {
+  max-height: 150px;
+  overflow-y: scroll;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.isslist {
+  max-height: 250px;
+  overflow-y: scroll;
+  margin-left: 15px;
+  margin-right: 15px;
+}
